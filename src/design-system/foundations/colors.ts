@@ -10,6 +10,7 @@ export const brandColors = {
   irisPurple: '#7C4BFE',
   electricPurple: '#8101EC',
   royalViolet: '#4B13BF',
+  gradientMid: '#642FDF',
   royalBlue: '#3B09C7',
   deepViolet: '#3906B3',
   deepBlue: '#08089A',
