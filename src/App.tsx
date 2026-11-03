@@ -1,16 +1,14 @@
 import { useState, type CSSProperties } from 'react'
-import BrandIdentity from './pages/BrandIdentity'
 import BrandExpression from './pages/BrandExpression'
 import VisualDirections from './pages/VisualDirections'
 import ColorStudio from './pages/ColorStudio'
 import TypographyStudio from './pages/TypographyStudio'
 import { semantic, themes, type ThemeName } from './design-system/foundations/colors'
 
-type Section = 'expression' | 'colors' | 'brand' | 'visual' | 'typography' | 'spacing' | 'components' | 'widgets' | 'layouts'
+type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'widgets' | 'layouts'
 const groups: { title: string; items: { id: Section; label: string }[] }[] = [
   { title: 'FOUNDATIONS', items: [
     { id: 'colors', label: 'Colors' },
-    { id: 'brand', label: 'Brand Identity' },
     { id: 'expression', label: 'Brand Expression' },
     { id: 'visual', label: 'Visual Directions' },
     { id: 'typography', label: 'Typography' },
@@ -54,7 +52,7 @@ export default function App() {
     </aside>
     <div className="workspace">
       <header className="topbar">
-        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='brand'?'Foundations / Brand Identity':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Directions':section}</span>
+        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Directions':section}</span>
         <div className="theme-toggle" role="group" aria-label="Téma katalogu">
           <button type="button" className={theme==='light'?'chosen':''} onClick={()=>setTheme('light')} aria-pressed={theme==='light'}>☀ Light</button>
           <button type="button" className={theme==='dark'?'chosen':''} onClick={()=>setTheme('dark')} aria-pressed={theme==='dark'}>☾ Dark</button>
@@ -62,7 +60,6 @@ export default function App() {
       </header>
       <main className="main">
         {section==='colors'?<ColorStudio theme={theme} onThemeChange={setTheme}/>:
-          section==='brand'?<BrandIdentity/>:
           section==='expression'?<BrandExpression/>:
           section==='visual'?<VisualDirections/>:
           section==='typography'?<TypographyStudio/>:
