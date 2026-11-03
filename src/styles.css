@@ -1,0 +1,28 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f5f2fa;
+  background: #0e0b16;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, input, textarea { font: inherit; }
+.app-shell { min-height: 100vh; }
+.topbar { min-height: 72px; padding: 0 clamp(20px, 5vw, 76px); border-bottom: 1px solid #292236; display: flex; justify-content: space-between; align-items: center; }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 750; letter-spacing: -.03em; }
+.brand-mark { width: 32px; height: 32px; background: #7e4ce1; color: white; display: grid; place-items: center; border-radius: 10px; font-size: 17px; }
+.topbar-label { color: #b6a9c9; font-size: 13px; }
+.main { max-width: 1180px; margin: 0 auto; padding: clamp(60px, 9vw, 115px) 24px 40px; }
+.eyebrow { color: #ad89ff; letter-spacing: .16em; font-size: 12px; font-weight: 750; }
+h1 { margin: 16px 0; font-size: clamp(36px, 5vw, 64px); line-height: 1.08; letter-spacing: -.055em; }
+.intro { max-width: 650px; color: #b9afc8; line-height: 1.75; font-size: 16px; margin: 0 0 45px; }
+.section-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.section-card { border: 1px solid #362c43; border-radius: 22px; padding: 25px; background: #191322; min-height: 205px; }
+.section-index { font-size: 12px; color: #aa8ce9; }
+.section-card h2 { font-size: 21px; letter-spacing: -.03em; margin: 30px 0 12px; }
+.section-card p { color: #b7abc7; line-height: 1.55; font-size: 14px; margin: 0; }
+footer { color: #786b8a; margin-top: 60px; font-size: 12px; }
+@media (max-width: 900px) { .section-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .section-grid { grid-template-columns: 1fr; } .topbar-label { display: none; } .section-card { min-height: 150px; } .section-card h2 { margin-top: 16px; } }
