@@ -1,9 +1,10 @@
+import VisualDirections from './pages/VisualDirections'
 import { useState, type CSSProperties } from 'react'
 import { purple, neutral, semantic, interactionStates, themes, contrastRatio, type ThemeName, type InteractionState } from './design-system/foundations/colors'
 
-type Section = 'colors' | 'typography' | 'spacing' | 'components' | 'widgets' | 'layouts'
+type Section = 'visual' | 'colors' | 'typography' | 'spacing' | 'components' | 'widgets' | 'layouts'
 const nav: { title: string; items: { id: Section; label: string }[] }[] = [
-  { title: 'FOUNDATIONS', items: [{ id: 'colors', label: 'Colors' }, { id: 'typography', label: 'Typography' }, { id: 'spacing', label: 'Spacing & Grid' }] },
+  { title: 'FOUNDATIONS', items: [{ id: 'visual', label: 'Visual Directions' }, { id: 'colors', label: 'Colors' }, { id: 'typography', label: 'Typography' }, { id: 'spacing', label: 'Spacing & Grid' }] },
   { title: 'LIBRARY', items: [{ id: 'components', label: 'Components' }, { id: 'widgets', label: 'Widgets' }, { id: 'layouts', label: 'Layouts' }] },
 ]
 
@@ -22,7 +23,7 @@ function Swatches({ data }: { data: readonly (readonly [string, string])[] }) {
 
 function App() {
   const [theme, setTheme] = useState<ThemeName>('light')
-  const [section, setSection] = useState<Section>('colors')
+  const [section, setSection] = useState<Section>('visual')
   const [url, setUrl] = useState('')
   const [previewState, setPreviewState] = useState<InteractionState>('default')
   const t = themes[theme]
@@ -42,7 +43,7 @@ function App() {
   ]
   return <div className="app-shell" style={vars} data-theme={theme}>
     <aside className="sidebar">
-      <a className="logo" href="#colors" onClick={() => setSection('colors')}><span className="logo-icon">A</span><span><strong>Axo-App</strong><small>Design System</small></span></a>
+      <a className="logo" href="#visual" onClick={() => setSection('visual')}><span className="logo-icon">A</span><span><strong>Axo-App</strong><small>Design System</small></span></a>
       {nav.map((group) => <div className="nav-group" key={group.title}>
         <p className="nav-heading">{group.title}</p>
         {group.items.map((item) => <button className={'nav-item ' + (section === item.id ? 'active' : '')} key={item.id} onClick={() => setSection(item.id)}>{item.label}{section === item.id && <span className="nav-dot" />}</button>)}
@@ -50,9 +51,9 @@ function App() {
       <div className="sidebar-bottom">Axo Purple · Candidate v1.0</div>
     </aside>
     <div className="workspace">
-      <header className="topbar"><span className="breadcrumbs">Design System <span>/</span> {section === 'colors' ? 'Foundations / Colors' : section}</span><div className="theme-toggle" role="group" aria-label="Barevný režim"><button className={theme === 'light' ? 'chosen' : ''} onClick={() => setTheme('light')}>☀ Light</button><button className={theme === 'dark' ? 'chosen' : ''} onClick={() => setTheme('dark')}>☾ Dark</button></div></header>
+      <header className="topbar"><span className="breadcrumbs">Design System <span>/</span> {section === 'colors' ? 'Foundations / Colors' : section === 'visual' ? 'Foundations / Visual Directions' : section}</span><div className="theme-toggle" role="group" aria-label="Barevný režim"><button className={theme === 'light' ? 'chosen' : ''} onClick={() => setTheme('light')}>☀ Light</button><button className={theme === 'dark' ? 'chosen' : ''} onClick={() => setTheme('dark')}>☾ Dark</button></div></header>
       <main className="main">
-        {section === 'colors' ? <>
+        {section === 'visual' ? <VisualDirections /> : section === 'colors' ? <>
           <div className="eyebrow">FOUNDATIONS · 01 / COLORS</div>
           <h1>Axo Purple <span className="heading-accent">Palette</span></h1>
           <p className="intro">Iris Purple × Royal Violet Neutrals. Pracovní barevný systém pro Axo-App: škály, sémantické role, dva režimy a skutečné ukázky použití.</p>
