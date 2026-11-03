@@ -58,8 +58,8 @@
 }
 
 .vd-choice.vd-selected {
-  border-color:#7138E8;
-  box-shadow:0 0 0 1px #7138E8
+  border-color:#7C4BFE;
+  box-shadow:0 0 0 1px #7C4BFE
 }
 
 .vd-choice-bar {
@@ -91,7 +91,7 @@
 
 .vd-picked {
   font-size:10px;
-  background:#7138E8;
+  background:#7C4BFE;
   color:white;
   border-radius:30px;
   padding:5px 9px;
@@ -141,9 +141,9 @@
 }
 
 .vd-selected .vd-select {
-  background:#7138E8;
+  background:#7C4BFE;
   color:#fff;
-  border-color:#7138E8
+  border-color:#7C4BFE
 }
 
 .vd-detail {
@@ -583,7 +583,7 @@
   --vd-text:#211937;
   --vd-muted:#52426E;
   --vd-line:#B9A7E1;
-  --vd-accent:#7138E8;
+  --vd-accent:#7C4BFE;
   --vd-accent-text:#FFFFFF;
   --vd-other:#007C88;
   --vd-glow:#A06AFF;
@@ -628,13 +628,13 @@
 }
 
 .vd-neo.vd-light .vd-widget-symbol,.vd-neo.vd-light .vd-appmark {
-  background:linear-gradient(135deg,#7138E8,#A045F5);
-  box-shadow:0 5px 15px #7138E84D
+  background:linear-gradient(135deg,#7C4BFE,#A045F5);
+  box-shadow:0 5px 15px #7C4BFE4D
 }
 
 .vd-neo.vd-light .vd-primary {
-  background:linear-gradient(100deg,#7138E8,#813BDF);
-  box-shadow:0 8px 20px #7138E840
+  background:linear-gradient(100deg,#7C4BFE,#905CFF);
+  box-shadow:0 8px 20px #7C4BFE40
 }
 
 .vd-neo.vd-light .vd-pulse {
@@ -653,7 +653,7 @@
 }
 
 .vd-neo.vd-light .vd-avatar {
-  background:linear-gradient(135deg,#00C9D6,#7138E8);
+  background:linear-gradient(135deg,#00C9D6,#7C4BFE);
   color:#FFFFFF
 }
 
