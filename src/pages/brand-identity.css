@@ -31,15 +31,15 @@
 .brand-context-light{color:#211937;background:radial-gradient(ellipse at 90% 30%,#B68AF8A8,transparent 55%),radial-gradient(ellipse at 20% 100%,#5EE7DD40,transparent 56%),#F5F2FF}
 .brand-context-content{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:clamp(23px,4vw,54px)}
 .brand-context-eyebrow{font-size:10px;letter-spacing:.16em;font-weight:850;color:#D6BEFF}
-.brand-context-light .brand-context-eyebrow{color:#6732D5}
+.brand-context-light .brand-context-eyebrow{color:#6838DB}
 .brand-context h3{font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.055em;margin:17px 0}
 .brand-context h3 em{font-style:normal;color:#FF73C8}
-.brand-context-light h3 em{color:#7138E8}
+.brand-context-light h3 em{color:#7C4BFE}
 .brand-context p{font-size:13px;line-height:1.7;color:#D5CBE6}
 .brand-context-light p{color:#605572}
 .brand-context-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
 .brand-context-actions span{font-size:12px;font-weight:750;border-radius:10px;padding:12px 15px}
-.brand-context-primary{background:#7138E8;color:#FFFFFF;box-shadow:0 9px 25px #7138E84D}
+.brand-context-primary{background:#7C4BFE;color:#FFFFFF;box-shadow:0 9px 25px #7C4BFE4D}
 .brand-context-secondary{border:1px solid #A996D077;color:inherit}
 .brand-context-light .brand-context-secondary{border-color:#A99BC8}
 .brand-context-art{position:relative;display:flex;align-items:end;justify-content:center;overflow:hidden}
