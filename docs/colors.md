@@ -19,6 +19,23 @@ The user-selected Deen Studios visual reference was analyzed alongside exact col
 
 These are source colors. Neutral surfaces, type colors, feedback colors and state colors are **designed adaptations**, not extracted from the Figma screenshot.
 
+## Readable background/text combinations from Figma
+
+Only the six source-exact pairs at or above 3:1 are included in the primary catalog.
+
+| Figma frame | Background | Text | Contrast | Approved use |
+|---|---|---|---:|---|
+| 15 | #168EDA | #000200 | 5.86:1 | Normal + large text |
+| 17 | #8101EC | #DDEAF2 | 5.44:1 | Normal + large text |
+| 18 | #4B13BF | #DDEAF2 | 7.99:1 | Normal + large text |
+| 13 | #7C4BFE | #0F0F0F | 3.92:1 | Large text only |
+| 16 | #7C4BFE | #DDEAF2 | 3.99:1 | Large text only |
+| 20 | #4B13BF | #0F9FDC | 3.27:1 | Large text only |
+
+Large text for WCAG AA means at least 24px regular or approximately 18.66px bold. The catalog preview uses a bold headline size of at least 19px. Never reuse the marginal pairs for body copy, widget labels, or small buttons.
+
+Frames 14, 19, 21, 22 and 23 are excluded because they fall under 3:1. These figures are based on exact solid fills and text colors from the Figma frames, not sampled screenshot pixels.
+
 ## Production structure
 
 `src/design-system/foundations/colors.ts` is the single source of truth for:

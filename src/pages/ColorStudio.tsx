@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { brandColors, referencePalette, colorRoles, purple, neutral, semantic, themes, contrastRatio, type ThemeName } from '../design-system/foundations/colors'
+import { brandColors, referencePalette, readableColorCombinations, colorRoles, purple, neutral, semantic, themes, contrastRatio, type ThemeName } from '../design-system/foundations/colors'
 import './color-studio.css'
 
 const essentials = [
@@ -81,7 +81,31 @@ export default function ColorStudio({ theme, onThemeChange }: { theme: ThemeName
     </section>
 
     <section className="studio-panel">
-      <div className="studio-section-head"><div className="studio-overline">04 · HOW TO USE</div><h2>Jednoduchá pravidla</h2><p>Každá barva má svou práci. Maskot a jeho růžová/levandulová identita zůstávají samostatnou vrstvou, kterou sladíme později.</p></div>
+      <div className="studio-section-head">
+        <div className="studio-overline">04 · FIGMA COMBINATIONS</div>
+        <h2>Čitelné kombinace barev</h2>
+        <p>Z tvých framů jsme vybrali pouze kombinace s kontrastem alespoň 3 : 1. Větší rezerva znamená použití i pro běžné texty, menší rezerva pouze pro velké nadpisy.</p>
+      </div>
+      <div className="studio-combinations">
+        {readableColorCombinations.map(pair => {
+          const ratio = contrastRatio(pair.foreground, pair.background)
+          const standard = pair.use === 'standard'
+          return <div className="studio-combination" key={pair.frame}>
+            <div className="studio-combination-preview" style={{backgroundColor:pair.background,color:pair.foreground}}>
+              <span>AXOLOTL</span>
+            </div>
+            <div className="studio-combination-info">
+              <div className="studio-combination-title"><strong>Frame {pair.frame}</strong><span className={standard?'studio-combination-pass':'studio-combination-limited'}>{standard?'Běžný i velký text':'Pouze velký text'}</span></div>
+              <div className="studio-combination-specs"><code>{pair.background}</code><span>+</span><code>{pair.foreground}</code><strong>{ratio.toFixed(2)} : 1</strong></div>
+            </div>
+          </div>
+        })}
+      </div>
+      <p className="studio-combination-note">Pro běžný text požadujeme nejméně 4,5 : 1. Varianta „pouze velký text“ má alespoň 3 : 1 a je určena minimálně pro 24px běžný text nebo přibližně 19px tučný text. Tyto kombinace nepoužívat na popisky widgetů ani malé CTA.</p>
+    </section>
+
+    <section className="studio-panel">
+      <div className="studio-section-head"><div className="studio-overline">05 · HOW TO USE</div><h2>Jednoduchá pravidla</h2><p>Každá barva má svou práci. Maskot a jeho růžová/levandulová identita zůstávají samostatnou vrstvou, kterou sladíme později.</p></div>
       <div className="studio-roles">{colorRoles.map(role=><div key={role.id}><i style={{background:role.color}}/><strong>{role.name}</strong><p>{role.usage}</p></div>)}</div>
     </section>
 
