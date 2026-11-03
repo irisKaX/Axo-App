@@ -12,12 +12,36 @@ export const neutral = [
   ['900', '#1D1E2A'], ['950', '#11111A'],
 ] as const
 
+export const semantic = {
+  light: {
+    success: { foreground: '#087F5B', background: '#E7F7F0', border: '#087F5B' },
+    warning: { foreground: '#9A5800', background: '#FFF4DD', border: '#9A5800' },
+    error: { foreground: '#B42338', background: '#FFF0F1', border: '#B42338' },
+    info: { foreground: '#2356AC', background: '#EBF2FF', border: '#2356AC' },
+  },
+  dark: {
+    success: { foreground: '#33C999', background: '#173B31', border: '#33C999' },
+    warning: { foreground: '#FFCA70', background: '#3B2D1C', border: '#FFCA70' },
+    error: { foreground: '#FF8697', background: '#41252F', border: '#FF8697' },
+    info: { foreground: '#8DB7FF', background: '#24344C', border: '#8DB7FF' },
+  },
+} as const
+
+export const interactionStates = ['default', 'hover', 'active', 'focus', 'disabled'] as const
+export type InteractionState = (typeof interactionStates)[number]
+
 export const themes = {
   light: {
     canvas: '#F8F9FC',
     surface: '#FFFFFF',
     subtle: '#F0F1F6',
     border: '#DFE1EA',
+    controlBorder: '#6B6D7D',
+    focusRing: '#7138E8',
+    actionHover: '#6732D5',
+    actionActive: '#5024A9',
+    actionDisabled: '#DFE1EA',
+    actionDisabledText: '#6B6D7D',
     text: '#222331',
     muted: '#6B6D7D',
     brand: '#7138E8',
@@ -29,6 +53,12 @@ export const themes = {
     surface: '#1D1E2A',
     subtle: '#292B38',
     border: '#444655',
+    controlBorder: '#858AA2',
+    focusRing: '#C3BAFF',
+    actionHover: '#C3BAFF',
+    actionActive: '#DBD7FF',
+    actionDisabled: '#444655',
+    actionDisabledText: '#C6C9D6',
     text: '#F6F6FA',
     muted: '#B5B6C5',
     brand: '#A694FF',
