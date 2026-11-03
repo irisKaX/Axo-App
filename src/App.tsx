@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from 'react'
-import { purple, neutral, themes, contrastRatio, type ThemeName } from './design-system/foundations/colors'
+import { purple, neutral, semantic, interactionStates, themes, contrastRatio, type ThemeName, type InteractionState } from './design-system/foundations/colors'
 
 type Section = 'colors' | 'typography' | 'spacing' | 'components' | 'widgets' | 'layouts'
 const nav: { title: string; items: { id: Section; label: string }[] }[] = [
@@ -24,17 +24,21 @@ function App() {
   const [theme, setTheme] = useState<ThemeName>('light')
   const [section, setSection] = useState<Section>('colors')
   const [url, setUrl] = useState('')
+  const [previewState, setPreviewState] = useState<InteractionState>('default')
   const t = themes[theme]
   const vars = {
     '--canvas': t.canvas, '--surface': t.surface, '--subtle': t.subtle, '--border': t.border,
     '--text': t.text, '--muted': t.muted, '--brand': t.brand, '--brand-text': t.brandText,
-    '--brand-soft': t.brandSoft,
+    '--brand-soft': t.brandSoft, '--control-border': t.controlBorder, '--focus-ring': t.focusRing,
+    '--action-hover': t.actionHover, '--action-active': t.actionActive, '--action-disabled': t.actionDisabled,
+    '--action-disabled-text': t.actionDisabledText,
   } as CSSProperties
   const pairs = [
     { label: 'Primární text / Surface', fg: t.text, bg: t.surface, threshold: 4.5 },
     { label: 'Sekundární text / Surface', fg: t.muted, bg: t.surface, threshold: 4.5 },
     { label: 'Brand text / tlačítko', fg: t.brandText, bg: t.brand, threshold: 4.5 },
-    { label: 'Border / Surface (UI)', fg: t.border, bg: t.surface, threshold: 3 },
+    { label: 'Control border / Surface', fg: t.controlBorder, bg: t.surface, threshold: 3 },
+    ...Object.entries(semantic[theme]).map(([name, colors]) => ({ label: name + ' / Surface', fg: colors.foreground, bg: t.surface, threshold: 4.5 })),
   ]
   return <div className="app-shell" style={vars} data-theme={theme}>
     <aside className="sidebar">
@@ -57,18 +61,30 @@ function App() {
           <section className="panel"><div className="section-top"><div><span className="eyebrow">02 · NEUTRALS</span><h2>Neutral Scale</h2><p>Chladnější, téměř neutrální odstíny pro pozadí, plochy, typografii a hranice.</p></div><span className="annotation">11 odstínů</span></div><Swatches data={neutral}/></section>
           <section className="panel"><div className="section-top"><div><span className="eyebrow">03 · SEMANTIC ROLES</span><h2>Theme Tokens</h2><p>Stejný význam, jiné hodnoty podle tématu. Přepínej Light / Dark nahoře.</p></div></div>
             <div className="token-grid">{([
-              ['Canvas',t.canvas,'bg.canvas'],['Surface',t.surface,'bg.surface'],['Subtle',t.subtle,'bg.subtle'],['Border',t.border,'border.default'],
+              ['Canvas',t.canvas,'bg.canvas'],['Surface',t.surface,'bg.surface'],['Subtle',t.subtle,'bg.subtle'],['Border',t.border,'border.default'],['Control Border',t.controlBorder,'border.control'],['Focus Ring',t.focusRing,'border.focus'],
               ['Text',t.text,'text.primary'],['Muted',t.muted,'text.secondary'],['Action',t.brand,'action.primary'],['Accent',t.brandSoft,'bg.brand.subtle'],
             ] as const).map(([name,color,token])=><div className="token-card" key={token}><div className="token-chip" style={{backgroundColor:color}}/><div><strong>{name}</strong><code>{token}</code><span>{color}</span></div></div>)}</div>
           </section>
-          <section className="panel"><div className="section-top"><div><span className="eyebrow">04 · REAL UI</span><h2>Component Preview</h2><p>Živá kontrola neutrálních ploch, inputů, karet a interaktivní barvy.</p></div></div>
+          <section className="panel"><div className="section-top"><div><span className="eyebrow">04 · FEEDBACK COLORS</span><h2>Semantic Colors</h2><p>Jednotné významové barvy pro zprávy, validaci a stavy systému. Každá role má foreground, background a border pro aktuální režim.</p></div><span className="annotation">Light / Dark</span></div>
+            <div className="semantic-grid">{(Object.entries(semantic[theme]) as [keyof typeof semantic.light, { readonly foreground: string; readonly background: string; readonly border: string }][]).map(([key, colors])=><div className="semantic-card" key={key}>
+              <div className="semantic-header"><span className="semantic-dot" style={{background:colors.foreground}}/><strong>{key.charAt(0).toUpperCase()+key.slice(1)}</strong><button type="button" onClick={()=>void navigator.clipboard?.writeText(colors.foreground)} title="Kopírovat HEX" aria-label={'Kopírovat '+colors.foreground}>⧉</button></div>
+              <div className="semantic-message" style={{background:colors.background,color:colors.foreground,borderColor:colors.border}}><strong>{key==='success'?'Změny byly uloženy':key==='warning'?'Zkontrolujte vstup':key==='error'?'Něco se nepovedlo':'Informace o stavu'}</strong><span>{key==='success'?'Operace proběhla úspěšně.':key==='warning'?'Některé údaje mohou chybět.':key==='error'?'Zkuste to prosím znovu.':'Právě zobrazujete náhled.'}</span></div>
+              <div className="semantic-values"><span>Text {colors.foreground}</span><span>Bg {colors.background}</span><span>Border {colors.border}</span></div>
+            </div>)}</div>
+          </section>
+          <section className="panel"><div className="section-top"><div><span className="eyebrow">05 · INTERACTION</span><h2>Interactive States</h2><p>Prozkoušej barvy tlačítka v jednotlivých stavech. Focus stav má samostatný viditelný obrys. Disabled blokuje interakci.</p></div></div>
+            <div className="state-selector" role="group" aria-label="Ukázka interaktivního stavu">{interactionStates.map((state)=><button type="button" key={state} className={'state-selector-button '+(previewState===state?'selected':'')} onClick={()=>setPreviewState(state)} aria-pressed={previewState===state}>{state}</button>)}</div>
+            <div className="interaction-preview"><button type="button" className={'state-demo '+previewState} disabled={previewState==='disabled'} style={{background:previewState==='hover'?t.actionHover:previewState==='active'?t.actionActive:previewState==='disabled'?t.actionDisabled:t.brand,color:previewState==='disabled'?t.actionDisabledText:t.brandText,outlineColor:t.focusRing}}>{previewState==='disabled'?'Nedostupná akce':'Primární akce'}</button><div className="interaction-details"><strong>Stav: {previewState}</strong><span>{previewState==='focus'?'Samostatný focus ring pro ovládání klávesnicí.':previewState==='disabled'?'Akci nelze spustit.':previewState==='hover'?'Zvýrazněná interaktivní plocha.':previewState==='active'?'Vizuální odezva při stisknutí.':'Výchozí akční barva.'}</span></div></div>
+            <div className="interaction-tokens">{[['action.primary',t.brand],['action.hover',t.actionHover],['action.active',t.actionActive],['action.disabled',t.actionDisabled],['border.focus',t.focusRing],['border.control',t.controlBorder]].map(([name,color])=><div className="interaction-token" key={name}><i style={{backgroundColor:color}}/><code>{name}</code><small>{color}</small></div>)}</div>
+          </section>
+          <section className="panel"><div className="section-top"><div><span className="eyebrow">06 · REAL UI</span><h2>Component Preview</h2><p>Živá kontrola neutrálních ploch, inputů, karet a interaktivní barvy.</p></div></div>
             <div className="preview-stage"><div className="preview-top"><span className="preview-logo">A</span><b>Axolotl Workspace</b><span className="preview-right">Overview &nbsp; · &nbsp; Tools</span></div><div className="preview-grid">
               <div className="widget-preview"><div className="widget-title"><span className="widget-icon">⌕</span><div><strong>Find Phrase</strong><small>Analýza obsahu stránky</small></div><span className="more">···</span></div><label htmlFor="url-field">URL adresa</label><input id="url-field" value={url} onChange={(event)=>setUrl(event.target.value)} placeholder="https://www.o2.cz" /><button className="primary-action" onClick={()=>{ if(url) setUrl('') }} type="button">{url ? 'Vymazat URL' : 'Analyzovat stránku'}</button></div>
               <div className="metric-column"><div className="metric"><span>Aktivní projekty</span><strong>12</strong><small>↗ +2 tento týden</small></div><div className="metric"><span>Dokončené úkoly</span><strong>48</strong><div className="progress"><span/></div></div></div>
             </div></div>
           </section>
-          <section className="panel"><div className="section-top"><div><span className="eyebrow">05 · ACCESSIBILITY</span><h2>Contrast Checks</h2><p>Automatický výpočet kontrastu WCAG 2.x; pro text AA minimálně 4.5:1, pro důležité UI hranice 3:1.</p></div></div>
-            <div className="contrast-grid">{pairs.map((pair)=>{const ratio=contrastRatio(pair.fg,pair.bg);const pass=ratio>=pair.threshold;return <div className="contrast-item" key={pair.label}><span className="contrast-sample" style={{background:pair.bg,color:pair.fg}}>Aa</span><div><strong>{pair.label}</strong><small>{pair.fg} / {pair.bg}</small></div><div className={'contrast-result ' + (pass?'pass':'fail')}><b>{ratio.toFixed(2)}:1</b><small>{pass?'PASS':'CHECK'}</small></div></div>})}</div><div className="note">Upozornění: výchozí jemný border není určen pro povinné obrysy formulářových ovládacích prvků. Ty dostanou samostatný kontrastnější token.</div>
+          <section className="panel"><div className="section-top"><div><span className="eyebrow">07 · ACCESSIBILITY</span><h2>Contrast Checks</h2><p>Automatický výpočet kontrastu WCAG 2.x; pro text AA minimálně 4.5:1, pro důležité UI hranice 3:1.</p></div></div>
+            <div className="contrast-grid">{pairs.map((pair)=>{const ratio=contrastRatio(pair.fg,pair.bg);const pass=ratio>=pair.threshold;return <div className="contrast-item" key={pair.label}><span className="contrast-sample" style={{background:pair.bg,color:pair.fg}}>Aa</span><div><strong>{pair.label}</strong><small>{pair.fg} / {pair.bg}</small></div><div className={'contrast-result ' + (pass?'pass':'fail')}><b>{ratio.toFixed(2)}:1</b><small>{pass?'PASS':'CHECK'}</small></div></div>})}</div><div className="note">Jemné oddělovací linie používají border.default. Povinné hranice formulářových polí mají samostatný token border.control s cílem kontrastu alespoň 3:1.</div>
           </section>
           <footer className="page-footer">Axo-App / Design System · Colors Candidate v1.0 · návrh ke schválení</footer>
         </> : <section className="panel placeholder"><div className="eyebrow">DESIGN SYSTEM · COMING NEXT</div><h1>{nav.flatMap(x=>x.items).find(x=>x.id===section)?.label}</h1><p>Pro tuto oblast zatím není schválený design. Nejprve dokončíme Foundations → Colors.</p><button onClick={()=>setSection('colors')} className="primary-action return">Zpět na Colors</button></section>}
