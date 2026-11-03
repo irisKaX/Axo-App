@@ -67,6 +67,24 @@
 .studio-expression-gradient{color:#FFFFFF;background:var(--brand-gradient)}
 .studio-expression-cyan{color:var(--secondary-text);background:var(--secondary)}
 .studio-expression-violet{color:#FFFFFF;background:var(--brand)}
+/* Figma color combinations: only verified readable pairs. */
+.studio-combinations{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.studio-combination{min-width:0;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.studio-combination-preview{display:flex;align-items:center;justify-content:center;min-height:125px;padding:16px}
+.studio-combination-preview span{font-size:clamp(19px,2vw,25px);font-weight:700;line-height:1.2;letter-spacing:.01em}
+.studio-combination-info{display:grid;gap:11px;padding:15px;background:var(--surface)}
+.studio-combination-title{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.studio-combination-title strong{font-size:13px}
+.studio-combination-title>span{font-size:10px;font-weight:700;border-radius:20px;padding:6px 9px}
+.studio-combination-pass{background:var(--subtle);color:var(--text)}
+.studio-combination-limited{border:1px solid var(--border);color:var(--muted)}
+.studio-combination-specs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;color:var(--muted)}
+.studio-combination-specs code{font-size:11px}
+.studio-combination-specs>span{font-size:11px}
+.studio-combination-specs strong{font-size:12px;color:var(--text);margin-left:auto}
+.studio-combination-note{font-size:12px;line-height:1.8;color:var(--muted);margin:18px 0 0}
+@media(max-width:1000px){.studio-combinations{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.studio-combinations{grid-template-columns:1fr}.studio-combination-preview span{font-size:24px}}
 .studio-roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .studio-roles>div{border:1px solid var(--border);border-radius:13px;padding:16px}
 .studio-roles strong{display:block;font-size:13px;margin:12px 0 8px}
