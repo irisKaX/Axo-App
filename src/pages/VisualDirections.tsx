@@ -1,3 +1,4 @@
+import { purple } from '../design-system/foundations/colors'
 import { useState } from 'react'
 import './visual-directions.css'
 
@@ -6,7 +7,7 @@ type Theme = 'light' | 'dark'
 
 const directions = [
   { id: 'aurora', number: '01', name: 'Aurora Glow', subtitle: 'Luminous · Soft · Fresh', description: 'Světlá, zářivá atmosféra. Fialová s elektrickou limetkou, vzdušné plochy a jemné světelné halo.', palette: ['#7138E8','#B4FF58','#79E7E0','#F7F9FD','#15132B'] },
-  { id: 'neo', number: '02', name: 'Neo Iris', subtitle: 'Electric · Bold · Premium', description: 'Hluboký kontrast, intenzivní violet, modrotyrkysové světlo a výrazný, ale disciplinovaný interface.', palette: ['#7138E8','#A06AFF','#4DEFE3','#111022','#F8F7FF'] },
+  { id: 'neo', number: '02', name: 'Neo Iris', subtitle: 'Electric · Bold · Premium', description: 'Hluboký kontrast, intenzivní violet, modrotyrkysové světlo a výrazný, ale disciplinovaný interface.', palette: [purple[6][1],'#A06AFF','#4DEFE3','#111022','#F8F7FF'] },
   { id: 'plasma', number: '03', name: 'Playful Plasma', subtitle: 'Juicy · Expressive · Friendly', description: 'Syté růžové, limetkové a azurové detaily. Výrazné grafické tvary, osobitost a hravý produktový feeling.', palette: ['#7138E8','#FF4DAE','#B6F63E','#54DDF5','#171125'] },
 ] as const
 
