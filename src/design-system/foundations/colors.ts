@@ -1,16 +1,22 @@
 /**
- * Axo-App · Neo Iris color foundations.
+ * Axolotl Colors v2 · Figma-derived electric purple / blue on neutral dark.
+ * Single source of truth for brand, palette, effects and theme semantics.
  *
- * This module is the single source of truth for approved candidate colors.
- * UI styles consume semantic custom properties supplied by App.tsx.
- * Alternate Visual Directions remain isolated experiments.
- */
-/**
- * Three color families with deliberately different responsibilities.
- * This is the only source for exact brand and mascot accent values.
+ * Measured from Figma moodboard: node 31:1066 and neighboring color frames.
+ * Neutral surfaces and accessibility adaptations are deliberate UI decisions,
+ * not colors sampled from the artwork.
  */
 export const brandColors = {
   irisPurple: '#7C4BFE',
+  electricPurple: '#8101EC',
+  royalViolet: '#4B13BF',
+  royalBlue: '#3B09C7',
+  deepViolet: '#3906B3',
+  deepBlue: '#08089A',
+  blue: '#0F9FDC',
+  brightBlue: '#168EDA',
+  lightViolet: '#AF6CFB',
+  purpleMagenta: '#A33DBF',
   o2Blue: '#0050FF',
   axolotlPink: '#FF73C8',
   hoodieLilac: '#B99BFF',
@@ -19,26 +25,42 @@ export const brandColors = {
   aquaSpark: '#4DEFE3',
 } as const
 
-export const colorRoles = [
-  { id: 'primary', name: 'Primary · Iris Purple', token: 'brand.irisPurple', color: brandColors.irisPurple, usage: 'Hlavní akce, výběr, navigace a focus' },
-  { id: 'o2', name: 'Corporate · O2 Blue', token: 'brand.o2Blue', color: brandColors.o2Blue, usage: 'O2 kontext, propojení na O2 systémy, identifikace zdroje' },
-  { id: 'mascot', name: 'Mascot · Pink', token: 'brand.axolotlPink', color: brandColors.axolotlPink, usage: 'Maskot, ilustrace, dekorativní emoce' },
-  { id: 'glow', name: 'Expressive · Lilac', token: 'brand.hoodieLilac', color: brandColors.hoodieLilac, usage: 'Glow, světelné odlesky a speciální zvýraznění' },
-  { id: 'accent', name: 'Accent · Aqua', token: 'brand.aquaSpark', color: brandColors.aquaSpark, usage: 'Doplňkový vizuální kontrast, ne výchozí CTA' },
+/** The exact swatches represented by named frames in the Figma moodboard. */
+export const referencePalette = [
+  { name: 'Iris Purple', hex: brandColors.irisPurple, role: 'Primary' },
+  { name: 'Electric Purple', hex: brandColors.electricPurple, role: 'Gradient' },
+  { name: 'Bright Cyan Blue', hex: brandColors.blue, role: 'Secondary' },
+  { name: 'Bright Blue', hex: brandColors.brightBlue, role: 'Supporting blue' },
+  { name: 'Royal Violet', hex: brandColors.royalViolet, role: 'Gradient' },
+  { name: 'Royal Blue', hex: brandColors.royalBlue, role: 'Gradient' },
+  { name: 'Deep Violet', hex: brandColors.deepViolet, role: 'Decorative' },
+  { name: 'Deep Blue', hex: brandColors.deepBlue, role: 'Decorative' },
+  { name: 'Purple Magenta', hex: brandColors.purpleMagenta, role: 'Decorative' },
+  { name: 'Light Violet', hex: brandColors.lightViolet, role: 'Highlight' },
+  { name: 'Near Black', hex: '#000200', role: 'Reference only' },
 ] as const
 
+/** Kept for developer tooling, not for primary design decisions. */
 export const purple = [
-  ['50', '#F7F7FF'], ['100', '#EDECFF'], ['200', '#DBD7FF'],
-  ['300', '#C3BAFF'], ['400', '#A694FF'], ['500', '#8C66FE'],
-  ['600', brandColors.irisPurple], ['700', '#6838DB'], ['800', '#5024A9'],
-  ['900', '#391B7A'], ['950', '#210F4C'],
+  ['50', '#F6F1FF'], ['100', '#EBE0FF'], ['200', '#D8C5FF'],
+  ['300', '#BDA0FF'], ['400', brandColors.lightViolet], ['500', '#9668FF'],
+  ['600', brandColors.irisPurple], ['700', '#6837DF'], ['800', brandColors.royalViolet],
+  ['900', brandColors.deepViolet], ['950', '#230A69'],
 ] as const
 
+/** True neutral surfaces; no violet undertone in the dark ramp. */
 export const neutral = [
-  ['50', '#FBFAFF'], ['100', '#F5F2FF'], ['200', '#E9E3F3'],
-  ['300', '#C9B7EB'], ['400', '#A99BC8'], ['500', '#8771B2'],
-  ['600', '#605572'], ['700', '#50446E'], ['800', '#29243E'],
-  ['900', '#1B1731'], ['950', '#0E0C1A'],
+  ['50', '#FAFBFD'], ['100', '#F5F7FA'], ['200', '#E5E9F0'],
+  ['300', '#C7CEDA'], ['400', '#A8B1C4'], ['500', '#808A9B'],
+  ['600', '#606B7C'], ['700', '#3B4452'], ['800', '#222832'],
+  ['900', '#141820'], ['950', '#090B10'],
+] as const
+
+export const colorRoles = [
+  { id: 'primary', name: 'Iris Purple', token: 'brand.irisPurple', color: brandColors.irisPurple, usage: 'Primární akce a aktivní stav' },
+  { id: 'secondary', name: 'Bright Cyan Blue', token: 'brand.blue', color: brandColors.blue, usage: 'Druhý brandový akcent a vizuální plochy' },
+  { id: 'o2', name: 'O2 Blue', token: 'brand.o2Blue', color: brandColors.o2Blue, usage: 'Pouze identita a integrace O2' },
+  { id: 'neutral', name: 'True Dark', token: 'surface.canvas', color: '#090B10', usage: 'Neutrální pracovní prostředí' },
 ] as const
 
 export const semantic = {
@@ -49,10 +71,10 @@ export const semantic = {
     info: { foreground: '#2356AC', background: '#FFFFFF', border: '#2356AC' },
   },
   dark: {
-    success: { foreground: '#50E2B3', background: '#1B1731', border: '#50E2B3' },
-    warning: { foreground: '#FFCA70', background: '#1B1731', border: '#FFCA70' },
-    error: { foreground: '#FF94A5', background: '#1B1731', border: '#FF94A5' },
-    info: { foreground: '#93C0FF', background: '#1B1731', border: '#93C0FF' },
+    success: { foreground: '#39DB9D', background: '#171B24', border: '#39DB9D' },
+    warning: { foreground: '#FFC36D', background: '#171B24', border: '#FFC36D' },
+    error: { foreground: '#FF8199', background: '#171B24', border: '#FF8199' },
+    info: { foreground: '#81C9FF', background: '#171B24', border: '#81C9FF' },
   },
 } as const
 
@@ -61,62 +83,66 @@ export type InteractionState = (typeof interactionStates)[number]
 
 export const themes = {
   light: {
-    canvas: '#F5F2FF',
+    canvas: '#F5F7FA',
     surface: '#FFFFFF',
-    subtle: '#EDE7FF',
-    border: '#C9B7EB',
-    controlBorder: '#8771B2',
-    focusRing: '#7C4BFE',
-    actionHover: '#6838DB',
-    actionActive: '#5024A9',
-    actionDisabled: '#E9E3F3',
-    actionDisabledText: '#605572',
-    text: '#211937',
-    muted: '#605572',
+    subtle: '#EAF0F7',
+    border: '#CCD4E0',
+    controlBorder: '#6A7586',
+    focusRing: brandColors.irisPurple,
+    actionHover: '#6837DF',
+    actionActive: '#5526BD',
+    actionDisabled: '#DDE3EC',
+    actionDisabledText: '#626E80',
+    text: '#17202E',
+    muted: '#586576',
     brand: brandColors.irisPurple,
     brandText: '#FFFFFF',
-    brandSoft: '#EDE7FF',
-    accent: '#007C88',
+    brandSoft: '#EDE5FF',
+    accent: '#087AAB',
+    secondary: brandColors.blue,
+    secondaryText: '#061824',
     corporate: brandColors.o2Blue,
     corporateText: '#FFFFFF',
     mascot: brandColors.axolotlPink,
     lilac: brandColors.hoodieLilac,
-    gradient: 'linear-gradient(110deg, #7C4BFE, #905CFF)',
-    backdrop: 'radial-gradient(ellipse at 95% 0%, #AA77FF72, transparent 46%), radial-gradient(ellipse at 0% 100%, #13DDE342, transparent 46%), #F5F2FF',
-    glow: '#7C4BFE40',
+    gradient: 'linear-gradient(130deg, #0F9FDC 0%, #3B09C7 52%, #8101EC 100%)',
+    backdrop: 'radial-gradient(ellipse at 85% 5%, #B5A5FF55 0%, transparent 46%), radial-gradient(ellipse at 8% 100%, #0F9FDC28 0%, transparent 48%), #F5F7FA',
+    glow: '#7C4BFE32',
   },
   dark: {
-    canvas: '#0E0C1A',
-    surface: '#1B1731',
-    subtle: '#29243E',
-    border: '#50446E',
-    controlBorder: '#A99BC8',
-    focusRing: '#C3BAFF',
-    actionHover: '#C3BAFF',
-    actionActive: '#DBD7FF',
-    actionDisabled: '#50446E',
-    actionDisabledText: '#D0C8E0',
-    text: '#FBF9FF',
-    muted: '#C2B6DC',
-    brand: '#A694FF',
-    brandText: '#151022',
-    brandSoft: '#352451',
-    accent: '#50EEE4',
+    canvas: '#090B10',
+    surface: '#141820',
+    subtle: '#222832',
+    border: '#303846',
+    controlBorder: '#768293',
+    focusRing: '#BDA0FF',
+    actionHover: '#8B5FFF',
+    actionActive: '#6837DF',
+    actionDisabled: '#303846',
+    actionDisabledText: '#CBD3E0',
+    text: '#F5F7FF',
+    muted: '#B4BECE',
+    brand: brandColors.irisPurple,
+    brandText: '#FFFFFF',
+    brandSoft: '#31234D',
+    accent: '#58C7F6',
+    secondary: brandColors.blue,
+    secondaryText: '#061824',
     corporate: brandColors.o2Blue,
     corporateText: '#FFFFFF',
     mascot: brandColors.axolotlPink,
     lilac: brandColors.hoodieLilac,
-    gradient: 'linear-gradient(110deg, #7C4BFE, #A06AFF)',
-    backdrop: 'radial-gradient(ellipse at 100% 0%, #48258977, transparent 50%), #0E0C1A',
-    glow: '#9155FF55',
+    gradient: 'linear-gradient(130deg, #0F9FDC 0%, #3B09C7 52%, #8101EC 100%)',
+    backdrop: 'radial-gradient(ellipse at 85% 10%, #0F9FDC22 0%, transparent 42%), radial-gradient(ellipse at 10% 100%, #7C4BFE20 0%, transparent 46%), #090B10',
+    glow: '#7C4BFE45',
   },
 } as const
 
 export type ThemeName = keyof typeof themes
 
 function luminance(hex: string) {
-  const rgb = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
-    .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+  const rgb = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255)
+    .map(v => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)
   return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]
 }
 
