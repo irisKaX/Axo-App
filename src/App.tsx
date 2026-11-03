@@ -33,6 +33,7 @@ export default function App() {
     '--action-disabled-text': t.actionDisabledText, '--accent': t.accent, '--brand-gradient': t.gradient,
     '--backdrop': t.backdrop, '--glow': t.glow, '--corporate': t.corporate,
     '--corporate-text': t.corporateText, '--mascot': t.mascot, '--lilac': t.lilac,
+    '--secondary': t.secondary, '--secondary-text': t.secondaryText,
     '--success': semantic[theme].success.foreground, '--error': semantic[theme].error.foreground,
   } as CSSProperties
   return <div className="app-shell" style={vars} data-theme={theme}>
