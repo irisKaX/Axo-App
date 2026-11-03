@@ -34,6 +34,7 @@ function App() {
     '--action-hover': t.actionHover, '--action-active': t.actionActive, '--action-disabled': t.actionDisabled,
     '--action-disabled-text': t.actionDisabledText,
     '--accent': t.accent, '--brand-gradient': t.gradient, '--backdrop': t.backdrop, '--glow': t.glow,
+    '--success': semantic[theme].success.foreground, '--error': semantic[theme].error.foreground,
   } as CSSProperties
   const pairs = [
     { label: 'Primární text / Surface', fg: t.text, bg: t.surface, threshold: 4.5 },
@@ -67,25 +68,37 @@ function App() {
               ['Text',t.text,'text.primary'],['Muted',t.muted,'text.secondary'],['Action',t.brand,'action.primary'],['Accent',t.accent,'accent.primary'],['Soft',t.brandSoft,'bg.brand.subtle'],
             ] as const).map(([name,color,token])=><div className="token-card" key={token}><div className="token-chip" style={{backgroundColor:color}}/><div><strong>{name}</strong><code>{token}</code><span>{color}</span></div></div>)}</div>
           </section>
-          <section className="panel"><div className="section-top"><div><span className="eyebrow">04 · FEEDBACK COLORS</span><h2>Semantic Colors</h2><p>Jednotné významové barvy pro zprávy, validaci a stavy systému. Každá role má foreground, background a border pro aktuální režim.</p></div><span className="annotation">Light / Dark</span></div>
+          <section className="panel">
+            <div className="section-top">
+              <div><span className="eyebrow">04 · EFFECTS</span><h2>Gradients & Glow</h2><p>Brand gradient, atmosférické pozadí a jemná záře. Všechny efekty používají hodnoty aktuálního tématu.</p></div>
+              <span className="annotation">NEO IRIS · {theme.toUpperCase()}</span>
+            </div>
+            <div className="effects-grid">
+              <div className="effect-sample effect-brand"><strong>Brand Gradient</strong><code>gradient.brand</code></div>
+              <div className="effect-sample effect-atmosphere"><strong>Atmosphere</strong><code>gradient.backdrop</code></div>
+              <div className="effect-sample effect-glow"><span className="effect-glow-orb"/><strong>Soft Glow</strong><code>effect.glow</code></div>
+            </div>
+            <div className="note">Záře patří na vybrané plochy, focus a aktivní prvky. Běžné texty, tabulky a formuláře mají zůstat přehledné a bez vizuálního šumu.</div>
+          </section>
+          <section className="panel"><div className="section-top"><div><span className="eyebrow">05 · FEEDBACK COLORS</span><h2>Semantic Colors</h2><p>Jednotné významové barvy pro zprávy, validaci a stavy systému. Každá role má foreground, background a border pro aktuální režim.</p></div><span className="annotation">Light / Dark</span></div>
             <div className="semantic-grid">{(Object.entries(semantic[theme]) as [keyof typeof semantic.light, { readonly foreground: string; readonly background: string; readonly border: string }][]).map(([key, colors])=><div className="semantic-card" key={key}>
               <div className="semantic-header"><span className="semantic-dot" style={{background:colors.foreground}}/><strong>{key.charAt(0).toUpperCase()+key.slice(1)}</strong><button type="button" onClick={()=>void navigator.clipboard?.writeText(colors.foreground)} title="Kopírovat HEX" aria-label={'Kopírovat '+colors.foreground}>⧉</button></div>
               <div className="semantic-message" style={{background:colors.background,color:colors.foreground,borderColor:colors.border}}><strong>{key==='success'?'Změny byly uloženy':key==='warning'?'Zkontrolujte vstup':key==='error'?'Něco se nepovedlo':'Informace o stavu'}</strong><span>{key==='success'?'Operace proběhla úspěšně.':key==='warning'?'Některé údaje mohou chybět.':key==='error'?'Zkuste to prosím znovu.':'Právě zobrazujete náhled.'}</span></div>
               <div className="semantic-values"><span>Text {colors.foreground}</span><span>Bg {colors.background}</span><span>Border {colors.border}</span></div>
             </div>)}</div>
           </section>
-          <section className="panel"><div className="section-top"><div><span className="eyebrow">05 · INTERACTION</span><h2>Interactive States</h2><p>Prozkoušej barvy tlačítka v jednotlivých stavech. Focus stav má samostatný viditelný obrys. Disabled blokuje interakci.</p></div></div>
+          <section className="panel"><div className="section-top"><div><span className="eyebrow">06 · INTERACTION</span><h2>Interactive States</h2><p>Prozkoušej barvy tlačítka v jednotlivých stavech. Focus stav má samostatný viditelný obrys. Disabled blokuje interakci.</p></div></div>
             <div className="state-selector" role="group" aria-label="Ukázka interaktivního stavu">{interactionStates.map((state)=><button type="button" key={state} className={'state-selector-button '+(previewState===state?'selected':'')} onClick={()=>setPreviewState(state)} aria-pressed={previewState===state}>{state}</button>)}</div>
             <div className="interaction-preview"><button type="button" className={'state-demo '+previewState} disabled={previewState==='disabled'} style={{background:previewState==='hover'?t.actionHover:previewState==='active'?t.actionActive:previewState==='disabled'?t.actionDisabled:t.brand,color:previewState==='disabled'?t.actionDisabledText:t.brandText,outlineColor:t.focusRing}}>{previewState==='disabled'?'Nedostupná akce':'Primární akce'}</button><div className="interaction-details"><strong>Stav: {previewState}</strong><span>{previewState==='focus'?'Samostatný focus ring pro ovládání klávesnicí.':previewState==='disabled'?'Akci nelze spustit.':previewState==='hover'?'Zvýrazněná interaktivní plocha.':previewState==='active'?'Vizuální odezva při stisknutí.':'Výchozí akční barva.'}</span></div></div>
             <div className="interaction-tokens">{[['action.primary',t.brand],['action.hover',t.actionHover],['action.active',t.actionActive],['action.disabled',t.actionDisabled],['border.focus',t.focusRing],['border.control',t.controlBorder]].map(([name,color])=><div className="interaction-token" key={name}><i style={{backgroundColor:color}}/><code>{name}</code><small>{color}</small></div>)}</div>
           </section>
-          <section className="panel"><div className="section-top"><div><span className="eyebrow">06 · REAL UI</span><h2>Component Preview</h2><p>Živá kontrola neutrálních ploch, inputů, karet a interaktivní barvy.</p></div></div>
+          <section className="panel"><div className="section-top"><div><span className="eyebrow">07 · REAL UI</span><h2>Component Preview</h2><p>Živá kontrola neutrálních ploch, inputů, karet a interaktivní barvy.</p></div></div>
             <div className="preview-stage"><div className="preview-top"><span className="preview-logo">A</span><b>Axolotl Workspace</b><span className="preview-right">Overview &nbsp; · &nbsp; Tools</span></div><div className="preview-grid">
               <div className="widget-preview"><div className="widget-title"><span className="widget-icon">⌕</span><div><strong>Find Phrase</strong><small>Analýza obsahu stránky</small></div><span className="more">···</span></div><label htmlFor="url-field">URL adresa</label><input id="url-field" value={url} onChange={(event)=>setUrl(event.target.value)} placeholder="https://www.o2.cz" /><button className="primary-action" onClick={()=>{ if(url) setUrl('') }} type="button">{url ? 'Vymazat URL' : 'Analyzovat stránku'}</button></div>
               <div className="metric-column"><div className="metric"><span>Aktivní projekty</span><strong>12</strong><small>↗ +2 tento týden</small></div><div className="metric"><span>Dokončené úkoly</span><strong>48</strong><div className="progress"><span/></div></div></div>
             </div></div>
           </section>
-          <section className="panel"><div className="section-top"><div><span className="eyebrow">07 · ACCESSIBILITY</span><h2>Contrast Checks</h2><p>Automatický výpočet kontrastu WCAG 2.x; pro text AA minimálně 4.5:1, pro důležité UI hranice 3:1.</p></div></div>
+          <section className="panel"><div className="section-top"><div><span className="eyebrow">08 · ACCESSIBILITY</span><h2>Contrast Checks</h2><p>Automatický výpočet kontrastu WCAG 2.x; pro text AA minimálně 4.5:1, pro důležité UI hranice 3:1.</p></div></div>
             <div className="contrast-grid">{pairs.map((pair)=>{const ratio=contrastRatio(pair.fg,pair.bg);const pass=ratio>=pair.threshold;return <div className="contrast-item" key={pair.label}><span className="contrast-sample" style={{background:pair.bg,color:pair.fg}}>Aa</span><div><strong>{pair.label}</strong><small>{pair.fg} / {pair.bg}</small></div><div className={'contrast-result ' + (pass?'pass':'fail')}><b>{ratio.toFixed(2)}:1</b><small>{pass?'PASS':'CHECK'}</small></div></div>})}</div><div className="note">Jemné oddělovací linie používají border.default. Povinné hranice formulářových polí mají samostatný token border.control s cílem kontrastu alespoň 3:1.</div>
           </section>
           <footer className="page-footer">Axo-App / Design System · Neo Iris Colors · v1.0 candidate</footer>
