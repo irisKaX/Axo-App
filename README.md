@@ -31,3 +31,13 @@ npm run build
 See [architecture](docs/architecture.md).
 
 > The current page is only a temporary technical landing page, **not** an approved application design. No old Axolotl UI has been imported.
+
+## Automated deployment
+
+The GitHub Actions workflow `.github/workflows/deploy.yml` builds and deploys each push to `main` to GitHub Pages. It can also be started manually from the Actions tab.
+
+**One-time GitHub setting:** Open **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
+
+Published site (after first successful deployment): https://iriskax.github.io/Axo-App/
+
+The Vite base path is set to `/Axo-App/` for Pages deployments by the `GITHUB_PAGES` environment variable. Local development still uses `/`.
