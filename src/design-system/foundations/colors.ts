@@ -14,16 +14,16 @@ export const neutral = [
 
 export const semantic = {
   light: {
-    success: { foreground: '#087F5B', background: '#E7F7F0', border: '#087F5B' },
-    warning: { foreground: '#9A5800', background: '#FFF4DD', border: '#9A5800' },
-    error: { foreground: '#B42338', background: '#FFF0F1', border: '#B42338' },
-    info: { foreground: '#2356AC', background: '#EBF2FF', border: '#2356AC' },
+    success: { foreground: '#087F5B', background: '#FFFFFF', border: '#087F5B' },
+    warning: { foreground: '#9A5800', background: '#FFFFFF', border: '#9A5800' },
+    error: { foreground: '#B42338', background: '#FFFFFF', border: '#B42338' },
+    info: { foreground: '#2356AC', background: '#FFFFFF', border: '#2356AC' },
   },
   dark: {
-    success: { foreground: '#33C999', background: '#173B31', border: '#33C999' },
-    warning: { foreground: '#FFCA70', background: '#3B2D1C', border: '#FFCA70' },
-    error: { foreground: '#FF8697', background: '#41252F', border: '#FF8697' },
-    info: { foreground: '#8DB7FF', background: '#24344C', border: '#8DB7FF' },
+    success: { foreground: '#33C999', background: '#1D1E2A', border: '#33C999' },
+    warning: { foreground: '#FFCA70', background: '#1D1E2A', border: '#FFCA70' },
+    error: { foreground: '#FF8697', background: '#1D1E2A', border: '#FF8697' },
+    info: { foreground: '#8DB7FF', background: '#1D1E2A', border: '#8DB7FF' },
   },
 } as const
 
