@@ -124,7 +124,7 @@ export const themes = {
     muted: '#B4BECE',
     brand: brandColors.irisPurple,
     brandText: '#FFFFFF',
-    brandSoft: '#31234D',
+    brandSoft: '#222832',
     accent: '#58C7F6',
     secondary: brandColors.blue,
     secondaryText: '#061824',
