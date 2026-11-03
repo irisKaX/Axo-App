@@ -1,37 +1,57 @@
-# Neo Iris · Colors
+# Axolotl Colors v2
 
-Status: **Candidate for design review**. This milestone covers color only. Typography, spacing and components remain separate decisions.
+Status: **visual candidate, awaiting review**. Poppins Typography remains approved and unchanged.
 
-## Source of truth
-- `src/design-system/foundations/colors.ts` owns primitive Purple/Neutral scales, semantic Light/Dark theme mappings, feedback states, and contrast calculation.
-- `src/App.tsx` passes theme roles to CSS custom properties. UI components consume semantic properties, not isolated hex values.
-- `src/styles.css` contains structural catalog styles, including component demonstrations. No end-of-file override layers or `!important`.
-- `src/pages/visual-directions.css` holds three isolated experimental concepts. Their visual styling is deliberately separate from the accepted app color roles. Neo Iris is selected; the other two remain reference concepts.
+## Reference and provenance
 
-## Unified brand families
+The user-selected Deen Studios visual reference was analyzed alongside exact color fills in Figma file `Yl6xYTF54MDovV7OYLuHR9`, page `Axolotl mood`. These include:
+- Primary Purple: `#7C4BFE`
+- Bright Cyan Blue: `#0F9FDC`
+- Supporting Blue: `#168EDA`
+- Electric Purple: `#8101EC`
+- Royal Violet: `#4B13BF`
+- Deep Violet: `#3906B3`
+- Royal Blue: `#3B09C7`
+- Deep Blue: `#08089A`
+- Purple Magenta: `#A33DBF`
+- Light Violet: `#AF6CFB`
+- Near-black reference: `#000200`
 
-- **Primary / Iris Purple**: `#7C4BFE`; default actions, selection and navigation.
-- **Corporate / O2 Blue**: `#0050FF`; an exact brand reference for O2 links, data sources, integrations and O2-specific context. Not a replacement for primary purple or semantic info.
-- **Mascot accents**: Axolotl Pink, Hoodie Lilac, Electric Violet, Deep Indigo and Aqua Spark. Limited to mascot-related expression and deliberate brand decorations.
-- **Functional**: success, warning, error and info are independent semantic roles, not a place for arbitrary brand colors.
-- **Neutral**: backgrounds, text and borders remain organized by Light/Dark mapping.
+These are source colors. Neutral surfaces, type colors, feedback colors and state colors are **designed adaptations**, not extracted from the Figma screenshot.
 
-The single exact source is `brandColors` in `src/design-system/foundations/colors.ts`. Brand Identity references these values, while `themes.light` and `themes.dark` expose application roles.
+## Production structure
 
-## Theme principles
-1. Same semantic meaning in both Light and Dark.
-2. Dark is the preferred expressive reference. Light receives equally strong atmosphere, not pastel wash.
-3. Reserve saturated colors for actions, emphasis, focus and feedback; use clean surfaces for text-heavy content.
-4. Background gradients and glow are declared in the theme, not independently invented for each widget.
-5. Contrast targets: 4.5:1 for normal text, 3:1 for meaningful non-text boundaries. Decorative borders need not pass 3:1.
-6. Focus remains visible regardless of pointer hover; disabled state must not depend on color alone.
+`src/design-system/foundations/colors.ts` is the single source of truth for:
+- `brandColors`: source brand colors, O2 corporate color and mascot colors
+- `referencePalette`: literal source swatches for provenance
+- `themes.light` and `themes.dark`: semantic UI tokens
+- `semantic`: independent status colors
+- `purple` and `neutral`: supporting ramps, secondary documentation only
+- `contrastRatio`: WCAG 2.x contrast calculation
 
-## CSS hygiene
-- Edit existing canonical rules in place, never append "fix" or "override" blocks.
-- Component-specific styling must use named semantic properties.
-- Keep variant-specific experimental CSS grouped alongside its base definition.
-- No `!important` and no ad-hoc duplicate selectors for the same purpose.
-- A new design token requires a clear meaning and usage, not just a new color value.
+`src/App.tsx` passes theme-specific custom properties to the UI.
+`src/pages/ColorStudio.tsx` and `src/pages/color-studio.css` are the visual decision interface, not another separate palette.
 
-## Next stage
-Review Colors live in the catalog; if approved, proceed to Typography as a separate milestone.
+## Approved conceptual roles
+
+1. **Iris Purple** `#7C4BFE`: primary Axolotl identity and actions.
+2. **Bright Cyan Blue** `#0F9FDC`: co-primary *visual* brand accent, not automatically a secondary button color.
+3. **O2 Blue** `#0050FF`: exact corporate identity used only for O2 context.
+4. **True Dark** `#090B10`: neutral app canvas without purple tint.
+5. **Supporting violet/blue**: gradients, illustrations and large brand compositions, not every workspace card.
+6. **Mascot**: pink and lilac remain in a separate, existing identity layer pending later mascot restyling.
+
+## Guidance
+
+- Keep ordinary widgets, sidebars, tables and form surfaces on neutral backgrounds.
+- Reserve large saturated blue-to-purple gradients for hero/brand expressions, feature highlights and deliberate decorative areas.
+- Never confuse O2 Blue with informational status or cyan with generic success status.
+- Keep dark text on bright cyan where white would not meet normal-text contrast.
+- Use WCAG AA targets: 4.5:1 normal text, 3:1 essential boundaries and icons. Decorative borders may be subtler.
+- Light Mode has its own semantic neutrals but shares the brand palette.
+- Do not append CSS overrides or `!important`; update canonical rules and tokens in place.
+- Color v2 should be reviewed visually before treating it as locked, especially with actual future widgets.
+
+## Not changed
+
+Typography, spacing, approved mascot artwork and the independent Aurora Glow/Playful Plasma exploratory concepts.
