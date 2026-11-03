@@ -5,10 +5,32 @@
  * UI styles consume semantic custom properties supplied by App.tsx.
  * Alternate Visual Directions remain isolated experiments.
  */
+/**
+ * Three color families with deliberately different responsibilities.
+ * This is the only source for exact brand and mascot accent values.
+ */
+export const brandColors = {
+  irisPurple: '#7C4BFE',
+  o2Blue: '#0050FF',
+  axolotlPink: '#FF73C8',
+  hoodieLilac: '#B99BFF',
+  electricViolet: '#A14CFF',
+  deepIndigo: '#120B2D',
+  aquaSpark: '#4DEFE3',
+} as const
+
+export const colorRoles = [
+  { id: 'primary', name: 'Primary · Iris Purple', token: 'brand.irisPurple', color: brandColors.irisPurple, usage: 'Hlavní akce, výběr, navigace a focus' },
+  { id: 'o2', name: 'Corporate · O2 Blue', token: 'brand.o2Blue', color: brandColors.o2Blue, usage: 'O2 kontext, propojení na O2 systémy, identifikace zdroje' },
+  { id: 'mascot', name: 'Mascot · Pink', token: 'brand.axolotlPink', color: brandColors.axolotlPink, usage: 'Maskot, ilustrace, dekorativní emoce' },
+  { id: 'glow', name: 'Expressive · Lilac', token: 'brand.hoodieLilac', color: brandColors.hoodieLilac, usage: 'Glow, světelné odlesky a speciální zvýraznění' },
+  { id: 'accent', name: 'Accent · Aqua', token: 'brand.aquaSpark', color: brandColors.aquaSpark, usage: 'Doplňkový vizuální kontrast, ne výchozí CTA' },
+] as const
+
 export const purple = [
   ['50', '#F7F7FF'], ['100', '#EDECFF'], ['200', '#DBD7FF'],
   ['300', '#C3BAFF'], ['400', '#A694FF'], ['500', '#8C66FE'],
-  ['600', '#7C4BFE'], ['700', '#6838DB'], ['800', '#5024A9'],
+  ['600', brandColors.irisPurple], ['700', '#6838DB'], ['800', '#5024A9'],
   ['900', '#391B7A'], ['950', '#210F4C'],
 ] as const
 
@@ -51,10 +73,14 @@ export const themes = {
     actionDisabledText: '#605572',
     text: '#211937',
     muted: '#605572',
-    brand: '#7C4BFE',
+    brand: brandColors.irisPurple,
     brandText: '#FFFFFF',
     brandSoft: '#EDE7FF',
     accent: '#007C88',
+    corporate: brandColors.o2Blue,
+    corporateText: '#FFFFFF',
+    mascot: brandColors.axolotlPink,
+    lilac: brandColors.hoodieLilac,
     gradient: 'linear-gradient(110deg, #7C4BFE, #905CFF)',
     backdrop: 'radial-gradient(ellipse at 95% 0%, #AA77FF72, transparent 46%), radial-gradient(ellipse at 0% 100%, #13DDE342, transparent 46%), #F5F2FF',
     glow: '#7C4BFE40',
@@ -76,6 +102,10 @@ export const themes = {
     brandText: '#151022',
     brandSoft: '#352451',
     accent: '#50EEE4',
+    corporate: brandColors.o2Blue,
+    corporateText: '#FFFFFF',
+    mascot: brandColors.axolotlPink,
+    lilac: brandColors.hoodieLilac,
     gradient: 'linear-gradient(110deg, #7C4BFE, #A06AFF)',
     backdrop: 'radial-gradient(ellipse at 100% 0%, #48258977, transparent 50%), #0E0C1A',
     glow: '#9155FF55',

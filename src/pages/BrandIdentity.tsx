@@ -41,7 +41,7 @@ export default function BrandIdentity() {
     </section>
 
     <section className="panel brand-panel">
-      <div className="section-top"><div><div className="eyebrow">02 · MASCOT COLOR DNA</div><h2>Brand Accent Palette</h2><p>Barvy harmonizované s maskotem a Neo Iris. Tyto akcenty doplňují hlavní barevný systém, nenahrazují sémantické statusové barvy.</p></div><span className="annotation">6 charakterových barev</span></div>
+      <div className="section-top"><div><div className="eyebrow">02 · MASCOT COLOR DNA</div><h2>Brand Accent Palette</h2><p>Barvy harmonizované s maskotem a Neo Iris. Tyto akcenty doplňují hlavní barevný systém, nenahrazují sémantické statusové barvy.</p></div><span className="annotation">7 charakterových barev</span></div>
       <div className="brand-colors">
         {mascotPalette.map(color => <button className="brand-color" type="button" key={color.id} onClick={() => void copyColor(color.hex)} title={'Kopírovat ' + color.hex}>
           <span className="brand-color-swatch" style={{ background: color.hex }} />

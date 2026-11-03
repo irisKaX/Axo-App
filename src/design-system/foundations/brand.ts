@@ -1,12 +1,13 @@
-import { purple } from './colors'
+import { brandColors } from './colors'
 
 export const mascotPalette = [
-  { id: 'iris', name: 'Iris Purple', hex: purple[6][1], role: 'Core brand · hlavní ovládací prvky' },
-  { id: 'pink', name: 'Axolotl Pink', hex: '#FF73C8', role: 'Mascot · expresivní ilustrace' },
-  { id: 'lilac', name: 'Hoodie Lilac', hex: '#B99BFF', role: 'Brand highlights · světelné odlesky' },
-  { id: 'violet', name: 'Electric Violet', hex: '#A14CFF', role: 'Gradienty · záře' },
-  { id: 'indigo', name: 'Deep Indigo', hex: '#120B2D', role: 'Tmavé brandové pozadí' },
-  { id: 'aqua', name: 'Aqua Spark', hex: '#4DEFE3', role: 'Doplňkový akcent Neo Iris' },
+  { id: 'iris', name: 'Iris Purple', hex: brandColors.irisPurple, role: 'Core brand · hlavní ovládací prvky' },
+  { id: 'o2', name: 'O2 Blue', hex: brandColors.o2Blue, role: 'Corporate · O2 kontext, nikoliv primární CTA' },
+  { id: 'pink', name: 'Axolotl Pink', hex: brandColors.axolotlPink, role: 'Mascot · expresivní ilustrace' },
+  { id: 'lilac', name: 'Hoodie Lilac', hex: brandColors.hoodieLilac, role: 'Brand highlights · světelné odlesky' },
+  { id: 'violet', name: 'Electric Violet', hex: brandColors.electricViolet, role: 'Gradienty · záře' },
+  { id: 'indigo', name: 'Deep Indigo', hex: brandColors.deepIndigo, role: 'Tmavé brandové pozadí' },
+  { id: 'aqua', name: 'Aqua Spark', hex: brandColors.aquaSpark, role: 'Doplňkový akcent Neo Iris' },
 ] as const
 
 export const mascotAsset = {

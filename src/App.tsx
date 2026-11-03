@@ -1,7 +1,7 @@
 import BrandIdentity from './pages/BrandIdentity'
 import VisualDirections from './pages/VisualDirections'
 import { useState, type CSSProperties } from 'react'
-import { purple, neutral, semantic, interactionStates, themes, contrastRatio, type ThemeName, type InteractionState } from './design-system/foundations/colors'
+import { purple, neutral, colorRoles, semantic, interactionStates, themes, contrastRatio, type ThemeName, type InteractionState } from './design-system/foundations/colors'
 
 type Section = 'brand' | 'visual' | 'colors' | 'typography' | 'spacing' | 'components' | 'widgets' | 'layouts'
 const nav: { title: string; items: { id: Section; label: string }[] }[] = [
@@ -36,6 +36,7 @@ function App() {
     '--action-disabled-text': t.actionDisabledText,
     '--accent': t.accent, '--brand-gradient': t.gradient, '--backdrop': t.backdrop, '--glow': t.glow,
     '--success': semantic[theme].success.foreground, '--error': semantic[theme].error.foreground,
+    '--corporate': t.corporate, '--corporate-text': t.corporateText, '--mascot': t.mascot, '--lilac': t.lilac,
   } as CSSProperties
   const pairs = [
     { label: 'Primární text / Surface', fg: t.text, bg: t.surface, threshold: 4.5 },
@@ -61,12 +62,20 @@ function App() {
           <h1>Axo Purple <span className="heading-accent">Palette</span></h1>
           <p className="intro">Neo Iris: živá fialová identita, elektrické akcenty a jasně definované barevné role pro světlý i tmavý režim.</p>
           <span className="status">● NEO IRIS · COLOR FOUNDATION CANDIDATE</span>
+          <section className="panel">
+            <div className="section-top"><div><span className="eyebrow">00 · BRAND ARCHITECTURE</span><h2>One palette. Clear roles.</h2><p>Fialová zůstává hlavní barvou aplikace. O2 Blue je samostatný corporate akcent pro O2 kontext a neplete se se stavovými barvami ani primárními CTA.</p></div><span className="annotation">5 jasných rolí</span></div>
+            <div className="token-grid">{colorRoles.map(role => <div className="token-card" key={role.id}>
+              <div className="token-chip" style={{backgroundColor:role.color}}/>
+              <div><strong>{role.name}</strong><code>{role.token}</code><span>{role.color}</span><span>{role.usage}</span></div>
+            </div>)}</div>
+            <div className="note">Všechny brandové HEX hodnoty jsou na jediném místě v <strong>brandColors</strong>. Pro komponenty se používají sémantické role podle tématu. O2 Blue se nikdy automaticky nepoužije jako Success, Info nebo výchozí Primary.</div>
+          </section>
           <section className="panel"><div className="section-top"><div><span className="eyebrow">01 · BRAND</span><h2>Purple Scale</h2><p>Značková škála od nejjemnějšího odstínu po nejtmavší. Kliknutím na barvu zkopíruješ HEX.</p></div><span className="annotation">11 odstínů</span></div><Swatches data={purple}/><div className="note">Základ značky: <strong>#7138E8 (Purple 600)</strong>. Akční odstíny jsou v obou tématech samostatně mapované podle kontrastu.</div></section>
           <section className="panel"><div className="section-top"><div><span className="eyebrow">02 · NEUTRALS</span><h2>Neutral Scale</h2><p>Neo Iris neutrals: od jasných levandulových světlých ploch po hluboké indigové odstíny.</p></div><span className="annotation">11 odstínů</span></div><Swatches data={neutral}/></section>
           <section className="panel"><div className="section-top"><div><span className="eyebrow">03 · SEMANTIC ROLES</span><h2>Theme Tokens</h2><p>Stejný význam, jiné hodnoty podle tématu. Přepínej Light / Dark nahoře.</p></div></div>
             <div className="token-grid">{([
               ['Canvas',t.canvas,'bg.canvas'],['Surface',t.surface,'bg.surface'],['Subtle',t.subtle,'bg.subtle'],['Border',t.border,'border.default'],['Control Border',t.controlBorder,'border.control'],['Focus Ring',t.focusRing,'border.focus'],
-              ['Text',t.text,'text.primary'],['Muted',t.muted,'text.secondary'],['Action',t.brand,'action.primary'],['Accent',t.accent,'accent.primary'],['Soft',t.brandSoft,'bg.brand.subtle'],
+              ['Text',t.text,'text.primary'],['Muted',t.muted,'text.secondary'],['Action',t.brand,'action.primary'],['O2 Blue',t.corporate,'brand.corporate'],['Mascot Pink',t.mascot,'brand.mascot'],['Lilac',t.lilac,'brand.lilac'],['Accent',t.accent,'accent.primary'],['Soft',t.brandSoft,'bg.brand.subtle'],
             ] as const).map(([name,color,token])=><div className="token-card" key={token}><div className="token-chip" style={{backgroundColor:color}}/><div><strong>{name}</strong><code>{token}</code><span>{color}</span></div></div>)}</div>
           </section>
           <section className="panel">

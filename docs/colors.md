@@ -8,6 +8,16 @@ Status: **Candidate for design review**. This milestone covers color only. Typog
 - `src/styles.css` contains structural catalog styles, including component demonstrations. No end-of-file override layers or `!important`.
 - `src/pages/visual-directions.css` holds three isolated experimental concepts. Their visual styling is deliberately separate from the accepted app color roles. Neo Iris is selected; the other two remain reference concepts.
 
+## Unified brand families
+
+- **Primary / Iris Purple**: `#7C4BFE`; default actions, selection and navigation.
+- **Corporate / O2 Blue**: `#0050FF`; an exact brand reference for O2 links, data sources, integrations and O2-specific context. Not a replacement for primary purple or semantic info.
+- **Mascot accents**: Axolotl Pink, Hoodie Lilac, Electric Violet, Deep Indigo and Aqua Spark. Limited to mascot-related expression and deliberate brand decorations.
+- **Functional**: success, warning, error and info are independent semantic roles, not a place for arbitrary brand colors.
+- **Neutral**: backgrounds, text and borders remain organized by Light/Dark mapping.
+
+The single exact source is `brandColors` in `src/design-system/foundations/colors.ts`. Brand Identity references these values, while `themes.light` and `themes.dark` expose application roles.
+
 ## Theme principles
 1. Same semantic meaning in both Light and Dark.
 2. Dark is the preferred expressive reference. Light receives equally strong atmosphere, not pastel wash.
