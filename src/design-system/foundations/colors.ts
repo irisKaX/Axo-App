@@ -81,6 +81,21 @@ export const semantic = {
 export const interactionStates = ['default', 'hover', 'active', 'focus', 'disabled'] as const
 export type InteractionState = (typeof interactionStates)[number]
 
+/**
+ * Exact Figma background/text pairs, filtered for visual readability.
+ * "standard" requires WCAG AA 4.5:1 for normal text.
+ * "large" requires >= 3:1 and is restricted to >= 24px regular
+ * or >= 18.66px bold text. These are not approved body-text pairs.
+ */
+export const readableColorCombinations = [
+  { frame: 15, background: '#168EDA', foreground: '#000200', use: 'standard' },
+  { frame: 17, background: '#8101EC', foreground: '#DDEAF2', use: 'standard' },
+  { frame: 18, background: '#4B13BF', foreground: '#DDEAF2', use: 'standard' },
+  { frame: 13, background: '#7C4BFE', foreground: '#0F0F0F', use: 'large' },
+  { frame: 16, background: '#7C4BFE', foreground: '#DDEAF2', use: 'large' },
+  { frame: 20, background: '#4B13BF', foreground: '#0F9FDC', use: 'large' },
+] as const
+
 export const themes = {
   light: {
     canvas: '#F5F7FA',
