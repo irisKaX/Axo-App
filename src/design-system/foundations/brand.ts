@@ -1,5 +1,7 @@
+import { purple } from './colors'
+
 export const mascotPalette = [
-  { id: 'iris', name: 'Iris Purple', hex: '#7138E8', role: 'Core brand · hlavní ovládací prvky' },
+  { id: 'iris', name: 'Iris Purple', hex: purple[6][1], role: 'Core brand · hlavní ovládací prvky' },
   { id: 'pink', name: 'Axolotl Pink', hex: '#FF73C8', role: 'Mascot · expresivní ilustrace' },
   { id: 'lilac', name: 'Hoodie Lilac', hex: '#B99BFF', role: 'Brand highlights · světelné odlesky' },
   { id: 'violet', name: 'Electric Violet', hex: '#A14CFF', role: 'Gradienty · záře' },
