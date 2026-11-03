@@ -1,3 +1,10 @@
+/**
+ * Axo-App · Neo Iris color foundations.
+ *
+ * This module is the single source of truth for approved candidate colors.
+ * UI styles consume semantic custom properties supplied by App.tsx.
+ * Alternate Visual Directions remain isolated experiments.
+ */
 export const purple = [
   ['50', '#F7F7FF'], ['100', '#EDECFF'], ['200', '#DBD7FF'],
   ['300', '#C3BAFF'], ['400', '#A694FF'], ['500', '#8C66FE'],
@@ -6,24 +13,24 @@ export const purple = [
 ] as const
 
 export const neutral = [
-  ['50', '#F8F9FC'], ['100', '#F0F1F6'], ['200', '#DFE1EA'],
-  ['300', '#C6C9D6'], ['400', '#9FA3B5'], ['500', '#7F8295'],
-  ['600', '#6B6D7D'], ['700', '#444655'], ['800', '#292B38'],
-  ['900', '#1D1E2A'], ['950', '#11111A'],
+  ['50', '#FBFAFF'], ['100', '#F5F2FF'], ['200', '#E9E3F3'],
+  ['300', '#C9B7EB'], ['400', '#A99BC8'], ['500', '#8771B2'],
+  ['600', '#605572'], ['700', '#50446E'], ['800', '#29243E'],
+  ['900', '#1B1731'], ['950', '#0E0C1A'],
 ] as const
 
 export const semantic = {
   light: {
     success: { foreground: '#087F5B', background: '#FFFFFF', border: '#087F5B' },
-    warning: { foreground: '#9A5800', background: '#FFFFFF', border: '#9A5800' },
+    warning: { foreground: '#925100', background: '#FFFFFF', border: '#925100' },
     error: { foreground: '#B42338', background: '#FFFFFF', border: '#B42338' },
     info: { foreground: '#2356AC', background: '#FFFFFF', border: '#2356AC' },
   },
   dark: {
-    success: { foreground: '#33C999', background: '#1D1E2A', border: '#33C999' },
-    warning: { foreground: '#FFCA70', background: '#1D1E2A', border: '#FFCA70' },
-    error: { foreground: '#FF8697', background: '#1D1E2A', border: '#FF8697' },
-    info: { foreground: '#8DB7FF', background: '#1D1E2A', border: '#8DB7FF' },
+    success: { foreground: '#50E2B3', background: '#1B1731', border: '#50E2B3' },
+    warning: { foreground: '#FFCA70', background: '#1B1731', border: '#FFCA70' },
+    error: { foreground: '#FF94A5', background: '#1B1731', border: '#FF94A5' },
+    info: { foreground: '#93C0FF', background: '#1B1731', border: '#93C0FF' },
   },
 } as const
 
@@ -32,38 +39,46 @@ export type InteractionState = (typeof interactionStates)[number]
 
 export const themes = {
   light: {
-    canvas: '#F8F9FC',
+    canvas: '#F5F2FF',
     surface: '#FFFFFF',
-    subtle: '#F0F1F6',
-    border: '#DFE1EA',
-    controlBorder: '#6B6D7D',
+    subtle: '#EDE7FF',
+    border: '#C9B7EB',
+    controlBorder: '#8771B2',
     focusRing: '#7138E8',
     actionHover: '#6732D5',
     actionActive: '#5024A9',
-    actionDisabled: '#DFE1EA',
-    actionDisabledText: '#6B6D7D',
-    text: '#222331',
-    muted: '#6B6D7D',
+    actionDisabled: '#E9E3F3',
+    actionDisabledText: '#605572',
+    text: '#211937',
+    muted: '#605572',
     brand: '#7138E8',
     brandText: '#FFFFFF',
-    brandSoft: '#EDECFF',
+    brandSoft: '#EDE7FF',
+    accent: '#007C88',
+    gradient: 'linear-gradient(110deg, #7138E8, #813BDF)',
+    backdrop: 'radial-gradient(ellipse at 95% 0%, #AA77FF72, transparent 46%), radial-gradient(ellipse at 0% 100%, #13DDE342, transparent 46%), #F5F2FF',
+    glow: '#7138E840',
   },
   dark: {
-    canvas: '#11111A',
-    surface: '#1D1E2A',
-    subtle: '#292B38',
-    border: '#444655',
-    controlBorder: '#858AA2',
+    canvas: '#0E0C1A',
+    surface: '#1B1731',
+    subtle: '#29243E',
+    border: '#50446E',
+    controlBorder: '#A99BC8',
     focusRing: '#C3BAFF',
     actionHover: '#C3BAFF',
     actionActive: '#DBD7FF',
-    actionDisabled: '#444655',
-    actionDisabledText: '#C6C9D6',
-    text: '#F6F6FA',
-    muted: '#B5B6C5',
+    actionDisabled: '#50446E',
+    actionDisabledText: '#D0C8E0',
+    text: '#FBF9FF',
+    muted: '#C2B6DC',
     brand: '#A694FF',
-    brandText: '#11111A',
+    brandText: '#151022',
     brandSoft: '#352451',
+    accent: '#50EEE4',
+    gradient: 'linear-gradient(110deg, #7138E8, #9155FF)',
+    backdrop: 'radial-gradient(ellipse at 100% 0%, #48258977, transparent 50%), #0E0C1A',
+    glow: '#9155FF55',
   },
 } as const
 
