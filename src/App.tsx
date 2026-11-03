@@ -33,6 +33,7 @@ function App() {
     '--brand-soft': t.brandSoft, '--control-border': t.controlBorder, '--focus-ring': t.focusRing,
     '--action-hover': t.actionHover, '--action-active': t.actionActive, '--action-disabled': t.actionDisabled,
     '--action-disabled-text': t.actionDisabledText,
+    '--accent': t.accent, '--brand-gradient': t.gradient, '--backdrop': t.backdrop, '--glow': t.glow,
   } as CSSProperties
   const pairs = [
     { label: 'Primární text / Surface', fg: t.text, bg: t.surface, threshold: 4.5 },
@@ -56,14 +57,14 @@ function App() {
         {section === 'visual' ? <VisualDirections /> : section === 'colors' ? <>
           <div className="eyebrow">FOUNDATIONS · 01 / COLORS</div>
           <h1>Axo Purple <span className="heading-accent">Palette</span></h1>
-          <p className="intro">Iris Purple × Royal Violet Neutrals. Pracovní barevný systém pro Axo-App: škály, sémantické role, dva režimy a skutečné ukázky použití.</p>
-          <span className="status">● CANDIDATE · NOT YET APPROVED</span>
-          <section className="panel"><div className="section-top"><div><span className="eyebrow">01 · BRAND</span><h2>Purple Scale</h2><p>Značková škála od nejjemnějšího odstínu po nejtmavší. Kliknutím na barvu zkopíruješ HEX.</p></div><span className="annotation">11 odstínů</span></div><Swatches data={purple}/><div className="note">Základ značky: <strong>#7138E8 (Purple 600)</strong>. Pro tmavý režim je interaktivní akcent světlejší, aby zůstal dobře čitelný.</div></section>
-          <section className="panel"><div className="section-top"><div><span className="eyebrow">02 · NEUTRALS</span><h2>Neutral Scale</h2><p>Chladnější, téměř neutrální odstíny pro pozadí, plochy, typografii a hranice.</p></div><span className="annotation">11 odstínů</span></div><Swatches data={neutral}/></section>
+          <p className="intro">Neo Iris: živá fialová identita, elektrické akcenty a jasně definované barevné role pro světlý i tmavý režim.</p>
+          <span className="status">● NEO IRIS · COLOR FOUNDATION CANDIDATE</span>
+          <section className="panel"><div className="section-top"><div><span className="eyebrow">01 · BRAND</span><h2>Purple Scale</h2><p>Značková škála od nejjemnějšího odstínu po nejtmavší. Kliknutím na barvu zkopíruješ HEX.</p></div><span className="annotation">11 odstínů</span></div><Swatches data={purple}/><div className="note">Základ značky: <strong>#7138E8 (Purple 600)</strong>. Akční odstíny jsou v obou tématech samostatně mapované podle kontrastu.</div></section>
+          <section className="panel"><div className="section-top"><div><span className="eyebrow">02 · NEUTRALS</span><h2>Neutral Scale</h2><p>Neo Iris neutrals: od jasných levandulových světlých ploch po hluboké indigové odstíny.</p></div><span className="annotation">11 odstínů</span></div><Swatches data={neutral}/></section>
           <section className="panel"><div className="section-top"><div><span className="eyebrow">03 · SEMANTIC ROLES</span><h2>Theme Tokens</h2><p>Stejný význam, jiné hodnoty podle tématu. Přepínej Light / Dark nahoře.</p></div></div>
             <div className="token-grid">{([
               ['Canvas',t.canvas,'bg.canvas'],['Surface',t.surface,'bg.surface'],['Subtle',t.subtle,'bg.subtle'],['Border',t.border,'border.default'],['Control Border',t.controlBorder,'border.control'],['Focus Ring',t.focusRing,'border.focus'],
-              ['Text',t.text,'text.primary'],['Muted',t.muted,'text.secondary'],['Action',t.brand,'action.primary'],['Accent',t.brandSoft,'bg.brand.subtle'],
+              ['Text',t.text,'text.primary'],['Muted',t.muted,'text.secondary'],['Action',t.brand,'action.primary'],['Accent',t.accent,'accent.primary'],['Soft',t.brandSoft,'bg.brand.subtle'],
             ] as const).map(([name,color,token])=><div className="token-card" key={token}><div className="token-chip" style={{backgroundColor:color}}/><div><strong>{name}</strong><code>{token}</code><span>{color}</span></div></div>)}</div>
           </section>
           <section className="panel"><div className="section-top"><div><span className="eyebrow">04 · FEEDBACK COLORS</span><h2>Semantic Colors</h2><p>Jednotné významové barvy pro zprávy, validaci a stavy systému. Každá role má foreground, background a border pro aktuální režim.</p></div><span className="annotation">Light / Dark</span></div>
@@ -87,7 +88,7 @@ function App() {
           <section className="panel"><div className="section-top"><div><span className="eyebrow">07 · ACCESSIBILITY</span><h2>Contrast Checks</h2><p>Automatický výpočet kontrastu WCAG 2.x; pro text AA minimálně 4.5:1, pro důležité UI hranice 3:1.</p></div></div>
             <div className="contrast-grid">{pairs.map((pair)=>{const ratio=contrastRatio(pair.fg,pair.bg);const pass=ratio>=pair.threshold;return <div className="contrast-item" key={pair.label}><span className="contrast-sample" style={{background:pair.bg,color:pair.fg}}>Aa</span><div><strong>{pair.label}</strong><small>{pair.fg} / {pair.bg}</small></div><div className={'contrast-result ' + (pass?'pass':'fail')}><b>{ratio.toFixed(2)}:1</b><small>{pass?'PASS':'CHECK'}</small></div></div>})}</div><div className="note">Jemné oddělovací linie používají border.default. Povinné hranice formulářových polí mají samostatný token border.control s cílem kontrastu alespoň 3:1.</div>
           </section>
-          <footer className="page-footer">Axo-App / Design System · Colors Candidate v1.0 · návrh ke schválení</footer>
+          <footer className="page-footer">Axo-App / Design System · Neo Iris Colors · v1.0 candidate</footer>
         </> : <section className="panel placeholder"><div className="eyebrow">DESIGN SYSTEM · COMING NEXT</div><h1>{nav.flatMap(x=>x.items).find(x=>x.id===section)?.label}</h1><p>Pro tuto oblast zatím není schválený design. Nejprve dokončíme Foundations → Colors.</p><button onClick={()=>setSection('colors')} className="primary-action return">Zpět na Colors</button></section>}
       </main>
     </div>
