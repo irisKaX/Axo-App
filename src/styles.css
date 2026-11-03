@@ -20,7 +20,7 @@ button { cursor: pointer; }
 .nav-heading { font-size: 10px; letter-spacing: .15em; font-weight: 800; color: var(--muted); padding: 0 15px; margin: 14px 0 9px; }
 .nav-item { border: 0; background: transparent; color: var(--muted); width: 100%; padding: 12px 15px; text-align: left; border-radius: 10px; font-size: 13px; font-weight: 550; display: flex; justify-content: space-between; align-items: center; }
 .nav-item:hover { background: var(--subtle); color: var(--text); }
-.nav-item.active { background: var(--brand-soft); color: var(--text); font-weight: 750; }
+.nav-item.active { background: var(--subtle); color: var(--text); font-weight: 750; }
 .nav-item:focus-visible, .logo:focus-visible, .theme-toggle button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
 .nav-dot { background: var(--brand); width: 7px; height: 7px; border-radius: 50%; }
 .sidebar-bottom { margin-top: auto; padding: 14px 10px 3px; color: var(--muted); font-size: 11px; }
