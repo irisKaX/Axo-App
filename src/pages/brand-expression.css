@@ -7,6 +7,7 @@
 .expression-heading h2{font-size:25px;line-height:1.28;letter-spacing:-.035em;margin:8px 0}
 .expression-heading p{font-size:13px;line-height:1.7;color:var(--muted);max-width:770px;margin:0}
 .expression-hero{isolation:isolate;position:relative;display:flex;align-items:center;justify-content:space-between;min-height:390px;border-radius:18px;overflow:hidden;padding:clamp(24px,4vw,52px);color:#fff}
+.expression-hero::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,#090B10A8 0%,#090B1080 36%,transparent 80%);pointer-events:none}
 .expression-hero-copy{position:relative;z-index:2;max-width:60%}
 .expression-hero-copy>span{font-size:11px;font-weight:750;letter-spacing:.18em}
 .expression-hero-copy h3{font-size:clamp(36px,5vw,65px);letter-spacing:-.06em;line-height:1.05;margin:20px 0;font-weight:700}
