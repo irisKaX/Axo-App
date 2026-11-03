@@ -65,8 +65,8 @@
 .studio-expression strong{font-size:clamp(19px,2.2vw,29px);line-height:1.1;letter-spacing:-.03em}
 .studio-expression code{font-size:11px;opacity:.88}
 .studio-expression-gradient{color:#FFFFFF;background:var(--brand-gradient)}
-.studio-expression-cyan{color:#051723;background:#0F9FDC}
-.studio-expression-violet{color:#FFFFFF;background:#7C4BFE}
+.studio-expression-cyan{color:var(--secondary-text);background:var(--secondary)}
+.studio-expression-violet{color:#FFFFFF;background:var(--brand)}
 .studio-roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .studio-roles>div{border:1px solid var(--border);border-radius:13px;padding:16px}
 .studio-roles strong{display:block;font-size:13px;margin:12px 0 8px}
