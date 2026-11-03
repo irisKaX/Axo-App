@@ -2,6 +2,7 @@ import { useState, type CSSProperties } from 'react'
 import BrandIdentity from './pages/BrandIdentity'
 import VisualDirections from './pages/VisualDirections'
 import ColorStudio from './pages/ColorStudio'
+import TypographyStudio from './pages/TypographyStudio'
 import { semantic, themes, type ThemeName } from './design-system/foundations/colors'
 
 type Section = 'colors' | 'brand' | 'visual' | 'typography' | 'spacing' | 'components' | 'widgets' | 'layouts'
@@ -60,6 +61,7 @@ export default function App() {
         {section==='colors'?<ColorStudio theme={theme} onThemeChange={setTheme}/>:
           section==='brand'?<BrandIdentity/>:
           section==='visual'?<VisualDirections/>:
+          section==='typography'?<TypographyStudio/>:
           <section className="panel placeholder"><p className="eyebrow">PŘIPRAVUJEME</p>
             <h1>{groups.flatMap(group=>group.items).find(item=>item.id===section)?.label}</h1>
             <p>Tu část design systému vytvoříme až po dokončení Colors.</p>
