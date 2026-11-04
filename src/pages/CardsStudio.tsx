@@ -1,4 +1,5 @@
 import { useState, type CSSProperties } from 'react'
+import { AxoIcon, type AxoIconName } from '../components/AxoIcon'
 import { themes } from '../design-system/foundations/colors'
 import './cards-studio.css'
 
@@ -11,14 +12,12 @@ const specimens: { id: CardKind; number: string; name: string; summary: string; 
   { id:'widget', number:'04', name:'Widget Container', summary:'Jednotný rám pro obsah widgetů bez zbytečné dekorace.', usage:'Dashboard · Small / Large · Vlastní obsah', states:'Default · Loading · Empty · Success · Error' }
 ]
 
-function Glyph({kind}: {kind:'grid'|'search'|'qr'|'arrow'|'star'|'more'}) {
-  const common={width:22,height:22,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.8,strokeLinecap:'round' as const,strokeLinejoin:'round' as const}
-  if(kind==='grid') return <svg {...common}><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-  if(kind==='search') return <svg {...common}><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
-  if(kind==='qr') return <svg {...common}><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3m-3 3h4m-7 0v1"/></svg>
-  if(kind==='star') return <svg {...common}><path d="m12 2 3.1 6.5 7.1 1-5.1 5 1.2 7-6.3-3.4-6.3 3.4 1.2-7-5.1-5 7.1-1z"/></svg>
-  if(kind==='more') return <svg {...common}><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
-  return <svg {...common}><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+type CardIconKind = 'grid'|'search'|'qr'|'arrow'|'star'|'more'
+const cardIconAliases:Record<CardIconKind,AxoIconName> = {
+  grid:'layout-grid',search:'search',qr:'qr-code',arrow:'arrow-right',star:'star',more:'more-horizontal'
+}
+function Glyph({kind}:{kind:CardIconKind}){
+  return <AxoIcon name={cardIconAliases[kind]} size={22}/>
 }
 
 function PreviewCard({kind,mode}: {kind:CardKind;mode:PreviewMode}) {
