@@ -7,6 +7,7 @@ const essentials = [
   { name: 'Bright Cyan Blue', hex: brandColors.blue, role: 'Secondary brand' },
   { name: 'O2 Blue', hex: brandColors.o2Blue, role: 'O2 corporate' },
   { name: 'True Dark', hex: '#090B10', role: 'App background' },
+  { name: 'Sunshine Yellow', hex: brandColors.sunshineYellow, role: 'Supporting · Theme Switch' },
 ] as const
 
 function Swatches({ items }: { items: readonly (readonly [string,string])[] }) {
@@ -36,7 +37,7 @@ export default function ColorStudio({ theme, onThemeChange }: { theme: ThemeName
     <div className="studio-status">FIGMA-BASED · V2 DESIGN CANDIDATE</div>
 
     <section className="studio-panel">
-      <div className="studio-section-head"><div className="studio-overline">01 · THE PALETTE</div><h2>Čtyři základní role</h2><p>Tohle jsou barvy, podle kterých poznáš Axolotl. Ostatní odstíny jsou podpůrné a najdeš je níže.</p></div>
+      <div className="studio-section-head"><div className="studio-overline">01 · THE PALETTE</div><h2>Základní barvy a akcent</h2><p>Čtyři základní role doplňuje Sunshine Yellow pro slunce a měsíc v přepínači motivu. Žlutá není primární akční barvou.</p></div>
       <div className="studio-selected-colors">{essentials.map(item=><button type="button" className="studio-color" key={item.name} onClick={()=>void copy(item.hex)} title={'Kopírovat '+item.hex}>
         <span className="studio-color-fill" style={{background:item.hex}}/>
         <strong>{item.name}</strong><small>{item.role}</small><code>{copied===item.hex?'✓ Zkopírováno':item.hex}</code>
