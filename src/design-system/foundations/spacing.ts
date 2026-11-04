@@ -20,9 +20,9 @@ export const radius = {
 } as const
 
 export const controls = {
-  compact: { height: 36, horizontalPadding: 14, fontSize: 12 },
-  default: { height: 44, horizontalPadding: 20, fontSize: 13 },
-  comfortable: { height: 52, horizontalPadding: 24, fontSize: 14 },
+  compact: { height: 32, horizontalPadding: 14, fontSize: 12 },
+  default: { height: 40, horizontalPadding: 20, fontSize: 13 },
+  comfortable: { height: 48, horizontalPadding: 24, fontSize: 14 },
   iconCompact: 36,
   iconDefault: 44,
   iconComfortable: 52,

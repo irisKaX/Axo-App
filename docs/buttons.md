@@ -14,11 +14,12 @@ Status: **visual design candidate** for review. No button design is marked as ap
 Primary, Gradient, Secondary, Ghost, Outline, Danger. Variants express priority, not business logic.
 
 ## Sizes and geometry
-- Compact: 36px high, 14px padding, 12px font.
-- Default: 44px high, 20px padding, 13px font.
-- Comfortable: 52px high, 24px padding, 14px font.
+- Compact: 32px high, 14px padding, 12px font.
+- Default: 40px high, 20px padding, 13px font.
+- Comfortable: 48px high, 24px padding, 14px font.
 - Text buttons use `radius.pill` (9999px).
-- Icon-only controls use `radius.round` (50%), with equal width/height.
+- Icon-only controls stay at 36/44/52px for clearer hit targets, use `radius.round` (50%), and always have equal width/height.
+- Text-pill heights are intentionally slimmer than icon-only controls; their text, color, gradient and icon motion remain unchanged.
 - For compact icon-only controls intended for touch, plan a minimum 44x44px interactive hit area; the demo documents this but should not be used as a production touch layout until implemented.
 
 ## States
