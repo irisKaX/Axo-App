@@ -19,8 +19,6 @@ const descriptions: Record<ButtonVariant,string> = {
   ghost:'Nenápadná akce bez výrazné plochy.',
   danger:'Destruktivní akce pro nevratné operace.'
 }
-const roundIcons = ['plus','copy','download','arrow-right','check','trash','refresh','settings','close'] as const
-
 const textIcons:Record<ButtonVariant,ButtonIconName> = {
   primary:'plus',
   'primary-2':'refresh',
@@ -56,16 +54,18 @@ export default function ButtonsStudio() {
           </div>
         </div>)}
       </div>
-    </section>
-
-    <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>02 / ICON ACTIONS</span><h2>Dokonale kulatá tlačítka</h2><p>Primary používá Blue × Purple gradient, Secondary neutrální plochu. Průměr je 38 px jako výška Default tlačítka.</p></div></div>
-      <div className="bs-icon-library">
-        {roundIcons.map(icon=><div className="bs-icon-swatch" key={icon}>
-          <AxoButton size="default" variant="primary" icon={icon} iconOnly aria-label={'Primární '+icon} onClick={()=>setNote('Primární ikona: '+icon)}/>
-          <AxoButton size="default" variant="secondary" icon={icon} iconOnly aria-label={'Sekundární '+icon} onClick={()=>setNote('Sekundární ikona: '+icon)}/>
-          <span>{icon}</span>
-        </div>)}
+      <div className="bs-icon-examples">
+        <div className="bs-section-heading"><div><span>ICON-ONLY / PRIMARY & SECONDARY</span><h2>Kulatá tlačítka</h2><p>Stejné dvě barevné role, pouze bez textu. Ikonu lze vyměnit, aniž by vznikala nová designová varianta.</p></div></div>
+        <div className="bs-icon-example-row">
+          <div className="bs-icon-example">
+            <AxoButton size="default" variant="primary" icon="plus" iconOnly aria-label="Primární akce" onClick={()=>setNote('Kulaté Primary')}/>
+            <span>Primary</span>
+          </div>
+          <div className="bs-icon-example">
+            <AxoButton size="default" variant="secondary" icon="plus" iconOnly aria-label="Sekundární akce" onClick={()=>setNote('Kulaté Secondary')}/>
+            <span>Secondary</span>
+          </div>
+        </div>
       </div>
     </section>
 
