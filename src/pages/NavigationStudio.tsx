@@ -1,28 +1,18 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { AxoIcon, type AxoIconName } from '../components/AxoIcon'
 import { ThemeSwitch } from '../components/ThemeSwitch'
 import { themes, type ThemeName } from '../design-system/foundations/colors'
 import './navigation-studio.css'
 
 type Menu = 'workspace' | 'media' | 'checks' | 'tabs' | 'notifications' | 'profile' | null
 type IconName = 'home'|'work'|'media'|'shield'|'globe'|'copy'|'tabs'|'bell'|'gear'|'down'|'plus'|'check'|'arrow'|'document'
-function Icon({name}: {name:IconName}) {
-  const shapes:Record<IconName,ReactNode>={
-    home:<><path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7"/></>,
-    work:<><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></>,
-    media:<><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="8" cy="9" r="1"/><path d="m3 17 6-5 4 3 3-4 5 5"/></>,
-    shield:<><path d="m12 2 8 4v6c0 5-3 8-8 10-5-2-8-5-8-10V6z"/><path d="m9 12 2 2 4-4"/></>,
-    globe:<><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-5 5-5 13 0 18m0-18c5 5 5 13 0 18"/></>,
-    copy:<><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></>,
-    tabs:<><rect x="6" y="6" width="15" height="15" rx="2"/><path d="M17 6V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2"/></>,
-    bell:<><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></>,
-    gear:<><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9 7 7m10 10 2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></>,
-    down:<path d="m6 9 6 6 6-6"/>,
-    plus:<path d="M12 5v14M5 12h14"/>,
-    check:<path d="m5 12 4 4L19 6"/>,
-    arrow:<path d="M5 12h14m-6-6 6 6-6 6"/>,
-    document:<><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></>
-  }
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{shapes[name]}</svg>
+const iconAliases:Record<IconName,AxoIconName> = {
+  home:'home',work:'workspace',media:'image',shield:'shield-check',globe:'globe',
+  copy:'copy',tabs:'tabs',bell:'bell',gear:'settings',down:'chevron-down',
+  plus:'plus',check:'check',arrow:'arrow-right',document:'file-text'
+}
+function Icon({name}:{name:IconName}){
+  return <AxoIcon name={iconAliases[name]} size={17}/>
 }
 
 const groups: Record<Exclude<Menu,null|'tabs'>,string[]> = {
