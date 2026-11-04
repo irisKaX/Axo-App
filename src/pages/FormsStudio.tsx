@@ -1,6 +1,8 @@
 import { useRef, useState, type FormEvent } from 'react'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch } from '../components/FormControls'
 import { AxoButton } from '../components/Buttons'
+import { ThemeSwitch } from '../components/ThemeSwitch'
+import { type ThemeName } from '../design-system/foundations/colors'
 import './forms-studio.css'
 
 const regions=[
@@ -21,7 +23,7 @@ function isValidHttpUrl(value:string) {
   catch { return false }
 }
 
-export default function FormsStudio() {
+export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThemeChange:(value:ThemeName)=>void}) {
   const [search,setSearch]=useState('')
   const [url,setUrl]=useState('')
   const [city,setCity]=useState('')
@@ -103,7 +105,24 @@ export default function FormsStudio() {
     </section>
 
     <section className="panel fs-panel">
-      <div className="fs-section-head"><span>06 / COMPLETE FORM</span><h2>Formulář v kontextu</h2><p>Společný styl všech prvků a jasné chybové i úspěšné zprávy.</p></div>
+      <div className="fs-section-head"><span>06 / THEME SWITCH</span><h2>Dark / Light Mode</h2><p>Specializovaný toggle s animovaným sluncem a měsícem. Přepíná téma celého Axo-App, takže je synchronizovaný s horní lištou.</p></div>
+      <div className="fs-theme-layout">
+        <div className="fs-theme-interactive">
+          <span className="fs-overline">LIVE THEME CONTROL</span>
+          <ThemeSwitch theme={theme} onThemeChange={onThemeChange} label="Tmavý režim"/>
+          <div className="fs-theme-current" role="status">Aktivní režim: <strong>{theme==='dark'?'Dark':'Light'}</strong></div>
+          <p>Přepínač funguje myší, dotykem i klávesnicí. Změnu uvidíš na celém katalogu.</p>
+        </div>
+        <div className="fs-theme-previews">
+          <div className="fs-theme-sample is-light"><span>☀ LIGHT</span><strong>Clear, soft, focused.</strong></div>
+          <div className="fs-theme-sample is-dark"><span>☾ DARK</span><strong>Calm, bold, immersive.</strong></div>
+        </div>
+      </div>
+      <div className="fs-guide-note">Toto je návrh vzhledu přepínače k vizuálnímu schválení. Pro přístupnost používá nativní checkbox se sémantikou <code>switch</code>, viditelný focus a podporu omezeného pohybu.</div>
+    </section>
+
+    <section className="panel fs-panel">
+      <div className="fs-section-head"><span>07 / COMPLETE FORM</span><h2>Formulář v kontextu</h2><p>Společný styl všech prvků a jasné chybové i úspěšné zprávy.</p></div>
       <div className="fs-form-preview">
         <div className="fs-form-intro"><span className="fs-overline">WORKSPACE · FORM PREVIEW</span><h3>Nová analýza<span>.</span></h3><p>Vše podstatné na jednom místě. Připrav analýzu webu a ověř, že jsou údaje v pořádku.</p><ul className="fs-form-benefits"><li>Jasné údaje a okamžitá zpětná vazba</li><li>Ovládání myší i klávesnicí</li><li>Ověření pouze v tomto prohlížeči</li></ul><p className="fs-privacy">Toto je interaktivní ukázka. Žádná data se neposílají na server ani se trvale neukládají.</p></div>
         <form ref={formRef} className="fs-preview-controls" onSubmit={submit} noValidate>
