@@ -1,0 +1,36 @@
+/* Axolotl SVG icon system: color and motion are owned by Icons, not by buttons. */
+.axo-icon{display:inline-block;flex:none;vertical-align:middle;transform-origin:center;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.axo-icon--inherit{color:inherit}
+.axo-icon--muted{color:var(--muted)}
+.axo-icon--brand{color:var(--brand)}
+.axo-icon--success{color:var(--success)}
+.axo-icon--warning{color:var(--warning)}
+.axo-icon--danger{color:var(--error)}
+.axo-icon--info{color:var(--info)}
+
+/* Animations require an interactive parent. Focus and hover have the same affordance.
+   Preserves the previous AxoButton interactions, now also available in Icons catalog. */
+.axo-glyph-copy-front,.axo-glyph-copy-back,.axo-glyph-download-arrow,.axo-glyph-download-tray{
+  transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .22s ease;
+  transform-box:fill-box;transform-origin:center;
+}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-glyph-copy-front{transform:translate(2px,2px)}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-glyph-copy-back{transform:translate(-2px,-2px)}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-glyph-download-arrow{transform:translateY(3px)}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-glyph-download-tray{transform:translateY(.5px)}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-icon[data-icon="arrow-right"]{animation:axo-arrow-travel .45s cubic-bezier(.25,.7,.2,1) both}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-icon[data-icon="plus"]{transform:rotate(90deg)}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-icon[data-icon="refresh"]{transform:rotate(75deg)}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-icon[data-icon="settings"]{transform:rotate(55deg)}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-icon[data-icon="check"]{transform:scale(1.13)}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-icon[data-icon="close"]{transform:rotate(90deg)}
+:is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-icon[data-icon="trash"]{transform:rotate(-9deg)}
+@keyframes axo-arrow-travel{0%{transform:translateX(0);opacity:1}42%{transform:translateX(7px);opacity:0}43%{transform:translateX(-7px);opacity:0}100%{transform:translateX(0);opacity:1}}
+.axo-button-spinner{animation:axo-spin .85s linear infinite}
+@keyframes axo-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){
+  .axo-icon,.axo-glyph-copy-front,.axo-glyph-copy-back,.axo-glyph-download-arrow,.axo-glyph-download-tray{transition:none!important}
+  :is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) .axo-icon{animation:none!important;transform:none!important}
+  :is(.axo-button--motion,.is-icon-tile.is-motion):is(:hover,:focus-visible):not(:disabled) :is(.axo-glyph-copy-front,.axo-glyph-copy-back,.axo-glyph-download-arrow,.axo-glyph-download-tray){transform:none!important}
+  .axo-button-spinner{animation:none}
+}
