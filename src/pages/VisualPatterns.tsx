@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { WorkspaceComposition } from '../components/WorkspaceComposition'
-import { AccentDot, AccentWord, EyebrowHeading } from '../components/TextTreatments'
+import { AccentWord, EyebrowHeading } from '../components/TextTreatments'
 import { themes, type ThemeName } from '../design-system/foundations/colors'
 import { radius } from '../design-system/foundations/spacing'
 import './visual-patterns.css'
