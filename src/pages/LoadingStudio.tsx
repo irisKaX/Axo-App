@@ -1,5 +1,5 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
-import { brandColors, themes, type ThemeName } from '../design-system/foundations/colors'
+import { themes, type ThemeName } from '../design-system/foundations/colors'
 import './loading-studio.css'
 
 type LoaderKind = 'gradient' | 'blades' | 'dots'
@@ -46,7 +46,7 @@ function LoadingStage({theme,paused}:{theme:ThemeName;paused:boolean}){
       </article>
       <article className="ld-demo">
         <div className="ld-demo-head"><strong>04 / Circular Progress</strong><small>Určitý průběh</small></div>
-        <div className="ld-display"><div className="ld-circular" style={{'--ld-progress':progress} as CSSProperties}><div><strong>{progress}%</strong></div></div></div>
+        <div className="ld-display"><div className="ld-circular" style={{background:'conic-gradient(#7C4BFE '+progress+'%, var(--ld-subtle) 0)'}}><div><strong>{progress}%</strong></div></div></div>
         <label className="ld-progress-label" htmlFor={'ld-circular-'+theme}>Dokončeno: {progress}%</label>
         <input id={'ld-circular-'+theme} className="ld-range" type="range" min="0" max="100" value={progress} onChange={e=>setProgress(Number(e.target.value))}/>
       </article>
