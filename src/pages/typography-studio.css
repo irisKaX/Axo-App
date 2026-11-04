@@ -13,31 +13,6 @@
 .typo-family-side{display:grid;gap:7px;padding:16px;border-radius:13px;background:var(--surface);border:1px solid var(--border)}
 .typo-family-side span{color:var(--muted);font-size:11px;margin-top:6px}
 .typo-family-side strong,.typo-family-side code{font-size:12px;overflow-wrap:anywhere}
-.typo-preview{background:var(--backdrop);border:1px solid var(--border);border-radius:17px;padding:clamp(18px,4vw,36px)}
-.typo-preview-intro{margin:0 0 27px}
-.typo-preview-eyebrow{font-size:11px;letter-spacing:.13em;font-weight:600;color:var(--accent)}
-.typo-preview-intro h3{font-size:clamp(30px,4vw,50px);font-weight:700;letter-spacing:-.035em;line-height:1.16;margin:15px 0}
-.typo-preview-intro h3 em{font-style:normal;color:var(--brand)}
-.typo-preview-intro p{color:var(--muted);font-size:14px;line-height:1.7}
-.typo-preview-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);gap:14px}
-.typo-demo-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:21px;min-width:0}
-.typo-card-title{display:flex;align-items:center;gap:12px;margin-bottom:23px}
-.typo-card-symbol{width:42px;height:42px;border-radius:12px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:27px}
-.typo-card-title strong,.typo-card-title small{display:block}
-.typo-card-title strong{font-size:16px;font-weight:600;line-height:1.4}
-.typo-card-title small{color:var(--muted);font-size:12px;margin-top:4px}
-.typo-demo-card label{display:block;font-size:13px;font-weight:500;margin-bottom:8px}
-.typo-demo-card input{width:100%;background:var(--surface);border:1px solid var(--control-border);color:var(--text);border-radius:10px;padding:12px;font-size:13px}
-.typo-demo-card input:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
-.typo-action{display:flex;justify-content:space-between;align-items:center;width:100%;padding:13px 14px;margin-top:12px;border:0;border-radius:10px;font-size:13px;font-weight:600;background:var(--brand);color:var(--brand-text)}
-.typo-action:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
-.typo-action:hover{background:var(--action-hover)}
-.typo-metric{display:flex;flex-direction:column;gap:10px}
-.typo-metric>span{font-size:13px;color:var(--muted)}
-.typo-metric>strong{font-size:40px;line-height:1.25;font-weight:600}
-.typo-metric>small{font-size:12px;color:var(--muted)}
-.typo-metric-track{height:6px;border-radius:10px;background:var(--subtle);overflow:hidden;margin-top:auto}
-.typo-metric-track i{width:70%;height:100%;background:var(--brand-gradient);display:block}
 .typo-scale{display:grid;gap:0}
 .typo-scale-row{display:grid;grid-template-columns:190px minmax(0,1fr);gap:20px;align-items:center;border-top:1px solid var(--border);padding:20px 0}
 .typo-scale-meta{display:flex;flex-direction:column;gap:5px}
