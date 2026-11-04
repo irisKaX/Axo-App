@@ -24,7 +24,9 @@
   transition:box-shadow .32s ease,filter .32s ease,transform .22s ease;
 }
 .axo-button--gradient .axo-button-gradient-surface{
-  position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;
+  /* Extend the luminous fill over the transparent 1px geometry border.
+     Keep border width unchanged because Codex beam measurements rely on it. */
+  position:absolute;inset:-1px;z-index:0;border-radius:inherit;pointer-events:none;
   background:
     radial-gradient(ellipse 75% 160% at 105% -30%,#AF6CFBCC 0%,transparent 74%),
     radial-gradient(ellipse 74% 155% at -12% 140%,#168EDA99 0%,transparent 78%);
