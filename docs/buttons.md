@@ -55,3 +55,22 @@ Interaction studies (inspired by user-supplied Uiverse references, adapted for A
 - All styles honor `prefers-reduced-motion: reduce`. Real focus-visible, disabled and loading states remain operational.
 
 The four supplied Uiverse pages are design references, not copied component specifications. The Buttons patterns remain candidates until visually approved.
+
+
+## Premium gradient design studies (visual candidates)
+
+Four *unapproved* finish options are available in `Components → Buttons → Gradient Lab`:
+1. **Luminous Rim**: restrained layered gradient with a luminous border.
+2. **Electric Glow**: stronger purple aura, with the same approved Deep Electric color stops.
+3. **Soft Glass**: inner glass-like layer with brighter reflection.
+4. **Light Sweep**: directional shine across the pill on hover.
+
+The active preview is selected locally in the catalog, not persisted as the global design-system approval. All variants use the exact `deepElectric` gradient token, and the icon hover animations approved earlier remain unchanged. No full-button upward hover motion. Motion honors reduced-motion preferences.
+
+User inspiration links:
+- https://uiverse.io/Yaya12085/plastic-quail-42
+- https://uiverse.io/ParasSalunke/selfish-dolphin-96
+- https://uiverse.io/vinodjangid07/wonderful-squid-57
+- https://uiverse.io/adamgiebl/pink-chicken-70
+
+The studies are original Axolotl treatments, not copies of those external buttons.
