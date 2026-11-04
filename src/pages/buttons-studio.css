@@ -1,4 +1,4 @@
-/* Buttons catalog · only approved role hierarchy and circular icon controls. */
+/* Buttons catalog · one approved hierarchy card with text and icon-only examples. */
 .bs-page{max-width:1360px}
 .bs-panel{border-radius:var(--radius-xl)}
 .bs-section-heading{display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:24px}
@@ -17,19 +17,18 @@
 .bs-size-name strong{font-size:13px}
 .bs-size-name small{font-size:11px;color:var(--muted);margin-top:5px}
 .bs-size-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.bs-icon-library{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:12px}
-.bs-icon-swatch{display:flex;flex-direction:column;align-items:center;gap:13px;padding:18px 8px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--canvas);min-width:0}
-.bs-icon-swatch span{font-size:10px;color:var(--muted);overflow-wrap:anywhere;text-align:center}
+.bs-icon-examples{border-top:1px solid var(--border);padding-top:24px;margin-top:8px}
+.bs-icon-examples .bs-section-heading{margin-bottom:16px}
+.bs-icon-examples .bs-section-heading h2{font-size:18px}
+.bs-icon-example-row{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.bs-icon-example{display:flex;align-items:center;gap:10px}
+.bs-icon-example>span{font-size:12px;color:var(--muted)}
 .bs-notification{display:flex;align-items:center;gap:10px;min-height:50px;margin-top:18px;background:var(--subtle);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 18px;color:var(--muted);font-size:12px;line-height:1.5}
-@media(max-width:1100px){
-  .bs-icon-library{grid-template-columns:repeat(5,minmax(0,1fr))}
-}
 @media(max-width:850px){
   .bs-variant-row{align-items:flex-start;flex-direction:column}
   .bs-variant-actions{justify-content:flex-start}
 }
 @media(max-width:600px){
   .bs-size-row{grid-template-columns:1fr}
-  .bs-icon-library{grid-template-columns:repeat(3,minmax(0,1fr))}
   .bs-variant-actions{width:100%}
 }
