@@ -5,9 +5,10 @@ import ColorStudio from './pages/ColorStudio'
 import TypographyStudio from './pages/TypographyStudio'
 import SpacingStudio from './pages/SpacingStudio'
 import ButtonsStudio from './pages/ButtonsStudio'
+import FormsStudio from './pages/FormsStudio'
 import { semantic, themes, type ThemeName } from './design-system/foundations/colors'
 
-type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'widgets' | 'layouts'
+type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'forms' | 'widgets' | 'layouts'
 const groups: { title: string; items: { id: Section; label: string }[] }[] = [
   { title: 'FOUNDATIONS', items: [
     { id: 'colors', label: 'Colors' },
@@ -18,6 +19,7 @@ const groups: { title: string; items: { id: Section; label: string }[] }[] = [
   ] },
   { title: 'LIBRARY', items: [
     { id: 'components', label: 'Components / Buttons' },
+    { id: 'forms', label: 'Components / Inputs & Forms' },
     { id: 'widgets', label: 'Widgets' },
     { id: 'layouts', label: 'Layouts' },
   ] },
@@ -54,7 +56,7 @@ export default function App() {
     </aside>
     <div className="workspace">
       <header className="topbar">
-        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section==='spacing'?'Foundations / Spacing & Grid':section==='components'?'Library / Components / Buttons':section}</span>
+        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section==='spacing'?'Foundations / Spacing & Grid':section==='components'?'Library / Components / Buttons':section==='forms'?'Library / Components / Inputs & Forms':section}</span>
         <div className="theme-toggle" role="group" aria-label="Téma katalogu">
           <button type="button" className={theme==='light'?'chosen':''} onClick={()=>setTheme('light')} aria-pressed={theme==='light'}>☀ Light</button>
           <button type="button" className={theme==='dark'?'chosen':''} onClick={()=>setTheme('dark')} aria-pressed={theme==='dark'}>☾ Dark</button>
@@ -67,6 +69,7 @@ export default function App() {
           section==='typography'?<TypographyStudio/>:
           section==='spacing'?<SpacingStudio/>:
           section==='components'?<ButtonsStudio/>:
+          section==='forms'?<FormsStudio/>:
           <section className="panel placeholder"><p className="eyebrow">PŘIPRAVUJEME</p>
             <h1>{groups.flatMap(group=>group.items).find(item=>item.id===section)?.label}</h1>
             <p>Tu část design systému vytvoříme až po dokončení Colors.</p>
