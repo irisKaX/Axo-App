@@ -21,6 +21,6 @@ Status: **approved visual selections only**.
 5. Preserve the actual white brand mark. Do not recolor or redraw it without approval.
 6. O2 Blue `#0050FF` is a distinct corporate color.
 
-CSS uses an approximate angle for the Figma gradient. Its HEX stops and their order are exact.
+CSS uses the same 130° Blue × Purple gradient token as Colors v2. Its HEX values, 0/52/100% positions and direction are shared across the product.
 
-Unapproved alternatives from Frames 24–26 and speculative standalone violet/dark mark treatments are excluded from Brand Expression.
+Previously explored gradients (including Deep Electric) are not approved for product use. Brand Expression displays only the currently approved Blue × Purple gradient and brand surfaces.
