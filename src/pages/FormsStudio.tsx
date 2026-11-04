@@ -31,6 +31,7 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
   const [view,setView]=useState('comfortable')
   const [autosave,setAutosave]=useState(true)
   const [notifications,setNotifications]=useState(false)
+  const validUrl=!url.trim() || isValidHttpUrl(url)
   return <div className="fs-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / INPUTS & FORMS</p>
     <h1>Inputs <span className="heading-accent">& Forms.</span></h1>
