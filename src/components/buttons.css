@@ -8,12 +8,17 @@
   transition:background-color .2s ease,border-color .2s ease,box-shadow .22s ease,transform .22s cubic-bezier(.2,.75,.25,1),filter .2s ease;
   color:var(--text)
 }
+/* The label is centered on the full button, independently of the icon.
+   Equal flexible side columns place icons next to the text without offsetting it. */
 .axo-button-content{
-  display:grid;grid-template-columns:18px minmax(0,1fr) 18px;
-  align-items:center;justify-items:center;gap:5px;
+  display:grid;
+  grid-template-columns:minmax(20px,1fr) minmax(0,auto) minmax(20px,1fr);
+  align-items:center;justify-items:center;column-gap:8px;
   width:100%;height:100%;min-width:0;
 }
-.axo-button-content-slot{display:flex;align-items:center;justify-content:center;min-width:0;width:18px}
+.axo-button-content-slot{display:flex;align-items:center;justify-content:center;min-width:0;width:20px;height:100%}
+.axo-button-content-slot--start{justify-self:end}
+.axo-button-content-slot--end{justify-self:start}
 .axo-button-content .axo-button-label{
   display:block;max-width:100%;min-width:0;
   white-space:nowrap;text-overflow:ellipsis;overflow:hidden;
@@ -88,7 +93,7 @@
 .axo-button--danger{background:var(--error);border-color:var(--error);color:#FFFFFF}
 .axo-button--danger:hover:not(:disabled){background:#CF0642;border-color:#CF0642;box-shadow:0 7px 18px #FF0A5436}
 /* Round icon controls share the exact 32/38px diameter with text button heights. */
-.axo-button--icon{width:var(--axo-button-height);min-width:var(--axo-button-height);padding:0;border-radius:var(--radius-round);gap:0;overflow:visible}
+.axo-button--icon{display:grid;place-items:center;width:var(--axo-button-height);min-width:var(--axo-button-height);padding:0;border-radius:var(--radius-round);gap:0;overflow:visible}
 .axo-button--secondary.axo-button--icon{
   background:var(--subtle);border:1px solid var(--border);color:var(--text);box-shadow:none;
 }
@@ -97,7 +102,7 @@
 .axo-button--icon .axo-button-label{display:none}
 .axo-button-icon-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 /* Elevated interaction language: stationary controls, animated glyphs, accessible labels. */
-.axo-button-icon{display:inline-flex;align-items:center;justify-content:center;flex:none;transform-origin:center;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.axo-button-icon{display:inline-grid;place-items:center;flex:none;width:max-content;height:max-content;line-height:0;transform-origin:center;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
 .axo-button-icon svg{overflow:visible}
 .axo-button--icon:not(.axo-button--primary):not(.axo-button--primary-2):hover:not(:disabled){box-shadow:0 0 0 3px var(--brand-soft),0 0 0 1px var(--brand)}
 .axo-button--icon[data-tooltip]::after{
