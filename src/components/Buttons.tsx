@@ -3,7 +3,7 @@ import { controls } from '../design-system/foundations/spacing'
 import { bluePurple } from '../design-system/foundations/brand-expression'
 import './buttons.css'
 
-export type ButtonVariant = 'primary' | 'gradient' | 'secondary' | 'ghost' | 'outline' | 'danger'
+export type ButtonVariant = 'primary' | 'gradient' | 'gradient-reveal' | 'secondary' | 'ghost' | 'outline' | 'danger'
 export type ButtonSize = 'compact' | 'default' | 'comfortable'
 export type ButtonBorderMotion = 'none' | 'beam' | 'spin'
 export type ButtonIconName = 'plus' | 'copy' | 'download' | 'arrow-right' | 'check' | 'trash' | 'refresh' | 'settings' | 'close' | 'loader'
@@ -77,11 +77,17 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
     className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',variant==='gradient'?'axo-button--border-'+borderMotion:'',className].filter(Boolean).join(' ')}
     style={{'--axo-button-height':buttonHeight+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px','--axo-gradient-blue':bluePurple.stops[0],'--axo-gradient-middle':bluePurple.stops[1],'--axo-gradient-purple':bluePurple.stops[2],...style} as React.CSSProperties}>
     {variant === 'gradient' && borderMotion === 'beam' ? <ButtonBorderBeam /> : null}
+    {variant==='gradient-reveal' ? <span className="axo-button-reveal-inner">
+      {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
+      {children ? <span className="axo-button-label">{children}</span> : null}
+      {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}
+    </span> : <>
     {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
     {iconOnly ? <span className="axo-button-icon-sr">{children}</span> : children ? <span className="axo-button-label">{children}</span> : null}
     {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}
+    </>}
   </button>
 })
 
-export const buttonVariants: ButtonVariant[] = ['primary','gradient','secondary','ghost','outline','danger']
+export const buttonVariants: ButtonVariant[] = ['primary','gradient','gradient-reveal','secondary','ghost','outline','danger']
 export const buttonSizes: ButtonSize[] = ['compact','default','comfortable']

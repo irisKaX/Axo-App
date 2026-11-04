@@ -86,3 +86,15 @@ Inspiration: [Appica Border Beam](https://21st.dev/@appica-dev/components/border
 The Gradient Button uses one CSS gradient surface and two registered interpolable color-stop custom properties. At rest, the gradient starts Blue `#0F9FDC`, passes Royal Blue `#3B09C7` at 52%, and ends Purple `#8101EC`. On hover, only the two outer stops swap smoothly over 480ms. The middle stop and 130° direction remain unchanged. On pointer exit the colors return smoothly.
 
 The stop values come from the approved `bluePurple.stops` token. No extra overlay or border is introduced. Existing Traveling Light, Spinning Accent, icon animations, focus states and reduced-motion behavior remain intact. Playwright checks the transition in both themes and ensures no layout shift.
+
+
+## Gradient Reveal · user-provided button (candidate)
+
+A separate `variant="gradient-reveal"` reproduces the supplied two-layer button interaction without replacing the existing approved-looking Blue × Purple Gradient Button:
+
+- Outer shell: the shared `--brand-gradient` token (Blue × Purple), 3px padding, no CSS border, 9999px radius, minimum width 140px.
+- Inner surface: `#141820`, 16px vertical and 24px horizontal padding, 9999px radius, white 18px text.
+- Hover: inner background smoothly changes to transparent in 300ms, revealing the full gradient; no vertical lift.
+- Active: scale to 90%, as in the supplied CSS. Reduced-motion stops the transform and animations.
+- Text treatment does not overwrite the main component button styles; the original Gradient Button, Border Beam, Spinning Accent, and approved icon motion remain untouched.
+- Candidate only, pending visual approval. View it in Components → Buttons → Gradient Reveal.

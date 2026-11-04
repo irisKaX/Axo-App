@@ -6,11 +6,12 @@ import './buttons-studio.css'
 type PreviewState = 'default'|'hover'|'active'|'focus'|'disabled'|'loading'
 const previewStates:PreviewState[] = ['default','hover','active','focus','disabled','loading']
 const titles:Record<ButtonVariant,string> = {
-  primary:'Primary',gradient:'Gradient',secondary:'Secondary',ghost:'Ghost',outline:'Outline',danger:'Danger'
+  primary:'Primary',gradient:'Gradient', 'gradient-reveal':'Gradient Reveal',secondary:'Secondary',ghost:'Ghost',outline:'Outline',danger:'Danger'
 }
 const descriptions:Record<ButtonVariant,string> = {
   primary:'Hlavní akce na stránce. Jedno jasné CTA.',
   gradient:'Výrazné brandové CTA s jediným schváleným Blue × Purple.',
+  'gradient-reveal':'Blue × Purple obvod, tmavé jádro a celoplošný gradient při hoveru.',
   secondary:'Vedlejší akce bez přehnaného důrazu.',
   ghost:'Nenápadná akce v toolbaru nebo v navigaci.',
   outline:'Alternativní akce s viditelným ohraničením.',
@@ -58,12 +59,28 @@ export default function ButtonsStudio() {
     <div className="bs-status">DESIGN CANDIDATE · PILL + CIRCLE · DARK / LIGHT · INTERACTIVE</div>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>01 / VARIANTS</span><h2>Hierarchie akcí</h2><p>Šest jasně odlišených úloh. Primární tlačítko je vždy nejvýraznější; ostatní podporují soustředěnou práci.</p></div></div>
+      <div className="bs-section-heading"><div><span>01 / VARIANTS</span><h2>Hierarchie akcí</h2><p>Sedm variant pro různé úlohy. Primární tlačítko je vždy nejvýraznější; ostatní podporují soustředěnou práci.</p></div></div>
       <div className="bs-variants">
         {buttonVariants.map(v=><div className="bs-variant-row" key={v}>
           <div className="bs-variant-description"><strong>{titles[v]}</strong><p>{descriptions[v]}</p></div>
           <AxoButton variant={v} size="default" iconRight={v==='primary'||v==='gradient'?'arrow-right':undefined} icon={v==='danger'?'trash':undefined} onClick={()=>setNote('Kliknutí: '+titles[v])}>{v==='danger'?'Odstranit':'Pokračovat'}</AxoButton>
         </div>)}
+      </div>
+    </section>
+
+    <section className="panel bs-panel">
+      <div className="bs-section-heading"><div><span>01B / GRADIENT REVEAL</span><h2>Gradient Reveal Button</h2><p>Nové tlačítko podle dodaného HTML/CSS. V klidu zůstává gradient na 3px okraji kolem tmavého vnitřku. Při hoveru se vnitřek zprůhlední a celá pilulka se vyplní Blue × Purple. Kliknutí má jemný scale efekt.</p></div></div>
+      <div className="bs-reveal-showcase">
+        <div className="bs-reveal-demo">
+          <span>DEFAULT → HOVER → ACTIVE</span>
+          <AxoButton variant="gradient-reveal" onClick={()=>setNote('Gradient Reveal · kliknutí')}>Pokračovat</AxoButton>
+          <p>Najeď na tlačítko a vyzkoušej přechod.</p>
+        </div>
+        <div className="bs-reveal-spec">
+          <strong>Gradient Reveal</strong>
+          <p>3px Blue × Purple okraj, inset #141820, radius pill a 300ms změna výplně. Vychází z tvého konkrétního CSS, odděleně od stávajícího Gradient Buttonu.</p>
+          <span>DESIGN CANDIDATE · AWAITING APPROVAL</span>
+        </div>
       </div>
     </section>
 

@@ -1,0 +1,31 @@
+import { test, expect } from '@playwright/test'
+
+for (const theme of ['dark', 'light']) {
+  test(`${theme}: Gradient Reveal fills the pill on hover, with no impact on Gradient Button`, async ({page}, testInfo) => {
+    await page.goto('/')
+    await page.getByRole('group', {name:'Téma katalogu'})
+      .getByRole('button', {name:theme==='dark'?'☾ Dark':'☀ Light',exact:true}).click()
+    await page.getByRole('button', {name:'Components / Buttons',exact:true}).click()
+    const button=page.locator('.bs-reveal-demo .axo-button--gradient-reveal')
+    const inner=button.locator('.axo-button-reveal-inner')
+    await expect(button).toBeVisible()
+    await expect(button).toHaveCSS('border-top-width','0px')
+    await expect(button).toHaveCSS('padding-top','3px')
+    await expect(inner).toHaveCSS('background-color','rgb(20, 24, 32)')
+    const standard=page.locator('.bs-beam-baseline .axo-button--gradient')
+    const baseline=await standard.evaluate(el=>getComputedStyle(el).backgroundImage)
+    const initialBox=await button.boundingBox()
+    await testInfo.attach('gradient-reveal-idle-'+theme,{body:await button.screenshot(),contentType:'image/png'})
+    await button.hover()
+    await expect(inner).toHaveCSS('background-color','rgba(0, 0, 0, 0)')
+    await testInfo.attach('gradient-reveal-hover-'+theme,{body:await button.screenshot(),contentType:'image/png'})
+    const hoveredBox=await button.boundingBox()
+    expect(hoveredBox?.width).toBe(initialBox?.width)
+    expect(hoveredBox?.height).toBe(initialBox?.height)
+    await button.click()
+    await expect(page.getByRole('status').last()).toContainText('Gradient Reveal')
+    await page.mouse.move(0,0)
+    await expect(inner).toHaveCSS('background-color','rgb(20, 24, 32)')
+    expect(await standard.evaluate(el=>getComputedStyle(el).backgroundImage)).toBe(baseline)
+  })
+}
