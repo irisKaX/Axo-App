@@ -71,7 +71,7 @@ Design reference: https://uiverse.io/Yaya12085/plastic-quail-42. The exact CSS a
 ## Animated gradient border candidates (not approved)
 
 Two opt-in `AxoButton borderMotion` variants were added without changing the standard gradient:
-- `borderMotion="beam"`: a short glowing SVG stroke follows the actual pill outline (normalized path length). The beam appears on hover/focus.
+- `borderMotion="beam"`: a short SVG stroke follows the measured pill outline (normalized path length). A ResizeObserver updates the SVG viewBox whenever the button width or height changes; no outward drop-shadow is allowed to spill outside the border. The beam appears on hover/focus.
 - `borderMotion="spin"`: a rotating conic-gradient color segment is masked to a 2px pill perimeter. It appears on hover/focus.
 - `borderMotion="none"` (default) keeps the existing button unchanged.
 
