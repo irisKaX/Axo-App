@@ -1,0 +1,67 @@
+/* Cards & Containers V2 · Clean Neo Iris · catalog specimens */
+.cs-page{max-width:1360px}
+.cs-status{display:inline-block;border:1px solid var(--border);border-radius:var(--radius-pill);color:var(--muted);padding:8px 13px;font-size:10px;font-weight:750;letter-spacing:.09em;margin-bottom:24px}
+.cs-section{margin-bottom:22px}
+.cs-section-head{margin-bottom:24px}
+.cs-section-head>span{font-size:10px;letter-spacing:.13em;font-weight:750;color:var(--accent)}
+.cs-section-head h2{font-size:24px;letter-spacing:-.04em;margin:9px 0 6px}
+.cs-section-head p{font-size:13px;color:var(--muted);line-height:1.7;max-width:760px;margin:0}
+.cs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.cs-stage{background:var(--cs-canvas);border:1px solid var(--cs-border);border-radius:var(--radius-lg);padding:24px;min-width:0;display:flex;flex-direction:column}
+.cs-stage-title{display:flex;align-items:center;gap:8px;color:var(--cs-muted);font-size:10px;font-weight:750;letter-spacing:.14em;margin-bottom:16px}
+.cs-stage-dot{width:7px;height:7px;border-radius:50%;background:var(--cs-muted)}
+.cs-card{border:1px solid var(--cs-border);border-radius:var(--radius-lg);background:var(--cs-surface);color:var(--cs-text);padding:24px;min-height:218px;width:100%;text-align:left;display:flex;flex-direction:column;position:relative}
+.cs-card h3{font-size:18px;letter-spacing:-.035em;margin:0 0 9px;line-height:1.3}
+.cs-card p{font-size:12px;line-height:1.75;margin:0;color:var(--cs-muted)}
+.cs-card .cs-eyebrow{font-size:10px;font-weight:750;letter-spacing:.12em;color:var(--cs-muted);margin-bottom:14px}
+.cs-static-meta{margin-top:auto;padding-top:22px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:var(--cs-muted)}
+.cs-static-meta strong{color:var(--cs-text);font-weight:600}
+.cs-icon{display:inline-flex;color:var(--cs-text);width:24px;height:24px;align-items:center;justify-content:center;flex:none}
+.cs-card svg{width:21px;height:21px}
+.cs-interactive{cursor:pointer;font:inherit;transition:border-color .24s ease,background-color .24s ease,box-shadow .24s ease}
+.cs-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.cs-arrow{display:flex;color:var(--cs-muted);transition:color .24s}
+.cs-interactive:hover,.cs-interactive.is-selected{border-color:var(--brand);background:var(--cs-surface);box-shadow:0 6px 20px #7C4BFE12}
+.cs-interactive:hover .cs-arrow,.cs-interactive.is-selected .cs-arrow{color:var(--brand)}
+.cs-interactive:focus-visible,.cs-tool button:focus-visible,.cs-widget button:focus-visible,.cs-widget input:focus-visible{outline:3px solid var(--cs-focus);outline-offset:3px}
+.cs-selection{color:var(--cs-muted);font-size:10px;margin-top:auto;padding-top:17px}
+.cs-interactive.is-selected .cs-selection{color:var(--brand)}
+.cs-tool{min-height:240px;transition:border-color .24s ease,box-shadow .24s ease}
+.cs-tool:hover{border-color:var(--brand);box-shadow:0 6px 20px #7C4BFE12}
+.cs-tool-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.cs-favorite{border:0;background:transparent;color:var(--cs-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:5px;border-radius:10px}
+.cs-favorite:hover,.cs-favorite.is-favorite{color:var(--brand)}
+.cs-favorite.is-favorite svg{fill:currentColor}
+.cs-tool-footer{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:auto;padding-top:22px;font-size:11px;color:var(--cs-muted)}
+.cs-open-tool{display:flex;align-items:center;gap:5px;border:0;background:transparent;color:var(--brand);font-size:11px;font-weight:700;padding:5px 0;cursor:pointer}
+.cs-open-tool svg{width:15px;height:15px}
+.cs-widget{padding:0;min-height:270px}
+.cs-widget-header{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--cs-border);padding:17px 19px}
+.cs-widget-title{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700}
+.cs-widget-title svg{width:19px;height:19px}
+.cs-widget-actions{position:relative}
+.cs-widget-actions>button{border:0;background:transparent;color:var(--cs-muted);padding:4px;display:flex;cursor:pointer;border-radius:8px}
+.cs-widget-actions>button:hover{background:var(--cs-subtle)}
+.cs-menu{position:absolute;right:0;top:33px;min-width:135px;padding:5px;background:var(--cs-surface);border:1px solid var(--cs-border);border-radius:12px;z-index:1;box-shadow:0 12px 32px #0002}
+.cs-menu button{border:0;background:transparent;color:var(--cs-text);font-size:11px;cursor:pointer;padding:9px;text-align:left;width:100%;border-radius:8px}
+.cs-menu button:hover{background:var(--cs-subtle)}
+.cs-widget-body{padding:18px 19px;flex:1}
+.cs-widget-body label{display:block;font-size:11px;font-weight:600;margin-bottom:8px}
+.cs-widget-body input{border-radius:12px;border:1px solid var(--cs-border);padding:10px 12px;background:var(--cs-surface);color:var(--cs-text);font-size:11px;width:100%;min-width:0}
+.cs-widget-body p{font-size:11px;margin-top:10px}
+.cs-widget-footer{display:flex;align-items:center;justify-content:space-between;gap:9px;border-top:1px solid var(--cs-border);padding:12px 19px}
+.cs-widget-state{display:flex;align-items:center;gap:7px;color:var(--cs-muted);font-size:10px}
+.cs-widget-state i{width:7px;height:7px;border-radius:50%;background:#9EF01A}
+.cs-widget-footer button{display:flex;gap:6px;align-items:center;cursor:pointer;border:0;background:transparent;color:var(--brand);font-weight:700;font-size:11px;padding:3px}
+.cs-widget-footer button svg{height:14px;width:14px}
+.cs-notes{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:17px;color:var(--muted);font-size:11px;line-height:1.6}
+.cs-notes strong{color:var(--text)}
+.cs-rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.cs-rules>div{padding:18px;border:1px solid var(--border);border-radius:var(--radius-md);display:flex;flex-direction:column;gap:8px;min-width:0}
+.cs-rules span{color:var(--muted);font-size:11px}
+.cs-rules strong{font-size:12px;font-weight:650;line-height:1.5}
+.cs-guidance{font-size:12px;line-height:1.8;color:var(--muted);margin:22px 0 0}
+@media(max-width:1050px){.cs-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.cs-stage{padding:16px}.cs-card{padding:20px;min-height:190px}.cs-widget{padding:0}.cs-rules{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.cs-rules{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.cs-interactive,.cs-tool,.cs-arrow{transition:none}}
