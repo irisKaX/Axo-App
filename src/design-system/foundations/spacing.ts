@@ -36,7 +36,7 @@ export const layout = {
   tabletColumns: 8,
   mobileColumns: 4,
   gaps: { compact: 12, default: 16, spacious: 24 },
-  breakpoints: { mobile: 600, tablet: 900, desktop: 1200 },
+  breakpoints: { mobile: 600, desktop: 1200 },
 } as const
 
 export const density = {
