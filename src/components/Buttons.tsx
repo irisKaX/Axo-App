@@ -1,11 +1,10 @@
-import { useLayoutEffect, useRef, useState, forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { controls } from '../design-system/foundations/spacing'
 import { bluePurple } from '../design-system/foundations/brand-expression'
 import './buttons.css'
 
-export type ButtonVariant = 'primary' | 'gradient' | 'gradient-reveal' | 'secondary' | 'ghost' | 'outline' | 'accent-outline' | 'danger'
-export type ButtonSize = 'compact' | 'default' | 'comfortable'
-export type ButtonBorderMotion = 'none' | 'beam' | 'spin'
+export type ButtonVariant = 'primary' | 'primary-2' | 'secondary' | 'outline' | 'ghost' | 'danger'
+export type ButtonSize = 'compact' | 'default'
 export type ButtonIconName = 'plus' | 'copy' | 'download' | 'arrow-right' | 'check' | 'trash' | 'refresh' | 'settings' | 'close' | 'loader'
 
 export function ButtonIcon({ name, size = 18 }: { name: ButtonIconName; size?: number }) {
@@ -24,31 +23,6 @@ export function ButtonIcon({ name, size = 18 }: { name: ButtonIconName; size?: n
   return <svg className={name === 'loader' ? 'axo-button-spinner' : undefined} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>
 }
 
-/** One SVG unit is one CSS pixel; measure the viewport instead of stretching
- * a fixed viewBox (which would turn the capsule ends into ellipses). */
-function ButtonBorderBeam() {
-  const ref = useRef<SVGSVGElement>(null)
-  const [size, setSize] = useState({ width: 0, height: 0 })
-  useLayoutEffect(() => {
-    const svg = ref.current
-    if (!svg) return
-    const observer = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect
-      setSize({ width, height })
-    })
-    observer.observe(svg)
-    return () => observer.disconnect()
-  }, [])
-  const { width, height } = size
-  // A 2px stroke centered 1px inside the outer edge stays in the border ring.
-  const radius = Math.max(0, (Math.min(width, height) - 2) / 2)
-  return <svg ref={ref} className="axo-button-border-beam" aria-hidden="true" focusable="false"
-    viewBox={width && height ? `0 0 ${width} ${height}` : undefined}>
-    {width > 2 && height > 2 ? <rect x="1" y="1" width={width - 2} height={height - 2}
-      rx={radius} ry={radius} pathLength="100" /> : null}
-  </svg>
-}
-
 export interface AxoButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   children?: ReactNode
   variant?: ButtonVariant
@@ -58,27 +32,25 @@ export interface AxoButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElem
   iconOnly?: boolean
   loading?: boolean
   iconMotion?: boolean
-  borderMotion?: ButtonBorderMotion
 }
 
 export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function AxoButton({
   children, variant = 'primary', size = 'default', icon, iconRight, iconOnly = false,
-  loading = false, iconMotion = true, borderMotion = 'none', disabled, className = '', style, ...rest
+  loading = false, iconMotion = true, disabled, className = '', style, ...rest
 }, ref) {
   const dimension = controls[size]
   // Icon-only controls retain their accessible circular dimensions.
-  const buttonHeight = iconOnly ? (size === 'compact' ? controls.iconCompact : size === 'default' ? controls.iconDefault : controls.iconComfortable) : dimension.height
-  const buttonWidth = size === 'compact' ? 148 : size === 'default' ? 176 : 196
+  const buttonHeight = iconOnly ? (size === 'compact' ? controls.compact.height : controls.default.height) : dimension.height
+  const buttonWidth = size === 'compact' ? 148 : 176
   const label = iconOnly ? (rest['aria-label'] || (typeof children === 'string' ? children : undefined)) : undefined
   return <button ref={ref} type="button" {...rest}
     aria-label={label ?? rest['aria-label']}
     aria-busy={loading || undefined}
     data-tooltip={iconOnly ? (label || undefined) : undefined}
     disabled={disabled || loading}
-    className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',variant==='gradient'?'axo-button--border-'+borderMotion:'',className].filter(Boolean).join(' ')}
+    className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',variant==='primary-2'?'axo-button--orbital':'',className].filter(Boolean).join(' ')}
     style={{'--axo-button-height':buttonHeight+'px','--axo-button-width':buttonWidth+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px','--axo-gradient-blue':bluePurple.stops[0],'--axo-gradient-middle':bluePurple.stops[1],'--axo-gradient-purple':bluePurple.stops[2],...style} as React.CSSProperties}>
-    {variant === 'gradient' && borderMotion === 'beam' ? <ButtonBorderBeam /> : null}
-    {variant==='gradient-reveal' ? <span className="axo-button-reveal-inner">
+    {variant==='secondary' && !iconOnly ? <span className="axo-button-reveal-inner">
       {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
       {children ? <span className="axo-button-label">{children}</span> : null}
       {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}
@@ -90,5 +62,5 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
   </button>
 })
 
-export const buttonVariants: ButtonVariant[] = ['primary','gradient','gradient-reveal','secondary','ghost','outline','accent-outline','danger']
-export const buttonSizes: ButtonSize[] = ['compact','default','comfortable']
+export const buttonVariants: ButtonVariant[] = ['primary','primary-2','secondary','outline','ghost','danger']
+export const buttonSizes: ButtonSize[] = ['compact','default']
