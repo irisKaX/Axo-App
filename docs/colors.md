@@ -83,3 +83,7 @@ Typography, spacing, approved mascot artwork and the independent Aurora Glow/Pla
 | Info | `#4CC9F0` |
 
 These are shared status accent/border colors across light and dark themes, defined in `semantic` in `src/design-system/foundations/colors.ts`. For filled status messages, select independently contrast-compliant text colors. Warning and Success must not be used as small foreground text on white backgrounds. Verify text and icon contrast against the actual component surface before implementation.
+
+## One approved global gradient: Blue × Purple
+
+Blue × Purple `linear-gradient(130deg, #0F9FDC 0%, #3B09C7 52%, #8101EC 100%)` is the single approved brand gradient across Colors, Brand Expression, Visual Direction and the Gradient Button. This replaces Deep Electric in product use. The shared source is `bluePurpleGradient` in `src/design-system/foundations/colors.ts`, consumed by `bluePurple` in Brand Expression. Old palette swatches remain reference colors and are not alternate approved gradients.
