@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { brandColors, themes, type ThemeName } from '../design-system/foundations/colors'
-import { approvedBrandSurfaces, brandExpressionAssets, deepElectric } from '../design-system/foundations/brand-expression'
+import { approvedBrandSurfaces, brandExpressionAssets, bluePurple } from '../design-system/foundations/brand-expression'
 import './visual-directions.css'
 
 /** Approved product direction. All colors inherit from Colors v2 / Brand Expression. */
@@ -12,7 +12,7 @@ export default function VisualDirections({ theme }: { theme: ThemeName }) {
   return <div className="vd-page">
     <p className="eyebrow">FOUNDATIONS / VISUAL DIRECTION</p>
     <h1>Neo <span className="heading-accent">Iris.</span></h1>
-    <p className="intro">Jediný schválený vizuální směr Axolotlu. Skutečně neutrální pracovní plochy, výrazná fialová, Bright Blue a gradient Deep Electric. Přepínač Light / Dark v horní liště mění celý náhled.</p>
+    <p className="intro">Jediný schválený vizuální směr Axolotlu. Skutečně neutrální pracovní plochy, výrazná fialová, Bright Blue a gradient Blue × Purple. Přepínač Light / Dark v horní liště mění celý náhled.</p>
     <div className="vd-status">SCHVÁLENO · NEO IRIS · COLORS V2 · {theme.toUpperCase()}</div>
 
     <section className="vd-panel">
@@ -24,7 +24,7 @@ export default function VisualDirections({ theme }: { theme: ThemeName }) {
           <div className="vd-navigation">Workspace <span>Tools</span> Dashboard</div>
           <span className="vd-avatar">I</span>
         </div>
-        <div className="vd-hero" style={{ background: deepElectric.css }}>
+        <div className="vd-hero" style={{ background: bluePurple.css }}>
           <div className="vd-hero-text">
             <span className="vd-eyebrow">AXOLOTL WORKSPACE</span>
             <h3>Make work<br/>flow better.</h3>
@@ -67,9 +67,9 @@ export default function VisualDirections({ theme }: { theme: ThemeName }) {
     </section>
 
     <section className="vd-panel">
-      <header className="vd-section-heading"><span>03 / BRAND EXPRESSION</span><h2>Deep Electric + bílá hlava</h2><p>Schválený vizuální podpis. Plnohodnotná dokumentace a použití patří do samostatné sekce Brand Expression.</p></header>
+      <header className="vd-section-heading"><span>03 / BRAND EXPRESSION</span><h2>Blue × Purple + bílá hlava</h2><p>Schválený vizuální podpis. Plnohodnotná dokumentace a použití patří do samostatné sekce Brand Expression.</p></header>
       <div className="vd-brand-strip">
-        <div className="vd-gradient-tile" style={{ background: deepElectric.css }}><img src={brandExpressionAssets.whiteHead} alt="Bílý symbol hlavy axolotla na Deep Electric" /></div>
+        <div className="vd-gradient-tile" style={{ background: bluePurple.css }}><img src={brandExpressionAssets.whiteHead} alt="Bílý symbol hlavy axolotla na Blue × Purple" /></div>
         <div className="vd-bright-tile" style={{ background: approvedBrandSurfaces.brightBlue }}><strong>Bright Blue</strong><span>{approvedBrandSurfaces.brightBlue}</span></div>
         <div className="vd-neutral-tile"><span>Pracovní UI</span><strong>Clean. Focused. Functional.</strong></div>
       </div>
