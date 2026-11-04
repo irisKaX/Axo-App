@@ -1,0 +1,48 @@
+/* Neo Iris Dark / Light switch. Only one control, with shared state. */
+.axo-theme-switch{
+  display:inline-flex;align-items:center;justify-content:space-between;gap:16px;
+  max-width:100%;cursor:pointer;
+}
+.axo-theme-switch-label{font-size:13px;font-weight:600;line-height:1.4;color:var(--text)}
+.axo-theme-switch-control{position:relative;display:inline-flex;align-items:center;flex:none}
+.axo-theme-switch-control input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:2}
+.axo-theme-switch-track{
+  position:relative;display:block;width:78px;height:40px;border-radius:var(--radius-pill);
+  box-sizing:border-box;overflow:hidden;border:1px solid var(--control-border);
+  background:linear-gradient(130deg,#B9E7FF 0%,#E9F5FF 100%);
+  box-shadow:inset 0 1px 3px #07173020;
+  transition:background .32s ease,border-color .32s ease,box-shadow .32s ease
+}
+.axo-theme-switch-icon{position:absolute;top:11px;width:17px;height:17px;pointer-events:none;transition:opacity .25s ease,transform .36s ease}
+.axo-theme-switch-sun{right:10px;color:#1C4D73;opacity:.45}
+.axo-theme-switch-moon{left:10px;color:#FFFFFF;opacity:0;transform:rotate(-35deg)}
+.axo-theme-switch-thumb{
+  position:absolute;top:4px;left:4px;width:30px;height:30px;display:grid;place-items:center;
+  border-radius:50%;background:#FFFFFF;color:#D28A1A;
+  box-shadow:0 2px 7px #0A1B3638;transition:transform .42s cubic-bezier(.2,.8,.2,1),background .3s ease,color .3s ease
+}
+.axo-theme-switch-thumb svg{position:absolute;width:19px;height:19px;transition:opacity .25s ease,transform .4s ease}
+.axo-theme-switch-thumb-sun{opacity:1;transform:rotate(0)}
+.axo-theme-switch-thumb-moon{opacity:0;transform:rotate(-40deg)}
+.axo-theme-switch-control input:checked + .axo-theme-switch-track{
+  border-color:#7C4BFE;background:linear-gradient(130deg,#08089A 0%,#3B09C7 52%,#8101EC 100%);
+  box-shadow:inset 0 1px 4px #05021155
+}
+.axo-theme-switch-control input:checked + .axo-theme-switch-track .axo-theme-switch-thumb{
+  transform:translateX(38px);background:#F6F1FF;color:#6232D4
+}
+.axo-theme-switch-control input:checked + .axo-theme-switch-track .axo-theme-switch-sun{opacity:0;transform:rotate(60deg)}
+.axo-theme-switch-control input:checked + .axo-theme-switch-track .axo-theme-switch-moon{opacity:.85;transform:rotate(0)}
+.axo-theme-switch-control input:checked + .axo-theme-switch-track .axo-theme-switch-thumb-sun{opacity:0;transform:rotate(45deg)}
+.axo-theme-switch-control input:checked + .axo-theme-switch-track .axo-theme-switch-thumb-moon{opacity:1;transform:rotate(0)}
+.axo-theme-switch-control input:focus-visible + .axo-theme-switch-track{
+  outline:3px solid var(--focus-ring);outline-offset:3px
+}
+.axo-theme-switch-control input:not(:disabled):hover + .axo-theme-switch-track{
+  box-shadow:0 0 0 3px var(--brand-soft),inset 0 1px 3px #07173020
+}
+.axo-theme-switch-control input:disabled{cursor:not-allowed}
+.axo-theme-switch.is-disabled{opacity:.48;cursor:not-allowed}
+@media(prefers-reduced-motion:reduce){
+  .axo-theme-switch-track,.axo-theme-switch-icon,.axo-theme-switch-thumb,.axo-theme-switch-thumb svg{transition:none}
+}
