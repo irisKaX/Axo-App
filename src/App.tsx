@@ -10,7 +10,7 @@ const groups: { title: string; items: { id: Section; label: string }[] }[] = [
   { title: 'FOUNDATIONS', items: [
     { id: 'colors', label: 'Colors' },
     { id: 'expression', label: 'Brand Expression' },
-    { id: 'visual', label: 'Visual Directions' },
+    { id: 'visual', label: 'Visual Direction' },
     { id: 'typography', label: 'Typography' },
     { id: 'spacing', label: 'Spacing & Grid' },
   ] },
@@ -52,7 +52,7 @@ export default function App() {
     </aside>
     <div className="workspace">
       <header className="topbar">
-        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Directions':section}</span>
+        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section}</span>
         <div className="theme-toggle" role="group" aria-label="Téma katalogu">
           <button type="button" className={theme==='light'?'chosen':''} onClick={()=>setTheme('light')} aria-pressed={theme==='light'}>☀ Light</button>
           <button type="button" className={theme==='dark'?'chosen':''} onClick={()=>setTheme('dark')} aria-pressed={theme==='dark'}>☾ Dark</button>
@@ -61,7 +61,7 @@ export default function App() {
       <main className="main">
         {section==='colors'?<ColorStudio theme={theme} onThemeChange={setTheme}/>:
           section==='expression'?<BrandExpression/>:
-          section==='visual'?<VisualDirections/>:
+          section==='visual'?<VisualDirections theme={theme}/>:
           section==='typography'?<TypographyStudio/>:
           <section className="panel placeholder"><p className="eyebrow">PŘIPRAVUJEME</p>
             <h1>{groups.flatMap(group=>group.items).find(item=>item.id===section)?.label}</h1>
