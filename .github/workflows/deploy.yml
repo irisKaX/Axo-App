@@ -30,7 +30,7 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: Build for GitHub Pages
-        run: npm run build
+        run: npx vite build
         env:
           GITHUB_PAGES: 'true'
 
