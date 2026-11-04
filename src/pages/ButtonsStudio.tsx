@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AxoButton, ButtonIcon, buttonSizes, buttonVariants, type ButtonSize, type ButtonVariant } from '../components/Buttons'
+import { AxoButton, ButtonIcon, buttonSizes, buttonVariants, buttonFinishes, type ButtonFinish, type ButtonSize, type ButtonVariant } from '../components/Buttons'
 import { controls, radius } from '../design-system/foundations/spacing'
 import './buttons-studio.css'
 
@@ -27,6 +27,7 @@ export default function ButtonsStudio() {
   const [note,setNote]=useState('Vyzkoušej jednotlivá tlačítka. Ukázky neovlivňují skutečná data.')
   const [showCode,setShowCode]=useState(false)
   const [motionEnabled,setMotionEnabled]=useState(true)
+  const [gradientFinish,setGradientFinish]=useState<ButtonFinish>('glow')
 
   async function copyText() {
     try{
@@ -89,7 +90,24 @@ export default function ButtonsStudio() {
     </section>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>04 / INTERACTION STUDIO</span><h2>Ikony, které mají charakter</h2><p>Inspirace interaktivními tlačítky z Uiverse, převedená do Neo Iris. Vyzkoušej skutečný hover na každé ukázce. Nikde se nezvedá celé tlačítko.</p></div></div>
+      <div className="bs-section-heading"><div><span>04 / GRADIENT LAB</span><h2>Gradient, který opravdu vynikne</h2><p>Čtyři návrhy zpracování schváleného Deep Electric: vrstvený okraj, světelná aura, lehké sklo a pohyblivý odlesk. Barevné stopy neměním, jen efekt.</p></div></div>
+      <div className="bs-finish-grid">
+        {buttonFinishes.map((finish,i)=><div key={finish} className={'bs-finish-option'+(gradientFinish===finish?' is-selected':'')}>
+          <span className="bs-finish-number">{String(i+1).padStart(2,'0')} / DESIGN STUDY</span>
+          <div className="bs-finish-demo"><AxoButton variant="gradient" finish={finish} size="comfortable" iconRight="arrow-right" onClick={()=>setGradientFinish(finish)}>Pokračovat</AxoButton></div>
+          <strong>{finish==='standard'?'Luminous Rim':finish==='glow'?'Electric Glow':finish==='glass'?'Soft Glass':'Light Sweep'}</strong>
+          <p>{finish==='standard'?'Barevná hloubka a tenký světelný okraj':finish==='glow'?'Výraznější, ale kultivovaná aura':finish==='glass'?'Průsvitná vnitřní vrstva a odlesk':'Světlý záblesk přes povrch při hoveru'}</p>
+          <button type="button" className="bs-finish-choice" aria-pressed={gradientFinish===finish} onClick={()=>setGradientFinish(finish)}>{gradientFinish===finish?'✓ Zvoleno pro náhled':'Vybrat pro náhled'}</button>
+        </div>)}
+      </div>
+      <div className="bs-finish-feature">
+        <div><span>ACTIVE PREVIEW / {gradientFinish.toUpperCase()}</span><strong>Deep Electric</strong><p>Vyzkoušej najetí myší. Tento efekt je návrh, ne schválený globální styl.</p></div>
+        <AxoButton variant="gradient" size="comfortable" finish={gradientFinish} iconRight="arrow-right" onClick={()=>setNote('Gradient '+gradientFinish)}>Otevřít Workspace</AxoButton>
+      </div>
+    </section>
+
+    <section className="panel bs-panel">
+      <div className="bs-section-heading"><div><span>05 / INTERACTION STUDIO</span><h2>Ikony, které mají charakter</h2><p>Inspirace interaktivními tlačítky z Uiverse, převedená do Neo Iris. Vyzkoušej skutečný hover na každé ukázce. Nikde se nezvedá celé tlačítko.</p></div></div>
       <div className="bs-motion-toolbar"><span>MICRO-INTERACTIONS</span><button type="button" className={motionEnabled?'bs-motion-switch is-on':'bs-motion-switch'} onClick={()=>setMotionEnabled(v=>!v)} aria-pressed={motionEnabled}>{motionEnabled?'Animace zapnuté':'Animace vypnuté'} <span aria-hidden="true">{motionEnabled?'●':'○'}</span></button></div>
       <div className="bs-motion-grid">
         <div className="bs-motion-card"><span>01 / GRADIENT ACTION</span><strong>Deep Electric</strong><p>Jemný průchod schváleného gradientu s elegantním efektem šipky, bez pohybu tlačítka.</p><AxoButton variant="gradient" iconRight="arrow-right" iconMotion={motionEnabled} size="comfortable" onClick={()=>setNote('Gradient button · Deep Electric')}>Pokračovat</AxoButton></div>
@@ -101,7 +119,7 @@ export default function ButtonsStudio() {
     </section>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>05 / STATES PLAYGROUND</span><h2>Stavy a chování</h2><p>Přepínej variantu, rozměr a stav. Vizualizace hover/focus/active umožňuje kontrolu i bez myši.</p></div></div>
+      <div className="bs-section-heading"><div><span>06 / STATES PLAYGROUND</span><h2>Stavy a chování</h2><p>Přepínej variantu, rozměr a stav. Vizualizace hover/focus/active umožňuje kontrolu i bez myši.</p></div></div>
       <div className="bs-playground">
         <div className="bs-playground-controls">
           <span className="bs-control-label" id="bs-variant-label">Varianta</span>
@@ -124,7 +142,7 @@ export default function ButtonsStudio() {
     </section>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>06 / SPECIAL ACTIONS</span><h2>Copy, Download, Add a Remove</h2><p>Ukázky mají reálné interakce. Kopírování používá schránku, Download vytváří ukázkový soubor, ostatní mění počítadlo.</p></div></div>
+      <div className="bs-section-heading"><div><span>07 / SPECIAL ACTIONS</span><h2>Copy, Download, Add a Remove</h2><p>Ukázky mají reálné interakce. Kopírování používá schránku, Download vytváří ukázkový soubor, ostatní mění počítadlo.</p></div></div>
       <div className="bs-special-grid">
         <div className="bs-special-card"><span>COPY</span><strong>Kopírovat URL</strong><p>{copied?'Zkopírováno do schránky':'Připraveno ke kopírování'}</p><AxoButton variant="secondary" icon={copied?'check':'copy'} onClick={()=>void copyText()}>{copied?'Zkopírováno':'Kopírovat'}</AxoButton></div>
         <div className="bs-special-card"><span>DOWNLOAD</span><strong>Ukázkový soubor</strong><p>Stažení .txt přímo v prohlížeči.</p><AxoButton icon="download" onClick={downloadSample}>Stáhnout</AxoButton></div>
