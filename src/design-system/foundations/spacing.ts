@@ -26,7 +26,7 @@ export const radiusCssVariables = Object.fromEntries(
 
 export const controls = {
   compact: { height: 32, horizontalPadding: 14, fontSize: 12 },
-  default: { height: 40, horizontalPadding: 20, fontSize: 13 },
+  default: { height: 38, horizontalPadding: 20, fontSize: 13 },
   comfortable: { height: 48, horizontalPadding: 24, fontSize: 14 },
   iconCompact: 36,
   iconDefault: 44,
