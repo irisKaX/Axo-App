@@ -49,3 +49,10 @@
 .nh-note{font-size:12px;line-height:1.8;color:var(--muted);margin:18px 0 0}
 @media(max-width:950px){.nh-anatomy{grid-template-columns:1fr}}
 @media(max-width:560px){.nh-stage{padding:12px}.nh-stage-label{display:block}.nh-stage-label span{display:block;margin-top:4px}}
+
+/* Link to full laptop-size dashboard, where the same HeaderPreview is reused. */
+.nh-open-dashboard{display:flex;align-items:center;flex-wrap:wrap;gap:10px 15px;margin:0 0 22px}
+.nh-open-dashboard button{border:1px solid var(--brand);background:var(--subtle);color:var(--text);border-radius:var(--radius-pill);padding:11px 18px;font-size:12px;font-weight:700;cursor:pointer}
+.nh-open-dashboard button:hover{background:var(--brand-soft)}
+.nh-open-dashboard button:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+.nh-open-dashboard span{font-size:11px;color:var(--muted)}
