@@ -38,7 +38,7 @@ const browserTabs=[
   {title:'O2',url:'https://www.o2.cz/'}
 ]
 
-function HeaderPreview({mode,onModeChange}: {mode:ThemeName;onModeChange:(mode:ThemeName)=>void}){
+export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeName;onModeChange:(mode:ThemeName)=>void;standalone?:boolean}){
   const [open,setOpen]=useState<Menu>(null)
   const [activeTab,setActiveTab]=useState(0)
   const [feedback,setFeedback]=useState('')
@@ -63,8 +63,8 @@ function HeaderPreview({mode,onModeChange}: {mode:ThemeName;onModeChange:(mode:T
   }
   const tokens=themes[mode]
   const style={'--nh-canvas':tokens.canvas,'--nh-surface':tokens.surface,'--nh-subtle':tokens.subtle,'--nh-border':tokens.border,'--nh-text':tokens.text,'--nh-muted':tokens.muted,'--nh-focus':tokens.focusRing} as CSSProperties
-  return <div className={'nh-stage is-'+mode} style={style} ref={rootRef}>
-    <div className="nh-stage-label">{mode==='dark'?'DARK MODE':'LIGHT MODE'} <span>Desktop preview · jedna řada</span></div>
+  return <div className={'nh-stage is-'+mode+(standalone?' nh-standalone':'')} style={style} ref={rootRef}>
+    {!standalone&&<div className="nh-stage-label">{mode==='dark'?'DARK MODE':'LIGHT MODE'} <span>Desktop preview · jedna řada</span></div>}
     <div className="nh-scroll">
       <header className="nh-header" aria-label="Ukázka horizontální navigace">
         <div className="nh-brand" aria-label="Axolotl">✳</div>
@@ -99,7 +99,7 @@ function HeaderPreview({mode,onModeChange}: {mode:ThemeName;onModeChange:(mode:T
         <div className="nh-theme"><ThemeSwitch theme={mode} onThemeChange={onModeChange} label="Tmavý režim"/></div>
       </header>
     </div>
-    <div className="nh-feedback" role="status">{feedback||'Vyzkoušej dropdowny, přepínání URL, kopírování a změnu motivu.'}</div>
+    <div className={standalone?'nh-feedback nh-feedback-floating':'nh-feedback'} role="status" aria-live="polite">{feedback}</div>
   </div>
 }
 
