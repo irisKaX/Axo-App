@@ -1,5 +1,7 @@
 import { useState, type CSSProperties } from 'react'
 import { typography, typographySamples, fontWeights, fontFamilies, type TypographyRole } from '../design-system/foundations/typography'
+import { AccentDot, AccentWord, EyebrowHeading } from '../components/TextTreatments'
+import { textTreatments } from '../design-system/foundations/text-treatments'
 import './typography-studio.css'
 
 const sampleRoles: TypographyRole[] = ['display', 'h1', 'h2', 'h3', 'h4', 'bodyLg', 'body', 'bodySm', 'label', 'button', 'caption', 'overline']
@@ -66,7 +68,31 @@ export default function TypographyStudio() {
     </section>
 
     <section className="typo-panel">
-      <div className="typo-section-head"><span className="typo-kicker">05 · TYPOGRAPHY PLAYGROUND</span><h2>Vyzkoušej si vlastní text</h2><p>Uprav velikost, váhu a rozestupy a podívej se, jak se písmo chová. Změny jsou pouze v tomto náhledu.</p></div>
+      <div className="typo-section-head"><span className="typo-kicker">05 · TEXT TREATMENTS</span><h2>Schválené typografické akcenty</h2><p>Tři opakovaně použitelné způsoby práce s nadpisy. Akcent vždy používá Iris Purple z Colors v2, rozestupy vycházejí ze Spacing a základní typografie z Poppins.</p></div>
+      <div className="typo-treatment-grid">
+        <article className="typo-treatment-card">
+          <div className="typo-treatment-meta"><span>01 / ACCENT DOT</span><strong>Schváleno</strong></div>
+          <div className="typo-treatment-example"><AccentDot as="h3">{textTreatments.accentDot.example}</AccentDot></div>
+          <p>Jediná fialová tečka uzavírá nadpis. Zbytek textu zůstává v základní barvě podle tématu.</p>
+          <code>textTreatments.accentDot</code>
+        </article>
+        <article className="typo-treatment-card">
+          <div className="typo-treatment-meta"><span>02 / ACCENT WORD</span><strong>Schváleno</strong></div>
+          <div className="typo-treatment-example"><AccentWord as="h3" before={textTreatments.accentWord.example.start} accent={textTreatments.accentWord.example.accent}/></div>
+          <p>Zvýrazněné slovo nebo krátká fráze v Iris Purple. Základ nadpisu zůstává neutrální.</p>
+          <code>textTreatments.accentWord</code>
+        </article>
+        <article className="typo-treatment-card">
+          <div className="typo-treatment-meta"><span>03 / EYEBROW + HEADING</span><strong>Schváleno</strong></div>
+          <div className="typo-treatment-example"><EyebrowHeading eyebrow={textTreatments.eyebrowHeading.eyebrow} as="h3">{textTreatments.eyebrowHeading.heading}</EyebrowHeading></div>
+          <p>Verzálkový popisek 8 px nad nadpisem. Nadpis končí fialovou tečkou.</p>
+          <code>textTreatments.eyebrowHeading</code>
+        </article>
+      </div>
+    </section>
+
+    <section className="typo-panel">
+      <div className="typo-section-head"><span className="typo-kicker">06 · TYPOGRAPHY PLAYGROUND</span><h2>Vyzkoušej si vlastní text</h2><p>Uprav velikost, váhu a rozestupy a podívej se, jak se písmo chová. Změny jsou pouze v tomto náhledu.</p></div>
       <div className="typo-playground">
         <div className="typo-controls">
           <label htmlFor="typo-text">Ukázkový text</label><input id="typo-text" value={example} onChange={e=>setExample(e.target.value)} maxLength={140}/>
