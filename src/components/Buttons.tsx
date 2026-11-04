@@ -10,8 +10,8 @@ export type ButtonIconName = 'plus' | 'copy' | 'download' | 'arrow-right' | 'che
 export function ButtonIcon({ name, size = 18 }: { name: ButtonIconName; size?: number }) {
   const paths: Record<ButtonIconName, ReactNode> = {
     plus: <path d="M12 5v14M5 12h14"/>,
-    copy: <><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></>,
-    download: <><path d="M12 3v12m-4-4 4 4 4-4"/><path d="M4 17v3h16v-3"/></>,
+    copy: <><rect className="axo-glyph-copy-front" x="8" y="8" width="12" height="12" rx="2"/><path className="axo-glyph-copy-back" d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></>,
+    download: <><path className="axo-glyph-download-arrow" d="M12 3v12m-4-4 4 4 4-4"/><path className="axo-glyph-download-tray" d="M4 17v3h16v-3"/></>,
     'arrow-right': <><path d="M4 12h16M14 6l6 6-6 6"/></>,
     check: <path d="m5 12 4 4L19 6"/>,
     trash: <><path d="M4 7h16M10 4h4m-8 3 1 13h10l1-13M10 10v7m4-7v7"/></>,
@@ -43,6 +43,7 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
   return <button ref={ref} type="button" {...rest}
     aria-label={label ?? rest['aria-label']}
     aria-busy={loading || undefined}
+    data-tooltip={iconOnly ? (label || undefined) : undefined}
     disabled={disabled || loading}
     className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',className].filter(Boolean).join(' ')}
     style={{'--axo-button-height':dimension.height+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px','--axo-button-gradient':deepElectric.css,...style} as React.CSSProperties}>

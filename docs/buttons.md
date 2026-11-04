@@ -40,12 +40,18 @@ No new gradients or brand variants are introduced here.
 The variant and size selectors in the Buttons gallery are pill-style button groups with native `button` semantics and `aria-pressed`, not native visual `select` dropdowns. The full custom Select pattern (including arrow positioning, popup options, and keyboard behavior) belongs in **Components → Inputs & Forms**. No user-facing form control should expose unstyled browser-default appearance. Do not use these pill selector groups as a replacement for true Select fields elsewhere.
 
 
-## Gradient & motion candidates
+## Gradient & refined interaction candidates
 
-- **Gradient** uses only approved `deepElectric.css` from `src/design-system/foundations/brand-expression.ts` (Frame 27). Its stops are not changed or supplemented.
-- Hover movement is restrained: 2px lift, a subtle themed shadow, and gradient background-position shift.
-- Purposeful icon hover patterns: arrow-right 4px right, download 3px down, plus 90° rotation, copy a small diagonal shift, refresh 50° rotation, settings 35° rotation, check scale, close rotation, trash 2px up.
-- All real hover effects are defined in the reusable `src/components/buttons.css`, not only the playground. The playground simulates the gradient state with the same property values.
-- `iconMotion={false}` disables the icon micro-interaction for special contexts; the `prefers-reduced-motion: reduce` media query stops motion automatically.
-- Focus remains visible without requiring hover, and disabled/loading do not animate on hover.
-- All these are **candidates for visual review**, not approved design decisions yet.
+The gradient button uses only approved `deepElectric.css` from Brand Expression. Every button remains in place on hover; no vertical lift.
+
+Interaction studies (inspired by user-supplied Uiverse references, adapted for Axolotl's palette and geometry):
+- **Copy / two paper layers:** animate the upper and rear sheet separately within SVG. Avoid translating the entire glyph.
+- **Download / arrow into tray:** move the arrow toward a stationary tray. The control remains stationary.
+- **Arrow / travel and return:** arrow exits to the right and returns within the same visual footprint.
+- **Plus / Refresh / Settings:** subtle rotations, purpose-driven rather than generic bouncing.
+- **Icon-only:** subtle focus/hover ring with a label tooltip derived from the accessible name.
+- **Gradient:** Deep Electric has a small animated background-position shift. Shadows can change, button position does not.
+- Gallery offers an in-page motion toggle; turning it off affects icon animations on the four study samples.
+- All styles honor `prefers-reduced-motion: reduce`. Real focus-visible, disabled and loading states remain operational.
+
+The four supplied Uiverse pages are design references, not copied component specifications. The Buttons patterns remain candidates until visually approved.

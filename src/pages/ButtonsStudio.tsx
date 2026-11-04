@@ -26,6 +26,7 @@ export default function ButtonsStudio() {
   const [copied,setCopied]=useState(false)
   const [note,setNote]=useState('Vyzkoušej jednotlivá tlačítka. Ukázky neovlivňují skutečná data.')
   const [showCode,setShowCode]=useState(false)
+  const [motionEnabled,setMotionEnabled]=useState(true)
 
   async function copyText() {
     try{
@@ -88,13 +89,15 @@ export default function ButtonsStudio() {
     </section>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>04 / MOTION & GRADIENT</span><h2>Živé hover efekty</h2><p>Najeď na tlačítka a sleduj jemný pohyb, posun gradientu a animaci ikon. Používáme pouze schválený Deep Electric.</p></div></div>
+      <div className="bs-section-heading"><div><span>04 / INTERACTION STUDIO</span><h2>Ikony, které mají charakter</h2><p>Inspirace interaktivními tlačítky z Uiverse, převedená do Neo Iris. Vyzkoušej skutečný hover na každé ukázce. Nikde se nezvedá celé tlačítko.</p></div></div>
+      <div className="bs-motion-toolbar"><span>MICRO-INTERACTIONS</span><button type="button" className={motionEnabled?'bs-motion-switch is-on':'bs-motion-switch'} onClick={()=>setMotionEnabled(v=>!v)} aria-pressed={motionEnabled}>{motionEnabled?'Animace zapnuté':'Animace vypnuté'} <span aria-hidden="true">{motionEnabled?'●':'○'}</span></button></div>
       <div className="bs-motion-grid">
-        <div className="bs-motion-card"><span>DEEP ELECTRIC</span><strong>Gradient Button</strong><p>Gradient se při hoveru posouvá, tlačítko se jemně nadzvedne.</p><AxoButton variant="gradient" iconRight="arrow-right" size="comfortable" onClick={()=>setNote('Gradient button · Deep Electric')}>Pokračovat</AxoButton></div>
-        <div className="bs-motion-card"><span>ICON SHIFT</span><strong>Arrow & Download</strong><p>Šipka se posune doprava, ikona stažení dolů.</p><div className="bs-motion-actions"><AxoButton variant="primary" iconRight="arrow-right" onClick={()=>setNote('Arrow hover')}>Otevřít</AxoButton><AxoButton variant="secondary" icon="download" onClick={downloadSample}>Stáhnout</AxoButton></div></div>
-        <div className="bs-motion-card"><span>ROUND ICON MOTION</span><strong>Plus, Copy & Refresh</strong><p>Rotace plus a refresh, drobný posun kopírování. Kruh zůstává stejně velký.</p><div className="bs-motion-actions"><AxoButton iconOnly icon="plus" aria-label="Přidat" onClick={()=>setCounter(n=>n+1)}/><AxoButton variant="secondary" iconOnly icon="copy" aria-label="Kopírovat" onClick={()=>void copyText()}/><AxoButton variant="outline" iconOnly icon="refresh" aria-label="Obnovit náhled" onClick={()=>setNote('Náhled obnoven')}/></div></div>
+        <div className="bs-motion-card"><span>01 / GRADIENT ACTION</span><strong>Deep Electric</strong><p>Jemný průchod schváleného gradientu s elegantním efektem šipky, bez pohybu tlačítka.</p><AxoButton variant="gradient" iconRight="arrow-right" iconMotion={motionEnabled} size="comfortable" onClick={()=>setNote('Gradient button · Deep Electric')}>Pokračovat</AxoButton></div>
+        <div className="bs-motion-card"><span>02 / COPY · LAYER SHIFT</span><strong>Dvě vrstvy, jeden pohyb</strong><p>Listy ikonky se od sebe při hoveru oddálí a znovu přesně složí.</p><div className="bs-motion-actions"><AxoButton variant="secondary" icon="copy" iconOnly iconMotion={motionEnabled} aria-label="Kopírovat URL" onClick={()=>void copyText()}/><AxoButton variant="outline" icon="copy" iconMotion={motionEnabled} onClick={()=>void copyText()}>Kopírovat</AxoButton></div></div>
+        <div className="bs-motion-card"><span>03 / DOWNLOAD · DROP IN</span><strong>Šipka do zásobníku</strong><p>Šipka zajede dolů do pevného zásobníku. Všimni si rozdílu oproti obyčejnému posunutí celé ikony.</p><div className="bs-motion-actions"><AxoButton variant="secondary" icon="download" iconOnly iconMotion={motionEnabled} aria-label="Stáhnout ukázku" onClick={downloadSample}/><AxoButton icon="download" iconMotion={motionEnabled} onClick={downloadSample}>Stáhnout</AxoButton></div></div>
+        <div className="bs-motion-card"><span>04 / DIRECTION & ROTATION</span><strong>Arrow, Plus & Refresh</strong><p>Šipka projede a vrátí se, plus a obnovení se plynule pootočí. Kulatá tlačítka neodskakují.</p><div className="bs-motion-actions"><AxoButton variant="gradient" icon="arrow-right" iconOnly iconMotion={motionEnabled} aria-label="Pokračovat" onClick={()=>setNote('Arrow hover')}/><AxoButton icon="plus" iconOnly iconMotion={motionEnabled} aria-label="Přidat položku" onClick={()=>setCounter(n=>n+1)}/><AxoButton variant="outline" icon="refresh" iconOnly iconMotion={motionEnabled} aria-label="Obnovit náhled" onClick={()=>setNote('Náhled obnoven')}/></div></div>
       </div>
-      <div className="bs-guide"><strong>Přístupnost:</strong> hover nesmí být jedinou informací o stavu. Focus je viditelný klávesnicí, disabled a loading jsou neaktivní. Systémové nastavení omezeného pohybu animace vypíná.</div>
+      <div className="bs-guide"><strong>Princip:</strong> interakce mají ukázat účel ikony. Hover mění její detail nebo barvu tlačítka, ale neposouvá celé tlačítko nahoru. Systémové omezení animací má vždy přednost.</div>
     </section>
 
     <section className="panel bs-panel">
@@ -135,7 +138,7 @@ export default function ButtonsStudio() {
       <div className="bs-technical-body">
         <p><strong>Single source of truth:</strong> <code>src/components/Buttons.tsx</code> a <code>src/components/buttons.css</code>, rozměry <code>src/design-system/foundations/spacing.ts</code>, barvy <code>Colors v2</code>.</p>
         <p>Text buttons: <code>border-radius: {radius.pill}px</code>. Icon-only buttons: <code>border-radius: {radius.round}</code> se stejnou šířkou a výškou.</p>
-        <p>Gradient používá pouze schválený Deep Electric z Brand Expression. Hover: jemný lift, světlo a tematický pohyb ikon. <code>prefers-reduced-motion</code> animace vypíná.</p>
+        <p>Gradient používá pouze schválený Deep Electric z Brand Expression. Hover: jemná změna barvy/stínu, rozdělení vrstev Copy, vnoření Download a průjezd Arrow bez posunu celého tlačítka. <code>prefers-reduced-motion</code> animace vypíná.</p>
         <p>Podporované stavy: default, hover, active, keyboard focus, disabled, loading. Loading blokuje opakované kliknutí; samostatné ikony vyžadují <code>aria-label</code>.</p>
         <p>Speciální chování není součástí čistě vizuální varianty tlačítka. Akce Copy, Download, Add a Remove poskytuje konkrétní kontext použití.</p>
       </div>
