@@ -1,8 +1,9 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { controls } from '../design-system/foundations/spacing'
+import { deepElectric } from '../design-system/foundations/brand-expression'
 import './buttons.css'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger'
+export type ButtonVariant = 'primary' | 'gradient' | 'secondary' | 'ghost' | 'outline' | 'danger'
 export type ButtonSize = 'compact' | 'default' | 'comfortable'
 export type ButtonIconName = 'plus' | 'copy' | 'download' | 'arrow-right' | 'check' | 'trash' | 'refresh' | 'settings' | 'close' | 'loader'
 
@@ -30,11 +31,12 @@ export interface AxoButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElem
   iconRight?: ButtonIconName
   iconOnly?: boolean
   loading?: boolean
+  iconMotion?: boolean
 }
 
 export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function AxoButton({
   children, variant = 'primary', size = 'default', icon, iconRight, iconOnly = false,
-  loading = false, disabled, className = '', style, ...rest
+  loading = false, iconMotion = true, disabled, className = '', style, ...rest
 }, ref) {
   const dimension = controls[size]
   const label = iconOnly ? (rest['aria-label'] || (typeof children === 'string' ? children : undefined)) : undefined
@@ -42,13 +44,13 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
     aria-label={label ?? rest['aria-label']}
     aria-busy={loading || undefined}
     disabled={disabled || loading}
-    className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',className].filter(Boolean).join(' ')}
-    style={{'--axo-button-height':dimension.height+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px',...style} as React.CSSProperties}>
-    {loading ? <ButtonIcon name="loader"/> : icon ? <ButtonIcon name={icon}/> : null}
+    className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',className].filter(Boolean).join(' ')}
+    style={{'--axo-button-height':dimension.height+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px','--axo-button-gradient':deepElectric.css,...style} as React.CSSProperties}>
+    {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
     {iconOnly ? <span className="axo-button-icon-sr">{children}</span> : children ? <span className="axo-button-label">{children}</span> : null}
-    {!loading && iconRight ? <ButtonIcon name={iconRight}/> : null}
+    {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}
   </button>
 })
 
-export const buttonVariants: ButtonVariant[] = ['primary','secondary','ghost','outline','danger']
+export const buttonVariants: ButtonVariant[] = ['primary','gradient','secondary','ghost','outline','danger']
 export const buttonSizes: ButtonSize[] = ['compact','default','comfortable']
