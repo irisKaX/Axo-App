@@ -4,19 +4,20 @@ import { controls } from '../design-system/foundations/spacing'
 import './buttons-studio.css'
 
 const titles: Record<ButtonVariant,string> = {
-  primary:'Primary',gradient:'Gradient','gradient-reveal':'Gradient Reveal',
-  secondary:'Secondary',ghost:'Ghost',outline:'Outline',
-  'accent-outline':'Accent Outline',danger:'Danger'
+  primary:'Primary',
+  'primary-2':'Primary 2 · Orbital Glow',
+  secondary:'Secondary',
+  outline:'Outline',
+  ghost:'Ghost',
+  danger:'Danger'
 }
 const descriptions: Record<ButtonVariant,string> = {
-  primary:'Hlavní akce na stránce.',
-  gradient:'Schválený Blue × Purple gradient.',
-  'gradient-reveal':'Gradientový obvod s plynulým odhalením výplně.',
-  secondary:'Vedlejší akce.',
-  ghost:'Nenápadná akce.',
-  outline:'Neutrální obrys.',
-  'accent-outline':'Výrazná fialová kontura s jemným hoverem.',
-  danger:'Destruktivní akce.'
+  primary:'Schválený Blue × Purple gradient bez automatické šipky.',
+  'primary-2':'Stejný primární gradient se stále rotujícím světlem po obvodu.',
+  secondary:'Gradient Reveal: barevný obvod a plynulé odhalení gradientu při hoveru.',
+  outline:'Výrazná fialová kontura z původního Accent Outline.',
+  ghost:'Nenápadná akce bez výrazné plochy.',
+  danger:'Destruktivní akce pro nevratné operace.'
 }
 const roundIcons = ['plus','copy','download','arrow-right','check','trash','refresh','settings','close'] as const
 
@@ -50,11 +51,11 @@ export default function ButtonsStudio() {
     <h1>Buttons<span className="heading-accent">.</span></h1>
     <p className="intro">Jednotná knihovna tlačítek Clean Neo Iris. Používáme pouze velikosti Compact a Default a zachováváme schválené animace ikon.</p>
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>01 / VARIANTS</span><h2>Hierarchie akcí</h2><p>Primární, sekundární a doplňkové akce. Všechny varianty mají společný základ.</p></div></div>
+      <div className="bs-section-heading"><div><span>01 / VARIANTS</span><h2>Hierarchie akcí</h2><p>Šest schválených rolí. Všechny textové varianty mají stejné rozměry, samostatné ikonové varianty stejnou výšku a průměr.</p></div></div>
       <div className="bs-variants">
         {buttonVariants.map(v=><div className="bs-variant-row" key={v}>
           <div className="bs-variant-description"><strong>{titles[v]}</strong><p>{descriptions[v]}</p></div>
-          <AxoButton variant={v} size="default" iconRight={v==='primary'||v==='gradient'?'arrow-right':undefined} icon={v==='danger'?'trash':undefined} onClick={()=>setNote('Kliknutí: '+titles[v])}>{v==='danger'?'Odstranit':'Pokračovat'}</AxoButton>
+          <AxoButton variant={v} size="default" icon={v==='danger'?'trash':undefined} onClick={()=>setNote('Kliknutí: '+titles[v])}>{v==='danger'?'Odstranit':'Pokračovat'}</AxoButton>
         </div>)}
       </div>
       <div className="bs-size-rows">
@@ -69,20 +70,21 @@ export default function ButtonsStudio() {
     </section>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>02 / ICON ACTIONS</span><h2>Dokonale kulatá tlačítka</h2><p>Jednotné kruhové ikony. Každá akce má přístupný název.</p></div></div>
+      <div className="bs-section-heading"><div><span>02 / ICON ACTIONS</span><h2>Dokonale kulatá tlačítka</h2><p>Primary používá Blue × Purple gradient, Secondary neutrální plochu. Průměr je 38 px jako výška Default tlačítka.</p></div></div>
       <div className="bs-icon-library">
         {roundIcons.map(icon=><div className="bs-icon-swatch" key={icon}>
-          <AxoButton size="default" variant={icon==='trash'?'danger':'secondary'} icon={icon} iconOnly aria-label={'Akce '+icon} onClick={()=>setNote('Ikona: '+icon)}/>
+          <AxoButton size="default" variant="primary" icon={icon} iconOnly aria-label={'Primární '+icon} onClick={()=>setNote('Primární ikona: '+icon)}/>
+          <AxoButton size="default" variant="secondary" icon={icon} iconOnly aria-label={'Sekundární '+icon} onClick={()=>setNote('Sekundární ikona: '+icon)}/>
           <span>{icon}</span>
         </div>)}
       </div>
     </section>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>03 / ORBITAL GLOW</span><h2>Orbital Glow</h2><p>Schválený pohyb světelného segmentu kolem gradientového tlačítka.</p></div></div>
+      <div className="bs-section-heading"><div><span>03 / ORBITAL GLOW</span><h2>Orbital Glow</h2><p>Primary 2 se stále rotujícím segmentem světla, nezávisle na hoveru.</p></div></div>
       <div className="bs-beam-grid">
-        <div className="bs-beam-card"><span>ORBITAL GLOW</span><strong>Spinning Accent</strong><p>Světlo se pohybuje po obvodu, tlačítko zůstává na místě.</p>
-          <div className="bs-beam-showcase"><AxoButton variant="gradient" borderMotion="spin" size="default" iconRight="arrow-right" onClick={()=>setNote('Orbital Glow')}>Pokračovat</AxoButton></div>
+        <div className="bs-beam-card"><span>ORBITAL GLOW</span><strong>Spinning Accent</strong><p>Světelný segment obíhá trvale. Hover stále reaguje jemnou změnou gradientu.</p>
+          <div className="bs-beam-showcase"><AxoButton variant="primary-2" size="default" onClick={()=>setNote('Orbital Glow')}>Pokračovat</AxoButton></div>
         </div>
       </div>
     </section>
@@ -100,7 +102,7 @@ export default function ButtonsStudio() {
           <AxoButton icon="download" iconMotion={motionEnabled} onClick={downloadSample}>Stáhnout</AxoButton>
         </div></div>
         <div className="bs-motion-card"><span>ARROW</span><strong>Pokračovat</strong><p>Animovaná směrová šipka.</p><div className="bs-motion-actions">
-          <AxoButton variant="gradient" icon="arrow-right" iconOnly iconMotion={motionEnabled} aria-label="Pokračovat" onClick={()=>setNote('Arrow')}/>
+          <AxoButton variant="primary" icon="arrow-right" iconOnly iconMotion={motionEnabled} aria-label="Pokračovat" onClick={()=>setNote('Arrow')}/>
           <AxoButton variant="secondary" iconRight="arrow-right" iconMotion={motionEnabled} onClick={()=>setNote('Arrow')}>Pokračovat</AxoButton>
         </div></div>
         <div className="bs-motion-card"><span>PLUS & REFRESH</span><strong>Přidat a obnovit</strong><p>Jemné pootočení obou ikon.</p><div className="bs-motion-actions">
