@@ -72,3 +72,14 @@ Frames 14, 19, 21, 22 and 23 are excluded because they fall under 3:1. These fig
 ## Not changed
 
 Typography, spacing, approved mascot artwork and the independent Aurora Glow/Playful Plasma exploratory concepts.
+
+## Approved semantic status colors (2026-11-04)
+
+| State | Color |
+| --- | --- |
+| Error | `#FF0A54` |
+| Warning | `#F6DE26` |
+| Success | `#9EF01A` |
+| Info | `#4CC9F0` |
+
+These are shared status accent/border colors across light and dark themes, defined in `semantic` in `src/design-system/foundations/colors.ts`. For filled status messages, select independently contrast-compliant text colors. Warning and Success must not be used as small foreground text on white backgrounds. Verify text and icon contrast against the actual component surface before implementation.
