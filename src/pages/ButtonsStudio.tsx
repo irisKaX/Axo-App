@@ -90,10 +90,14 @@ export default function ButtonsStudio() {
       <div className="bs-section-heading"><div><span>04 / STATES PLAYGROUND</span><h2>Stavy a chování</h2><p>Přepínej variantu, rozměr a stav. Vizualizace hover/focus/active umožňuje kontrolu i bez myši.</p></div></div>
       <div className="bs-playground">
         <div className="bs-playground-controls">
-          <label htmlFor="bs-variant">Varianta</label>
-          <select id="bs-variant" value={variant} onChange={e=>setVariant(e.target.value as ButtonVariant)}>{buttonVariants.map(v=><option key={v} value={v}>{titles[v]}</option>)}</select>
-          <label htmlFor="bs-size">Velikost</label>
-          <select id="bs-size" value={size} onChange={e=>setSize(e.target.value as ButtonSize)}>{buttonSizes.map(s=><option key={s} value={s}>{s}</option>)}</select>
+          <span className="bs-control-label" id="bs-variant-label">Varianta</span>
+          <div className="bs-choice-options" role="group" aria-labelledby="bs-variant-label">
+            {buttonVariants.map(v=><button type="button" key={v} className={variant===v?'selected':''} aria-pressed={variant===v} onClick={()=>setVariant(v)}>{titles[v]}</button>)}
+          </div>
+          <span className="bs-control-label" id="bs-size-label">Velikost</span>
+          <div className="bs-choice-options" role="group" aria-labelledby="bs-size-label">
+            {buttonSizes.map(s=><button type="button" key={s} className={size===s?'selected':''} aria-pressed={size===s} onClick={()=>setSize(s)}>{s==='compact'?'Compact':s==='default'?'Default':'Comfortable'}</button>)}
+          </div>
           <span className="bs-control-label">Stav</span>
           <div className="bs-state-options">{previewStates.map(s=><button type="button" key={s} className={state===s?'selected':''} aria-pressed={state===s} onClick={()=>setState(s)}>{s}</button>)}</div>
         </div>

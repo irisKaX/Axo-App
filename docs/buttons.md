@@ -34,3 +34,7 @@ Default, hover, active, focus-visible, disabled and loading. The gallery provide
 Inspect light and dark modes, contrast, pill shape, compact circular controls, hover/focus, danger prominence, icon consistency, keyboard interactions, Czech long labels and mobile wrapping. Do not mark as approved until the user accepts the resulting gallery.
 
 No new gradients or brand variants are introduced here.
+
+## Playground controls
+
+The variant and size selectors in the Buttons gallery are pill-style button groups with native `button` semantics and `aria-pressed`, not native visual `select` dropdowns. The full custom Select pattern (including arrow positioning, popup options, and keyboard behavior) belongs in **Components → Inputs & Forms**. No user-facing form control should expose unstyled browser-default appearance. Do not use these pill selector groups as a replacement for true Select fields elsewhere.
