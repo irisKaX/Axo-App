@@ -28,3 +28,23 @@
 .is-rules>div{display:flex;flex-direction:column;gap:7px;padding:18px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--surface)}
 .is-rules strong{font-size:12px}.is-rules span{font-size:11px;color:var(--muted);line-height:1.65}
 @media(max-width:650px){.is-rules{grid-template-columns:1fr}.is-head{flex-wrap:wrap}.is-grid{grid-template-columns:repeat(auto-fill,minmax(95px,1fr))}}
+
+/* Icon roles are semantic token previews, not new icon artwork. */
+.is-icon-settings{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:20px 0 0}
+.is-tone-options{padding:0;margin:0;border:0;min-width:0}
+.is-tone-options legend{font-size:11px;color:var(--muted);font-weight:650;margin-bottom:9px}
+.is-tone-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.is-tone-option{display:inline-flex;align-items:center;gap:8px;min-height:35px;padding:0 11px;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--subtle);color:var(--text);font-size:11px;cursor:pointer;text-transform:capitalize}
+.is-tone-option:hover{border-color:var(--brand)}
+.is-tone-option.is-selected{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand-soft)}
+.is-tone-swatch{display:block;width:11px;height:11px;border:1px solid var(--border);border-radius:50%;background:var(--text)}
+.is-tone-muted{background:var(--muted)}
+.is-tone-brand{background:var(--brand)}
+.is-tone-success{background:var(--success)}
+.is-tone-warning{background:var(--warning)}
+.is-tone-danger{background:var(--error)}
+.is-tone-info{background:var(--info)}
+.is-motion-toggle{display:flex;gap:9px;align-items:center;color:var(--text);font-size:11px;cursor:pointer;white-space:nowrap;padding-bottom:7px}
+.is-motion-toggle input{accent-color:var(--brand);width:16px;height:16px}
+.is-tone-option:focus-visible,.is-motion-toggle input:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+@media(max-width:650px){.is-icon-settings{align-items:start;flex-direction:column;gap:12px}}
