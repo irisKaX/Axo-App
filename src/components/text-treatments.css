@@ -1,0 +1,6 @@
+/* Approved typography treatments. Color is inherited from Colors v2. */
+.tt-accent { color: var(--brand); }
+.tt-accent-dot, .tt-accent-word { color: var(--text); }
+.tt-eyebrow-stack { display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+.tt-eyebrow { font-size:12px; font-weight:600; line-height:1.4; letter-spacing:.075em; text-transform:uppercase; color:var(--muted); }
+.tt-eyebrow-stack > .tt-accent-dot { margin:0; }
