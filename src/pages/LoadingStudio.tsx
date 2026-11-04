@@ -1,6 +1,7 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
 import { themes, type ThemeName } from '../design-system/foundations/colors'
 import { FormSelect } from '../components/FormControls'
+import { AxoButton } from '../components/Buttons'
 import './loading-studio.css'
 
 type LoaderKind = 'gradient' | 'blades' | 'dots'
@@ -69,7 +70,7 @@ function LoadingStage({theme,paused}:{theme:ThemeName;paused:boolean}){
       </article>
       <article className="ld-demo ld-wide">
         <div className="ld-demo-head"><strong>08 / Full-page Loader</strong><small>Inicializace aplikace</small></div>
-        <div className="ld-overlay-controls"><FormSelect label="Typ loaderu" fieldSize="default" options={[{value:"gradient",label:"Gradient Ring"},{value:"blades",label:"Blade Spinner"},{value:"dots",label:"Dots"}]} value={kind} onChange={value=>setKind(value as LoaderKind)}/><button type="button" className="ld-reset" onClick={()=>setOverlay(true)}>Zobrazit ukázku</button></div>
+        <div className="ld-overlay-controls"><FormSelect label="Typ loaderu" fieldSize="default" options={[{value:"gradient",label:"Gradient Ring"},{value:"blades",label:"Blade Spinner"},{value:"dots",label:"Dots"}]} value={kind} onChange={value=>setKind(value as LoaderKind)}/><AxoButton variant="accent-outline" size="comfortable" onClick={()=>setOverlay(true)}>Zobrazit ukázku</AxoButton></div>
         <div className="ld-overlay-scene">
           <div className="ld-mock-header"><span>Axolotl</span><span>Workspace</span></div>
           <div className="ld-mock-body"><i/><i/><i/></div>
