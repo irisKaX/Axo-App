@@ -1,4 +1,5 @@
 import type { ReactNode, SVGProps } from 'react'
+import './axo-icon.css'
 
 /** One shared source for all interface icon geometry. */
 export const iconGroups = {
@@ -43,14 +44,17 @@ const artwork: Record<AxoIconName,ReactNode> = {
   loader:<path d="M12 3a9 9 0 1 0 9 9"/>
 }
 export const animatedIconNames: readonly AxoIconName[] = ['copy','download','arrow-right','plus','refresh','settings','check','close','trash','loader']
+export const iconTones = ['inherit','muted','brand','success','warning','danger','info'] as const
+export type AxoIconTone = typeof iconTones[number]
 
 export interface AxoIconProps extends Omit<SVGProps<SVGSVGElement>,'name'> {
   name:AxoIconName
   size?:number
   strokeWidth?:number
+  tone?:AxoIconTone
 }
-export function AxoIcon({name,size=18,strokeWidth=1.8,className='',...rest}:AxoIconProps){
-  return <svg {...rest} className={[name==='loader'?'axo-button-spinner':'',className].filter(Boolean).join(' ')||undefined}
+export function AxoIcon({name,size=18,strokeWidth=1.8,tone='inherit',className='',...rest}:AxoIconProps){
+  return <svg {...rest} className={['axo-icon','axo-icon--'+tone,name==='loader'?'axo-button-spinner':'',className].filter(Boolean).join(' ')} data-icon={name}
     width={size} height={size} viewBox="0 0 24 24" fill="none"
     stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"
     aria-hidden={rest['aria-label']?undefined:true} role={rest['aria-label']?'img':undefined}>
