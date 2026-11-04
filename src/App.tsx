@@ -52,7 +52,8 @@ export default function App() {
     '--backdrop': t.backdrop, '--glow': t.glow, '--corporate': t.corporate,
     '--corporate-text': t.corporateText, '--mascot': t.mascot, '--lilac': t.lilac,
     '--secondary': t.secondary, '--secondary-text': t.secondaryText,
-    '--success': semantic[theme].success.foreground, '--error': semantic[theme].error.foreground,
+    '--success': semantic[theme].success.foreground, '--warning': semantic[theme].warning.foreground,
+    '--info': semantic[theme].info.foreground, '--error': semantic[theme].error.foreground,
   } as CSSProperties
   if(section==='dashboard') return <div className="dashboard-shell" style={vars} data-theme={theme}><DashboardStudio theme={theme} onThemeChange={setTheme} onBack={()=>setSection('navigation')}/></div>
   return <div className="app-shell" style={vars} data-theme={theme}>
