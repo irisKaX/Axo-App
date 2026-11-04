@@ -11,7 +11,7 @@ Status: **visual design candidate** for review. No button design is marked as ap
 - `src/pages/buttons-studio.css`: gallery-only layout and simulated-state styles.
 
 ## Candidate variants
-Primary, Secondary, Ghost, Outline, Danger. Variants express priority, not business logic.
+Primary, Gradient, Secondary, Ghost, Outline, Danger. Variants express priority, not business logic.
 
 ## Sizes and geometry
 - Compact: 36px high, 14px padding, 12px font.
@@ -38,3 +38,14 @@ No new gradients or brand variants are introduced here.
 ## Playground controls
 
 The variant and size selectors in the Buttons gallery are pill-style button groups with native `button` semantics and `aria-pressed`, not native visual `select` dropdowns. The full custom Select pattern (including arrow positioning, popup options, and keyboard behavior) belongs in **Components → Inputs & Forms**. No user-facing form control should expose unstyled browser-default appearance. Do not use these pill selector groups as a replacement for true Select fields elsewhere.
+
+
+## Gradient & motion candidates
+
+- **Gradient** uses only approved `deepElectric.css` from `src/design-system/foundations/brand-expression.ts` (Frame 27). Its stops are not changed or supplemented.
+- Hover movement is restrained: 2px lift, a subtle themed shadow, and gradient background-position shift.
+- Purposeful icon hover patterns: arrow-right 4px right, download 3px down, plus 90° rotation, copy a small diagonal shift, refresh 50° rotation, settings 35° rotation, check scale, close rotation, trash 2px up.
+- All real hover effects are defined in the reusable `src/components/buttons.css`, not only the playground. The playground simulates the gradient state with the same property values.
+- `iconMotion={false}` disables the icon micro-interaction for special contexts; the `prefers-reduced-motion: reduce` media query stops motion automatically.
+- Focus remains visible without requiring hover, and disabled/loading do not animate on hover.
+- All these are **candidates for visual review**, not approved design decisions yet.
