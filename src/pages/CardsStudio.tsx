@@ -57,7 +57,7 @@ function Stage({kind,mode}: {kind:CardKind;mode:PreviewMode}) {
     <PreviewCard kind={kind} mode={mode}/>
   </div>
 }
-export default function CardsStudio(){
+export default function CardsStudio({theme}:{theme:PreviewMode}){
   return <div className="cs-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / CARDS & CONTAINERS</p>
     <h1>Cards <span className="heading-accent">& Containers.</span></h1>
@@ -65,7 +65,7 @@ export default function CardsStudio(){
     <div className="cs-status">V2 DESIGN CANDIDATE · DARK / LIGHT · INTERACTIVE PREVIEW</div>
     {specimens.map(item=><section className="panel cs-section" key={item.id}>
       <div className="cs-section-head"><span>{item.number} / {item.name.toUpperCase()}</span><h2>{item.name}</h2><p>{item.summary}</p></div>
-      <div className="cs-grid"><Stage kind={item.id} mode="dark"/><Stage kind={item.id} mode="light"/></div>
+      <div className="cs-grid"><Stage kind={item.id} mode={theme}/></div>
       <div className="cs-notes"><span><strong>Použití:</strong> {item.usage}</span><span><strong>Stavy:</strong> {item.states}</span></div>
     </section>)}
     <section className="panel cs-section">
