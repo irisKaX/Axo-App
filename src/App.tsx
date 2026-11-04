@@ -23,11 +23,11 @@ const groups: { title: string; items: { id: Section; label: string }[] }[] = [
     { id: 'spacing', label: 'Spacing & Grid' },
   ] },
   { title: 'LIBRARY', items: [
-    { id: 'components', label: 'Components / Buttons' },
-    { id: 'forms', label: 'Components / Inputs & Forms' },
-    { id: 'cards', label: 'Components / Cards & Containers' },
-    { id: 'navigation', label: 'Components / Navigation & Header' },
-    { id: 'loading', label: 'Feedback & Status / Loading & Progress' },
+    { id: 'components', label: 'Buttons' },
+    { id: 'forms', label: 'Inputs & Forms' },
+    { id: 'cards', label: 'Cards & Containers' },
+    { id: 'navigation', label: 'Navigation & Header' },
+    { id: 'loading', label: 'Loading & Progress' },
     { id: 'patterns', label: 'Visual Patterns' },
     { id: 'widgets', label: 'Widgets' },
     { id: 'layouts', label: 'Layouts' },
@@ -66,7 +66,7 @@ export default function App() {
     </aside>
     <div className="workspace">
       <header className="topbar">
-        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section==='spacing'?'Foundations / Spacing & Grid':section==='components'?'Library / Components / Buttons':section==='forms'?'Library / Components / Inputs & Forms':section==='cards'?'Library / Components / Cards & Containers':section==='navigation'?'Library / Components / Navigation & Header':section==='loading'?'Library / Feedback & Status / Loading & Progress':section==='patterns'?'Library / Visual Patterns':section}</span>
+        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section==='spacing'?'Foundations / Spacing & Grid':section==='components'?'Library / Buttons':section==='forms'?'Library / Inputs & Forms':section==='cards'?'Library / Cards & Containers':section==='navigation'?'Library / Navigation & Header':section==='loading'?'Library / Loading & Progress':section==='patterns'?'Library / Visual Patterns':section}</span>
         <div className="theme-toggle" role="group" aria-label="Téma katalogu">
           <button type="button" className={theme==='light'?'chosen':''} onClick={()=>setTheme('light')} aria-pressed={theme==='light'}>☀ Light</button>
           <button type="button" className={theme==='dark'?'chosen':''} onClick={()=>setTheme('dark')} aria-pressed={theme==='dark'}>☾ Dark</button>
