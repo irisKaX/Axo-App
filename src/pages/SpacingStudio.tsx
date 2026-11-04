@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { spacing, radius, controls, density, layout } from '../design-system/foundations/spacing'
-import { deepElectric } from '../design-system/foundations/brand-expression'
+import { bluePurple } from '../design-system/foundations/brand-expression'
 import './spacing-studio.css'
 
 const spaceEntries = Object.entries(spacing).filter(([key]) => key !== '0').map(([key, value]) => ({token: key, px: value}))
@@ -44,7 +44,7 @@ export default function SpacingStudio() {
       </button>)}</div>
       <div className="sg-round-preview">
         <div className="sg-round-form"><div className="sg-round-form-icon">✳</div><div><strong>Rounded by design</strong><p>Formulářová pole jsou zaoblená, ale zachovávají čitelné hrany.</p></div><div className="sg-demo-input">https://axolotl.app <span>↗</span></div></div>
-        <div className="sg-round-large" style={{background:deepElectric.css}}><div className="sg-round-large-heading"><span className="sg-round-large-eyebrow">Feature surface</span><strong>Soft shapes.<br/>Bold presence.</strong></div><span className="sg-round-large-meta">radius.xl · {radius.xl}px</span></div>
+        <div className="sg-round-large" style={{background:bluePurple.css}}><div className="sg-round-large-heading"><span className="sg-round-large-eyebrow">Feature surface</span><strong>Soft shapes.<br/>Bold presence.</strong></div><span className="sg-round-large-meta">radius.xl · {radius.xl}px</span></div>
       </div>
     </section>
 
