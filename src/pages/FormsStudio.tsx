@@ -1,6 +1,5 @@
-import { useRef, useState, type FormEvent } from 'react'
+import { useState } from 'react'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch } from '../components/FormControls'
-import { AxoButton } from '../components/Buttons'
 import { ThemeSwitch } from '../components/ThemeSwitch'
 import { type ThemeName } from '../design-system/foundations/colors'
 import './forms-studio.css'
@@ -29,33 +28,14 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
   const [city,setCity]=useState('')
   const [description,setDescription]=useState('')
   const [subscribe,setSubscribe]=useState(true)
-  const [agreement,setAgreement]=useState(false)
   const [view,setView]=useState('comfortable')
   const [autosave,setAutosave]=useState(true)
   const [notifications,setNotifications]=useState(false)
-  // The complete form has independent state; specimen controls above do not populate it.
-  const formRef=useRef<HTMLFormElement>(null)
-  const [formUrl,setFormUrl]=useState('')
-  const [formCity,setFormCity]=useState('')
-  const [formAgreement,setFormAgreement]=useState(false)
-  const [formSubmitted,setFormSubmitted]=useState(false)
-  const [formSucceeded,setFormSucceeded]=useState(false)
-  const validUrl = !url.trim() || isValidHttpUrl(url)
-  const formUrlValid = isValidHttpUrl(formUrl)
-  const formValid = formUrlValid && regions.some(region=>region.value===formCity&&!region.disabled) && formAgreement
-  const submit=(event:FormEvent<HTMLFormElement>)=>{
-    event.preventDefault()
-    setFormSubmitted(true)
-    setFormSucceeded(formValid)
-    if(!formValid)requestAnimationFrame(()=>formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus())
-  }
-  const formUpdate=()=>{setFormSucceeded(false)}
-
   return <div className="fs-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / INPUTS & FORMS</p>
     <h1>Inputs <span className="heading-accent">& Forms.</span></h1>
-    <p className="intro">Formulářové prvky v Neo Iris: měkké radiusy, jasná hierarchie a vlastní vzhled dropdownu. Všechny ukázky jsou interaktivní a připravené k vizuálnímu posouzení.</p>
-    <div className="fs-status">NÁVRH K VIZUÁLNÍMU SCHVÁLENÍ</div>
+    <p className="intro">Formulářové prvky v Neo Iris: měkké radiusy, jasná hierarchie a vlastní vzhled dropdownu. Knihovna sdílených inputů a formulářových prvků.</p>
+    <div className="fs-status">SCHVÁLENÉ FORM COMPONENTS</div>
 
     <section className="panel fs-panel">
       <div className="fs-section-head"><span>01 / TEXT & URL INPUTS</span><h2>Textová pole a validace</h2><p>Stejné odsazení, label nad polem a viditelný focus. Validace nikdy nespoléhá pouze na barvu.</p></div>
@@ -85,7 +65,6 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
       <div className="fs-choice-layout">
         <div className="fs-choice-box"><span className="fs-overline">CHECKBOX</span>
           <FormCheckbox label="Odebírat novinky" description="Dostávat produktové aktualizace" checked={subscribe} onChange={setSubscribe}/>
-          <FormCheckbox label="Souhlasím s podmínkami" description="Povinná položka ukázkového formuláře" checked={agreement} onChange={setAgreement}/>
           <FormCheckbox label="Nedostupná možnost" checked={false} onChange={()=>{}} disabled/>
           <FormCheckbox label="Uzamčená preference" checked={true} onChange={()=>{}} disabled/>
         </div>
@@ -113,41 +92,10 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
           <div className="fs-theme-current" role="status">Aktivní režim: <strong>{theme==='dark'?'Dark':'Light'}</strong></div>
           <p>Přepínač funguje myší, dotykem i klávesnicí. Změnu uvidíš na celém katalogu.</p>
         </div>
-        <div className="fs-theme-previews">
-          <div className="fs-theme-sample is-light"><span>☀ LIGHT</span><strong>Clear, soft, focused.</strong></div>
-          <div className="fs-theme-sample is-dark"><span>☾ DARK</span><strong>Calm, bold, immersive.</strong></div>
-        </div>
       </div>
       <div className="fs-guide-note">Toto je návrh vzhledu přepínače k vizuálnímu schválení. Pro přístupnost používá nativní checkbox se sémantikou <code>switch</code>, viditelný focus a podporu omezeného pohybu.</div>
     </section>
 
-    <section className="panel fs-panel">
-      <div className="fs-section-head"><span>07 / COMPLETE FORM</span><h2>Formulář v kontextu</h2><p>Společný styl všech prvků a jasné chybové i úspěšné zprávy.</p></div>
-      <div className="fs-form-preview">
-        <div className="fs-form-intro"><span className="fs-overline">WORKSPACE · FORM PREVIEW</span><h3>Nová analýza<span>.</span></h3><p>Vše podstatné na jednom místě. Připrav analýzu webu a ověř, že jsou údaje v pořádku.</p><ul className="fs-form-benefits"><li>Jasné údaje a okamžitá zpětná vazba</li><li>Ovládání myší i klávesnicí</li><li>Ověření pouze v tomto prohlížeči</li></ul><p className="fs-privacy">Toto je interaktivní ukázka. Žádná data se neposílají na server ani se trvale neukládají.</p></div>
-        <form ref={formRef} className="fs-preview-controls" onSubmit={submit} noValidate>
-          <FormInput label="URL adresa analýzy" type="url" required placeholder="https://www.o2.cz"
-            value={formUrl} onChange={e=>{setFormUrl(e.target.value);formUpdate()}}
-            error={formSubmitted&&!formUrlValid?'Zadej platnou URL včetně https://':undefined}
-            success={formSubmitted&&formUrlValid?'Platná URL':undefined}/>
-          <FormSelect label="Město analýzy" options={regions} value={formCity}
-            onChange={value=>{setFormCity(value);formUpdate()}} placeholder="Vyber město"
-            error={formSubmitted&&!formCity?'Vyber město':undefined}/>
-          <FormCheckbox label="Souhlasím s podmínkami" required checked={formAgreement}
-            error={formSubmitted&&!formAgreement?'Pro pokračování potvrď souhlas.':undefined}
-            onChange={value=>{setFormAgreement(value);formUpdate()}}/>
-          <div className="fs-form-actions"><AxoButton type="submit" size="comfortable" iconRight="arrow-right">Ověřit formulář</AxoButton><span>Lokální ověření · bez odeslání</span></div>
-          <div className={'fs-form-status'+(formSucceeded?' is-success':formSubmitted&&!formValid?' is-error':'')} role="status">
-            {formSucceeded?'Ukázkový formulář byl úspěšně ověřen. Nic se neodeslalo.'
-              :formSubmitted&&!formValid?'Oprav označená pole. Nic se neodesílá.'
-              :formSubmitted?'Vše je připraveno. Potvrď ověření formuláře.'
-              :'Vyplň všechny položky přímo v tomto formuláři. Nic se neodesílá.'}
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <details className="fs-technical"><summary>Technické specifikace <span>⌄</span></summary><div><p>Komponenty jsou v <code>src/components/FormControls.tsx</code>. Používají Colors v2, Poppins a radiusy odpovídající Neo Iris. Žádný nativní vizuální Select.</p><p>Dropdown používá listbox, klávesy Arrow Up/Down, Home, End, Enter, Escape, fokus a kliknutí mimo nabídku. Checkbox, Radio a Switch používají nativní vstupní prvky pro sémantiku a focus.</p><p>Návrh k vizuálnímu schválení. Pole používají radius.lg (24 px), kontejner radius.xl (32 px). Focus tvoří jediná vnitřní linka; tlačítka zachovávají schválenou podobu.</p></div></details>
     <footer className="page-footer">Axolotl · Components / Inputs & Forms · Návrh k vizuálnímu schválení</footer>
   </div>
 }
