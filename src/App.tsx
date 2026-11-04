@@ -80,9 +80,9 @@ export default function App() {
           section==='spacing'?<SpacingStudio/>:
           section==='components'?<ButtonsStudio/>:
           section==='forms'?<FormsStudio theme={theme} onThemeChange={setTheme}/>:
-          section==='cards'?<CardsStudio/>:
+          section==='cards'?<CardsStudio theme={theme}/>:
           section==='navigation'?<NavigationStudio theme={theme} onThemeChange={setTheme}/>:
-          section==='loading'?<LoadingStudio/>:
+          section==='loading'?<LoadingStudio theme={theme}/>:
           section==='patterns'?<VisualPatterns theme={theme}/>:
           <section className="panel placeholder"><p className="eyebrow">PŘIPRAVUJEME</p>
             <h1>{groups.flatMap(group=>group.items).find(item=>item.id===section)?.label}</h1>
