@@ -27,7 +27,7 @@ export default function BrandExpression() {
       <div className="expression-heading">
         <span className="expression-eyebrow">01 / PRIMARY BRAND GRADIENT</span>
         <h2>Blue × Purple</h2>
-        <p>Schválený gradient z Frame 27. Používáme ho na významných brandových plochách, ne jako pozadí běžných widgetů.</p>
+        <p>Schválený Blue × Purple gradient sjednocený s Colors v2. Používáme ho na významných brandových plochách, ne jako pozadí běžných widgetů.</p>
       </div>
       <div className="expression-hero" style={{ background: bluePurple.css }}>
         <div className="expression-hero-copy">
