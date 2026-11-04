@@ -1,16 +1,12 @@
-import { brandColors } from './colors'
+import { brandColors, bluePurpleGradient } from './colors'
 
-/**
- * Approved Brand Expression only.
- * Figma Frame 27 · Deep Electric.
- * Stops are exact. The 110deg CSS angle approximates the Figma transform.
- */
-export const deepElectric = {
-  id: 'deep-electric',
-  name: 'Deep Electric',
-  figmaFrame: 27,
-  stops: [brandColors.deepBlue, brandColors.royalBlue, brandColors.gradientMid],
-  css: `linear-gradient(110deg, ${brandColors.deepBlue} 0%, ${brandColors.royalBlue} 50%, ${brandColors.gradientMid} 100%)`,
+/** Approved Blue × Purple gradient, shared with both UI themes and all components. */
+export const bluePurple = {
+  id: 'blue-purple',
+  name: 'Blue × Purple',
+  stops: [brandColors.blue, brandColors.royalBlue, brandColors.electricPurple],
+  positions: [0, 52, 100],
+  css: bluePurpleGradient,
 } as const
 
 export const approvedBrandSurfaces = {
