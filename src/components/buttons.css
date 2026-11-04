@@ -110,6 +110,17 @@
 .axo-button--ghost:hover:not(:disabled){background:var(--subtle)}
 .axo-button--outline{background:transparent;border-color:var(--control-border);color:var(--text)}
 .axo-button--outline:hover:not(:disabled){background:var(--subtle);border-color:var(--brand);box-shadow:0 0 0 1px var(--brand-soft)}
+/* Accent Outline · promoted from the Full-page Loader preview into the canonical library. */
+.axo-button--accent-outline{
+  background:transparent;border:2px solid #7C4BFE;color:var(--text);
+  box-shadow:none;
+}
+.axo-button--accent-outline:hover:not(:disabled){
+  background:var(--brand-soft);border-color:#9668FF;box-shadow:0 0 0 1px #7C4BFE1F;
+}
+.axo-button--accent-outline:active:not(:disabled){
+  background:var(--brand-soft);border-color:var(--brand);box-shadow:none;
+}
 .axo-button--danger{background:var(--error);border-color:var(--error);color:#FFFFFF}
 .axo-button--danger:hover:not(:disabled){background:#CF0642;border-color:#CF0642;box-shadow:0 7px 18px #FF0A5436}
 .axo-button--icon{width:var(--axo-button-height);min-width:var(--axo-button-height);padding:0;border-radius:var(--radius-round);gap:0;overflow:visible}
