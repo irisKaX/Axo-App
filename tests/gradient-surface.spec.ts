@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 import { PNG } from 'pngjs'
 
 for (const theme of ['light', 'dark']) for (const motion of ['none', 'beam', 'spin']) {
-  test(`${theme}/${motion}: idle gradient is a single uninterrupted Deep Electric surface`, async ({ page }, testInfo) => {
+  test(`${theme}/${motion}: idle gradient is a single uninterrupted Blue × Purple surface`, async ({ page }, testInfo) => {
     await page.goto(`/tests/fixtures/beam.html?theme=${theme}&motion=${motion}`)
     const buttons = page.locator('.axo-button--gradient')
     await expect(buttons).toHaveCount(12)
@@ -14,7 +14,7 @@ for (const theme of ['light', 'dark']) for (const motion of ['none', 'beam', 'sp
     // border box. There is no inset surface, outline, or inset shadow.
     await buttons.evaluateAll(els => els.forEach(el => {
       const button = el as HTMLElement
-      button.style.background = 'linear-gradient(110deg,#08089A 0%,#3B09C7 50%,#642FDF 100%) border-box no-repeat'
+      button.style.background = 'linear-gradient(130deg,#0F9FDC 0%,#3B09C7 52%,#8101EC 100%) border-box no-repeat'
       button.style.borderColor = 'transparent'
       button.style.boxShadow = '0 3px 8px #00000026'
       button.style.outline = 'none'
