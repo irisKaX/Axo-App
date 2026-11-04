@@ -1,4 +1,4 @@
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { forwardRef, useLayoutEffect, useRef, useState, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { controls } from '../design-system/foundations/spacing'
 import { deepElectric } from '../design-system/foundations/brand-expression'
 import './buttons.css'
@@ -36,6 +36,40 @@ export interface AxoButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElem
   borderMotion?: ButtonBorderMotion
 }
 
+function TravelingBorderBeam() {
+  const svgRef = useRef<SVGSVGElement>(null)
+  const [size, setSize] = useState({ width: 1, height: 1 })
+
+  useLayoutEffect(() => {
+    const button = svgRef.current?.parentElement
+    if (!button) return
+
+    const measure = () => {
+      const width = button.clientWidth
+      const height = button.clientHeight
+      setSize(previous => previous.width === width && previous.height === height
+        ? previous : { width, height })
+    }
+
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(button)
+    return () => observer.disconnect()
+  }, [])
+
+  return <svg ref={svgRef} className="axo-button-border-beam"
+    viewBox={`0 0 ${size.width} ${size.height}`}
+    preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <rect
+      x="1.5" y="1.5"
+      width={Math.max(0, size.width - 3)}
+      height={Math.max(0, size.height - 3)}
+      rx={size.height / 2}
+      pathLength="100"
+    />
+  </svg>
+}
+
 export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function AxoButton({
   children, variant = 'primary', size = 'default', icon, iconRight, iconOnly = false,
   loading = false, iconMotion = true, borderMotion = 'none', disabled, className = '', style, ...rest
@@ -50,7 +84,7 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
     className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',variant==='gradient'?'axo-button--border-'+borderMotion:'',className].filter(Boolean).join(' ')}
     style={{'--axo-button-height':dimension.height+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px','--axo-button-gradient':deepElectric.css,...style} as React.CSSProperties}>
     {variant === 'gradient' ? <span className="axo-button-gradient-surface" aria-hidden="true" /> : null}
-    {variant === 'gradient' && borderMotion === 'beam' ? <svg className="axo-button-border-beam" aria-hidden="true" focusable="false"><rect x="1.5" y="1.5" rx="999" ry="999" pathLength="100" /></svg> : null}
+    {variant === 'gradient' && borderMotion === 'beam' ? <TravelingBorderBeam /> : null}
     {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
     {iconOnly ? <span className="axo-button-icon-sr">{children}</span> : children ? <span className="axo-button-label">{children}</span> : null}
     {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}
