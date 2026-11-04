@@ -5,7 +5,7 @@ for (const theme of ['light','dark']) {
     await page.goto('/')
     await page.getByRole('group',{name:'Téma katalogu'}).getByRole('button',{name:theme==='light'?'☀ Light':'☾ Dark',exact:true}).click()
     await page.getByRole('button',{name:'Components / Inputs & Forms',exact:true}).click()
-    const select=page.getByRole('button',{name:/Město/})
+    const select=page.locator('.fs-select-layout').getByRole('button',{name:/Město/})
     await select.focus()
     await page.keyboard.press('ArrowDown')
     await expect(page.getByRole('listbox',{name:'Město'})).toBeVisible()
