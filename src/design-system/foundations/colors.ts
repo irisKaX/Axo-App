@@ -66,16 +66,16 @@ export const colorRoles = [
 
 export const semantic = {
   light: {
-    success: { foreground: '#087F5B', background: '#FFFFFF', border: '#087F5B' },
-    warning: { foreground: '#925100', background: '#FFFFFF', border: '#925100' },
-    error: { foreground: '#B42338', background: '#FFFFFF', border: '#B42338' },
-    info: { foreground: '#2356AC', background: '#FFFFFF', border: '#2356AC' },
+    success: { foreground: '#9EF01A', background: '#FFFFFF', border: '#9EF01A' },
+    warning: { foreground: '#F6DE26', background: '#FFFFFF', border: '#F6DE26' },
+    error: { foreground: '#FF0A54', background: '#FFFFFF', border: '#FF0A54' },
+    info: { foreground: '#4CC9F0', background: '#FFFFFF', border: '#4CC9F0' },
   },
   dark: {
-    success: { foreground: '#39DB9D', background: '#171B24', border: '#39DB9D' },
-    warning: { foreground: '#FFC36D', background: '#171B24', border: '#FFC36D' },
-    error: { foreground: '#FF8199', background: '#171B24', border: '#FF8199' },
-    info: { foreground: '#81C9FF', background: '#171B24', border: '#81C9FF' },
+    success: { foreground: '#9EF01A', background: '#171B24', border: '#9EF01A' },
+    warning: { foreground: '#F6DE26', background: '#171B24', border: '#F6DE26' },
+    error: { foreground: '#FF0A54', background: '#171B24', border: '#FF0A54' },
+    info: { foreground: '#4CC9F0', background: '#171B24', border: '#4CC9F0' },
   },
 } as const
 
