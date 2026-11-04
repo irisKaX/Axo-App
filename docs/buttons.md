@@ -94,7 +94,7 @@ A separate `variant="gradient-reveal"` reproduces the supplied two-layer button 
 
 - Outer shell: the shared `--brand-gradient` token (Blue × Purple), 3px padding, no CSS border, 9999px radius, minimum width 140px.
 - Inner surface: `#141820`, 16px vertical and 24px horizontal padding, 9999px radius, white 18px text.
-- Hover: inner background smoothly changes to transparent in 300ms, revealing the full gradient; no vertical lift.
+- Hover: inner background smoothly changes to transparent in 600ms, revealing the full gradient; no vertical lift.
 - Active: scale to 90%, as in the supplied CSS. Reduced-motion stops the transform and animations.
 - Text treatment does not overwrite the main component button styles; the original Gradient Button, Border Beam, Spinning Accent, and approved icon motion remain untouched.
 - Candidate only, pending visual approval. View it in Components → Buttons → Gradient Reveal.
