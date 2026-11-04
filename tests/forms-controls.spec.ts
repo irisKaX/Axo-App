@@ -1,0 +1,43 @@
+import { test, expect } from '@playwright/test'
+
+for (const theme of ['light','dark']) {
+  test(`${theme}: styled select supports keyboard interaction and escape`, async ({page})=>{
+    await page.goto('/')
+    await page.getByRole('group',{name:'Téma katalogu'}).getByRole('button',{name:theme==='light'?'☀ Light':'☾ Dark',exact:true}).click()
+    await page.getByRole('button',{name:'Components / Inputs & Forms',exact:true}).click()
+    const select=page.getByRole('button',{name:/Město/})
+    await select.focus()
+    await page.keyboard.press('ArrowDown')
+    await expect(page.getByRole('listbox',{name:'Město'})).toBeVisible()
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await expect(page.getByText('Brno',{exact:true}).first()).toBeVisible()
+    await expect(select).toHaveAttribute('aria-expanded','false')
+    await select.click()
+    await page.keyboard.press('Escape')
+    await expect(select).toHaveAttribute('aria-expanded','false')
+    await expect(select).toBeFocused()
+    await expect(select).not.toHaveCSS('appearance','menulist')
+  })
+
+  test(`${theme}: checkbox, radio and switch update state, validation is accessible`,async({page})=>{
+    await page.goto('/')
+    await page.getByRole('group',{name:'Téma katalogu'}).getByRole('button',{name:theme==='light'?'☀ Light':'☾ Dark',exact:true}).click()
+    await page.getByRole('button',{name:'Components / Inputs & Forms',exact:true}).click()
+    const subscribe=page.getByRole('checkbox',{name:'Odebírat novinky'})
+    await subscribe.uncheck()
+    await expect(subscribe).not.toBeChecked()
+    const compact=page.getByRole('radio',{name:/Compact/})
+    await compact.check()
+    await expect(compact).toBeChecked()
+    const autosave=page.getByRole('switch',{name:/Automatické ukládání/})
+    await autosave.uncheck()
+    await expect(autosave).not.toBeChecked()
+    await page.getByRole('button',{name:'Ověřit formulář'}).click()
+    await expect(page.getByRole('alert').first()).toBeVisible()
+    await page.getByRole('textbox',{name:/URL adresa/}).fill('https://www.o2.cz')
+    await page.getByRole('checkbox',{name:/Souhlasím s podmínkami/}).check()
+    await page.getByRole('button',{name:'Ověřit formulář'}).click()
+    await expect(page.getByRole('status').last()).toContainText('úspěšně ověřen')
+  })
+}
