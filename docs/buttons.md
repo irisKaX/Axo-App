@@ -43,8 +43,8 @@ The variant and size selectors in the Buttons gallery are pill-style button grou
 ## Gradient & motion candidates
 
 - **Gradient** uses only approved `deepElectric.css` from `src/design-system/foundations/brand-expression.ts` (Frame 27). Its stops are not changed or supplemented.
-- Hover movement is restrained: 2px lift, a subtle themed shadow, and gradient background-position shift.
-- Purposeful icon hover patterns: arrow-right 4px right, download 3px down, plus 90° rotation, copy a small diagonal shift, refresh 50° rotation, settings 35° rotation, check scale, close rotation, trash 2px up.
+- Buttons remain stationary on hover; use subtle themed shadow, color feedback and gradient background-position shift.
+- Purposeful icon hover patterns: arrow-right 4px right, download 3px down, plus 90° rotation, copy a -10° rotation, refresh 50° rotation, settings 35° rotation, check scale, close rotation, trash -8° rotation.
 - All real hover effects are defined in the reusable `src/components/buttons.css`, not only the playground. The playground simulates the gradient state with the same property values.
 - `iconMotion={false}` disables the icon micro-interaction for special contexts; the `prefers-reduced-motion: reduce` media query stops motion automatically.
 - Focus remains visible without requiring hover, and disabled/loading do not animate on hover.
