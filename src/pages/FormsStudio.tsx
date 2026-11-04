@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch } from '../components/FormControls'
 import { AxoButton } from '../components/Buttons'
 import './forms-studio.css'
@@ -32,8 +32,13 @@ export default function FormsStudio() {
   const [formSubmitted,setFormSubmitted]=useState(false)
   const [formSucceeded,setFormSucceeded]=useState(false)
   const validUrl = url.trim().length===0 || /^https?:\/\/.+\..+/.test(url.trim())
-  const formUrlValid = /^https?:\/\/[^\\s/]+\\.[^\\s/]+(?:[/?#][^\\s]*)?$/.test(formUrl.trim())
-  const submit=(event:React.FormEvent<HTMLFormElement>)=>{
+  const formUrlValid = (()=> {
+    try {
+      const parsed = new URL(formUrl.trim())
+      return ['http:', 'https:'].includes(parsed.protocol) && parsed.hostname.includes('.')
+    } catch { return false }
+  })()
+  const submit=(event:FormEvent<HTMLFormElement>)=>{
     event.preventDefault()
     setFormSubmitted(true)
     setFormSucceeded(formUrlValid&&Boolean(formCity)&&formAgreement)
