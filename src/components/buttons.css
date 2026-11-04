@@ -60,10 +60,11 @@
 .axo-button--border-beam:hover:not(:disabled) .axo-button-border-beam,
 .axo-button--border-beam:focus-visible .axo-button-border-beam{opacity:1}
 @keyframes axo-border-beam{to{stroke-dashoffset:-100}}
+@property --axo-spin-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 .axo-button--border-spin::before{
   content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
   border-radius:inherit;padding:2px;opacity:0;
-  background:conic-gradient(from 0deg,transparent 0deg,transparent 220deg,#168EDA 262deg,#4CC9F0 289deg,#D2B4FF 312deg,transparent 342deg);
+  background:conic-gradient(from var(--axo-spin-angle),transparent 0deg,transparent 220deg,#168EDA 262deg,#4CC9F0 289deg,#D2B4FF 312deg,transparent 342deg);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
   mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
@@ -73,7 +74,7 @@
 }
 .axo-button--border-spin:hover:not(:disabled)::before,
 .axo-button--border-spin:focus-visible::before{opacity:1}
-@keyframes axo-border-spin{to{transform:rotate(360deg)}}
+@keyframes axo-border-spin{to{--axo-spin-angle:360deg}}
 @media(prefers-reduced-motion:reduce){
   .axo-button-border-beam rect,.axo-button--border-spin::before{animation:none}
   .axo-button--border-beam:hover:not(:disabled) .axo-button-border-beam,
