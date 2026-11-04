@@ -3,7 +3,7 @@ import { controls } from '../design-system/foundations/spacing'
 import { bluePurple } from '../design-system/foundations/brand-expression'
 import './buttons.css'
 
-export type ButtonVariant = 'primary' | 'gradient' | 'gradient-reveal' | 'secondary' | 'ghost' | 'outline' | 'danger'
+export type ButtonVariant = 'primary' | 'gradient' | 'gradient-reveal' | 'secondary' | 'ghost' | 'outline' | 'accent-outline' | 'danger'
 export type ButtonSize = 'compact' | 'default' | 'comfortable'
 export type ButtonBorderMotion = 'none' | 'beam' | 'spin'
 export type ButtonIconName = 'plus' | 'copy' | 'download' | 'arrow-right' | 'check' | 'trash' | 'refresh' | 'settings' | 'close' | 'loader'
@@ -89,5 +89,5 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
   </button>
 })
 
-export const buttonVariants: ButtonVariant[] = ['primary','gradient','gradient-reveal','secondary','ghost','outline','danger']
+export const buttonVariants: ButtonVariant[] = ['primary','gradient','gradient-reveal','secondary','ghost','outline','accent-outline','danger']
 export const buttonSizes: ButtonSize[] = ['compact','default','comfortable']
