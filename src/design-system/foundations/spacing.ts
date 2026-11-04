@@ -28,8 +28,8 @@ export const controls = {
   compact: { height: 32, horizontalPadding: 14, fontSize: 12 },
   default: { height: 38, horizontalPadding: 20, fontSize: 13 },
   comfortable: { height: 48, horizontalPadding: 24, fontSize: 14 },
-  iconCompact: 36,
-  iconDefault: 44,
+  iconCompact: 32,
+  iconDefault: 38,
   iconComfortable: 52,
   minTouchTarget: 44,
 } as const
