@@ -32,6 +32,7 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
   // Icon-only controls retain their accessible circular dimensions.
   const buttonHeight = iconOnly ? (size === 'compact' ? controls.compact.height : controls.default.height) : dimension.height
   const buttonWidth = size === 'compact' ? 148 : 176
+  const iconSize = size === 'compact' ? 16 : 20
   const label = iconOnly ? (rest['aria-label'] || (typeof children === 'string' ? children : undefined)) : undefined
   return <button ref={ref} type="button" {...rest}
     aria-label={label ?? rest['aria-label']}
@@ -41,15 +42,15 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
     className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',variant==='primary-2'?'axo-button--orbital':'',className].filter(Boolean).join(' ')}
     style={{'--axo-button-height':buttonHeight+'px','--axo-button-width':buttonWidth+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px','--axo-gradient-blue':bluePurple.stops[0],'--axo-gradient-middle':bluePurple.stops[1],'--axo-gradient-purple':bluePurple.stops[2],...style} as React.CSSProperties}>
     {iconOnly ? <>
-      {loading ? <span className="axo-button-icon" data-icon="loader"><AxoIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><AxoIcon name={icon}/></span> : null}
+      {loading ? <span className="axo-button-icon" data-icon="loader"><AxoIcon name="loader" size={iconSize}/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><AxoIcon name={icon} size={iconSize}/></span> : null}
       <span className="axo-button-icon-sr">{children}</span>
     </> : <span className={'axo-button-content'+(variant==='secondary'?' axo-button-reveal-inner':'')}>
-      <span className="axo-button-content-slot">
-        {loading ? <span className="axo-button-icon" data-icon="loader"><AxoIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><AxoIcon name={icon}/></span> : null}
+      <span className="axo-button-content-slot axo-button-content-slot--start">
+        {loading ? <span className="axo-button-icon" data-icon="loader"><AxoIcon name="loader" size={iconSize}/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><AxoIcon name={icon} size={iconSize}/></span> : null}
       </span>
       <span className="axo-button-label">{children}</span>
-      <span className="axo-button-content-slot">
-        {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><AxoIcon name={iconRight}/></span> : null}
+      <span className="axo-button-content-slot axo-button-content-slot--end">
+        {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><AxoIcon name={iconRight} size={iconSize}/></span> : null}
       </span>
     </span>}
   </button>
