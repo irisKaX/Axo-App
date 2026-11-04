@@ -87,3 +87,28 @@ These are shared status accent/border colors across light and dark themes, defin
 ## One approved global gradient: Blue × Purple
 
 Blue × Purple `linear-gradient(130deg, #0F9FDC 0%, #3B09C7 52%, #8101EC 100%)` is the single approved brand gradient across Colors, Brand Expression, Visual Direction and the Gradient Button. This replaces Deep Electric in product use. The shared source is `bluePurpleGradient` in `src/design-system/foundations/colors.ts`, consumed by `bluePurple` in Brand Expression. Old palette swatches remain reference colors and are not alternate approved gradients.
+
+
+## Atmospheric Backdrop Gradient (documented visual pattern)
+
+The **Dark Backdrop** shown in Typography → Real Interface is an existing approved-looking *atmospheric backdrop* and is now explicitly visible in Colors → Atmospheric Backdrops, alongside its Light counterpart.
+
+Dark:
+```css
+background:
+  radial-gradient(ellipse at 85% 10%, #0F9FDC22 0%, transparent 42%),
+  radial-gradient(ellipse at 10% 100%, #7C4BFE20 0%, transparent 46%),
+  #090B10;
+```
+
+Light:
+```css
+background:
+  radial-gradient(ellipse at 85% 5%, #B5A5FF55 0%, transparent 46%),
+  radial-gradient(ellipse at 8% 100%, #0F9FDC28 0%, transparent 48%),
+  #F5F7FA;
+```
+
+**Single source of truth:** `themes.dark.backdrop` and `themes.light.backdrop` in `src/design-system/foundations/colors.ts`. The application exposes the token as `--backdrop`. The Colors section previews and copies the exact token value.
+
+This is *not* a competing product brand gradient. Blue × Purple remains the single approved main brand gradient. The Backdrop is a neutral atmospheric composition for larger feature surfaces and contextual hero sections, not an input/widget fill.
