@@ -23,3 +23,7 @@ Status: **design candidates for review**, not yet approved as production visual 
 ## Validation
 
 Use Playwright to check Select keyboard interaction, native checkbox/radio/switch state changes, focus and error validation, light and dark themes. No control styles or tokens should be marked globally approved until user review.
+
+## Complete Form integration fix
+
+The Complete Form is now an independent editable demo, not a read-only summary of controls higher on the page. It includes its own URL field, styled city Select, mandatory consent checkbox and submit action in a semantic `<form>`. Validation errors appear next to the relevant controls and the status changes on submission. User edits invalidate an earlier success. The form uses no network action or persistent storage. Separate component specimens remain independent.

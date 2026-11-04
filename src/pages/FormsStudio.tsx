@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch } from '../components/FormControls'
 import { AxoButton } from '../components/Buttons'
 import './forms-studio.css'
@@ -25,14 +25,25 @@ export default function FormsStudio() {
   const [view,setView]=useState('comfortable')
   const [autosave,setAutosave]=useState(true)
   const [notifications,setNotifications]=useState(false)
-  const [error,setError]=useState(false)
-  const [status,setStatus]=useState('Všechny změny jsou pouze ukázkové. Nic se nikam neodesílá.')
+  // The complete form has independent state; specimen controls above do not populate it.
+  const [formUrl,setFormUrl]=useState('')
+  const [formCity,setFormCity]=useState('')
+  const [formAgreement,setFormAgreement]=useState(false)
+  const [formSubmitted,setFormSubmitted]=useState(false)
+  const [formSucceeded,setFormSucceeded]=useState(false)
   const validUrl = url.trim().length===0 || /^https?:\/\/.+\..+/.test(url.trim())
-  const submit=()=>{
-    setError(true)
-    if(!url.trim()||!validUrl||!agreement){setStatus('Doplň platnou URL a potvrď souhlas.');return}
-    setStatus('Ukázkový formulář byl úspěšně ověřen.')
+  const formUrlValid = (()=> {
+    try {
+      const parsed = new URL(formUrl.trim())
+      return ['http:', 'https:'].includes(parsed.protocol) && parsed.hostname.includes('.')
+    } catch { return false }
+  })()
+  const submit=(event:FormEvent<HTMLFormElement>)=>{
+    event.preventDefault()
+    setFormSubmitted(true)
+    setFormSucceeded(formUrlValid&&Boolean(formCity)&&formAgreement)
   }
+  const formUpdate=()=>{setFormSucceeded(false)}
 
   return <div className="fs-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / INPUTS & FORMS</p>
@@ -44,7 +55,7 @@ export default function FormsStudio() {
       <div className="fs-section-head"><span>01 / TEXT & URL INPUTS</span><h2>Textová pole a validace</h2><p>Stejné odsazení, label nad polem a viditelný focus. Validace nikdy nespoléhá pouze na barvu.</p></div>
       <div className="fs-field-grid">
         <FormInput label="Hledat v nástrojích" placeholder="Například Metadata" value={search} onChange={e=>setSearch(e.target.value)} hint="Standardní textové pole"/>
-        <FormInput label="URL adresa" type="url" required placeholder="https://www.o2.cz" value={url} onChange={e=>{setUrl(e.target.value);setError(false)}} error={error&&(!url.trim()||!validUrl)?'Zadej platnou URL včetně https://':undefined} success={url.trim()&&validUrl?'URL vypadá správně':undefined}/>
+        <FormInput label="URL adresa" type="url" required placeholder="https://www.o2.cz" value={url} onChange={e=>setUrl(e.target.value)} error={url.trim()&&!validUrl?'Zadej platnou URL včetně https://':undefined} success={url.trim()&&validUrl?'URL vypadá správně':undefined}/>
         <FormInput label="Disabled input" value="Toto pole je zamčené" readOnly disabled hint="Neaktivní stav"/>
         <FormInput label="Success state" value="Ověřeno" readOnly success="Hodnota byla ověřena"/>
       </div>
@@ -68,8 +79,7 @@ export default function FormsStudio() {
       <div className="fs-choice-layout">
         <div className="fs-choice-box"><span className="fs-overline">CHECKBOX</span>
           <FormCheckbox label="Odebírat novinky" description="Dostávat produktové aktualizace" checked={subscribe} onChange={setSubscribe}/>
-          <FormCheckbox label="Souhlasím s podmínkami" description="Povinná položka ukázkového formuláře" checked={agreement} onChange={v=>{setAgreement(v);setError(false)}}/>
-          {error&&!agreement&&<p className="fs-error-message" role="alert">Potvrď souhlas, aby formulář prošel.</p>}
+          <FormCheckbox label="Souhlasím s podmínkami" description="Povinná položka ukázkového formuláře" checked={agreement} onChange={setAgreement}/>
           <FormCheckbox label="Nedostupná možnost" checked={false} onChange={()=>{}} disabled/>
         </div>
         <div className="fs-choice-box"><span className="fs-overline">RADIO GROUP</span>
@@ -90,13 +100,25 @@ export default function FormsStudio() {
     <section className="panel fs-panel">
       <div className="fs-section-head"><span>06 / COMPLETE FORM</span><h2>Formulář v kontextu</h2><p>Společný styl všech prvků a jasné chybové i úspěšné zprávy.</p></div>
       <div className="fs-form-preview">
-        <div><span className="fs-overline">WORKSPACE · FORM PREVIEW</span><h3>Nová analýza<span>.</span></h3><p>Vyplň URL, vyber město a potvrď souhlas. Nic se neodesílá.</p></div>
-        <div className="fs-preview-controls">
-          <div className="fs-preview-readonly"><span>URL</span><strong>{url||'Zatím nevyplněno'}</strong></div>
-          <div className="fs-preview-readonly"><span>MĚSTO</span><strong>{regions.find(o=>o.value===city)?.label??'Nevybráno'}</strong></div>
-          <AxoButton onClick={submit} iconRight="arrow-right">Ověřit formulář</AxoButton>
-          <div className="fs-form-status" role="status">{status}</div>
-        </div>
+        <div><span className="fs-overline">WORKSPACE · FORM PREVIEW</span><h3>Nová analýza<span>.</span></h3><p>Vyplň přímo tento formulář, vyber město a potvrď souhlas. Nic se neodesílá.</p></div>
+        <form className="fs-preview-controls" onSubmit={submit} noValidate>
+          <FormInput label="URL adresa analýzy" type="url" required placeholder="https://www.o2.cz"
+            value={formUrl} onChange={e=>{setFormUrl(e.target.value);formUpdate()}}
+            error={formSubmitted&&!formUrlValid?'Zadej platnou URL včetně https://':undefined}
+            success={formSubmitted&&formUrlValid?'Platná URL':undefined}/>
+          <FormSelect label="Město analýzy" options={regions} value={formCity}
+            onChange={value=>{setFormCity(value);formUpdate()}} placeholder="Vyber město"
+            error={formSubmitted&&!formCity?'Vyber město':undefined}/>
+          <FormCheckbox label="Souhlasím s podmínkami" checked={formAgreement}
+            onChange={value=>{setFormAgreement(value);formUpdate()}}/>
+          {formSubmitted&&!formAgreement&&<p className="fs-error-message" role="alert">Pro pokračování potvrď souhlas.</p>}
+          <AxoButton type="submit" iconRight="arrow-right">Ověřit formulář</AxoButton>
+          <div className={'fs-form-status'+(formSucceeded?' is-success':formSubmitted?' is-error':'')} role="status">
+            {formSucceeded?'Ukázkový formulář byl úspěšně ověřen. Nic se neodeslalo.'
+              :formSubmitted?'Oprav označená pole. Nic se neodesílá.'
+              :'Vyplň všechny položky přímo v tomto formuláři. Nic se neodesílá.'}
+          </div>
+        </form>
       </div>
     </section>
 
