@@ -23,11 +23,11 @@ Guidance: 8px inside tightly related elements, 16–24px between peers, 24–32p
 - `round 50%` for circular icon-only controls, with equal width and height.
 
 ## Control sizing
-- Compact: 36px control height, 14px horizontal inset, 12px font.
-- Default: 44px control height, 20px horizontal inset, 13px font.
-- Comfortable: 52px control height, 24px horizontal inset, 14px font.
-- Circle buttons: 36px / 44px / 52px in matching control sizes.
-- Minimum recommended touch target: 44×44px, including invisible surrounding hit area if a smaller visual circle is used.
+- Compact: 32px text-button height, 14px horizontal inset, 12px font.
+- Default: 40px text-button height, 20px horizontal inset, 13px font.
+- Comfortable: 48px text-button height, 24px horizontal inset, 14px font.
+- Circle buttons: 36px / 44px / 52px in matching size variants, deliberately larger than the text pills.
+- Minimum recommended touch target: 44×44px, including invisible surrounding hit area where controls are visually smaller. Small text-pill variants need an expanded hit target in touch contexts.
 
 ## Grid
 - Mobile: less than 600px, 4-column model.
