@@ -3,7 +3,7 @@
 Status: **approved visual selections only**.
 
 ## Approved assets
-- **Deep Electric**, Figma Frame 27: `#08089A → #3B09C7 → #642FDF` (stops at 0%, 50%, 100%).
+- **Blue × Purple**, schválený hlavní gradient: `#0F9FDC → #3B09C7 → #8101EC` (stops 0%, 52%, 100%).
 - **Bright Blue** brand surface: `#168EDA`.
 - **White 2D Axolotl head**: original asset `public/brand/axolotl-head-white-figma.png` from Figma layer `37:1136`.
 
@@ -14,7 +14,7 @@ Status: **approved visual selections only**.
 - `src/pages/brand-expression.css`: scoped canonical styles, without appended overrides or `!important`.
 
 ## Usage
-1. Use Deep Electric with the white 2D head for selected hero, cover and brand contexts.
+1. Use Blue × Purple with the white 2D head for selected hero, cover and brand contexts.
 2. Use Bright Blue as a strong brand surface, not as a replacement for all functional controls.
 3. Keep everyday workspace surfaces neutral.
 4. Avoid overlaying small operational text on a gradient without a contrast check.
