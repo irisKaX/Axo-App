@@ -14,7 +14,7 @@
 .axo-button--primary{background:var(--brand);border-color:var(--brand);color:var(--brand-text)}
 .axo-button--primary:hover:not(:disabled){background:var(--action-hover);border-color:var(--action-hover);box-shadow:0 7px 20px var(--glow)}
 .axo-button--primary:active:not(:disabled){background:var(--action-active);border-color:var(--action-active)}
-/* One continuous Deep Electric paint, including the transparent layout border.
+/* One continuous Blue × Purple paint, including the transparent layout border.
    border-box origin + no-repeat prevents the opposite gradient edge wrapping
    into that border. There is no inset surface or second rounded clipping edge. */
 .axo-button--gradient{

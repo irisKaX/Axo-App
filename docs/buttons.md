@@ -43,7 +43,7 @@ The variant and size selectors in the Buttons gallery are pill-style button grou
 
 ## Gradient & refined interaction candidates
 
-The gradient button uses only approved `deepElectric.css` from Brand Expression. Every button remains in place on hover; no vertical lift.
+The gradient button uses only approved `bluePurple.css` from Brand Expression. Every button remains in place on hover; no vertical lift.
 
 Interaction studies (inspired by user-supplied Uiverse references, adapted for Axolotl's palette and geometry):
 - **Copy / two paper layers:** animate the upper and rear sheet separately within SVG. Avoid translating the entire glyph.
@@ -51,7 +51,7 @@ Interaction studies (inspired by user-supplied Uiverse references, adapted for A
 - **Arrow / travel and return:** arrow exits to the right and returns within the same visual footprint.
 - **Plus / Refresh / Settings:** subtle rotations, purpose-driven rather than generic bouncing.
 - **Icon-only:** subtle focus/hover ring with a label tooltip derived from the accessible name.
-- **Gradient:** Deep Electric has a small animated background-position shift. Shadows can change, button position does not.
+- **Gradient:** Blue × Purple has a small animated background-position shift. Shadows can change, button position does not.
 - Gallery offers an in-page motion toggle; turning it off affects icon animations on the four study samples.
 - All styles honor `prefers-reduced-motion: reduce`. Real focus-visible, disabled and loading states remain operational.
 
@@ -62,7 +62,7 @@ The four supplied Uiverse pages are design references, not copied component spec
 
 The earlier four Gradient Lab finishes (Luminous Rim, Electric Glow, Soft Glass and Light Sweep) were rejected. They are removed from the catalog and from the button component API.
 
-The new **single design candidate** is a smooth, borderless Deep Electric button with translucent lighting derived from existing Bright Blue and Light Violet brand colors. The approved Deep Electric foundation is unchanged. Its base color field is visible at all times, and the light within the pill subtly intensifies on hover. The button itself does not move upward.
+The new **single design candidate** is a smooth, borderless Blue × Purple button with translucent lighting derived from existing Bright Blue and Light Violet brand colors. The approved Blue × Purple foundation is unchanged. Its base color field is visible at all times, and the light within the pill subtly intensifies on hover. The button itself does not move upward.
 
 All previously approved icon interactions (Copy, Download, Arrow, Plus, Refresh etc.) remain intact. The standalone Gradient Button treatment is **not approved yet** and must be visually reviewed in the deployed catalog.
 

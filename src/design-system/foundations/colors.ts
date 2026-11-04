@@ -26,6 +26,9 @@ export const brandColors = {
   aquaSpark: '#4DEFE3',
 } as const
 
+/** Approved single product-wide gradient: Blue × Purple (replaces Deep Electric). */
+export const bluePurpleGradient = `linear-gradient(130deg, ${brandColors.blue} 0%, ${brandColors.royalBlue} 52%, ${brandColors.electricPurple} 100%)`
+
 /** The exact swatches represented by named frames in the Figma moodboard. */
 export const referencePalette = [
   { name: 'Iris Purple', hex: brandColors.irisPurple, role: 'Primary' },
@@ -121,7 +124,7 @@ export const themes = {
     corporateText: '#FFFFFF',
     mascot: brandColors.axolotlPink,
     lilac: brandColors.hoodieLilac,
-    gradient: 'linear-gradient(130deg, #0F9FDC 0%, #3B09C7 52%, #8101EC 100%)',
+    gradient: bluePurpleGradient,
     backdrop: 'radial-gradient(ellipse at 85% 5%, #B5A5FF55 0%, transparent 46%), radial-gradient(ellipse at 8% 100%, #0F9FDC28 0%, transparent 48%), #F5F7FA',
     glow: '#7C4BFE32',
   },
@@ -148,7 +151,7 @@ export const themes = {
     corporateText: '#FFFFFF',
     mascot: brandColors.axolotlPink,
     lilac: brandColors.hoodieLilac,
-    gradient: 'linear-gradient(130deg, #0F9FDC 0%, #3B09C7 52%, #8101EC 100%)',
+    gradient: bluePurpleGradient,
     backdrop: 'radial-gradient(ellipse at 85% 10%, #0F9FDC22 0%, transparent 42%), radial-gradient(ellipse at 10% 100%, #7C4BFE20 0%, transparent 46%), #090B10',
     glow: '#7C4BFE45',
   },
