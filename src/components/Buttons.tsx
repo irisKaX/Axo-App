@@ -1,4 +1,4 @@
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { useLayoutEffect, useRef, useState, forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { controls } from '../design-system/foundations/spacing'
 import { deepElectric } from '../design-system/foundations/brand-expression'
 import './buttons.css'
@@ -22,6 +22,31 @@ export function ButtonIcon({ name, size = 18 }: { name: ButtonIconName; size?: n
     loader: <path d="M12 3a9 9 0 1 0 9 9"/>,
   }
   return <svg className={name === 'loader' ? 'axo-button-spinner' : undefined} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>
+}
+
+/** One SVG unit is one CSS pixel; measure the viewport instead of stretching
+ * a fixed viewBox (which would turn the capsule ends into ellipses). */
+function ButtonBorderBeam() {
+  const ref = useRef<SVGSVGElement>(null)
+  const [size, setSize] = useState({ width: 0, height: 0 })
+  useLayoutEffect(() => {
+    const svg = ref.current
+    if (!svg) return
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect
+      setSize({ width, height })
+    })
+    observer.observe(svg)
+    return () => observer.disconnect()
+  }, [])
+  const { width, height } = size
+  // A 2px stroke centered 1px inside the outer edge stays in the border ring.
+  const radius = Math.max(0, (Math.min(width, height) - 2) / 2)
+  return <svg ref={ref} className="axo-button-border-beam" aria-hidden="true" focusable="false"
+    viewBox={width && height ? `0 0 ${width} ${height}` : undefined}>
+    {width > 2 && height > 2 ? <rect x="1" y="1" width={width - 2} height={height - 2}
+      rx={radius} ry={radius} pathLength="100" /> : null}
+  </svg>
 }
 
 export interface AxoButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
@@ -50,7 +75,7 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
     className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',variant==='gradient'?'axo-button--border-'+borderMotion:'',className].filter(Boolean).join(' ')}
     style={{'--axo-button-height':dimension.height+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px','--axo-button-gradient':deepElectric.css,...style} as React.CSSProperties}>
     {variant === 'gradient' ? <span className="axo-button-gradient-surface" aria-hidden="true" /> : null}
-    {variant === 'gradient' && borderMotion === 'beam' ? <svg className="axo-button-border-beam" aria-hidden="true" focusable="false"><rect x="1.5" y="1.5" rx="999" ry="999" pathLength="100" /></svg> : null}
+    {variant === 'gradient' && borderMotion === 'beam' ? <ButtonBorderBeam /> : null}
     {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
     {iconOnly ? <span className="axo-button-icon-sr">{children}</span> : children ? <span className="axo-button-label">{children}</span> : null}
     {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}

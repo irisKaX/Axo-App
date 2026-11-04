@@ -41,3 +41,28 @@ The GitHub Actions workflow `.github/workflows/deploy.yml` builds and deploys ea
 Published site (after first successful deployment): https://iriskax.github.io/Axo-App/
 
 The Vite base path is set to `/Axo-App/` for Pages deployments by the `GITHUB_PAGES` environment variable. Local development still uses `/`.
+
+## Browser regression tests
+
+```bash
+npm ci
+npx playwright install chromium
+npm test
+```
+
+The Border Beam tests capture 120 phases over its 3-second orbit in Light and
+Dark, covering all three button sizes, short/long labels and icon-only buttons.
+They compare pixels with the beam hidden, check that changed pixels stay in the
+2px capsule ring (with one pixel diagonal of antialiasing tolerance), and check
+1,000 points of each continuous SVG centerline against the capsule to 0.01px.
+Real hover, keyboard focus, dynamic content/height, disabled and reduced motion
+are also tested. Screenshots at eight phases per theme are in
+`playwright-report/index.html` (`npx playwright show-report`). CI uploads this
+report and requires tests to pass before deploying Pages.
+
+For a system Chromium, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its executable.
+The measured SVG viewport tracks the button border box; its 2px stroke is inset
+1px with equal radii derived from the shorter dimension. Oversized independent
+SVG rx/ry values would produce an ellipse, not a capsule. Beam filters are
+intentionally omitted so the light stays within the border rather than glowing
+outside it. Other gradient and icon effects are unchanged.
