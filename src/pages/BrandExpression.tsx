@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { deepElectric, approvedBrandSurfaces, brandExpressionAssets } from '../design-system/foundations/brand-expression'
+import { bluePurple, approvedBrandSurfaces, brandExpressionAssets } from '../design-system/foundations/brand-expression'
 import './brand-expression.css'
 
 function WhiteHead({ className = '' }: { className?: string }) {
@@ -20,16 +20,16 @@ export default function BrandExpression() {
   return <div className="expression-page">
     <p className="eyebrow">FOUNDATIONS / BRAND EXPRESSION</p>
     <h1>Brand <span className="heading-accent">Expression.</span></h1>
-    <p className="intro">Schválená vizuální identita: Deep Electric, Bright Blue a originální bílá 2D hlava axolotla.</p>
-    <div className="expression-status">APPROVED · DEEP ELECTRIC · BRIGHT BLUE · WHITE AXOLOTL HEAD</div>
+    <p className="intro">Schválená vizuální identita: Blue × Purple, Bright Blue a originální bílá 2D hlava axolotla.</p>
+    <div className="expression-status">APPROVED · BLUE × PURPLE · BRIGHT BLUE · WHITE AXOLOTL HEAD</div>
 
     <section className="expression-panel">
       <div className="expression-heading">
         <span className="expression-eyebrow">01 / PRIMARY BRAND GRADIENT</span>
-        <h2>Deep Electric</h2>
+        <h2>Blue × Purple</h2>
         <p>Schválený gradient z Frame 27. Používáme ho na významných brandových plochách, ne jako pozadí běžných widgetů.</p>
       </div>
-      <div className="expression-hero" style={{ background: deepElectric.css }}>
+      <div className="expression-hero" style={{ background: bluePurple.css }}>
         <div className="expression-hero-copy">
           <span>AXOLOTL · BRAND SYSTEM</span>
           <h3>Make work<br />flow better.</h3>
@@ -39,14 +39,14 @@ export default function BrandExpression() {
         <div className="expression-hero-orbit" aria-hidden="true" />
       </div>
       <div className="expression-gradient-spec">
-        <div><strong>{deepElectric.name}</strong><p>Figma Frame {deepElectric.figmaFrame}</p></div>
+        <div><strong>{bluePurple.name}</strong><p>Schválený produktový gradient</p></div>
         <div className="expression-stop-list">
-          {deepElectric.stops.map((hex, i) => <button type="button" key={hex} onClick={() => void copy(hex)} title={'Kopírovat ' + hex}>
-            <i style={{ background: hex }} /><code>{copied === hex ? '✓ Zkopírováno' : hex}</code><small>{i * 50}%</small>
+          {bluePurple.stops.map((hex, i) => <button type="button" key={hex} onClick={() => void copy(hex)} title={'Kopírovat ' + hex}>
+            <i style={{ background: hex }} /><code>{copied === hex ? '✓ Zkopírováno' : hex}</code><small>{bluePurple.positions[i]}%</small>
           </button>)}
         </div>
-        <button type="button" className="expression-copy-css" onClick={() => void copy(deepElectric.css)}>
-          {copied === deepElectric.css ? '✓ CSS zkopírováno' : 'Kopírovat CSS'}
+        <button type="button" className="expression-copy-css" onClick={() => void copy(bluePurple.css)}>
+          {copied === bluePurple.css ? '✓ CSS zkopírováno' : 'Kopírovat CSS'}
         </button>
       </div>
     </section>
@@ -78,13 +78,13 @@ export default function BrandExpression() {
       <div className="expression-heading">
         <span className="expression-eyebrow">03 / WHITE BRAND MARK</span>
         <h2>Bílá 2D hlava</h2>
-        <p>Originální asset z Figmy použitý se schváleným Deep Electric a Bright Blue.</p>
+        <p>Originální asset z Figmy použitý se schváleným Blue × Purple a Bright Blue.</p>
       </div>
       <div className="expression-mark-grid">
-        <div className="expression-mark-demo" style={{ background: deepElectric.css }}><WhiteHead /></div>
+        <div className="expression-mark-demo" style={{ background: bluePurple.css }}><WhiteHead /></div>
         <div className="expression-mark-demo" style={{ background: approvedBrandSurfaces.brightBlue }}><WhiteHead /></div>
       </div>
-      <div className="expression-mark-caption"><span>Deep Electric</span><span>Bright Blue</span></div>
+      <div className="expression-mark-caption"><span>Blue × Purple</span><span>Bright Blue</span></div>
     </section>
 
     <section className="expression-panel">
@@ -94,7 +94,7 @@ export default function BrandExpression() {
         <p>Základem pracovní aplikace jsou neutrální plochy. Schválené brandové barvy mají vyniknout v důležitých místech.</p>
       </div>
       <div className="expression-guidelines">
-        <div className="expression-rule"><span className="expression-rule-icon">✓</span><strong>Brandové plochy</strong><p>Deep Electric pro hero a vybrané cover karty. Bright Blue pro výrazné značkové bloky.</p></div>
+        <div className="expression-rule"><span className="expression-rule-icon">✓</span><strong>Brandové plochy</strong><p>Blue × Purple pro hero a vybrané cover karty. Bright Blue pro výrazné značkové bloky.</p></div>
         <div className="expression-rule"><span className="expression-rule-icon">✓</span><strong>Neutral workspace</strong><p>Dashboard, formuláře a pracovní widgety zůstávají na neutrálním povrchu.</p></div>
         <div className="expression-rule"><span className="expression-rule-icon expression-rule-no">×</span><strong>Bez přebarvování</strong><p>Bílou hlavu nepřebarvovat. Nepoužívat výrazný gradient za drobným pracovním textem.</p></div>
       </div>
