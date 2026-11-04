@@ -8,23 +8,16 @@
 .bs-icon-library{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:12px}.bs-icon-swatch{display:flex;flex-direction:column;align-items:center;gap:13px;padding:18px 8px;border-radius:20px;border:1px solid var(--border);background:var(--canvas);min-width:0}.bs-icon-swatch span{font-size:10px;color:var(--muted);overflow-wrap:anywhere;text-align:center}
 .bs-playground{display:grid;grid-template-columns:minmax(225px,.7fr) minmax(0,1.3fr);border:1px solid var(--border);border-radius:24px;overflow:hidden}.bs-playground-controls{display:flex;flex-direction:column;gap:10px;padding:24px;background:var(--subtle)}.bs-control-label{font-size:12px;font-weight:600;margin-top:10px}.bs-choice-options{display:flex;flex-wrap:wrap;gap:6px}.bs-choice-options button{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 14px;border:1px solid var(--border);border-radius:9999px;background:var(--surface);color:var(--text);font-size:11px;font-weight:600;white-space:nowrap}.bs-choice-options button:hover:not(.selected){border-color:var(--brand);background:var(--brand-soft)}.bs-choice-options button.selected{background:var(--brand);color:var(--brand-text);border-color:var(--brand)}.bs-choice-options button:focus-visible,.bs-state-options button:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}.bs-state-options{display:flex;flex-wrap:wrap;gap:6px}.bs-state-options button{border:1px solid var(--border);background:var(--surface);color:var(--muted);padding:8px 10px;border-radius:9999px;font-size:11px}.bs-state-options button.selected{background:var(--brand);color:var(--brand-text);border-color:var(--brand)}
 .bs-playground-stage{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:27px;min-height:300px;padding:25px;background:var(--canvas)}.bs-stage-label{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:.08em;text-align:center}.bs-stage-caption{font-size:11px;color:var(--muted);text-align:center}
-/* One focused premium gradient study, not a decorative finish selector. */
-.bs-gradient-premium-stage{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.85fr);
-  align-items:center;gap:28px;min-height:320px;
-  background:var(--canvas);border:1px solid var(--border);
-  border-radius:26px;padding:clamp(24px,4vw,46px)
-}
-.bs-gradient-premium-copy{display:flex;flex-direction:column;align-items:flex-start;gap:13px}
-.bs-gradient-premium-copy>span{font-size:10px;letter-spacing:.15em;font-weight:750;color:var(--accent)}
-.bs-gradient-premium-copy h3{margin:0;font-size:clamp(30px,3vw,45px);line-height:1.12;letter-spacing:-.05em}
-.bs-gradient-premium-copy h3 span{color:var(--brand)}
-.bs-gradient-premium-copy p{max-width:390px;margin:0;color:var(--muted);font-size:12px;line-height:1.8}
-.bs-gradient-premium-actions{display:flex;flex-direction:column;gap:23px;align-items:center;justify-content:center;min-width:0;padding:30px 10px}
-.bs-gradient-premium-actions .axo-button{min-width:190px}
-.bs-gradient-premium-detail{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-.bs-gradient-premium-detail>span{font-size:10px;letter-spacing:.07em;font-weight:650;color:var(--muted);background:var(--subtle);border:1px solid var(--border);border-radius:9999px;padding:8px 12px}
-@media(max-width:720px){.bs-gradient-premium-stage{grid-template-columns:1fr;min-height:0}.bs-gradient-premium-actions{padding:15px 0}}
+/* Border motion studies: preserve the underlying approved gradient. */
+.bs-beam-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.bs-beam-card{display:flex;flex-direction:column;gap:10px;min-width:0;background:var(--canvas);border:1px solid var(--border);border-radius:24px;padding:23px}
+.bs-beam-card>span{font-size:10px;font-weight:800;letter-spacing:.11em;color:var(--accent)}
+.bs-beam-card>strong{font-size:16px;letter-spacing:-.02em}
+.bs-beam-card>p{font-size:12px;line-height:1.7;color:var(--muted);margin:0;min-height:63px}
+.bs-beam-showcase{display:flex;justify-content:center;align-items:center;min-height:118px;padding:18px 6px;background:var(--surface);border-radius:16px;border:1px solid var(--border)}
+.bs-beam-baseline{background:var(--subtle)}
+@media(max-width:1100px){.bs-beam-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.bs-beam-grid{grid-template-columns:1fr}.bs-beam-card>p{min-height:0}}
 .bs-motion-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
 .bs-motion-toolbar>span{font-size:10px;letter-spacing:.12em;font-weight:750;color:var(--muted)}
 .bs-motion-switch{display:inline-flex;gap:10px;align-items:center;border:1px solid var(--border);border-radius:9999px;background:var(--subtle);color:var(--text);padding:10px 14px;font-size:11px;font-weight:650}
