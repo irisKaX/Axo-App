@@ -5,6 +5,7 @@ import './buttons.css'
 
 export type ButtonVariant = 'primary' | 'gradient' | 'secondary' | 'ghost' | 'outline' | 'danger'
 export type ButtonSize = 'compact' | 'default' | 'comfortable'
+export type ButtonFinish = 'standard' | 'glow' | 'glass' | 'shine'
 export type ButtonIconName = 'plus' | 'copy' | 'download' | 'arrow-right' | 'check' | 'trash' | 'refresh' | 'settings' | 'close' | 'loader'
 
 export function ButtonIcon({ name, size = 18 }: { name: ButtonIconName; size?: number }) {
@@ -32,11 +33,12 @@ export interface AxoButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElem
   iconOnly?: boolean
   loading?: boolean
   iconMotion?: boolean
+  finish?: ButtonFinish
 }
 
 export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function AxoButton({
   children, variant = 'primary', size = 'default', icon, iconRight, iconOnly = false,
-  loading = false, iconMotion = true, disabled, className = '', style, ...rest
+  loading = false, iconMotion = true, finish = 'standard', disabled, className = '', style, ...rest
 }, ref) {
   const dimension = controls[size]
   const label = iconOnly ? (rest['aria-label'] || (typeof children === 'string' ? children : undefined)) : undefined
@@ -45,8 +47,9 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
     aria-busy={loading || undefined}
     data-tooltip={iconOnly ? (label || undefined) : undefined}
     disabled={disabled || loading}
-    className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',className].filter(Boolean).join(' ')}
+    className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'','axo-button--finish-'+finish,className].filter(Boolean).join(' ')}
     style={{'--axo-button-height':dimension.height+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px','--axo-button-gradient':deepElectric.css,...style} as React.CSSProperties}>
+    {variant === 'gradient' ? <span className="axo-button-gradient-surface" aria-hidden="true" /> : null}
     {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
     {iconOnly ? <span className="axo-button-icon-sr">{children}</span> : children ? <span className="axo-button-label">{children}</span> : null}
     {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}
@@ -55,3 +58,4 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
 
 export const buttonVariants: ButtonVariant[] = ['primary','gradient','secondary','ghost','outline','danger']
 export const buttonSizes: ButtonSize[] = ['compact','default','comfortable']
+export const buttonFinishes: ButtonFinish[] = ['standard','glow','glass','shine']
