@@ -24,6 +24,7 @@ export const brandColors = {
   electricViolet: '#A14CFF',
   deepIndigo: '#120B2D',
   aquaSpark: '#4DEFE3',
+  sunshineYellow: '#FFF449',
 } as const
 
 /** Approved single product-wide gradient: Blue × Purple (replaces Deep Electric). */
@@ -41,6 +42,7 @@ export const referencePalette = [
   { name: 'Deep Blue', hex: brandColors.deepBlue, role: 'Decorative' },
   { name: 'Purple Magenta', hex: brandColors.purpleMagenta, role: 'Decorative' },
   { name: 'Light Violet', hex: brandColors.lightViolet, role: 'Highlight' },
+  { name: 'Sunshine Yellow', hex: brandColors.sunshineYellow, role: 'Theme icon accent' },
   { name: 'Near Black', hex: '#000200', role: 'Reference only' },
 ] as const
 
