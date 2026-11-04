@@ -8,16 +8,22 @@
 .bs-icon-library{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:12px}.bs-icon-swatch{display:flex;flex-direction:column;align-items:center;gap:13px;padding:18px 8px;border-radius:20px;border:1px solid var(--border);background:var(--canvas);min-width:0}.bs-icon-swatch span{font-size:10px;color:var(--muted);overflow-wrap:anywhere;text-align:center}
 .bs-playground{display:grid;grid-template-columns:minmax(225px,.7fr) minmax(0,1.3fr);border:1px solid var(--border);border-radius:24px;overflow:hidden}.bs-playground-controls{display:flex;flex-direction:column;gap:10px;padding:24px;background:var(--subtle)}.bs-control-label{font-size:12px;font-weight:600;margin-top:10px}.bs-choice-options{display:flex;flex-wrap:wrap;gap:6px}.bs-choice-options button{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 14px;border:1px solid var(--border);border-radius:9999px;background:var(--surface);color:var(--text);font-size:11px;font-weight:600;white-space:nowrap}.bs-choice-options button:hover:not(.selected){border-color:var(--brand);background:var(--brand-soft)}.bs-choice-options button.selected{background:var(--brand);color:var(--brand-text);border-color:var(--brand)}.bs-choice-options button:focus-visible,.bs-state-options button:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}.bs-state-options{display:flex;flex-wrap:wrap;gap:6px}.bs-state-options button{border:1px solid var(--border);background:var(--surface);color:var(--muted);padding:8px 10px;border-radius:9999px;font-size:11px}.bs-state-options button.selected{background:var(--brand);color:var(--brand-text);border-color:var(--brand)}
 .bs-playground-stage{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:27px;min-height:300px;padding:25px;background:var(--canvas)}.bs-stage-label{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:.08em;text-align:center}.bs-stage-caption{font-size:11px;color:var(--muted);text-align:center}
-.bs-motion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.bs-motion-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.bs-motion-toolbar>span{font-size:10px;letter-spacing:.12em;font-weight:750;color:var(--muted)}
+.bs-motion-switch{display:inline-flex;gap:10px;align-items:center;border:1px solid var(--border);border-radius:9999px;background:var(--subtle);color:var(--text);padding:10px 14px;font-size:11px;font-weight:650}
+.bs-motion-switch.is-on{border-color:var(--brand)}
+.bs-motion-switch span{color:var(--brand);font-size:15px}
+.bs-motion-switch:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+.bs-motion-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .bs-motion-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:250px;min-width:0;padding:24px;border:1px solid var(--border);border-radius:24px;background:var(--canvas)}
 .bs-motion-card>span{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:.13em}
 .bs-motion-card strong{font-size:15px}
 .bs-motion-card p{color:var(--muted);font-size:12px;line-height:1.7;margin:0 0 auto}
 .bs-motion-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-@media(max-width:1050px){.bs-motion-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 @media(max-width:700px){.bs-motion-grid{grid-template-columns:1fr}.bs-motion-card{min-height:210px}}
 .bs-playground-stage .bs-preview-hover.axo-button--gradient{background-position:100% 50%;box-shadow:0 8px 24px var(--glow)}
-.bs-playground-stage .bs-preview-hover.axo-button--motion .axo-button-icon[data-icon="arrow-right"]{transform:translateX(4px)}
+.bs-playground-stage .bs-preview-hover.axo-button--motion .axo-button-icon[data-icon="arrow-right"]{animation:axo-arrow-travel .45s cubic-bezier(.25,.7,.2,1) both}
 .bs-playground-stage .bs-preview-hover.axo-button--primary{background:var(--action-hover);border-color:var(--action-hover)}
 .bs-playground-stage .bs-preview-hover.axo-button--secondary,.bs-playground-stage .bs-preview-hover.axo-button--ghost,.bs-playground-stage .bs-preview-hover.axo-button--outline{background:var(--subtle);border-color:var(--control-border)}
 .bs-playground-stage .bs-preview-hover.axo-button--danger{background:#CF0642;border-color:#CF0642}
