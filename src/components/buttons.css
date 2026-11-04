@@ -14,43 +14,35 @@
 .axo-button--primary{background:var(--brand);border-color:var(--brand);color:var(--brand-text)}
 .axo-button--primary:hover:not(:disabled){background:var(--action-hover);border-color:var(--action-hover);box-shadow:0 7px 20px var(--glow)}
 .axo-button--primary:active:not(:disabled){background:var(--action-active);border-color:var(--action-active)}
-/* Gradient system: layered luminous rim, quiet depth and no vertical movement. */
+/* Premium gradient: luminous color field, no decorative border or inset rim. */
 .axo-button--gradient{
-  --axo-rim:linear-gradient(115deg,#08089A,#3B09C7 49%,#642FDF);
-  --axo-glow:#3B09C76A;
-  background:var(--axo-rim);
-  background-size:160% 160%;background-position:0% 50%;
-  border-color:transparent;color:#FFFFFF;overflow:visible;
-  box-shadow:inset 0 1px 0 #FFFFFF29,0 3px 10px #08089A2E;
-  transition:background-position .46s ease,box-shadow .32s ease,filter .25s ease,transform .22s ease
+  background:var(--axo-button-gradient);
+  border-color:transparent;
+  color:#FFFFFF;
+  box-shadow:0 5px 15px #08089A38;
+  overflow:hidden;
+  transition:box-shadow .32s ease,filter .32s ease,transform .22s ease;
 }
 .axo-button--gradient .axo-button-gradient-surface{
-  position:absolute;z-index:-1;inset:2px;border-radius:inherit;pointer-events:none;
-  background:linear-gradient(125deg,#08089ADE,#3B09C7EC 53%,#642FDFD8);
-  transition:inset .3s ease,opacity .3s ease,filter .3s ease
+  position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+  background:
+    radial-gradient(ellipse 75% 160% at 105% -30%,#AF6CFBCC 0%,transparent 74%),
+    radial-gradient(ellipse 74% 155% at -12% 140%,#168EDA99 0%,transparent 78%);
+  opacity:.72;
+  transform:scale(1);
+  transition:opacity .4s ease,transform .55s cubic-bezier(.2,.75,.2,1);
 }
 .axo-button--gradient .axo-button-label,.axo-button--gradient .axo-button-icon{position:relative;z-index:2}
 .axo-button--gradient:hover:not(:disabled){
-  background-position:100% 50%;
-  box-shadow:inset 0 1px 0 #FFFFFF52,0 0 0 1px #AF6CFB5C,0 0 22px #3B09C759,0 8px 22px #08089A35
+  box-shadow:0 8px 24px #3B09C74A,0 0 28px #642FDF29;
 }
-.axo-button--gradient:hover:not(:disabled) .axo-button-gradient-surface{filter:brightness(1.12)}
-.axo-button--gradient:active:not(:disabled){filter:brightness(.93);box-shadow:inset 0 1px 3px #08089A80}
-.axo-button--finish-glow.axo-button--gradient{box-shadow:inset 0 1px 0 #FFFFFF52,0 0 0 1px #AF6CFB66,0 0 24px #3B09C75B}
-.axo-button--finish-glow.axo-button--gradient:hover:not(:disabled){box-shadow:inset 0 1px 0 #FFFFFF70,0 0 0 1px #AF6CFBA8,0 0 26px #642FDF9C,0 0 42px #3B09C770}
-.axo-button--finish-glass.axo-button--gradient .axo-button-gradient-surface{
-  background:linear-gradient(160deg,#FFFFFF45 0%,#FFFFFF17 20%,#08089A9C 50%,#3B09C7B9 100%);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)
+.axo-button--gradient:hover:not(:disabled) .axo-button-gradient-surface{
+  opacity:1;
+  transform:scale(1.18);
 }
-.axo-button--finish-glass.axo-button--gradient{box-shadow:inset 0 1px 0 #FFFFFF88,0 0 0 1px #FFFFFF25,0 7px 22px #08089A35}
-.axo-button--finish-glass.axo-button--gradient:hover:not(:disabled){box-shadow:inset 0 1px 0 #FFFFFFB0,0 0 0 1px #FFFFFF70,0 9px 27px #3B09C765}
-.axo-button--finish-shine.axo-button--gradient::after{
-  content:"";position:absolute;inset:2px;border-radius:inherit;z-index:1;pointer-events:none;overflow:hidden;
-  background:linear-gradient(115deg,transparent 25%,#FFFFFF00 36%,#FFFFFF65 50%,#FFFFFF00 64%,transparent 75%);
-  background-size:260% 100%;background-position:130% 0;
-  transition:background-position .65s cubic-bezier(.19,.78,.2,1)
-}
-.axo-button--finish-shine.axo-button--gradient:hover:not(:disabled)::after{background-position:-90% 0}
+.axo-button--gradient:active:not(:disabled){filter:brightness(.92);box-shadow:0 3px 12px #08089A38}
+.axo-button--gradient.axo-button--icon{overflow:visible}
+.axo-button--gradient.axo-button--icon .axo-button-gradient-surface{border-radius:50%}
 .axo-button--secondary{background:var(--subtle);border-color:var(--border);color:var(--text)}
 .axo-button--secondary:hover:not(:disabled){background:var(--surface);border-color:var(--control-border);box-shadow:0 5px 14px #00000014}
 .axo-button--ghost{background:transparent;color:var(--text)}
@@ -101,7 +93,6 @@
   .axo-glyph-copy-front,.axo-glyph-copy-back,.axo-glyph-download-arrow,.axo-glyph-download-tray{transition:none}
   .axo-button--motion:hover:not(:disabled) .axo-glyph-copy-front,.axo-button--motion:hover:not(:disabled) .axo-glyph-copy-back,.axo-button--motion:hover:not(:disabled) .axo-glyph-download-arrow,.axo-button--motion:hover:not(:disabled) .axo-glyph-download-tray{transform:none}
   .axo-button--icon[data-tooltip]::after{transition:none}
-  .axo-button--finish-shine.axo-button--gradient::after{transition:none;background:none}
-  .axo-button--gradient .axo-button-gradient-surface{transition:none}
+  .axo-button--gradient .axo-button-gradient-surface{transition:none;transform:none}
   .axo-button-spinner{animation:none}
 }
