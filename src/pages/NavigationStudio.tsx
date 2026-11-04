@@ -110,9 +110,8 @@ export default function NavigationStudio({theme,onThemeChange}:{theme:ThemeName;
     <p className="intro">Horizontal Workspace Navigation V2 · Clean Neo Iris. Jediná horizontální lišta bez sidebaru. Obsahuje logo, Home, pracovní nabídky, URL display, karty prohlížeče, indikátor, čas, upozornění, nastavení a již existující Theme Switch.</p>
     <div className="nh-status">DESIGN CANDIDATE · HORIZONTAL / SINGLE ROW · DARK & LIGHT</div>
     <section className="panel nh-panel">
-      <div className="nh-heading"><span>01 / LIVE HEADER</span><h2>Horizontální navigace</h2><p>Oba režimy lze vyzkoušet přímo zde. Switch je sdílený s katalogem. Při zúženém náhledu lze ukázkovou lištu horizontálně posunout, cílové desktopové rozložení však scrollbar mít nemá.</p></div>
+      <div className="nh-heading"><span>01 / LIVE HEADER</span><h2>Horizontální navigace</h2><p>Režim ovládá globální přepínač katalogu a sdílený Theme Switch v náhledu. Při zúženém náhledu lze ukázkovou lištu horizontálně posunout, cílové desktopové rozložení však scrollbar mít nemá.</p></div>
       <HeaderPreview mode={theme} onModeChange={onThemeChange}/>
-      <HeaderPreview mode={theme==='dark'?'light':'dark'} onModeChange={onThemeChange}/>
     </section>
     <section className="panel nh-panel">
       <div className="nh-heading"><span>02 / ANATOMY</span><h2>Komponenty a chování</h2><p>Dropdowny vycházejí ze způsobu ovládání selectu v Inputs & Forms. Jde o koncepční navigační menu, nikoliv další samostatný select.</p></div>
