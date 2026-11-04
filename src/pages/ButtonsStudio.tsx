@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AxoButton, ButtonIcon, buttonSizes, buttonVariants, buttonFinishes, type ButtonFinish, type ButtonSize, type ButtonVariant } from '../components/Buttons'
+import { AxoButton, ButtonIcon, buttonSizes, buttonVariants, type ButtonSize, type ButtonVariant } from '../components/Buttons'
 import { controls, radius } from '../design-system/foundations/spacing'
 import './buttons-studio.css'
 
@@ -27,7 +27,6 @@ export default function ButtonsStudio() {
   const [note,setNote]=useState('Vyzkoušej jednotlivá tlačítka. Ukázky neovlivňují skutečná data.')
   const [showCode,setShowCode]=useState(false)
   const [motionEnabled,setMotionEnabled]=useState(true)
-  const [gradientFinish,setGradientFinish]=useState<ButtonFinish>('glow')
 
   async function copyText() {
     try{
@@ -90,20 +89,19 @@ export default function ButtonsStudio() {
     </section>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>04 / GRADIENT LAB</span><h2>Gradient, který opravdu vynikne</h2><p>Čtyři návrhy zpracování schváleného Deep Electric: vrstvený okraj, světelná aura, lehké sklo a pohyblivý odlesk. Barevné stopy neměním, jen efekt.</p></div></div>
-      <div className="bs-finish-grid">
-        {buttonFinishes.map((finish,i)=><div key={finish} className={'bs-finish-option'+(gradientFinish===finish?' is-selected':'')}>
-          <span className="bs-finish-number">{String(i+1).padStart(2,'0')} / DESIGN STUDY</span>
-          <div className="bs-finish-demo"><AxoButton variant="gradient" finish={finish} size="comfortable" iconRight="arrow-right" onClick={()=>setGradientFinish(finish)}>Pokračovat</AxoButton></div>
-          <strong>{finish==='standard'?'Luminous Rim':finish==='glow'?'Electric Glow':finish==='glass'?'Soft Glass':'Light Sweep'}</strong>
-          <p>{finish==='standard'?'Barevná hloubka a tenký světelný okraj':finish==='glow'?'Výraznější, ale kultivovaná aura':finish==='glass'?'Průsvitná vnitřní vrstva a odlesk':'Světlý záblesk přes povrch při hoveru'}</p>
-          <button type="button" className="bs-finish-choice" aria-pressed={gradientFinish===finish} onClick={()=>setGradientFinish(finish)}>{gradientFinish===finish?'✓ Zvoleno pro náhled':'Vybrat pro náhled'}</button>
-        </div>)}
+      <div className="bs-section-heading"><div><span>04 / GRADIENT BUTTON</span><h2>Nový směr. Čistší a výraznější.</h2><p>Jeden prémiový návrh místo čtyř nevyhovujících variant. Žádný dekorativní border ani skleněná vrstva přes celý gradient. Schválený Deep Electric doplňují jemné světelné akcenty z aktuální palety.</p></div></div>
+      <div className="bs-gradient-premium-stage">
+        <div className="bs-gradient-premium-copy">
+          <span>NEO IRIS / BUTTON STUDY</span>
+          <h3>Color with<br/>a purpose<span>.</span></h3>
+          <p>Najeď myší na tlačítko. Mění se světlo a hloubka, nikoliv pozice tlačítka. Animace ikon zůstávají schválené.</p>
+        </div>
+        <div className="bs-gradient-premium-actions">
+          <AxoButton variant="gradient" size="comfortable" iconRight="arrow-right" onClick={()=>setNote('Gradient button · náhled')}>Otevřít Workspace</AxoButton>
+          <AxoButton variant="gradient" size="default" iconRight="arrow-right" onClick={()=>setNote('Gradient button · menší velikost')}>Pokračovat</AxoButton>
+        </div>
       </div>
-      <div className="bs-finish-feature">
-        <div><span>ACTIVE PREVIEW / {gradientFinish.toUpperCase()}</span><strong>Deep Electric</strong><p>Vyzkoušej najetí myší. Tento efekt je návrh, ne schválený globální styl.</p></div>
-        <AxoButton variant="gradient" size="comfortable" finish={gradientFinish} iconRight="arrow-right" onClick={()=>setNote('Gradient '+gradientFinish)}>Otevřít Workspace</AxoButton>
-      </div>
+      <div className="bs-gradient-premium-detail"><span>JEDEN GRADIENT</span><span>ŽÁDNÝ OZDOBNÝ BORDER</span><span>BEZ POHYBU TLAČÍTKA NAHORU</span></div>
     </section>
 
     <section className="panel bs-panel">

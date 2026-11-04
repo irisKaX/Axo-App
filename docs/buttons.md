@@ -57,20 +57,12 @@ Interaction studies (inspired by user-supplied Uiverse references, adapted for A
 The four supplied Uiverse pages are design references, not copied component specifications. The Buttons patterns remain candidates until visually approved.
 
 
-## Premium gradient design studies (visual candidates)
+## Premium gradient redesign candidate
 
-Four *unapproved* finish options are available in `Components → Buttons → Gradient Lab`:
-1. **Luminous Rim**: restrained layered gradient with a luminous border.
-2. **Electric Glow**: stronger purple aura, with the same approved Deep Electric color stops.
-3. **Soft Glass**: inner glass-like layer with brighter reflection.
-4. **Light Sweep**: directional shine across the pill on hover.
+The earlier four Gradient Lab finishes (Luminous Rim, Electric Glow, Soft Glass and Light Sweep) were rejected. They are removed from the catalog and from the button component API.
 
-The active preview is selected locally in the catalog, not persisted as the global design-system approval. All variants use the exact `deepElectric` gradient token, and the icon hover animations approved earlier remain unchanged. No full-button upward hover motion. Motion honors reduced-motion preferences.
+The new **single design candidate** is a smooth, borderless Deep Electric button with translucent lighting derived from existing Bright Blue and Light Violet brand colors. The approved Deep Electric foundation is unchanged. Its base color field is visible at all times, and the light within the pill subtly intensifies on hover. The button itself does not move upward.
 
-User inspiration links:
-- https://uiverse.io/Yaya12085/plastic-quail-42
-- https://uiverse.io/ParasSalunke/selfish-dolphin-96
-- https://uiverse.io/vinodjangid07/wonderful-squid-57
-- https://uiverse.io/adamgiebl/pink-chicken-70
+All previously approved icon interactions (Copy, Download, Arrow, Plus, Refresh etc.) remain intact. The standalone Gradient Button treatment is **not approved yet** and must be visually reviewed in the deployed catalog.
 
-The studies are original Axolotl treatments, not copies of those external buttons.
+Design reference: https://uiverse.io/Yaya12085/plastic-quail-42. The exact CSS and live behavior of this third-party design were not accessible for inspection; the implementation is an original Axolotl direction informed by the user’s critique, not a claim of pixel fidelity.
