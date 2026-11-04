@@ -9,7 +9,6 @@
   color:var(--text)
 }
 .axo-button:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
-.axo-button:hover:not(:disabled){transform:translateY(-2px)}
 .axo-button:active:not(:disabled){transform:translateY(0) scale(.975)}
 .axo-button:disabled{cursor:not-allowed;opacity:.54;transform:none;box-shadow:none}
 .axo-button--primary{background:var(--brand);border-color:var(--brand);color:var(--brand-text)}
@@ -37,12 +36,12 @@
 .axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="arrow-right"]{transform:translateX(4px)}
 .axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="download"]{transform:translateY(3px)}
 .axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="plus"]{transform:rotate(90deg)}
-.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="copy"]{transform:translate(2px,-2px)}
+.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="copy"]{transform:rotate(-10deg)}
 .axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="refresh"]{transform:rotate(50deg)}
 .axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="settings"]{transform:rotate(35deg)}
 .axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="check"]{transform:scale(1.12)}
 .axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="close"]{transform:rotate(90deg)}
-.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="trash"]{transform:translateY(-2px)}
+.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="trash"]{transform:rotate(-8deg)}
 .axo-button-spinner{animation:axo-spin .85s linear infinite}
 @keyframes axo-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){
