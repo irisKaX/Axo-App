@@ -78,7 +78,7 @@ function LoadingStage({theme,paused}:{theme:ThemeName;paused:boolean}){
     </div>
   </div>
 }
-export default function LoadingStudio(){
+export default function LoadingStudio({theme}:{theme:ThemeName}){
   const [paused,setPaused]=useState(false)
   const [size,setSize]=useState(40)
   return <div className="ld-page">
@@ -87,10 +87,9 @@ export default function LoadingStudio(){
     <p className="intro">Clean Neo Iris · návrhy animací a stavů načítání. První dva loadery vycházejí z dodaných CSS referencí, upravených do barev Axolotlu. Ostatní ukázky pokrývají časté situace v nástrojích a dashboardu.</p>
     <div className="ld-status">DESIGN CANDIDATE · DARK / LIGHT · LIVE STATES</div>
     <section className="panel ld-panel">
-      <div className="ld-section-head"><span>01 / LOADER LIBRARY</span><h2>Loadery ve dvou režimech</h2><p>Všechny animace můžeš pozastavit. Každý režim je zobrazen samostatně, bez závislosti na aktuálním tématu katalogu.</p></div>
+      <div className="ld-section-head"><span>01 / LOADER LIBRARY</span><h2>Knihovna loaderů</h2><p>Všechny animace můžeš pozastavit. Vzhled se řídí globálním přepínačem motivu katalogu.</p></div>
       <div className="ld-toolbar"><button type="button" className="ld-reset" onClick={()=>setPaused(v=>!v)} aria-pressed={paused}>{paused?'Spustit animace':'Pozastavit animace'}</button><span>Respektujeme nastavení omezeného pohybu.</span></div>
-      <LoadingStage theme="dark" paused={paused}/>
-      <LoadingStage theme="light" paused={paused}/>
+      <LoadingStage theme={theme} paused={paused}/>
     </section>
     <section className="panel ld-panel">
       <div className="ld-section-head"><span>02 / SIZE SYSTEM</span><h2>Velikosti komponent</h2><p>Jeden loader používáme ve více kontextech. Základní referenční kruh má 40 px.</p></div>
