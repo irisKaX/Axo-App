@@ -32,7 +32,7 @@
 .bs-motion-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 
 @media(max-width:700px){.bs-motion-grid{grid-template-columns:1fr}.bs-motion-card{min-height:210px}}
-.bs-playground-stage .bs-preview-hover.axo-button--gradient{background-position:100% 50%;box-shadow:0 8px 24px var(--glow)}
+.bs-playground-stage .bs-preview-hover.axo-button--gradient{box-shadow:0 5px 14px #00000029}
 .bs-playground-stage .bs-preview-hover.axo-button--motion .axo-button-icon[data-icon="arrow-right"]{animation:axo-arrow-travel .45s cubic-bezier(.25,.7,.2,1) both}
 .bs-playground-stage .bs-preview-hover.axo-button--primary{background:var(--action-hover);border-color:var(--action-hover)}
 .bs-playground-stage .bs-preview-hover.axo-button--secondary,.bs-playground-stage .bs-preview-hover.axo-button--ghost,.bs-playground-stage .bs-preview-hover.axo-button--outline{background:var(--subtle);border-color:var(--control-border)}

@@ -4,29 +4,29 @@ import { writeFileSync } from 'node:fs'
 
 // A beam pixel must stay in the outer 2px capsule ring (one pixel diagonal of raster antialiasing tolerance). Comparing the same
 // rendered frame with/without the beam excludes the approved gradient/shadows.
-for (const theme of ['light', 'dark']) {
-  test(`${theme}: beam stays on the pill perimeter for an entire orbit`, async ({ page }, testInfo) => {
-    await page.goto(`/tests/fixtures/beam.html?theme=${theme}`)
-    const buttons = page.locator('.axo-button--border-beam')
+for (const theme of ['light', 'dark']) for (const motion of ['beam', 'spin']) {
+  test(`${theme}/${motion}: light stays on the pill perimeter for an entire orbit`, async ({ page }, testInfo) => {
+    await page.goto(`/tests/fixtures/beam.html?theme=${theme}&motion=${motion}`)
+    const buttons = page.locator(`.axo-button--border-${motion}`)
     await expect(buttons).toHaveCount(12)
     const client = await page.context().newCDPSession(page)
     await client.send('DOM.enable')
     await client.send('CSS.enable')
     const { root } = await client.send('DOM.getDocument')
-    const { nodeIds } = await client.send('DOM.querySelectorAll', { nodeId: root.nodeId, selector: '.axo-button--border-beam' })
+    const { nodeIds } = await client.send('DOM.querySelectorAll', { nodeId: root.nodeId, selector: `.axo-button--border-${motion}` })
     for (const nodeId of nodeIds) await client.send('CSS.forcePseudoState', { nodeId, forcedPseudoClasses: ['hover'] })
     await page.waitForTimeout(650) // Let approved surface transitions finish.
-    await page.evaluate(() => {
-      for (const el of document.querySelectorAll('.axo-button-border-beam rect')) {
-        for (const animation of el.getAnimations()) { animation.pause(); animation.currentTime = 0 }
+    await page.evaluate(name => {
+      for (const animation of document.getAnimations()) {
+        if (animation instanceof CSSAnimation && animation.animationName === name) { animation.pause(); animation.currentTime = 0 }
       }
-    })
+    }, motion === 'beam' ? 'axo-border-beam' : 'axo-border-spin')
     const boxes = await buttons.evaluateAll(els => els.map(el => {
       const { x, y, width, height } = el.getBoundingClientRect()
       return { x, y, width, height }
     }))
     // Check the continuous centerline independently of pixel rasterization.
-    const errors = await buttons.evaluateAll(els => els.map(el => {
+    const errors = motion === 'beam' ? await buttons.evaluateAll(els => els.map(el => {
       const rect = el.querySelector('rect')!
       const outer = el.getBoundingClientRect()
       const radius = Math.min(outer.width, outer.height) / 2
@@ -37,20 +37,24 @@ for (const theme of ['light', 'dark']) {
         error = Math.max(error, Math.abs(Math.hypot(p.x - cx, p.y - outer.height / 2) - (radius - 1)))
       }
       return error
-    }))
+    })) : []
     for (const error of errors) expect(error).toBeLessThan(.01)
-    const hidden = await page.addStyleTag({ content: '.axo-button-border-beam rect { stroke-opacity: 0; }' })
+    const hidden = await page.addStyleTag({ content: motion === 'beam' ? '.axo-button-border-beam rect { stroke-opacity: 0; }' : '.axo-button.axo-button--border-spin:hover::before { opacity: 0; }' })
+    if (motion === 'spin') await expect.poll(() => buttons.first().evaluate(el => getComputedStyle(el, '::before').opacity)).toBe('0')
     const baseBuffer = await page.screenshot()
     const baseline = PNG.sync.read(baseBuffer)
     await hidden.evaluate(el => el.remove())
+    if (motion === 'spin') await expect.poll(() => buttons.first().evaluate(el => getComputedStyle(el, '::before').opacity)).toBe('1')
     let changedFrames = 0
     const distinctFrames = new Set<string>()
     for (let phase = 0; phase < 120; phase++) {
-      await page.evaluate(time => {
-        for (const el of document.querySelectorAll('.axo-button-border-beam rect')) {
-          for (const a of el.getAnimations()) a.currentTime = time
+      const time = phase * (motion === 'beam' ? 25 : 2800 / 120)
+      const label = Math.round(time)
+      await page.evaluate(({time, name}) => {
+        for (const a of document.getAnimations()) {
+          if (a instanceof CSSAnimation && a.animationName === name) a.currentTime = time
         }
-      }, phase * 25)
+      }, { time, name: motion === 'beam' ? 'axo-border-beam' : 'axo-border-spin' })
       const buffer = await page.screenshot()
       const frame = PNG.sync.read(buffer)
       const counts = boxes.map(() => 0)
@@ -72,13 +76,43 @@ for (const theme of ['light', 'dark']) {
         if (!onRing && violations.length < 5) violations.push(`${x},${y}`)
       }
       if (phase % 15 === 0 || violations.length) {
-        const path = testInfo.outputPath(`phase-${phase * 25}ms.png`)
+        const path = testInfo.outputPath(`phase-${label}ms.png`)
         writeFileSync(path, buffer)
-        await testInfo.attach(`phase-${phase * 25}ms`, { path, contentType: 'image/png' })
+        await testInfo.attach(`phase-${label}ms`, { path, contentType: 'image/png' })
       }
-      expect(violations, `Light outside border at ${phase * 25}ms`).toEqual([])
+      expect(violations, `Light outside border at ${label}ms`).toEqual([])
       expect(changed, 'Beam must remain visible at every phase').toBeGreaterThan(30)
       for (const count of counts) expect(count, 'Every button must show its beam').toBeGreaterThan(5)
+      // A moving accent must leave most of the perimeter unlit. A permanent
+      // full ring would pass a position-only test, so sample it independently.
+      for (const b of boxes) {
+        const r = Math.min(b.width, b.height) / 2 - 1
+        const straight = b.width - 2 * (r + 1)
+        const perimeter = 2 * straight + 2 * Math.PI * r
+        let lit = 0
+        for (let sample = 0; sample < 64; sample++) {
+          let d = sample / 64 * perimeter
+          let px: number, py: number
+          if (d < straight) { px = r + 1 + d; py = 1 }
+          else if ((d -= straight) < Math.PI * r) {
+            const a = -Math.PI / 2 + d / r
+            px = b.width - r - 1 + Math.cos(a) * r; py = b.height / 2 + Math.sin(a) * r
+          } else if ((d -= Math.PI * r) < straight) { px = b.width - r - 1 - d; py = b.height - 1 }
+          else {
+            d -= straight
+            const a = Math.PI / 2 + d / r
+            px = r + 1 + Math.cos(a) * r; py = b.height / 2 + Math.sin(a) * r
+          }
+          let visible = false
+          for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+            const x = Math.round(b.x + px) + dx, y = Math.round(b.y + py) + dy
+            const i = (y * frame.width + x) * 4
+            if ([0,1,2].some(c => Math.abs(frame.data[i+c] - baseline.data[i+c]) >= 6)) visible = true
+          }
+          if (visible) lit++
+        }
+        expect(lit, 'Accent must not form a continuous frame').toBeLessThan(48)
+      }
       distinctFrames.add(buffer.toString('base64'))
       changedFrames++
     }
