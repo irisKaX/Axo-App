@@ -31,9 +31,11 @@
 .sg-round-form p{color:var(--muted);font-size:12px;line-height:1.6;margin:5px 0}
 .sg-demo-input{grid-column:1/-1;border:1px solid var(--control-border);background:var(--surface);border-radius:14px;padding:13px 15px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
 .sg-demo-input span{color:var(--brand)}
-.sg-round-large{min-height:200px;border-radius:32px;color:#FFF;padding:26px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
-.sg-round-large>span{font-size:11px;letter-spacing:.05em;color:#FFFFFFE5}
-.sg-round-large strong{font-size:clamp(20px,2.4vw,30px);letter-spacing:-.04em;line-height:1.15}
+.sg-round-large{min-height:200px;border-radius:32px;color:#FFF;padding:26px;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.sg-round-large-heading{display:flex;flex-direction:column;gap:8px}
+.sg-round-large-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FFFFFFE5}
+.sg-round-large-heading strong{font-size:clamp(20px,2.4vw,30px);letter-spacing:-.04em;line-height:1.15}
+.sg-round-large-meta{font-size:11px;letter-spacing:.05em;color:#FFFFFFE5}
 .sg-controls-showcase{display:grid;gap:8px}
 .sg-control-row{display:grid;grid-template-columns:160px 1fr;gap:14px;align-items:center;min-height:80px;border-bottom:1px solid var(--border);padding:10px 0}
 .sg-control-row:last-child{border-bottom:0}
