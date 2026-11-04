@@ -47,13 +47,13 @@ export default function IconsStudio(){
         </div>:null
       })}
       {!filtered.length&&<p className="is-empty">Žádná ikona neodpovídá hledání.</p>}
-      <p className="is-feedback" role="status">{feedback||'Kliknutím zkopíruješ název. Najetím myší vyzkoušíš pohyb schválených animovaných ikon.'}</p>
+      <p className="is-feedback" role="status">{feedback||'Kliknutím zkopíruješ název. Každá ikona reaguje na hover nebo focus; vybrané akční ikony mají vlastní animaci.'}</p>
     </section>
     <div className="is-rules">
       <div><strong>Geometrie</strong><span>SVG viewBox 24 × 24, line style, zaoblené konce a spoje.</span></div>
       <div><strong>Velikosti</strong><span>16 / 18 / 20 / 24 px. V tlačítkách se používá 18 px.</span></div>
       <div><strong>Barvy</strong><span>Výchozí inherit přebírá barvu rodiče. Muted, Brand, Success, Warning, Danger a Info používají společné tokeny pro oba motivy.</span></div>
-      <div><strong>Animace a použití</strong><span>{animatedIconNames.filter(name=>name!=='loader').join(', ')} reagují na hover a focus ovládacího prvku; loader se otáčí průběžně. V Buttons, Headeru a Cards se používá stejný AxoIcon.</span></div>
+      <div><strong>Animace a použití</strong><span>{animatedIconNames.filter(name=>name!=='loader').join(', ')} mají vlastní animace; ostatní ikony mají jemný společný hover/focus efekt. Loader se otáčí průběžně, pokud jsou animace zapnuté. V Buttons, Headeru a Cards se používá stejný AxoIcon.</span></div>
     </div>
     <footer className="page-footer">Axolotl · Icons · Sdílený SVG registr</footer>
   </div>
