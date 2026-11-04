@@ -44,8 +44,10 @@
 .ld-primary .ld-blades{color:#fff}
 .ld-reset{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-pill);padding:10px 15px;color:var(--text);font:inherit;font-size:11px;font-weight:650;cursor:pointer}
 .ld-reset:hover{border-color:var(--brand)}
-.ld-overlay-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--ld-muted)}
-.ld-overlay-controls select{background:var(--ld-surface);color:var(--ld-text);border:1px solid var(--ld-border);border-radius:12px;padding:8px;min-width:130px}
+.ld-overlay-controls{display:flex;align-items:end;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--ld-muted);padding-bottom:8px}
+.ld-overlay-controls .fc-select-field{flex:1 1 190px;min-width:0;max-width:330px}
+.ld-overlay-controls .fc-select-menu{z-index:30}
+.ld-overlay-controls>.ld-reset{min-height:40px}
 .ld-overlay-scene{border:1px solid var(--ld-border);border-radius:15px;background:var(--ld-bg);overflow:hidden;position:relative;min-height:148px}
 .ld-mock-header{padding:12px 15px;border-bottom:1px solid var(--ld-border);display:flex;justify-content:space-between;font-size:10px;color:var(--ld-muted)}
 .ld-mock-body{padding:15px;display:flex;gap:12px}.ld-mock-body i{width:28%;height:55px;border:1px solid var(--ld-border);background:var(--ld-surface);border-radius:10px}
