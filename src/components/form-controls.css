@@ -1,0 +1,64 @@
+/* Axo-App form controls · Neo Iris · dedicated component styles, no native visual dropdowns. */
+.fc-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.fc-field>label,.fc-label,.fc-radio-fieldset legend{font-size:12px;font-weight:650;color:var(--text)}
+.fc-required{color:var(--error)}
+.fc-field input:not([type="checkbox"]):not([type="radio"]),.fc-field textarea,.fc-select-trigger{
+  display:block;width:100%;min-width:0;border:1px solid var(--control-border);border-radius:16px;
+  background:var(--surface);color:var(--text);font:inherit;font-size:13px;line-height:1.5;
+  padding:11px 16px;transition:border-color .16s,box-shadow .16s,background-color .16s;
+}
+.fc-field input:not([type="checkbox"]):not([type="radio"]){height:44px}
+.fc-field.fc-compact input:not([type="checkbox"]):not([type="radio"]),.fc-compact .fc-select-trigger{height:36px;padding-block:7px}
+.fc-field.fc-default input:not([type="checkbox"]):not([type="radio"]),.fc-default .fc-select-trigger{height:44px}
+.fc-field.fc-comfortable input:not([type="checkbox"]):not([type="radio"]),.fc-comfortable .fc-select-trigger{height:52px}
+.fc-field textarea{min-height:116px;resize:vertical}
+.fc-field input::placeholder,.fc-field textarea::placeholder,.fc-select-placeholder{color:var(--muted);opacity:1}
+.fc-field input:hover:not(:disabled),.fc-field textarea:hover:not(:disabled),.fc-select-trigger:hover:not(:disabled){border-color:var(--brand)}
+.fc-field input:focus-visible,.fc-field textarea:focus-visible,.fc-select-trigger:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px;border-color:var(--brand)}
+.fc-field input:disabled,.fc-field textarea:disabled,.fc-select-trigger:disabled{opacity:.53;cursor:not-allowed;background:var(--subtle)}
+.fc-error input:not([type="checkbox"]):not([type="radio"]),.fc-error textarea,.fc-error .fc-select-trigger{border-color:var(--error)}
+.fc-success input:not([type="checkbox"]):not([type="radio"]),.fc-success textarea,.fc-success .fc-select-trigger{border-color:var(--success)}
+.fc-feedback{font-size:11px;line-height:1.55;color:var(--muted)}
+.fc-feedback.is-error{color:var(--error)}
+.fc-feedback.is-success{color:var(--success)}
+.fc-select-wrapper{position:relative}
+.fc-select-trigger{display:flex;align-items:center;justify-content:space-between;gap:15px;cursor:pointer;text-align:left;padding-right:17px}
+.fc-select-trigger>span:first-child{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.fc-select-chevron{display:block;width:18px;height:18px;flex:none;color:var(--muted);transition:transform .18s ease}
+.fc-select-chevron.is-open{transform:rotate(180deg)}
+.fc-select-menu{position:absolute;z-index:20;top:calc(100% + 8px);left:0;right:0;max-height:230px;overflow-y:auto;
+  padding:7px;border:1px solid var(--border);border-radius:18px;background:var(--surface);
+  box-shadow:0 14px 35px #00000028}
+.fc-select-option{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;min-height:39px;
+  padding:10px 13px;background:transparent;border:0;border-radius:12px;color:var(--text);font:inherit;
+  font-size:12px;font-weight:500;text-align:left;cursor:pointer}
+.fc-select-option:hover:not(:disabled),.fc-select-option:focus-visible{background:var(--subtle);outline:none}
+.fc-select-option.is-selected{color:var(--brand);font-weight:700;background:var(--brand-soft)}
+.fc-select-option:disabled{opacity:.35;cursor:not-allowed}
+.fc-choice{display:flex;align-items:flex-start;gap:12px;min-width:0;cursor:pointer}
+.fc-choice input,.fc-switch-control input{position:absolute;width:1px;height:1px;opacity:0}
+.fc-choice-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
+.fc-choice-copy strong{font-size:13px;font-weight:600;line-height:1.5;color:var(--text)}
+.fc-choice-copy small{font-size:11px;line-height:1.5;color:var(--muted)}
+.fc-choice.is-disabled,.fc-switch-row.is-disabled{opacity:.48;cursor:not-allowed}
+.fc-checkbox-mark,.fc-radio-mark{display:grid;place-items:center;flex:none;width:21px;height:21px;border:1.5px solid var(--control-border);background:var(--surface);transition:background .17s,border-color .17s,box-shadow .17s}
+.fc-checkbox-mark{border-radius:7px}
+.fc-checkbox-mark svg{width:15px;height:15px;color:#FFFFFF;opacity:0;transform:scale(.7);transition:opacity .17s,transform .17s}
+.fc-checkbox input:checked+.fc-checkbox-mark{background:var(--brand);border-color:var(--brand)}
+.fc-checkbox input:checked+.fc-checkbox-mark svg{opacity:1;transform:scale(1)}
+.fc-radio-mark{border-radius:50%}
+.fc-radio-mark::after{content:"";width:9px;height:9px;border-radius:50%;background:#FFFFFF;transform:scale(0);transition:transform .18s}
+.fc-radio input:checked+.fc-radio-mark{background:var(--brand);border-color:var(--brand)}
+.fc-radio input:checked+.fc-radio-mark::after{transform:scale(1)}
+.fc-choice input:focus-visible+.fc-checkbox-mark,.fc-choice input:focus-visible+.fc-radio-mark{outline:3px solid var(--focus-ring);outline-offset:3px}
+.fc-radio-fieldset{padding:0;margin:0;min-width:0;border:0}
+.fc-radio-fieldset legend{padding:0 0 14px}
+.fc-radio-list{display:grid;gap:18px}
+.fc-switch-row{display:flex;align-items:center;justify-content:space-between;gap:20px;cursor:pointer}
+.fc-switch-control{display:block;flex:none;position:relative}
+.fc-switch-track{display:flex;align-items:center;box-sizing:border-box;width:49px;height:28px;border-radius:999px;border:1px solid var(--control-border);background:var(--subtle);padding:3px;transition:background .2s,border-color .2s}
+.fc-switch-thumb{display:block;width:20px;height:20px;border-radius:50%;background:#FFFFFF;box-shadow:0 1px 4px #00000045;transition:transform .2s}
+.fc-switch-control input:checked+.fc-switch-track{background:var(--brand);border-color:var(--brand)}
+.fc-switch-control input:checked+.fc-switch-track .fc-switch-thumb{transform:translateX(20px)}
+.fc-switch-control input:focus-visible+.fc-switch-track{outline:3px solid var(--focus-ring);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.fc-select-chevron,.fc-switch-track,.fc-switch-thumb,.fc-checkbox-mark,.fc-checkbox-mark svg,.fc-radio-mark,.fc-radio-mark::after{transition:none}}
