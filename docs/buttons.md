@@ -79,3 +79,10 @@ Two opt-in `AxoButton borderMotion` variants were added without changing the sta
 Both are previews in `Components → Buttons → Gradient Button` and must be visually approved. They retain the approved icon motion, keep the control stationary, and turn off movement with `prefers-reduced-motion: reduce`.
 
 Inspiration: [Appica Border Beam](https://21st.dev/@appica-dev/components/border-beam/length-thickness-speed) and [Meng To Spinning Border Button](https://21st.dev/@mengto/components/spinning-border-button). These animations are original Axolotl implementations rather than imported third-party code.
+
+
+## Blue × Purple hover reversal
+
+The Gradient Button uses one CSS gradient surface and two registered interpolable color-stop custom properties. At rest, the gradient starts Blue `#0F9FDC`, passes Royal Blue `#3B09C7` at 52%, and ends Purple `#8101EC`. On hover, only the two outer stops swap smoothly over 480ms. The middle stop and 130° direction remain unchanged. On pointer exit the colors return smoothly.
+
+The stop values come from the approved `bluePurple.stops` token. No extra overlay or border is introduced. Existing Traveling Light, Spinning Accent, icon animations, focus states and reduced-motion behavior remain intact. Playwright checks the transition in both themes and ensures no layout shift.

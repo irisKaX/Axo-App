@@ -14,17 +14,24 @@
 .axo-button--primary{background:var(--brand);border-color:var(--brand);color:var(--brand-text)}
 .axo-button--primary:hover:not(:disabled){background:var(--action-hover);border-color:var(--action-hover);box-shadow:0 7px 20px var(--glow)}
 .axo-button--primary:active:not(:disabled){background:var(--action-active);border-color:var(--action-active)}
-/* One continuous Blue × Purple paint, including the transparent layout border.
-   border-box origin + no-repeat prevents the opposite gradient edge wrapping
-   into that border. There is no inset surface or second rounded clipping edge. */
+/* Registered stop colors interpolate smoothly on hover. Single painted surface:
+   no overlay, new border, or gradient repetition. Values come from Colors v2. */
+@property --axo-gradient-first {syntax:"<color>";inherits:false;initial-value:#0F9FDC}
+@property --axo-gradient-last {syntax:"<color>";inherits:false;initial-value:#8101EC}
 .axo-button--gradient{
-  background:var(--axo-button-gradient) border-box no-repeat;
+  --axo-gradient-first:var(--axo-gradient-blue);
+  --axo-gradient-last:var(--axo-gradient-purple);
+  background:linear-gradient(130deg,var(--axo-gradient-first) 0%,var(--axo-gradient-middle) 52%,var(--axo-gradient-last) 100%) border-box no-repeat;
   color:#FFFFFF;
   box-shadow:0 3px 8px #00000026;
-  transition:box-shadow .25s ease,filter .2s ease,transform .22s ease;
+  transition:--axo-gradient-first .48s ease,--axo-gradient-last .48s ease,box-shadow .25s ease,filter .2s ease,transform .22s ease;
 }
 .axo-button--gradient .axo-button-label,.axo-button--gradient .axo-button-icon{position:relative;z-index:2}
-.axo-button--gradient:hover:not(:disabled){box-shadow:0 5px 14px #00000029}
+.axo-button--gradient:hover:not(:disabled){
+  --axo-gradient-first:var(--axo-gradient-purple);
+  --axo-gradient-last:var(--axo-gradient-blue);
+  box-shadow:0 5px 14px #00000029;
+}
 .axo-button--gradient:active:not(:disabled){filter:brightness(.96);box-shadow:0 2px 5px #00000026}
 /* Optional border studies. Only the light moves; the pill stays stationary.
    No permanent colored outline, no change to approved icon interactions. */
@@ -108,6 +115,7 @@
 .axo-button-spinner{animation:axo-spin .85s linear infinite}
 @keyframes axo-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){
+  .axo-button--gradient{transition:box-shadow .25s ease,filter .2s ease}
   .axo-button,.axo-button-icon{transition:none}
   .axo-button:hover:not(:disabled),.axo-button:active:not(:disabled){transform:none}
   .axo-button--motion:hover:not(:disabled) .axo-button-icon{transform:none;animation:none}
