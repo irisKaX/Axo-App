@@ -11,14 +11,10 @@
 .axo-button:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
 .axo-button:active:not(:disabled){transform:translateY(0) scale(.975)}
 .axo-button:disabled{cursor:not-allowed;opacity:.54;transform:none;box-shadow:none}
-.axo-button--primary{background:var(--brand);border-color:var(--brand);color:var(--brand-text)}
-.axo-button--primary:hover:not(:disabled){background:var(--action-hover);border-color:var(--action-hover);box-shadow:0 7px 20px var(--glow)}
-.axo-button--primary:active:not(:disabled){background:var(--action-active);border-color:var(--action-active)}
-/* Registered stop colors interpolate smoothly on hover. Single painted surface:
-   no overlay, new border, or gradient repetition. Values come from Colors v2. */
+/* Primary · approved Blue × Purple gradient. No arrow is required by the variant. */
 @property --axo-gradient-first {syntax:"<color>";inherits:false;initial-value:#0F9FDC}
 @property --axo-gradient-last {syntax:"<color>";inherits:false;initial-value:#8101EC}
-.axo-button--gradient{
+.axo-button--primary,.axo-button--primary-2{
   --axo-gradient-first:var(--axo-gradient-blue);
   --axo-gradient-last:var(--axo-gradient-purple);
   background:linear-gradient(130deg,var(--axo-gradient-first) 0%,var(--axo-gradient-middle) 52%,var(--axo-gradient-last) 100%) border-box no-repeat;
@@ -26,114 +22,73 @@
   box-shadow:0 3px 8px #00000026;
   transition:--axo-gradient-first .48s ease,--axo-gradient-last .48s ease,box-shadow .25s ease,filter .2s ease,transform .22s ease;
 }
-.axo-button--gradient .axo-button-label,.axo-button--gradient .axo-button-icon{position:relative;z-index:2}
-.axo-button--gradient:hover:not(:disabled){
+.axo-button--primary:hover:not(:disabled),.axo-button--primary-2:hover:not(:disabled){
   --axo-gradient-first:var(--axo-gradient-purple);
   --axo-gradient-last:var(--axo-gradient-blue);
   box-shadow:0 5px 14px #00000029;
 }
-.axo-button--gradient:active:not(:disabled){filter:brightness(.96);box-shadow:0 2px 5px #00000026}
-/* Gradient Reveal uses the exact shared button geometry, with no independent height, size or shadow. */
-.axo-button--gradient-reveal{
-  padding:2px;
-  border:0;
-  background:var(--brand-gradient);
-  color:var(--text);
-  box-shadow:none;
-  overflow:hidden;
+.axo-button--primary:active:not(:disabled),.axo-button--primary-2:active:not(:disabled){
+  filter:brightness(.96);box-shadow:0 2px 5px #00000026;
 }
-.axo-button--gradient-reveal .axo-button-reveal-inner{
-  display:flex;align-items:center;justify-content:center;gap:9px;
-  width:100%;height:100%;min-width:0;min-height:0;
-  padding:0 8px;
-  border-radius:inherit;
-  background:var(--surface);
-  color:var(--text);
-  text-align:center;
-  transition:background-color .6s ease,color .6s ease;
-}
-.axo-button--gradient-reveal:hover:not(:disabled) .axo-button-reveal-inner{
-  background:transparent;color:#FFFFFF;
-}
-.axo-button--gradient-reveal:hover:not(:disabled){
-  box-shadow:none;
-}
-.axo-button--gradient-reveal:active:not(:disabled){
-  transform:scale(.975);
-  box-shadow:none;
-}
-.axo-button--gradient-reveal .axo-button-label{
-  display:block;text-align:center;
-}
-@media(prefers-reduced-motion:reduce){
-  .axo-button--gradient-reveal,.axo-button--gradient-reveal .axo-button-reveal-inner{transition:none}
-  .axo-button--gradient-reveal:active:not(:disabled){transform:none}
-}
-/* Optional border studies. Only the light moves; the pill stays stationary.
-   No permanent colored outline, no change to approved icon interactions. */
-.axo-button-border-beam{
-  /* Absolute positioning starts at the padding box; include the 1px button
-     border so the measured SVG viewport equals the outer button dimensions. */
-  position:absolute;inset:-1px;width:calc(100% + 2px);height:calc(100% + 2px);
-  overflow:hidden;pointer-events:none;z-index:3;
-  opacity:0;transition:opacity .25s ease
-}
-.axo-button-border-beam rect{
-  fill:none;stroke:#C5DCFF;stroke-width:1.5;
-  stroke-linecap:round;stroke-dasharray:10 90;stroke-dashoffset:0;
-  animation:axo-border-beam 3s linear infinite;
-}
-.axo-button--border-beam:hover:not(:disabled) .axo-button-border-beam,
-.axo-button--border-beam:focus-visible:not(:disabled) .axo-button-border-beam{opacity:1}
-@keyframes axo-border-beam{to{stroke-dashoffset:-100}}
+.axo-button--primary .axo-button-label,.axo-button--primary-2 .axo-button-label,
+.axo-button--primary .axo-button-icon,.axo-button--primary-2 .axo-button-icon{position:relative;z-index:2}
+
+/* Primary 2 · Orbital Glow always animates, not only on hover. */
 @property --axo-spin-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
-.axo-button--border-spin::before{
+.axo-button--primary-2::before{
   content:"";position:absolute;inset:-1px;z-index:3;pointer-events:none;
-  border-radius:inherit;padding:1.5px;opacity:0;
+  border-radius:inherit;padding:1.5px;
   background:conic-gradient(from var(--axo-spin-angle),transparent 0deg,transparent 240deg,#168EDA80 278deg,#4CC9F0B3 304deg,#D2B4FF 320deg,transparent 340deg) border-box no-repeat;
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
   mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   mask-composite:exclude;
   animation:axo-border-spin 2.8s linear infinite;
-  transition:opacity .25s ease;
 }
-.axo-button--border-spin:hover:not(:disabled)::before,
-.axo-button--border-spin:focus-visible:not(:disabled)::before{opacity:1}
 @keyframes axo-border-spin{to{--axo-spin-angle:360deg}}
-@media(prefers-reduced-motion:reduce){
-  .axo-button-border-beam rect,.axo-button--border-spin::before{animation:none}
-  .axo-button--border-beam:hover:not(:disabled) .axo-button-border-beam,
-  .axo-button--border-beam:focus-visible:not(:disabled) .axo-button-border-beam,
-  .axo-button--border-spin:hover:not(:disabled)::before,
-  .axo-button--border-spin:focus-visible:not(:disabled)::before{opacity:0}
+
+/* Secondary · approved Gradient Reveal, same geometry and no shadow. */
+.axo-button--secondary{
+  padding:2px;border:0;
+  background:var(--brand-gradient);
+  color:var(--text);
+  box-shadow:none;
+  overflow:hidden;
 }
-.axo-button--secondary{background:var(--subtle);border-color:var(--border);color:var(--text)}
-.axo-button--secondary:hover:not(:disabled){background:var(--surface);border-color:var(--control-border);box-shadow:0 5px 14px #00000014}
+.axo-button--secondary .axo-button-reveal-inner{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;height:100%;min-width:0;min-height:0;
+  padding:0 8px;border-radius:inherit;
+  background:var(--surface);color:var(--text);text-align:center;
+  transition:background-color .6s ease,color .6s ease;
+}
+.axo-button--secondary:hover:not(:disabled) .axo-button-reveal-inner{
+  background:transparent;color:#FFFFFF;
+}
+.axo-button--secondary:hover:not(:disabled),
+.axo-button--secondary:active:not(:disabled){box-shadow:none}
+.axo-button--secondary .axo-button-label{display:block;text-align:center}
 .axo-button--ghost{background:transparent;color:var(--text)}
 .axo-button--ghost:hover:not(:disabled){background:var(--subtle)}
-.axo-button--outline{background:transparent;border-color:var(--control-border);color:var(--text)}
-.axo-button--outline:hover:not(:disabled){background:var(--subtle);border-color:var(--brand);box-shadow:0 0 0 1px var(--brand-soft)}
-/* Accent Outline · promoted from the Full-page Loader preview into the canonical library. */
-.axo-button--accent-outline{
-  background:transparent;border:2px solid #7C4BFE;color:var(--text);
-  box-shadow:none;
-}
-.axo-button--accent-outline:hover:not(:disabled){
-  background:var(--brand-soft);border-color:#9668FF;box-shadow:0 0 0 1px #7C4BFE1F;
-}
-.axo-button--accent-outline:active:not(:disabled){
-  background:var(--brand-soft);border-color:var(--brand);box-shadow:none;
-}
+/* Outline · approved former Accent Outline. */
+.axo-button--outline{background:transparent;border:2px solid #7C4BFE;color:var(--text);box-shadow:none}
+.axo-button--outline:hover:not(:disabled){background:var(--brand-soft);border-color:#9668FF;box-shadow:0 0 0 1px #7C4BFE1F}
+.axo-button--outline:active:not(:disabled){background:var(--brand-soft);border-color:var(--brand);box-shadow:none}
 .axo-button--danger{background:var(--error);border-color:var(--error);color:#FFFFFF}
 .axo-button--danger:hover:not(:disabled){background:#CF0642;border-color:#CF0642;box-shadow:0 7px 18px #FF0A5436}
+/* Round icon controls share the exact 32/38px diameter with text button heights. */
 .axo-button--icon{width:var(--axo-button-height);min-width:var(--axo-button-height);padding:0;border-radius:var(--radius-round);gap:0;overflow:visible}
+.axo-button--secondary.axo-button--icon{
+  background:var(--subtle);border:1px solid var(--border);color:var(--text);box-shadow:none;
+}
+.axo-button--secondary.axo-button--icon:hover:not(:disabled){background:var(--surface);border-color:var(--control-border)}
+
 .axo-button--icon .axo-button-label{display:none}
 .axo-button-icon-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 /* Elevated interaction language: stationary controls, animated glyphs, accessible labels. */
 .axo-button-icon{display:inline-flex;align-items:center;justify-content:center;flex:none;transform-origin:center;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
 .axo-button-icon svg{overflow:visible}
-.axo-button--icon:not(.axo-button--gradient):hover:not(:disabled){box-shadow:0 0 0 3px var(--brand-soft),0 0 0 1px var(--brand)}
+.axo-button--icon:not(.axo-button--primary):not(.axo-button--primary-2):hover:not(:disabled){box-shadow:0 0 0 3px var(--brand-soft),0 0 0 1px var(--brand)}
 .axo-button--icon[data-tooltip]::after{
   content:attr(data-tooltip);position:absolute;left:50%;bottom:calc(100% + 11px);
   transform:translate(-50%,4px);opacity:0;pointer-events:none;
@@ -162,7 +117,9 @@
 .axo-button-spinner{animation:axo-spin .85s linear infinite}
 @keyframes axo-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){
-  .axo-button--gradient{transition:box-shadow .25s ease,filter .2s ease}
+  .axo-button--primary,.axo-button--primary-2{transition:box-shadow .25s ease,filter .2s ease}
+  .axo-button--primary-2::before{animation:none;opacity:0}
+  .axo-button--secondary .axo-button-reveal-inner{transition:none}
   .axo-button,.axo-button-icon{transition:none}
   .axo-button:hover:not(:disabled),.axo-button:active:not(:disabled){transform:none}
   .axo-button--motion:hover:not(:disabled) .axo-button-icon{transform:none;animation:none}
