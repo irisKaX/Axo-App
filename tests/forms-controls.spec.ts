@@ -41,7 +41,7 @@ for (const theme of ['light','dark']) {
     await form.getByRole('textbox',{name:/URL adresa analýzy/}).fill('https://www.o2.cz')
     await form.getByRole('button',{name:/Město analýzy/}).click()
     await form.getByRole('option',{name:'Praha'}).click()
-    await form.getByRole('checkbox',{name:'Souhlasím s podmínkami'}).check({force:true})
+    await form.getByText('Souhlasím s podmínkami',{exact:true}).click()
     await form.getByRole('button',{name:'Ověřit formulář'}).click()
     await expect(form.getByRole('status')).toContainText('úspěšně ověřen')
     await form.getByRole('textbox',{name:/URL adresa analýzy/}).fill('not-a-url')
