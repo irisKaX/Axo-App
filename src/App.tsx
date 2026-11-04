@@ -8,11 +8,12 @@ import ButtonsStudio from './pages/ButtonsStudio'
 import FormsStudio from './pages/FormsStudio'
 import CardsStudio from './pages/CardsStudio'
 import NavigationStudio from './pages/NavigationStudio'
+import LoadingStudio from './pages/LoadingStudio'
 import VisualPatterns from './pages/VisualPatterns'
 import { radiusCssVariables } from './design-system/foundations/spacing'
 import { semantic, themes, type ThemeName } from './design-system/foundations/colors'
 
-type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'forms' | 'cards' | 'navigation' | 'patterns' | 'widgets' | 'layouts'
+type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'forms' | 'cards' | 'navigation' | 'loading' | 'patterns' | 'widgets' | 'layouts'
 const groups: { title: string; items: { id: Section; label: string }[] }[] = [
   { title: 'FOUNDATIONS', items: [
     { id: 'colors', label: 'Colors' },
@@ -26,6 +27,7 @@ const groups: { title: string; items: { id: Section; label: string }[] }[] = [
     { id: 'forms', label: 'Components / Inputs & Forms' },
     { id: 'cards', label: 'Components / Cards & Containers' },
     { id: 'navigation', label: 'Components / Navigation & Header' },
+    { id: 'loading', label: 'Feedback & Status / Loading & Progress' },
     { id: 'patterns', label: 'Visual Patterns' },
     { id: 'widgets', label: 'Widgets' },
     { id: 'layouts', label: 'Layouts' },
@@ -64,7 +66,7 @@ export default function App() {
     </aside>
     <div className="workspace">
       <header className="topbar">
-        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section==='spacing'?'Foundations / Spacing & Grid':section==='components'?'Library / Components / Buttons':section==='forms'?'Library / Components / Inputs & Forms':section==='cards'?'Library / Components / Cards & Containers':section==='navigation'?'Library / Components / Navigation & Header':section==='patterns'?'Library / Visual Patterns':section}</span>
+        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section==='spacing'?'Foundations / Spacing & Grid':section==='components'?'Library / Components / Buttons':section==='forms'?'Library / Components / Inputs & Forms':section==='cards'?'Library / Components / Cards & Containers':section==='navigation'?'Library / Components / Navigation & Header':section==='loading'?'Library / Feedback & Status / Loading & Progress':section==='patterns'?'Library / Visual Patterns':section}</span>
         <div className="theme-toggle" role="group" aria-label="Téma katalogu">
           <button type="button" className={theme==='light'?'chosen':''} onClick={()=>setTheme('light')} aria-pressed={theme==='light'}>☀ Light</button>
           <button type="button" className={theme==='dark'?'chosen':''} onClick={()=>setTheme('dark')} aria-pressed={theme==='dark'}>☾ Dark</button>
@@ -80,6 +82,7 @@ export default function App() {
           section==='forms'?<FormsStudio theme={theme} onThemeChange={setTheme}/>:
           section==='cards'?<CardsStudio/>:
           section==='navigation'?<NavigationStudio theme={theme} onThemeChange={setTheme}/>:
+          section==='loading'?<LoadingStudio/>:
           section==='patterns'?<VisualPatterns theme={theme}/>:
           <section className="panel placeholder"><p className="eyebrow">PŘIPRAVUJEME</p>
             <h1>{groups.flatMap(group=>group.items).find(item=>item.id===section)?.label}</h1>
