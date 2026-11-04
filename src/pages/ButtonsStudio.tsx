@@ -90,9 +90,9 @@ export default function ButtonsStudio() {
     <section className="panel bs-panel">
       <div className="bs-section-heading"><div><span>04 / MOTION & GRADIENT</span><h2>Živé hover efekty</h2><p>Najeď na tlačítka a sleduj jemný pohyb, posun gradientu a animaci ikon. Používáme pouze schválený Deep Electric.</p></div></div>
       <div className="bs-motion-grid">
-        <div className="bs-motion-card"><span>DEEP ELECTRIC</span><strong>Gradient Button</strong><p>Gradient se při hoveru posouvá, tlačítko se jemně nadzvedne.</p><AxoButton variant="gradient" iconRight="arrow-right" size="comfortable" onClick={()=>setNote('Gradient button · Deep Electric')}>Pokračovat</AxoButton></div>
+        <div className="bs-motion-card"><span>DEEP ELECTRIC</span><strong>Gradient Button</strong><p>Gradient se při hoveru jemně posouvá a získává decentní záři. Tlačítko zůstává na místě.</p><AxoButton variant="gradient" iconRight="arrow-right" size="comfortable" onClick={()=>setNote('Gradient button · Deep Electric')}>Pokračovat</AxoButton></div>
         <div className="bs-motion-card"><span>ICON SHIFT</span><strong>Arrow & Download</strong><p>Šipka se posune doprava, ikona stažení dolů.</p><div className="bs-motion-actions"><AxoButton variant="primary" iconRight="arrow-right" onClick={()=>setNote('Arrow hover')}>Otevřít</AxoButton><AxoButton variant="secondary" icon="download" onClick={downloadSample}>Stáhnout</AxoButton></div></div>
-        <div className="bs-motion-card"><span>ROUND ICON MOTION</span><strong>Plus, Copy & Refresh</strong><p>Rotace plus a refresh, drobný posun kopírování. Kruh zůstává stejně velký.</p><div className="bs-motion-actions"><AxoButton iconOnly icon="plus" aria-label="Přidat" onClick={()=>setCounter(n=>n+1)}/><AxoButton variant="secondary" iconOnly icon="copy" aria-label="Kopírovat" onClick={()=>void copyText()}/><AxoButton variant="outline" iconOnly icon="refresh" aria-label="Obnovit náhled" onClick={()=>setNote('Náhled obnoven')}/></div></div>
+        <div className="bs-motion-card"><span>ROUND ICON MOTION</span><strong>Plus, Copy & Refresh</strong><p>Jemné pootočení ikon plus, copy a refresh. Kruh zůstává na místě i stejně velký.</p><div className="bs-motion-actions"><AxoButton iconOnly icon="plus" aria-label="Přidat" onClick={()=>setCounter(n=>n+1)}/><AxoButton variant="secondary" iconOnly icon="copy" aria-label="Kopírovat" onClick={()=>void copyText()}/><AxoButton variant="outline" iconOnly icon="refresh" aria-label="Obnovit náhled" onClick={()=>setNote('Náhled obnoven')}/></div></div>
       </div>
       <div className="bs-guide"><strong>Přístupnost:</strong> hover nesmí být jedinou informací o stavu. Focus je viditelný klávesnicí, disabled a loading jsou neaktivní. Systémové nastavení omezeného pohybu animace vypíná.</div>
     </section>
@@ -135,7 +135,7 @@ export default function ButtonsStudio() {
       <div className="bs-technical-body">
         <p><strong>Single source of truth:</strong> <code>src/components/Buttons.tsx</code> a <code>src/components/buttons.css</code>, rozměry <code>src/design-system/foundations/spacing.ts</code>, barvy <code>Colors v2</code>.</p>
         <p>Text buttons: <code>border-radius: {radius.pill}px</code>. Icon-only buttons: <code>border-radius: {radius.round}</code> se stejnou šířkou a výškou.</p>
-        <p>Gradient používá pouze schválený Deep Electric z Brand Expression. Hover: jemný lift, světlo a tematický pohyb ikon. <code>prefers-reduced-motion</code> animace vypíná.</p>
+        <p>Gradient používá pouze schválený Deep Electric z Brand Expression. Hover: změna stínu a barvy, jemné pootočení ikon bez posunu tlačítka nahoru. <code>prefers-reduced-motion</code> animace vypíná.</p>
         <p>Podporované stavy: default, hover, active, keyboard focus, disabled, loading. Loading blokuje opakované kliknutí; samostatné ikony vyžadují <code>aria-label</code>.</p>
         <p>Speciální chování není součástí čistě vizuální varianty tlačítka. Akce Copy, Download, Add a Remove poskytuje konkrétní kontext použití.</p>
       </div>
