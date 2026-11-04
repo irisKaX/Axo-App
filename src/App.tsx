@@ -8,12 +8,13 @@ import ButtonsStudio from './pages/ButtonsStudio'
 import FormsStudio from './pages/FormsStudio'
 import CardsStudio from './pages/CardsStudio'
 import NavigationStudio from './pages/NavigationStudio'
+import DashboardStudio from './pages/DashboardStudio'
 import LoadingStudio from './pages/LoadingStudio'
 import VisualPatterns from './pages/VisualPatterns'
 import { radiusCssVariables } from './design-system/foundations/spacing'
 import { semantic, themes, type ThemeName } from './design-system/foundations/colors'
 
-type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'forms' | 'cards' | 'navigation' | 'loading' | 'patterns' | 'widgets' | 'layouts'
+type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'forms' | 'cards' | 'navigation' | 'dashboard' | 'loading' | 'patterns' | 'widgets' | 'layouts'
 const groups: { title: string; items: { id: Section; label: string }[] }[] = [
   { title: 'FOUNDATIONS', items: [
     { id: 'colors', label: 'Colors' },
@@ -22,6 +23,7 @@ const groups: { title: string; items: { id: Section; label: string }[] }[] = [
     { id: 'typography', label: 'Typography' },
     { id: 'spacing', label: 'Spacing & Grid' },
   ] },
+  { title: 'PREVIEW', items: [{ id: 'dashboard', label: 'Dashboard' }] },
   { title: 'LIBRARY', items: [
     { id: 'components', label: 'Buttons' },
     { id: 'forms', label: 'Inputs & Forms' },
@@ -50,6 +52,7 @@ export default function App() {
     '--secondary': t.secondary, '--secondary-text': t.secondaryText,
     '--success': semantic[theme].success.foreground, '--error': semantic[theme].error.foreground,
   } as CSSProperties
+  if(section==='dashboard') return <div className="dashboard-shell" style={vars} data-theme={theme}><DashboardStudio theme={theme} onThemeChange={setTheme} onBack={()=>setSection('navigation')}/></div>
   return <div className="app-shell" style={vars} data-theme={theme}>
     <aside className="sidebar">
       <button className="logo" onClick={() => setSection('colors')} type="button" aria-label="Axo-App: domů na Colors">
@@ -81,7 +84,7 @@ export default function App() {
           section==='components'?<ButtonsStudio/>:
           section==='forms'?<FormsStudio theme={theme} onThemeChange={setTheme}/>:
           section==='cards'?<CardsStudio theme={theme}/>:
-          section==='navigation'?<NavigationStudio theme={theme} onThemeChange={setTheme}/>:
+          section==='navigation'?<NavigationStudio theme={theme} onThemeChange={setTheme} onOpenDashboard={()=>setSection('dashboard')}/>:
           section==='loading'?<LoadingStudio theme={theme}/>:
           section==='patterns'?<VisualPatterns theme={theme}/>:
           <section className="panel placeholder"><p className="eyebrow">PŘIPRAVUJEME</p>
