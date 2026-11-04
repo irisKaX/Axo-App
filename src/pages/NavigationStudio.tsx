@@ -103,14 +103,15 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
   </div>
 }
 
-export default function NavigationStudio({theme,onThemeChange}:{theme:ThemeName;onThemeChange:(mode:ThemeName)=>void}){
+export default function NavigationStudio({theme,onThemeChange,onOpenDashboard}:{theme:ThemeName;onThemeChange:(mode:ThemeName)=>void;onOpenDashboard:()=>void}){
   return <div className="nh-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / NAVIGATION & HEADER</p>
     <h1>Navigation <span className="heading-accent">& Header.</span></h1>
     <p className="intro">Horizontal Workspace Navigation V2 · Clean Neo Iris. Jediná horizontální lišta bez sidebaru. Obsahuje logo, Home, pracovní nabídky, URL display, karty prohlížeče, indikátor, čas, upozornění, nastavení a již existující Theme Switch.</p>
     <div className="nh-status">DESIGN CANDIDATE · HORIZONTAL / SINGLE ROW · DARK & LIGHT</div>
+    <div className="nh-open-dashboard"><button type="button" onClick={onOpenDashboard}>Otevřít Dashboard v reálné velikosti ↗</button><span>Bez sidebaru katalogu, celý viewport laptopu.</span></div>
     <section className="panel nh-panel">
-      <div className="nh-heading"><span>01 / LIVE HEADER</span><h2>Horizontální navigace</h2><p>Režim ovládá globální přepínač katalogu a sdílený Theme Switch v náhledu. Při zúženém náhledu lze ukázkovou lištu horizontálně posunout, cílové desktopové rozložení však scrollbar mít nemá.</p></div>
+      <div className="nh-heading"><span>01 / LIVE HEADER</span><h2>Horizontální navigace</h2><p>Režim ovládá globální přepínač katalogu a sdílený Theme Switch v náhledu. Pro skutečný náhled v plné šířce použij samostatnou sekci Dashboard.</p></div>
       <HeaderPreview mode={theme} onModeChange={onThemeChange}/>
     </section>
     <section className="panel nh-panel">
