@@ -6,7 +6,7 @@ import './buttons-studio.css'
 type PreviewState = 'default'|'hover'|'active'|'focus'|'disabled'|'loading'
 const previewStates:PreviewState[] = ['default','hover','active','focus','disabled','loading']
 const titles:Record<ButtonVariant,string> = {
-  primary:'Primary',gradient:'Gradient', 'gradient-reveal':'Gradient Reveal',secondary:'Secondary',ghost:'Ghost',outline:'Outline',danger:'Danger'
+  primary:'Primary',gradient:'Gradient', 'gradient-reveal':'Gradient Reveal',secondary:'Secondary',ghost:'Ghost',outline:'Outline','accent-outline':'Accent Outline',danger:'Danger'
 }
 const descriptions:Record<ButtonVariant,string> = {
   primary:'Hlavní akce na stránce. Jedno jasné CTA.',
@@ -15,6 +15,7 @@ const descriptions:Record<ButtonVariant,string> = {
   secondary:'Vedlejší akce bez přehnaného důrazu.',
   ghost:'Nenápadná akce v toolbaru nebo v navigaci.',
   outline:'Alternativní akce s viditelným ohraničením.',
+  'accent-outline':'Výrazná fialová kontura, klidná plocha a jemně fialový hover. Původně z Full-page Loaderu.',
   danger:'Destruktivní akce vyžadující potvrzení.'
 }
 const icons = ['plus','copy','download','arrow-right','check','trash','refresh','settings','close'] as const
@@ -59,7 +60,7 @@ export default function ButtonsStudio() {
     <div className="bs-status">DESIGN CANDIDATE · PILL + CIRCLE · DARK / LIGHT · INTERACTIVE</div>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>01 / VARIANTS</span><h2>Hierarchie akcí</h2><p>Sedm variant pro různé úlohy. Primární tlačítko je vždy nejvýraznější; ostatní podporují soustředěnou práci.</p></div></div>
+      <div className="bs-section-heading"><div><span>01 / VARIANTS</span><h2>Hierarchie akcí</h2><p>Osm variant pro různé úlohy. Primární tlačítko je vždy nejvýraznější; ostatní podporují soustředěnou práci.</p></div></div>
       <div className="bs-variants">
         {buttonVariants.map(v=><div className="bs-variant-row" key={v}>
           <div className="bs-variant-description"><strong>{titles[v]}</strong><p>{descriptions[v]}</p></div>
