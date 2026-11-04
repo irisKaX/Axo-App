@@ -110,32 +110,11 @@
 .axo-button--icon[data-tooltip]:hover::after,.axo-button--icon[data-tooltip]:focus-visible::after{
   transform:translate(-50%,0);opacity:1
 }
-.axo-glyph-copy-front,.axo-glyph-copy-back,.axo-glyph-download-arrow,.axo-glyph-download-tray{
-  transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .22s ease;transform-box:fill-box;transform-origin:center
-}
-.axo-button--motion:hover:not(:disabled) .axo-glyph-copy-front{transform:translate(2px,2px)}
-.axo-button--motion:hover:not(:disabled) .axo-glyph-copy-back{transform:translate(-2px,-2px)}
-.axo-button--motion:hover:not(:disabled) .axo-glyph-download-arrow{transform:translateY(3px)}
-.axo-button--motion:hover:not(:disabled) .axo-glyph-download-tray{transform:translateY(0.5px)}
-.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="arrow-right"]{animation:axo-arrow-travel .45s cubic-bezier(.25,.7,.2,1) both}
-.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="plus"]{transform:rotate(90deg)}
-.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="refresh"]{transform:rotate(75deg)}
-.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="settings"]{transform:rotate(55deg)}
-.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="check"]{transform:scale(1.13)}
-.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="close"]{transform:rotate(90deg)}
-.axo-button--motion:hover:not(:disabled) .axo-button-icon[data-icon="trash"]{transform:rotate(-9deg)}
-@keyframes axo-arrow-travel{0%{transform:translateX(0);opacity:1}42%{transform:translateX(7px);opacity:0}43%{transform:translateX(-7px);opacity:0}100%{transform:translateX(0);opacity:1}}
-.axo-button-spinner{animation:axo-spin .85s linear infinite}
-@keyframes axo-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){
   .axo-button--primary,.axo-button--primary-2{transition:box-shadow .25s ease,filter .2s ease}
   .axo-button--primary-2::before{animation:none;opacity:0}
   .axo-button--secondary .axo-button-reveal-inner{transition:none}
   .axo-button,.axo-button-icon{transition:none}
   .axo-button:hover:not(:disabled),.axo-button:active:not(:disabled){transform:none}
-  .axo-button--motion:hover:not(:disabled) .axo-button-icon{transform:none;animation:none}
-  .axo-glyph-copy-front,.axo-glyph-copy-back,.axo-glyph-download-arrow,.axo-glyph-download-tray{transition:none}
-  .axo-button--motion:hover:not(:disabled) .axo-glyph-copy-front,.axo-button--motion:hover:not(:disabled) .axo-glyph-copy-back,.axo-button--motion:hover:not(:disabled) .axo-glyph-download-arrow,.axo-button--motion:hover:not(:disabled) .axo-glyph-download-tray{transform:none}
   .axo-button--icon[data-tooltip]::after{transition:none}
-  .axo-button-spinner{animation:none}
 }
