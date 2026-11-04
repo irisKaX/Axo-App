@@ -17,6 +17,7 @@
   position:absolute;left:6px;top:5px;width:28px;height:28px;border-radius:50%;
   background:#FFF449;
   box-shadow:0 0 10px #FFF44955;
+  transform:translateX(36px);
   transition:transform .5s cubic-bezier(.22,.8,.25,1),box-shadow .5s ease,background .5s ease;
 }
 .axo-theme-switch-control input:checked + .axo-theme-switch-track{
@@ -25,7 +26,7 @@
   box-shadow:inset 0 1px 4px #05021155;
 }
 .axo-theme-switch-control input:checked + .axo-theme-switch-track .axo-theme-switch-orb{
-  transform:translateX(36px);
+  transform:translateX(0);
   background:transparent;
   box-shadow:inset 9px -4px 0 -1px #FFF449;
 }
