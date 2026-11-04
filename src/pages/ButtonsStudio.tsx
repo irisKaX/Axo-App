@@ -89,19 +89,28 @@ export default function ButtonsStudio() {
     </section>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>04 / GRADIENT BUTTON</span><h2>Nový směr. Čistší a výraznější.</h2><p>Jeden prémiový návrh místo čtyř nevyhovujících variant. Žádný dekorativní border ani skleněná vrstva přes celý gradient. Schválený Deep Electric doplňují jemné světelné akcenty z aktuální palety.</p></div></div>
-      <div className="bs-gradient-premium-stage">
-        <div className="bs-gradient-premium-copy">
-          <span>NEO IRIS / BUTTON STUDY</span>
-          <h3>Color with<br/>a purpose<span>.</span></h3>
-          <p>Najeď myší na tlačítko. Mění se světlo a hloubka, nikoliv pozice tlačítka. Animace ikon zůstávají schválené.</p>
+      <div className="bs-section-heading"><div><span>04 / GRADIENT BUTTON · BORDER MOTION</span><h2>Světlo po obvodu.</h2><p>Současný schválený směr gradientové plochy zůstává. Zkoušíme jen animaci úzkého světla na obvodu. Vyzkoušej hover na obou variantách a porovnej je se základním tlačítkem.</p></div></div>
+      <div className="bs-beam-grid">
+        <div className="bs-beam-card">
+          <span>01 / BORDER BEAM</span>
+          <strong>Traveling Light</strong>
+          <p>Krátký paprsek obíhá skutečný obvod tlačítka. Nezvýrazňuje celý border.</p>
+          <div className="bs-beam-showcase"><AxoButton variant="gradient" borderMotion="beam" size="comfortable" iconRight="arrow-right" onClick={()=>setNote('Border Beam · návrh')}>Pokračovat</AxoButton></div>
         </div>
-        <div className="bs-gradient-premium-actions">
-          <AxoButton variant="gradient" size="comfortable" iconRight="arrow-right" onClick={()=>setNote('Gradient button · náhled')}>Otevřít Workspace</AxoButton>
-          <AxoButton variant="gradient" size="default" iconRight="arrow-right" onClick={()=>setNote('Gradient button · menší velikost')}>Pokračovat</AxoButton>
+        <div className="bs-beam-card">
+          <span>02 / SPINNING ACCENT</span>
+          <strong>Orbital Glow</strong>
+          <p>Jemný barevný světelný segment plynule rotuje kolem pilulkového tvaru.</p>
+          <div className="bs-beam-showcase"><AxoButton variant="gradient" borderMotion="spin" size="comfortable" iconRight="arrow-right" onClick={()=>setNote('Spinning Border · návrh')}>Pokračovat</AxoButton></div>
+        </div>
+        <div className="bs-beam-card bs-beam-baseline">
+          <span>REFERENCE / NO BORDER MOTION</span>
+          <strong>Original Gradient</strong>
+          <p>Stejná plocha a interakce, ale bez světla na okraji.</p>
+          <div className="bs-beam-showcase"><AxoButton variant="gradient" size="comfortable" iconRight="arrow-right" onClick={()=>setNote('Standard Gradient · původní návrh')}>Pokračovat</AxoButton></div>
         </div>
       </div>
-      <div className="bs-gradient-premium-detail"><span>JEDEN GRADIENT</span><span>ŽÁDNÝ OZDOBNÝ BORDER</span><span>BEZ POHYBU TLAČÍTKA NAHORU</span></div>
+      <div className="bs-guide"><strong>Pravidlo návrhu:</strong> žádný statický výrazný border, žádný pohyb celého tlačítka nahoru. Obě nové varianty se aktivují při hoveru nebo keyboard focusu. Při omezeném pohybu se animace vypnou.</div>
     </section>
 
     <section className="panel bs-panel">

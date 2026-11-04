@@ -66,3 +66,15 @@ The new **single design candidate** is a smooth, borderless Deep Electric button
 All previously approved icon interactions (Copy, Download, Arrow, Plus, Refresh etc.) remain intact. The standalone Gradient Button treatment is **not approved yet** and must be visually reviewed in the deployed catalog.
 
 Design reference: https://uiverse.io/Yaya12085/plastic-quail-42. The exact CSS and live behavior of this third-party design were not accessible for inspection; the implementation is an original Axolotl direction informed by the user’s critique, not a claim of pixel fidelity.
+
+
+## Animated gradient border candidates (not approved)
+
+Two opt-in `AxoButton borderMotion` variants were added without changing the standard gradient:
+- `borderMotion="beam"`: a short glowing SVG stroke follows the actual pill outline (normalized path length). The beam appears on hover/focus.
+- `borderMotion="spin"`: a rotating conic-gradient color segment is masked to a 2px pill perimeter. It appears on hover/focus.
+- `borderMotion="none"` (default) keeps the existing button unchanged.
+
+Both are previews in `Components → Buttons → Gradient Button` and must be visually approved. They retain the approved icon motion, keep the control stationary, and turn off movement with `prefers-reduced-motion: reduce`.
+
+Inspiration: [Appica Border Beam](https://21st.dev/@appica-dev/components/border-beam/length-thickness-speed) and [Meng To Spinning Border Button](https://21st.dev/@mengto/components/spinning-border-button). These animations are original Axolotl implementations rather than imported third-party code.
