@@ -36,7 +36,7 @@ test('Theme Switch disables motion for reduced-motion preference',async({page})=
   await page.emulateMedia({reducedMotion:'reduce'})
   await page.goto('/')
   await page.getByRole('button',{name:'Components / Inputs & Forms',exact:true}).click()
-  const thumb=page.locator('.axo-theme-switch-thumb')
+  const thumb=page.locator('.axo-theme-switch-orb')
   await expect(thumb).toHaveCSS('transition-duration','0s')
   await page.getByRole('switch',{name:'Tmavý režim'}).focus()
   await page.keyboard.press('Space')
