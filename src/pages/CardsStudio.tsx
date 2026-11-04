@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from 'react'
-import { brandColors, themes, type ThemeName } from '../design-system/foundations/colors'
+import { themes } from '../design-system/foundations/colors'
 import './cards-studio.css'
 
 type PreviewMode = 'dark' | 'light'
