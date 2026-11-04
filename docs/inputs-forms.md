@@ -43,3 +43,14 @@ Status: **návrh k vizuálnímu schválení**. This refines the existing design 
 - No form data is sent to a server or persisted. Tests watch document/fetch/XHR writes and navigation during validation.
 
 [Visual audit, before/after screenshots and changed-file list](verification/neo-iris-geometry/audit.md)
+
+
+## Theme Switch · Dark / Light (candidate)
+
+- Reusable controlled component: `src/components/ThemeSwitch.tsx` and `src/components/theme-switch.css`.
+- Showcase: `Components → Inputs & Forms → Theme Switch`, alongside light and dark visual surfaces.
+- Controlled `theme` and `onThemeChange` props; the single source of application theme state remains `src/App.tsx`. Changes via the existing header controls update the switch, and changes via the switch update the entire catalog.
+- Semantic `input type="checkbox" role="switch"` and explicit accessible name; checked means Dark and unchecked means Light. Space, click and touch are supported by native control behavior.
+- Distinct sun/moon indicators, fully round track and thumb, visible keyboard focus and disabled styling.
+- Animation is a restrained thumb slide with changing icons and surfaces; `prefers-reduced-motion` disables transitions.
+- The appearance is a visual **candidate**, not yet approved. The existing header control remains available.
