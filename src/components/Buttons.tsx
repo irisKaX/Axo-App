@@ -50,15 +50,18 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
     disabled={disabled || loading}
     className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',variant==='primary-2'?'axo-button--orbital':'',className].filter(Boolean).join(' ')}
     style={{'--axo-button-height':buttonHeight+'px','--axo-button-width':buttonWidth+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px','--axo-gradient-blue':bluePurple.stops[0],'--axo-gradient-middle':bluePurple.stops[1],'--axo-gradient-purple':bluePurple.stops[2],...style} as React.CSSProperties}>
-    {variant==='secondary' && !iconOnly ? <span className="axo-button-reveal-inner">
+    {iconOnly ? <>
       {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
-      {children ? <span className="axo-button-label">{children}</span> : null}
-      {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}
-    </span> : <>
-    {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
-    {iconOnly ? <span className="axo-button-icon-sr">{children}</span> : children ? <span className="axo-button-label">{children}</span> : null}
-    {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}
-    </>}
+      <span className="axo-button-icon-sr">{children}</span>
+    </> : <span className={'axo-button-content'+(variant==='secondary'?' axo-button-reveal-inner':'')}>
+      <span className="axo-button-content-slot">
+        {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
+      </span>
+      <span className="axo-button-label">{children}</span>
+      <span className="axo-button-content-slot">
+        {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}
+      </span>
+    </span>}
   </button>
 })
 
