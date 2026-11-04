@@ -6,7 +6,7 @@ import './buttons.css'
 
 export type ButtonVariant = 'primary' | 'primary-2' | 'secondary' | 'outline' | 'ghost' | 'danger'
 export type ButtonSize = 'compact' | 'default'
-export type ButtonIconName = Extract<AxoIconName, 'plus' | 'copy' | 'download' | 'arrow-right' | 'check' | 'trash' | 'refresh' | 'settings' | 'close' | 'loader'>
+export type ButtonIconName = AxoIconName
 
 // Backward-compatible adapter while icon usage is migrated to the shared registry.
 export function ButtonIcon({ name, size = 18 }: { name: ButtonIconName; size?: number }) {
@@ -41,15 +41,15 @@ export const AxoButton = forwardRef<HTMLButtonElement, AxoButtonProps>(function 
     className={['axo-button','axo-button--'+variant,'axo-button--'+size,iconOnly?'axo-button--icon':'',loading?'axo-button--loading':'',iconMotion?'axo-button--motion':'',variant==='primary-2'?'axo-button--orbital':'',className].filter(Boolean).join(' ')}
     style={{'--axo-button-height':buttonHeight+'px','--axo-button-width':buttonWidth+'px','--axo-button-pad':dimension.horizontalPadding+'px','--axo-button-font':dimension.fontSize+'px','--axo-gradient-blue':bluePurple.stops[0],'--axo-gradient-middle':bluePurple.stops[1],'--axo-gradient-purple':bluePurple.stops[2],...style} as React.CSSProperties}>
     {iconOnly ? <>
-      {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
+      {loading ? <span className="axo-button-icon" data-icon="loader"><AxoIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><AxoIcon name={icon}/></span> : null}
       <span className="axo-button-icon-sr">{children}</span>
     </> : <span className={'axo-button-content'+(variant==='secondary'?' axo-button-reveal-inner':'')}>
       <span className="axo-button-content-slot">
-        {loading ? <span className="axo-button-icon" data-icon="loader"><ButtonIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><ButtonIcon name={icon}/></span> : null}
+        {loading ? <span className="axo-button-icon" data-icon="loader"><AxoIcon name="loader"/></span> : icon ? <span className="axo-button-icon" data-icon={icon}><AxoIcon name={icon}/></span> : null}
       </span>
       <span className="axo-button-label">{children}</span>
       <span className="axo-button-content-slot">
-        {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><ButtonIcon name={iconRight}/></span> : null}
+        {!loading && iconRight ? <span className="axo-button-icon" data-icon={iconRight}><AxoIcon name={iconRight}/></span> : null}
       </span>
     </span>}
   </button>
