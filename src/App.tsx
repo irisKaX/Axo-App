@@ -5,6 +5,7 @@ import ColorStudio from './pages/ColorStudio'
 import TypographyStudio from './pages/TypographyStudio'
 import SpacingStudio from './pages/SpacingStudio'
 import ButtonsStudio from './pages/ButtonsStudio'
+import IconsStudio from './pages/IconsStudio'
 import FormsStudio from './pages/FormsStudio'
 import CardsStudio from './pages/CardsStudio'
 import NavigationStudio from './pages/NavigationStudio'
@@ -14,7 +15,7 @@ import VisualPatterns from './pages/VisualPatterns'
 import { radiusCssVariables } from './design-system/foundations/spacing'
 import { semantic, themes, type ThemeName } from './design-system/foundations/colors'
 
-type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'forms' | 'cards' | 'navigation' | 'dashboard' | 'loading' | 'patterns' | 'widgets' | 'layouts'
+type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'icons' | 'forms' | 'cards' | 'navigation' | 'dashboard' | 'loading' | 'patterns' | 'widgets' | 'layouts'
 const groups: { title: string; items: { id: Section; label: string }[] }[] = [
   { title: 'FOUNDATIONS', items: [
     { id: 'colors', label: 'Colors' },
@@ -26,6 +27,7 @@ const groups: { title: string; items: { id: Section; label: string }[] }[] = [
   { title: 'PREVIEW', items: [{ id: 'dashboard', label: 'Dashboard' }] },
   { title: 'LIBRARY', items: [
     { id: 'components', label: 'Buttons' },
+    { id: 'icons', label: 'Icons' },
     { id: 'forms', label: 'Inputs & Forms' },
     { id: 'cards', label: 'Cards & Containers' },
     { id: 'navigation', label: 'Navigation & Header' },
@@ -69,7 +71,7 @@ export default function App() {
     </aside>
     <div className="workspace">
       <header className="topbar">
-        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section==='spacing'?'Foundations / Spacing & Grid':section==='components'?'Library / Buttons':section==='forms'?'Library / Inputs & Forms':section==='cards'?'Library / Cards & Containers':section==='navigation'?'Library / Navigation & Header':section==='loading'?'Library / Loading & Progress':section==='patterns'?'Library / Visual Patterns':section}</span>
+        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section==='spacing'?'Foundations / Spacing & Grid':section==='components'?'Library / Buttons':section==='icons'?'Library / Icons':section==='forms'?'Library / Inputs & Forms':section==='cards'?'Library / Cards & Containers':section==='navigation'?'Library / Navigation & Header':section==='loading'?'Library / Loading & Progress':section==='patterns'?'Library / Visual Patterns':section}</span>
         <div className="theme-toggle" role="group" aria-label="Téma katalogu">
           <button type="button" className={theme==='light'?'chosen':''} onClick={()=>setTheme('light')} aria-pressed={theme==='light'}>☀ Light</button>
           <button type="button" className={theme==='dark'?'chosen':''} onClick={()=>setTheme('dark')} aria-pressed={theme==='dark'}>☾ Dark</button>
@@ -82,6 +84,7 @@ export default function App() {
           section==='typography'?<TypographyStudio/>:
           section==='spacing'?<SpacingStudio/>:
           section==='components'?<ButtonsStudio/>:
+          section==='icons'?<IconsStudio/>:
           section==='forms'?<FormsStudio theme={theme} onThemeChange={setTheme}/>:
           section==='cards'?<CardsStudio theme={theme}/>:
           section==='navigation'?<NavigationStudio theme={theme} onThemeChange={setTheme} onOpenDashboard={()=>setSection('dashboard')}/>:
