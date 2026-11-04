@@ -28,3 +28,24 @@ Status: **Poppins selected; type scale is a candidate for visual review**.
 ## Next review
 
 Approve visually in Light / Dark; test on Small and Large widgets. Spacing, radius and components remain separate milestones.
+
+
+## Approved Text Treatments
+
+All three patterns below are **approved** and live in `Foundations → Typography → Text Treatments`.
+
+- **Accent Dot:** base heading uses current theme text; the final punctuation dot uses `--brand` (Iris Purple `#7C4BFE`). Use `<AccentDot>`.
+- **Accent Word:** highlight one meaningful word or short phrase with `--brand`, while the rest stays neutral. Use `<AccentWord before={...} accent={...} />`.
+- **Eyebrow + Heading:** a visually uppercase overline directly above a heading, spaced by `space.2` (8px). The heading ends with the Accent Dot. Use `<EyebrowHeading eyebrow={...}>`.
+
+### Single source of truth
+- `src/design-system/foundations/text-treatments.ts`: approved variants and semantic roles.
+- `src/components/TextTreatments.tsx`: reusable React components.
+- `src/components/text-treatments.css`: treatment styling.
+- `src/pages/TypographyStudio.tsx`: visual showcase.
+- `src/design-system/foundations/colors.ts`: central Iris Purple token.
+- `src/design-system/foundations/spacing.ts`: 8px eyebrow/heading gap.
+
+The treatment components inherit the heading's size and weight from context. Use the underlying semantic headings where appropriate. The punctuation dot is decorative and hidden from assistive technology to avoid announcing isolated punctuation. The word accent is actual text and stays in the accessibility tree.
+
+Do not add additional branded text variants without explicit approval.
