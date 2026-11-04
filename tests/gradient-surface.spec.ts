@@ -75,3 +75,36 @@ test('approved Copy, Download, Plus and Arrow glyph motion is preserved', async 
   await expect(glyph).toHaveCSS('opacity','1')
   await expect(glyph).toHaveCSS('transform','matrix(1, 0, 0, 1, 0, 0)')
 })
+
+for (const theme of ['light', 'dark']) {
+  test(`${theme}: gradient smoothly swaps blue and purple on hover without changing geometry`, async ({page}) => {
+    await page.goto(`/tests/fixtures/beam.html?theme=${theme}&motion=none`)
+    const button = page.locator('.axo-button--gradient').first()
+    const initialBox = await button.boundingBox()
+    const stops = async () => button.evaluate(el => {
+      const s = getComputedStyle(el)
+      return {
+        first: s.getPropertyValue('--axo-gradient-first').trim(),
+        last: s.getPropertyValue('--axo-gradient-last').trim(),
+        background: s.backgroundImage,
+      }
+    })
+    const start = await stops()
+    expect(start.first).toBe('rgb(15, 159, 220)')
+    expect(start.last).toBe('rgb(129, 1, 236)')
+    await button.hover()
+    await page.waitForTimeout(240)
+    const halfway = await stops()
+    expect(halfway.first).not.toBe(start.first)
+    expect(halfway.last).not.toBe(start.last)
+    await page.waitForTimeout(400)
+    const reversed = await stops()
+    expect(reversed.first).toBe(start.last)
+    expect(reversed.last).toBe(start.first)
+    expect(await button.boundingBox()).toEqual(initialBox)
+    await page.mouse.move(0, 0)
+    await page.waitForTimeout(560)
+    expect((await stops()).first).toBe(start.first)
+    expect((await stops()).last).toBe(start.last)
+  })
+}
