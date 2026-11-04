@@ -82,7 +82,29 @@ export default function ColorStudio({ theme, onThemeChange }: { theme: ThemeName
 
     <section className="studio-panel">
       <div className="studio-section-head">
-        <div className="studio-overline">04 · FIGMA COMBINATIONS</div>
+        <div className="studio-overline">04 · ATMOSPHERIC BACKDROPS</div>
+        <h2>Backdrop Gradient</h2>
+        <p>Jemná atmosférická vrstva, kterou používá Typography → Real Interface. Není to další hlavní brandový gradient: Blue × Purple zůstává jediným výrazným barevným přechodem. Backdrop je určený pro pozadí hero náhledů a pracovních kompozic.</p>
+      </div>
+      <div className="studio-backdrop-grid">
+        {(['dark','light'] as const).map(mode=><article className="studio-backdrop-card" key={mode}>
+          <div className="studio-backdrop-preview" style={{background:themes[mode].backdrop,color:themes[mode].text}}>
+            <span style={{color:themes[mode].accent}}>AXOLOTL / WORKSPACE</span>
+            <strong>Make work<br/><em style={{color:themes[mode].brand}}>flow better.</em></strong>
+            <small style={{color:themes[mode].muted}}>Atmosphere without visual noise.</small>
+          </div>
+          <div className="studio-backdrop-meta">
+            <div><strong>{mode==='dark'?'Dark Backdrop':'Light Backdrop'}</strong><span>theme.{mode}.backdrop</span></div>
+            <button type="button" onClick={()=>void copy(themes[mode].backdrop)} aria-label={'Kopírovat CSS '+mode+' backdrop'}>{copied===themes[mode].backdrop?'✓ Zkopírováno':'Kopírovat CSS'}</button>
+          </div>
+        </article>)}
+      </div>
+      <div className="studio-backdrop-guidance"><strong>Použití:</strong> atmosférická plocha pod nadpisem a vybranými kartami. Běžné formuláře, navigace a datové widgety používají neutrální surface. Token je už součástí Colors v2, zde ho jen konečně dokumentujeme jako samostatný vzor.</div>
+    </section>
+
+    <section className="studio-panel">
+      <div className="studio-section-head">
+        <div className="studio-overline">05 · FIGMA COMBINATIONS</div>
         <h2>Čitelné kombinace barev</h2>
         <p>Z tvých framů jsme vybrali pouze kombinace s kontrastem alespoň 3 : 1. Větší rezerva znamená použití i pro běžné texty, menší rezerva pouze pro velké nadpisy.</p>
       </div>
@@ -105,7 +127,7 @@ export default function ColorStudio({ theme, onThemeChange }: { theme: ThemeName
     </section>
 
     <section className="studio-panel">
-      <div className="studio-section-head"><div className="studio-overline">05 · HOW TO USE</div><h2>Jednoduchá pravidla</h2><p>Každá barva má svou práci. Maskot a jeho růžová/levandulová identita zůstávají samostatnou vrstvou, kterou sladíme později.</p></div>
+      <div className="studio-section-head"><div className="studio-overline">06 · HOW TO USE</div><h2>Jednoduchá pravidla</h2><p>Každá barva má svou práci. Maskot a jeho růžová/levandulová identita zůstávají samostatnou vrstvou, kterou sladíme později.</p></div>
       <div className="studio-roles">{colorRoles.map(role=><div key={role.id}><i style={{background:role.color}}/><strong>{role.name}</strong><p>{role.usage}</p></div>)}</div>
     </section>
 

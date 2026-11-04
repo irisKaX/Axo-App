@@ -1,5 +1,6 @@
 import { useState, type CSSProperties } from 'react'
 import { typography, typographySamples, fontWeights, fontFamilies, type TypographyRole } from '../design-system/foundations/typography'
+import { WorkspaceComposition } from '../components/WorkspaceComposition'
 import { AccentDot, AccentWord, EyebrowHeading } from '../components/TextTreatments'
 import { textTreatments } from '../design-system/foundations/text-treatments'
 import './typography-studio.css'
@@ -43,13 +44,7 @@ export default function TypographyStudio() {
 
     <section className="typo-panel">
       <div className="typo-section-head"><span className="typo-kicker">02 · REAL INTERFACE</span><h2>Jak Poppins funguje v aplikaci</h2><p>Stejný styl pro nadpisy, texty, input, tlačítko a widget. Přepínač Light/Dark celého katalogu funguje i zde.</p></div>
-      <div className="typo-preview">
-        <div className="typo-preview-intro"><span className="typo-preview-eyebrow">AXOLOTL / WORKSPACE</span><h3>Make work<br/><em>flow better.</em></h3><p>Všechny tvoje nástroje v jednom kreativním prostoru.</p></div>
-        <div className="typo-preview-grid">
-          <div className="typo-demo-card"><div className="typo-card-title"><span className="typo-card-symbol">⌕</span><div><strong>Find Phrase</strong><small>Vyhledávání v obsahu stránky</small></div></div><label htmlFor="typo-example-input">URL adresa</label><input id="typo-example-input" placeholder="https://www.o2.cz" type="url"/><button type="button" className="typo-action">Analyzovat stránku <span>↗</span></button></div>
-          <div className="typo-demo-card typo-metric"><span>Aktivní projekty</span><strong>12</strong><small>+2 tento týden</small><div className="typo-metric-track"><i/></div></div>
-        </div>
-      </div>
+      <WorkspaceComposition />
     </section>
 
     <section className="typo-panel">
