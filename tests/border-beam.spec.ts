@@ -9,13 +9,22 @@ for (const theme of ['light', 'dark']) for (const motion of ['beam', 'spin']) {
     await page.goto(`/tests/fixtures/beam.html?theme=${theme}&motion=${motion}`)
     const buttons = page.locator(`.axo-button--border-${motion}`)
     await expect(buttons).toHaveCount(12)
+    // This matrix measures border paint only. Tooltip corner/shadow rasterization
+    // can change when the SVG paint layer is toggled, although no beam pixel is
+    // there. Keep tooltip behavior covered separately in the real catalog.
+    await page.addStyleTag({content:'.axo-button--icon[data-tooltip]::after{visibility:hidden}'})
     const client = await page.context().newCDPSession(page)
     await client.send('DOM.enable')
     await client.send('CSS.enable')
     const { root } = await client.send('DOM.getDocument')
     const { nodeIds } = await client.send('DOM.querySelectorAll', { nodeId: root.nodeId, selector: `.axo-button--border-${motion}` })
     for (const nodeId of nodeIds) await client.send('CSS.forcePseudoState', { nodeId, forcedPseudoClasses: ['hover'] })
-    await page.waitForTimeout(650) // Let approved surface transitions finish.
+    // getAnimations forces style resolution. Waiting for real completion also
+    // stabilizes tooltip corner pixels on slower/browser-loaded CI workers.
+    await expect.poll(() => page.evaluate(() => document.getAnimations().filter(animation => {
+      if (animation instanceof CSSAnimation && ['axo-border-beam','axo-border-spin'].includes(animation.animationName)) return false
+      return animation.playState === 'running' || animation.pending
+    }).length)).toBe(0)
     await page.evaluate(name => {
       for (const animation of document.getAnimations()) {
         if (animation instanceof CSSAnimation && animation.animationName === name) { animation.pause(); animation.currentTime = 0 }
@@ -42,6 +51,7 @@ for (const theme of ['light', 'dark']) for (const motion of ['beam', 'spin']) {
     const hidden = await page.addStyleTag({ content: motion === 'beam' ? '.axo-button-border-beam rect { stroke-opacity: 0; }' : '.axo-button.axo-button--border-spin:hover::before { opacity: 0; }' })
     if (motion === 'spin') await expect.poll(() => buttons.first().evaluate(el => getComputedStyle(el, '::before').opacity)).toBe('0')
     const baseBuffer = await page.screenshot()
+    writeFileSync(testInfo.outputPath('hidden-reference.png'),baseBuffer)
     const baseline = PNG.sync.read(baseBuffer)
     await hidden.evaluate(el => el.remove())
     if (motion === 'spin') await expect.poll(() => buttons.first().evaluate(el => getComputedStyle(el, '::before').opacity)).toBe('1')

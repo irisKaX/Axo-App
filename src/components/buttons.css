@@ -2,7 +2,7 @@
 .axo-button{
   display:inline-flex;align-items:center;justify-content:center;gap:9px;
   flex:none;max-width:100%;height:var(--axo-button-height);
-  padding:0 var(--axo-button-pad);border:1px solid transparent;border-radius:9999px;
+  padding:0 var(--axo-button-pad);border:1px solid transparent;border-radius:var(--radius-pill);
   font-size:var(--axo-button-font);font-weight:600;line-height:1.3;white-space:nowrap;
   cursor:pointer;position:relative;isolation:isolate;
   transition:background-color .2s ease,border-color .2s ease,box-shadow .22s ease,transform .22s cubic-bezier(.2,.75,.25,1),filter .2s ease;
@@ -80,7 +80,7 @@
 .axo-button--outline:hover:not(:disabled){background:var(--subtle);border-color:var(--brand);box-shadow:0 0 0 1px var(--brand-soft)}
 .axo-button--danger{background:var(--error);border-color:var(--error);color:#FFFFFF}
 .axo-button--danger:hover:not(:disabled){background:#CF0642;border-color:#CF0642;box-shadow:0 7px 18px #FF0A5436}
-.axo-button--icon{width:var(--axo-button-height);min-width:var(--axo-button-height);padding:0;border-radius:50%;gap:0;overflow:visible}
+.axo-button--icon{width:var(--axo-button-height);min-width:var(--axo-button-height);padding:0;border-radius:var(--radius-round);gap:0;overflow:visible}
 .axo-button--icon .axo-button-label{display:none}
 .axo-button-icon-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 /* Elevated interaction language: stationary controls, animated glyphs, accessible labels. */
@@ -90,7 +90,7 @@
 .axo-button--icon[data-tooltip]::after{
   content:attr(data-tooltip);position:absolute;left:50%;bottom:calc(100% + 11px);
   transform:translate(-50%,4px);opacity:0;pointer-events:none;
-  background:var(--text);color:var(--surface);border-radius:10px;padding:7px 10px;
+  background:var(--text);color:var(--surface);border-radius:var(--radius-sm);padding:7px 10px;
   font-size:11px;line-height:1.2;font-weight:600;white-space:nowrap;
   box-shadow:0 8px 20px #00000026;transition:opacity .18s ease,transform .18s ease;z-index:4
 }

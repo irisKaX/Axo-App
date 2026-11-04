@@ -14,10 +14,10 @@ Guidance: 8px inside tightly related elements, 16–24px between peers, 24–32p
 
 ## Shape
 - `xs 8px` for micro elements.
-- `sm 12px` for inputs and tooltips.
-- `md 18px` for small cards.
-- `lg 24px` default widget / card.
-- `xl 32px` for panels and feature blocks.
+- `sm 12px` for tooltips and small controls.
+- `md 18px` for smaller elements and dropdown option shapes.
+- `lg 24px` for Input, Select, Textarea, cards and widgets.
+- `xl 32px` for large cards, panels and complete-form containers.
 - `xxl 40px` for large hero surfaces.
 - `pill 9999px` for full-length text buttons and filter chips.
 - `round 50%` for circular icon-only controls, with equal width and height.
@@ -45,3 +45,20 @@ Guidance: 8px inside tightly related elements, 16–24px between peers, 24–32p
 Check mobile responsive layouts, both catalog themes, keyboard focus, icon target size, and that rounded buttons do not truncate Czech labels.
 
 Future Component Library should consume these geometry tokens, not duplicate values or copy showcase markup as production components.
+
+## Shared CSS geometry
+
+The existing TypeScript `radius` object is the only source of truth.
+`radiusCssVariables` derives `--radius-xs` through `--radius-round` from it;
+the app's theme context and component test hosts inherit those exact values.
+Scoped styles reference variables rather than defining another radius scale.
+`inherit` is retained where an accent must follow its parent, such as Spinning Accent.
+
+Existing navigation, status, cards, widget previews, tooltips and Foundations
+examples consume this scale. Hero surfaces use xxl, panels xl, fields/cards lg,
+small elements md/sm/xs, status/chips/text buttons pill and circle controls round.
+The Spacing & Grid catalog shows all eight tokens and the field/button distinction.
+
+Form fields use 24px corners, 52px standard height and 20px horizontal padding.
+This does not alter approved button dimensions, Blue × Purple hover reversal or
+Copy/Download/Arrow/Plus/Traveling Light/Spinning Accent animations.

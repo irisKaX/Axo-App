@@ -11,7 +11,7 @@ type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & CommonFieldPr
 
 function Feedback({ id, hint, error, success }: { id:string; hint?:string; error?:string; success?:string }) {
   const message = error ?? success ?? hint
-  return message ? <span id={id} className={'fc-feedback'+(error?' is-error':success?' is-success':'')} role={error?'alert':undefined}>{message}</span> : null
+  return message ? <span id={id} className={'fc-feedback'+(error?' is-error':success?' is-success':'')} role={error?'alert':undefined}>{(error||success)&&<span className="fc-feedback-mark" aria-hidden="true">{error?'!':'✓'}</span>}{message}</span> : null
 }
 
 export const FormInput = forwardRef<HTMLInputElement, InputProps>(function FormInput({
@@ -63,7 +63,7 @@ export function FormSelect({label,options,value,onChange,placeholder='Vyber mož
   const [active,setActive]=useState(0)
   const state=error?'error':success?'success':fieldState
   const selected=options.find(o=>o.value===value)
-  const firstEnabled=()=>Math.max(0,options.findIndex(o=>!o.disabled))
+  const firstEnabled=()=>options.findIndex(o=>!o.disabled)
   const nextEnabled=(from:number,dir:number)=>{
     if(!options.length)return -1
     let index=from
@@ -80,7 +80,9 @@ export function FormSelect({label,options,value,onChange,placeholder='Vyber mož
     if(open&&active>=0)items.current[active]?.focus()
   },[open,active])
   const reveal=(index:number)=>{
-    setActive(index>=0&&!options[index]?.disabled?index:firstEnabled())
+    const next=index>=0&&options[index]&&!options[index].disabled?index:firstEnabled()
+    if(disabled||next<0)return
+    setActive(next)
     setOpen(true)
   }
   const choose=(option:SelectOption)=>{
@@ -101,13 +103,13 @@ export function FormSelect({label,options,value,onChange,placeholder='Vyber mož
     else if(event.key==='Home'){event.preventDefault();setActive(firstEnabled())}
     else if(event.key==='End'){event.preventDefault();setActive(nextEnabled(firstEnabled(),-1))}
     else if(event.key==='Escape'){event.preventDefault();setOpen(false);trigger.current?.focus()}
-    else if(event.key==='Tab'){setOpen(false)}
+    else if(event.key==='Tab'){trigger.current?.focus();setOpen(false)}
   }
   return <div className={'fc-field fc-select-field fc-'+fieldSize+' fc-'+state}>
     <span className="fc-label" id={labelId}>{label}</span>
-    <div className="fc-select-wrapper" ref={wrapper}>
+    <div className="fc-select-wrapper" ref={wrapper} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget as Node))setOpen(false)}}>
       <button ref={trigger} id={triggerId} type="button" className="fc-select-trigger"
-        disabled={disabled} aria-haspopup="listbox" aria-expanded={open} aria-controls={listId}
+        disabled={disabled||firstEnabled()<0} aria-haspopup="listbox" aria-expanded={open} aria-controls={listId}
         aria-labelledby={labelId+' '+triggerId} aria-describedby={hint||error||success?messageId:undefined}
         aria-invalid={state==='error'} onClick={()=>open?setOpen(false):reveal(options.findIndex(o=>o.value===value))}
         onKeyDown={onTriggerKey}>
@@ -126,13 +128,13 @@ export function FormSelect({label,options,value,onChange,placeholder='Vyber mož
   </div>
 }
 
-type CheckProps={label:ReactNode;description?:string;checked:boolean;onChange:(checked:boolean)=>void;disabled?:boolean;id?:string}
-export function FormCheckbox({label,description,checked,onChange,disabled,id}:CheckProps){
-  const uid=useId();const fieldId=id??uid
+type CheckProps={label:ReactNode;description?:string;checked:boolean;onChange:(checked:boolean)=>void;disabled?:boolean;id?:string;error?:string;required?:boolean}
+export function FormCheckbox({label,description,checked,onChange,disabled,id,error,required}:CheckProps){
+  const uid=useId();const fieldId=id??uid;const messageId=uid+'-error'
   return <label className={'fc-choice fc-checkbox'+(disabled?' is-disabled':'')} htmlFor={fieldId}>
-    <input id={fieldId} type="checkbox" checked={checked} onChange={e=>onChange(e.target.checked)} disabled={disabled}/>
+    <input id={fieldId} type="checkbox" required={required} aria-invalid={Boolean(error)} aria-describedby={error?messageId:undefined} checked={checked} onChange={e=>onChange(e.target.checked)} disabled={disabled}/>
     <span className="fc-checkbox-mark" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m4.5 10 4 4 7-8" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-    <span className="fc-choice-copy"><strong>{label}</strong>{description&&<small>{description}</small>}</span>
+    <span className="fc-choice-copy"><strong>{label}</strong>{description&&<small>{description}</small>}<Feedback id={messageId} error={error}/></span>
   </label>
 }
 export interface RadioOption extends SelectOption { description?:string }

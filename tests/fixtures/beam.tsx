@@ -1,6 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { AxoButton, buttonSizes } from '../../src/components/Buttons'
+import { radiusCssVariables } from '../../src/design-system/foundations/spacing'
 import { themes } from '../../src/design-system/foundations/colors'
 import '../../src/styles.css'
 
@@ -9,7 +10,7 @@ const colors = themes[theme]
 const requestedMotion = new URLSearchParams(location.search).get('motion')
 const motion = requestedMotion === 'none' || requestedMotion === 'spin' ? requestedMotion : 'beam'
 createRoot(document.getElementById('root')!).render(
-  <div style={{ background: colors.canvas, color: colors.text, padding: 32,
+  <div style={{ ...radiusCssVariables, background: colors.canvas, color: colors.text, padding: 32,
     '--brand': colors.brand, '--brand-soft': colors.brandSoft,
     '--focus-ring': colors.focusRing, '--surface': colors.surface,
     '--text': colors.text,

@@ -19,6 +19,11 @@ export const radius = {
   round: '50%',
 } as const
 
+/** CSS consumes the same values as TS; no duplicated radius scale in stylesheets. */
+export const radiusCssVariables = Object.fromEntries(
+  Object.entries(radius).map(([key, value]) => [`--radius-${key}`, typeof value === 'number' ? `${value}px` : value]),
+) as Record<`--radius-${keyof typeof radius}`, string>
+
 export const controls = {
   compact: { height: 32, horizontalPadding: 14, fontSize: 12 },
   default: { height: 40, horizontalPadding: 20, fontSize: 13 },

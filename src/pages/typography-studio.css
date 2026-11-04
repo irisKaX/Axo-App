@@ -1,16 +1,16 @@
 /* Typography Studio · Poppins, scoped components, theme tokens */
 .typo-page{max-width:1320px}
-.typo-status{display:inline-block;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.08em;border:1px solid var(--border);border-radius:100px;padding:8px 12px;margin-bottom:25px}
-.typo-panel{padding:clamp(20px,3vw,30px);background:var(--surface);border:1px solid var(--border);border-radius:22px;margin-bottom:20px}
+.typo-status{display:inline-block;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.08em;border:1px solid var(--border);border-radius:var(--radius-pill);padding:8px 12px;margin-bottom:25px}
+.typo-panel{padding:clamp(20px,3vw,30px);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);margin-bottom:20px}
 .typo-section-head{margin-bottom:24px}
 .typo-kicker{color:var(--brand);font-weight:800;letter-spacing:.13em;font-size:11px}
 .typo-section-head h2{font-size:24px;letter-spacing:-.025em;line-height:1.35;margin:8px 0}
 .typo-section-head p{font-size:13px;color:var(--muted);line-height:1.7;margin:0}
-.typo-family{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(185px,.6fr);gap:25px;background:var(--backdrop);border:1px solid var(--border);border-radius:17px;padding:clamp(20px,3vw,30px);align-items:center}
+.typo-family{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(185px,.6fr);gap:25px;background:var(--backdrop);border:1px solid var(--border);border-radius:var(--radius-lg);padding:clamp(20px,3vw,30px);align-items:center}
 .typo-family-display{font-size:clamp(52px,7vw,98px);font-weight:700;letter-spacing:-.05em;line-height:1.15;margin:15px 0;color:var(--text)}
 .typo-family-display span{color:var(--brand)}
 .typo-family p{font-size:13px;color:var(--muted);line-height:1.8;overflow-wrap:anywhere}
-.typo-family-side{display:grid;gap:7px;padding:16px;border-radius:13px;background:var(--surface);border:1px solid var(--border)}
+.typo-family-side{display:grid;gap:7px;padding:16px;border-radius:var(--radius-md);background:var(--surface);border:1px solid var(--border)}
 .typo-family-side span{color:var(--muted);font-size:11px;margin-top:6px}
 .typo-family-side strong,.typo-family-side code{font-size:12px;overflow-wrap:anywhere}
 .typo-scale{display:grid;gap:0}
@@ -20,11 +20,11 @@
 .typo-scale-meta span{font-size:12px;color:var(--muted)}
 .typo-scale-sample{overflow-wrap:anywhere;min-width:0}
 .typo-weights{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.typo-weights>div{padding:18px;border:1px solid var(--border);border-radius:13px;display:flex;flex-direction:column;gap:17px}
+.typo-weights>div{padding:18px;border:1px solid var(--border);border-radius:var(--radius-md);display:flex;flex-direction:column;gap:17px}
 .typo-weights span{font-size:12px;color:var(--muted)}
 .typo-weights strong{font-size:clamp(18px,2.2vw,26px);line-height:1.25}
 .typo-treatment-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.typo-treatment-card{display:flex;flex-direction:column;min-width:0;min-height:285px;background:var(--canvas);border:1px solid var(--border);border-radius:24px;padding:22px}
+.typo-treatment-card{display:flex;flex-direction:column;min-width:0;min-height:285px;background:var(--canvas);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px}
 .typo-treatment-meta{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .typo-treatment-meta span{color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.07em}
 .typo-treatment-meta strong{color:var(--success);font-size:10px;font-weight:650}
@@ -34,13 +34,13 @@
 .typo-treatment-card>code{font-size:11px;color:var(--muted);overflow-wrap:anywhere;margin-top:auto}
 @media(max-width:1100px){.typo-treatment-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:700px){.typo-treatment-grid{grid-template-columns:1fr}.typo-treatment-card{min-height:215px}.typo-treatment-example{min-height:100px}}
-.typo-playground{display:grid;grid-template-columns:minmax(210px,.7fr) minmax(0,1.3fr);border:1px solid var(--border);border-radius:17px;overflow:hidden}
+.typo-playground{display:grid;grid-template-columns:minmax(210px,.7fr) minmax(0,1.3fr);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
 .typo-controls{display:flex;flex-direction:column;gap:9px;padding:23px;background:var(--subtle)}
 .typo-controls label{font-size:12px;font-weight:500;margin-top:6px}
-.typo-controls input[type="text"],.typo-controls input:not([type]),.typo-controls select{width:100%;min-width:0;border-radius:8px;padding:11px;border:1px solid var(--control-border);background:var(--surface);color:var(--text);font-size:13px}
+.typo-controls input[type="text"],.typo-controls input:not([type]),.typo-controls select{width:100%;min-width:0;border-radius:var(--radius-lg);padding:11px;border:1px solid var(--control-border);background:var(--surface);color:var(--text);font-size:13px}
 .typo-controls input[type="range"]{width:100%;accent-color:var(--brand)}
 .typo-playground-result{padding:30px;display:flex;align-items:center;justify-content:center;min-height:275px;overflow-wrap:anywhere;line-height:1.4;text-align:center}
-.typo-technical{border:1px solid var(--border);border-radius:17px;background:var(--surface);overflow:hidden;margin:25px 0}
+.typo-technical{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--surface);overflow:hidden;margin:25px 0}
 .typo-technical summary{list-style:none;padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
 .typo-technical summary::-webkit-details-marker{display:none}
 .typo-technical summary strong,.typo-technical summary small{display:block}

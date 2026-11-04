@@ -7,6 +7,7 @@ import SpacingStudio from './pages/SpacingStudio'
 import ButtonsStudio from './pages/ButtonsStudio'
 import FormsStudio from './pages/FormsStudio'
 import VisualPatterns from './pages/VisualPatterns'
+import { radiusCssVariables } from './design-system/foundations/spacing'
 import { semantic, themes, type ThemeName } from './design-system/foundations/colors'
 
 type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'forms' | 'patterns' | 'widgets' | 'layouts'
@@ -32,6 +33,7 @@ export default function App() {
   const [theme, setTheme] = useState<ThemeName>('dark')
   const t = themes[theme]
   const vars = {
+    ...radiusCssVariables,
     '--canvas': t.canvas, '--surface': t.surface, '--subtle': t.subtle, '--border': t.border,
     '--text': t.text, '--muted': t.muted, '--brand': t.brand, '--brand-text': t.brandText,
     '--brand-soft': t.brandSoft, '--control-border': t.controlBorder, '--focus-ring': t.focusRing,

@@ -5,12 +5,14 @@ import './spacing-studio.css'
 
 const spaceEntries = Object.entries(spacing).filter(([key]) => key !== '0').map(([key, value]) => ({token: key, px: value}))
 const radii = [
-  {key:'xs', name:'XS', use:'Micro prvky'},
-  {key:'sm', name:'SM', use:'Inputy, tooltip'},
-  {key:'md', name:'MD', use:'Menší karty'},
-  {key:'lg', name:'LG', use:'Widgety'},
-  {key:'xl', name:'XL', use:'Panely'},
-  {key:'xxl', name:'2XL', use:'Hero / feature'},
+  {key:'xs', name:'XS', use:'Drobné vnitřní prvky'},
+  {key:'sm', name:'SM', use:'Tooltipy a malé ovládací prvky'},
+  {key:'md', name:'MD', use:'Menší elementy'},
+  {key:'lg', name:'LG', use:'Inputy, Select, Textarea, karty a widgety'},
+  {key:'xl', name:'XL', use:'Panely a formulářové kontejnery'},
+  {key:'xxl', name:'2XL', use:'Hero a výrazné plochy'},
+  {key:'pill', name:'PILL', use:'Textová tlačítka a chips'},
+  {key:'round', name:'ROUND', use:'Kulatá ikonová tlačítka'},
 ] as const
 
 export default function SpacingStudio() {
@@ -38,10 +40,11 @@ export default function SpacingStudio() {
     </section>
 
     <section className="panel sg-panel">
-      <div className="sg-section-header"><div><span className="sg-kicker">02 / ROUNDNESS</span><h2>Měkká geometrie</h2><p>Axolotl nepoužívá ostré rohy. Pro běžné karty volíme 24 px, pro výrazné panely 32–40 px. Tlačítka jsou vždy pilulková.</p></div></div>
-      <div className="sg-radius-grid">{radii.map(r=><button className="sg-radius-card" key={r.key} type="button" onClick={()=>void copy(radius[r.key]+'px')} title={'Kopírovat '+radius[r.key]+'px'}>
-        <div className="sg-radius-object" style={{borderRadius:radius[r.key]}}><span>{r.name}</span></div><strong>{r.name} · {radius[r.key]}px</strong><span>{r.use}</span>
+      <div className="sg-section-header"><div><span className="sg-kicker">02 / ROUNDNESS</span><h2>Měkká geometrie</h2><p>Axolotl nepoužívá ostré rohy. Pole, karty a widgety mají radius.lg (24 px), velké panely a formuláře radius.xl (32 px). Textová tlačítka jsou pilulky, ikonová tvoří skutečný kruh.</p></div></div>
+      <div className="sg-radius-grid">{radii.map(r=><button className="sg-radius-card" key={r.key} type="button" onClick={()=>void copy(typeof radius[r.key] === 'number'?radius[r.key]+'px':String(radius[r.key]))} title={'Kopírovat radius.'+r.key}>
+        <div className={'sg-radius-object'+(r.key==='round'?' sg-radius-object--round':'')} style={{borderRadius:radius[r.key]}}><span>{r.name}</span></div><strong>radius.{r.key} · {radius[r.key]}{typeof radius[r.key]==='number'?'px':''}</strong><span>{r.use}</span>
       </button>)}</div>
+      <div className="sg-note"><strong>Pole formulářů:</strong> Input a Select 52 px, Textarea minimálně 144 px, radius.lg 24 px a vodorovný padding 20 px. Focus tvoří jediná 2px vnitřní linka. Textová tlačítka zachovávají 32 / 40 / 48 px a ikonová 36 / 44 / 52 px.</div>
       <div className="sg-round-preview">
         <div className="sg-round-form"><div className="sg-round-form-icon">✳</div><div><strong>Rounded by design</strong><p>Formulářová pole jsou zaoblená, ale zachovávají čitelné hrany.</p></div><div className="sg-demo-input">https://axolotl.app <span>↗</span></div></div>
         <div className="sg-round-large" style={{background:bluePurple.css}}><div className="sg-round-large-heading"><span className="sg-round-large-eyebrow">Feature surface</span><strong>Soft shapes.<br/>Bold presence.</strong></div><span className="sg-round-large-meta">radius.xl · {radius.xl}px</span></div>
