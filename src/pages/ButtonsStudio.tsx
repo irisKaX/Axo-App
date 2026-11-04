@@ -6,10 +6,11 @@ import './buttons-studio.css'
 type PreviewState = 'default'|'hover'|'active'|'focus'|'disabled'|'loading'
 const previewStates:PreviewState[] = ['default','hover','active','focus','disabled','loading']
 const titles:Record<ButtonVariant,string> = {
-  primary:'Primary',secondary:'Secondary',ghost:'Ghost',outline:'Outline',danger:'Danger'
+  primary:'Primary',gradient:'Gradient',secondary:'Secondary',ghost:'Ghost',outline:'Outline',danger:'Danger'
 }
 const descriptions:Record<ButtonVariant,string> = {
   primary:'Hlavní akce na stránce. Jedno jasné CTA.',
+  gradient:'Výrazné brandové CTA s jediným schváleným Deep Electric.',
   secondary:'Vedlejší akce bez přehnaného důrazu.',
   ghost:'Nenápadná akce v toolbaru nebo v navigaci.',
   outline:'Alternativní akce s viditelným ohraničením.',
@@ -56,11 +57,11 @@ export default function ButtonsStudio() {
     <div className="bs-status">DESIGN CANDIDATE · PILL + CIRCLE · DARK / LIGHT · INTERACTIVE</div>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>01 / VARIANTS</span><h2>Hierarchie akcí</h2><p>Pět jasně odlišených úloh. Primární tlačítko je vždy nejvýraznější; ostatní podporují soustředěnou práci.</p></div></div>
+      <div className="bs-section-heading"><div><span>01 / VARIANTS</span><h2>Hierarchie akcí</h2><p>Šest jasně odlišených úloh. Primární tlačítko je vždy nejvýraznější; ostatní podporují soustředěnou práci.</p></div></div>
       <div className="bs-variants">
         {buttonVariants.map(v=><div className="bs-variant-row" key={v}>
           <div className="bs-variant-description"><strong>{titles[v]}</strong><p>{descriptions[v]}</p></div>
-          <AxoButton variant={v} size="default" iconRight={v==='primary'?'arrow-right':undefined} icon={v==='danger'?'trash':undefined} onClick={()=>setNote('Kliknutí: '+titles[v])}>{v==='danger'?'Odstranit':'Pokračovat'}</AxoButton>
+          <AxoButton variant={v} size="default" iconRight={v==='primary'||v==='gradient'?'arrow-right':undefined} icon={v==='danger'?'trash':undefined} onClick={()=>setNote('Kliknutí: '+titles[v])}>{v==='danger'?'Odstranit':'Pokračovat'}</AxoButton>
         </div>)}
       </div>
     </section>
@@ -87,7 +88,17 @@ export default function ButtonsStudio() {
     </section>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>04 / STATES PLAYGROUND</span><h2>Stavy a chování</h2><p>Přepínej variantu, rozměr a stav. Vizualizace hover/focus/active umožňuje kontrolu i bez myši.</p></div></div>
+      <div className="bs-section-heading"><div><span>04 / MOTION & GRADIENT</span><h2>Živé hover efekty</h2><p>Najeď na tlačítka a sleduj jemný pohyb, posun gradientu a animaci ikon. Používáme pouze schválený Deep Electric.</p></div></div>
+      <div className="bs-motion-grid">
+        <div className="bs-motion-card"><span>DEEP ELECTRIC</span><strong>Gradient Button</strong><p>Gradient se při hoveru posouvá, tlačítko se jemně nadzvedne.</p><AxoButton variant="gradient" iconRight="arrow-right" size="comfortable" onClick={()=>setNote('Gradient button · Deep Electric')}>Pokračovat</AxoButton></div>
+        <div className="bs-motion-card"><span>ICON SHIFT</span><strong>Arrow & Download</strong><p>Šipka se posune doprava, ikona stažení dolů.</p><div className="bs-motion-actions"><AxoButton variant="primary" iconRight="arrow-right" onClick={()=>setNote('Arrow hover')}>Otevřít</AxoButton><AxoButton variant="secondary" icon="download" onClick={downloadSample}>Stáhnout</AxoButton></div></div>
+        <div className="bs-motion-card"><span>ROUND ICON MOTION</span><strong>Plus, Copy & Refresh</strong><p>Rotace plus a refresh, drobný posun kopírování. Kruh zůstává stejně velký.</p><div className="bs-motion-actions"><AxoButton iconOnly icon="plus" aria-label="Přidat" onClick={()=>setCounter(n=>n+1)}/><AxoButton variant="secondary" iconOnly icon="copy" aria-label="Kopírovat" onClick={()=>void copyText()}/><AxoButton variant="outline" iconOnly icon="refresh" aria-label="Obnovit náhled" onClick={()=>setNote('Náhled obnoven')}/></div></div>
+      </div>
+      <div className="bs-guide"><strong>Přístupnost:</strong> hover nesmí být jedinou informací o stavu. Focus je viditelný klávesnicí, disabled a loading jsou neaktivní. Systémové nastavení omezeného pohybu animace vypíná.</div>
+    </section>
+
+    <section className="panel bs-panel">
+      <div className="bs-section-heading"><div><span>05 / STATES PLAYGROUND</span><h2>Stavy a chování</h2><p>Přepínej variantu, rozměr a stav. Vizualizace hover/focus/active umožňuje kontrolu i bez myši.</p></div></div>
       <div className="bs-playground">
         <div className="bs-playground-controls">
           <span className="bs-control-label" id="bs-variant-label">Varianta</span>
@@ -110,7 +121,7 @@ export default function ButtonsStudio() {
     </section>
 
     <section className="panel bs-panel">
-      <div className="bs-section-heading"><div><span>05 / SPECIAL ACTIONS</span><h2>Copy, Download, Add a Remove</h2><p>Ukázky mají reálné interakce. Kopírování používá schránku, Download vytváří ukázkový soubor, ostatní mění počítadlo.</p></div></div>
+      <div className="bs-section-heading"><div><span>06 / SPECIAL ACTIONS</span><h2>Copy, Download, Add a Remove</h2><p>Ukázky mají reálné interakce. Kopírování používá schránku, Download vytváří ukázkový soubor, ostatní mění počítadlo.</p></div></div>
       <div className="bs-special-grid">
         <div className="bs-special-card"><span>COPY</span><strong>Kopírovat URL</strong><p>{copied?'Zkopírováno do schránky':'Připraveno ke kopírování'}</p><AxoButton variant="secondary" icon={copied?'check':'copy'} onClick={()=>void copyText()}>{copied?'Zkopírováno':'Kopírovat'}</AxoButton></div>
         <div className="bs-special-card"><span>DOWNLOAD</span><strong>Ukázkový soubor</strong><p>Stažení .txt přímo v prohlížeči.</p><AxoButton icon="download" onClick={downloadSample}>Stáhnout</AxoButton></div>
@@ -124,6 +135,7 @@ export default function ButtonsStudio() {
       <div className="bs-technical-body">
         <p><strong>Single source of truth:</strong> <code>src/components/Buttons.tsx</code> a <code>src/components/buttons.css</code>, rozměry <code>src/design-system/foundations/spacing.ts</code>, barvy <code>Colors v2</code>.</p>
         <p>Text buttons: <code>border-radius: {radius.pill}px</code>. Icon-only buttons: <code>border-radius: {radius.round}</code> se stejnou šířkou a výškou.</p>
+        <p>Gradient používá pouze schválený Deep Electric z Brand Expression. Hover: jemný lift, světlo a tematický pohyb ikon. <code>prefers-reduced-motion</code> animace vypíná.</p>
         <p>Podporované stavy: default, hover, active, keyboard focus, disabled, loading. Loading blokuje opakované kliknutí; samostatné ikony vyžadují <code>aria-label</code>.</p>
         <p>Speciální chování není součástí čistě vizuální varianty tlačítka. Akce Copy, Download, Add a Remove poskytuje konkrétní kontext použití.</p>
       </div>
