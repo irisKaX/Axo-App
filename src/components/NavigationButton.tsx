@@ -7,7 +7,8 @@ export type NavigationButtonShape = 'round' | 'label'
 
 /**
  * All navigation states use the ThemeSwitch purple surface.
- * current = destination currently displayed; expanded = transient open menu.
+ * current = destination currently displayed (reuses Primary 2 Orbital Glow);
+ * expanded = transient open menu.
  * The parent/router is the sole source of truth for current.
  */
 export interface NavigationButtonProps extends Omit<AxoButtonProps, 'variant' | 'size' | 'iconOnly' | 'iconMotion'> {
@@ -27,7 +28,7 @@ export function NavigationButton({
     <AxoButton
       {...props}
       size="default"
-      variant="primary"
+      variant={state === 'current' ? 'primary-2' : 'primary'}
       iconOnly={shape === 'round'}
       iconMotion={false}
       data-nav-state={state}
