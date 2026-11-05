@@ -249,7 +249,7 @@ export default function NavigationStudio({theme,onThemeChange,onOpenDashboard}:{
         </article>
         <article className="nh-spec-item">
           <strong>Responzivita a vrstva menu</strong>
-          <p>Desktop má jednu řadu. Na menším viewportu se hlavička zalomí, ale ovládací prvky si ponechávají správnou výšku. Dropdowny a tooltipy nesmí být schované pod Dashboardem. Nesmí vznikat prázdná mezera omezením maximální šířky URL.</p>
+          <p>Desktop zachovává schválenou jednořádkovou navigaci. Do 800 px je místo zalamování kompaktní lišta s Home, oznámeními a menu. Workspace, Tools, SEO check, URL, Nastavení a Theme Switch jsou přístupné v samostatném rozbalitelném panelu. Otevřené menu překrývá obsah, neposouvá Dashboard; funguje Escape, kliknutí mimo a stav aria-expanded.</p>
           <code>navigation-studio.css · dashboard-studio.css</code>
         </article>
         <article className="nh-spec-item">
