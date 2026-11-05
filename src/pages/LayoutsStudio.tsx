@@ -31,7 +31,8 @@ function LayoutPreview({viewport,theme,headerOnly=false}:{viewport:Viewport;them
       <span className="ls-home" aria-hidden="true">⌂</span>
       <div className="ls-shell-links" aria-hidden="true"><i>Workspace</i><i>Tools</i><i>SEO check</i></div>
       <span className="ls-url" aria-hidden="true"><span>URL display</span><b>◎</b></span>
-      <span className="ls-utility" aria-hidden="true">◉ ◉</span>
+      <span className="ls-alert" aria-label="Upozornění" role="img">♧</span>
+      <span className="ls-settings" aria-label="Nastavení" role="img">⚙</span>
       <span className="ls-switch" aria-hidden="true"><i/></span>
     </div>
     {headerOnly ? <div className="ls-shell-placeholder">
@@ -65,7 +66,7 @@ export default function LayoutsStudio({theme}:{theme:ThemeName}){
         <Rule label="Canvas" value="themes[theme].canvas" description="V Dark Mode je hlavní plocha #090B10. Žádný celoplošný gradient."/>
         <Rule label="Header" value="HeaderPreview / NavigationButton" description="Na Dashboardu průhledný, bez vlastního borderu a stínu. Výchozí ovládací prvky mají výšku 38 px."/>
         <Rule label="Obsah" value="padding 16px · gap 16px" description="Dashboard používá 16px vnější odsazení a oddělení headeru, gridu a footeru. Pod 800 px 12 px."/>
-        <Rule label="Responzivita" value="800px / 480px" description="Při šířce do 800 px se header zalamuje, do 480 px se přeskupuje navigace a URL. Bez sidebaru i na mobilu."/>
+        <Rule label="Responzivita" value="800px / 480px" description="Do 480 px: horní řada má logo, Home, Upozornění, Nastavení a Theme Switch; druhá řada obsahuje tři stejně široké navigační položky, třetí řada plnou URL. Čas se na úzkém mobilu skrývá."/>
       </div>
     </section>
 
