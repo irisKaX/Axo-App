@@ -82,23 +82,13 @@
 .fs-advanced-note p{margin:0;color:var(--muted);font-size:12px;line-height:1.7;overflow-wrap:anywhere}
 @media(max-width:820px){.fs-advanced-grid{grid-template-columns:1fr}}
 
-/* File Upload design directions and state controls. Actual component styling is in advanced-form-controls.css. */
-.fs-upload-variants{display:flex;flex-direction:column;gap:11px;margin-bottom:22px}
-.fs-upload-color-row,.fs-upload-state-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.fs-upload-color{
-  display:inline-flex;align-items:center;gap:9px;min-height:38px;
-  border:1px solid var(--border);border-radius:var(--radius-pill);
-  background:var(--subtle);color:var(--text);padding:0 14px;
-  font:inherit;font-size:11px;font-weight:600;cursor:pointer;
-}
-.fs-upload-color>span{width:12px;height:12px;flex:none;background:var(--brand);border-radius:50%}
-.fs-upload-color.is-cyan>span{background:var(--secondary)}
-.fs-upload-color.is-pink>span{background:var(--mascot)}
-.fs-upload-color.is-lime>span{background:var(--success)}
-.fs-upload-color.is-midnight>span{background:var(--backdrop);border:1px solid var(--control-border)}
-.fs-upload-color.is-active{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand)}
-.fs-upload-color:hover{border-color:var(--control-border)}
-.fs-upload-color:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
-.fs-upload-preview{max-width:740px}
-.fs-upload-disclaimer{max-width:680px;margin:14px 0 0;color:var(--muted);font-size:11px;line-height:1.7}
-@media(max-width:540px){.fs-upload-color{padding:0 10px}.fs-upload-preview{max-width:100%}}
+/* File Upload comparison: component visuals live in advanced-form-controls.css. */
+.fs-upload-toolbar{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.fs-upload-toolbar>.fc-field{width:240px;max-width:100%}
+.fs-upload-toolbar>p{flex:1;min-width:min(100%,220px);max-width:540px;margin:0;color:var(--muted);font-size:12px;line-height:1.7}
+.fs-upload-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:32px 24px}
+.fs-upload-specimen{min-width:0}
+.fs-upload-label{display:flex;align-items:baseline;gap:10px;margin:0 0 12px;font-size:13px}
+.fs-upload-label>span{color:var(--muted);font-size:10px;letter-spacing:.1em}
+.fs-upload-label>strong{font-weight:600}
+@media(max-width:1100px){.fs-upload-grid{grid-template-columns:1fr}}

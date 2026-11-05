@@ -1,7 +1,10 @@
-import { useEffect, useId, useRef, useState, type ChangeEvent, type DragEvent } from 'react'
+import { useEffect, useId, useRef, useState, type CSSProperties, type DragEvent } from 'react'
 import { AxoIcon } from './AxoIcon'
 import { AxoButton } from './Buttons'
 import type { SelectOption } from './FormControls'
+import { brandColors, themes } from '../design-system/foundations/colors'
+import { spacing } from '../design-system/foundations/spacing'
+import { typography } from '../design-system/foundations/typography'
 import './advanced-form-controls.css'
 
 export interface MultiSelectProps {
@@ -144,74 +147,235 @@ export function NumberInput({label,value,onChange,min=0,max=Infinity,step=1,unit
   </div>
 }
 
-export type FileDropzoneVariant = 'iris' | 'cyan' | 'pink' | 'lime' | 'midnight'
+export type FileUploadVariant = 'solid-brand' | 'atmosphere'
+export type FileUploadSize = 'default' | 'large'
+export type FileDropzoneVariant = FileUploadVariant
+
 export interface FileDropzoneProps {
-  label:string
-  files:File[]
-  onChange:(files:File[])=>void
-  accept?:string
-  multiple?:boolean
-  maxBytes?:number
-  disabled?:boolean
-  variant?:FileDropzoneVariant
-  error?:string
+  label?: string
+  files: File[]
+  onChange: (files: File[]) => void
+  variant?: FileUploadVariant
+  size?: FileUploadSize
+  accept?: string
+  /** Maximum size of each file, in bytes. */
+  maxSize?: number
+  /** Original size-limit prop, retained for existing consumers. */
+  maxBytes?: number
+  multiple?: boolean
+  disabled?: boolean
+  /** Driven by the caller's real processing operation; no upload is simulated. */
+  processing?: boolean
+  error?: string
+  onError?: (message: string | undefined) => void
+  /** Allows the catalog to preview a drop target without a dragged file. */
+  dragOver?: boolean
 }
+
+const surfaceStyles: Record<FileUploadVariant, CSSProperties> = {
+  'solid-brand': {
+    '--afu-background': brandColors.blue,
+    '--afu-foreground': themes.light.secondaryText,
+    '--afu-muted': themes.light.secondaryText,
+    '--afu-boundary': themes.light.secondaryText,
+    '--afu-active-boundary': themes.light.secondaryText,
+    '--afu-boundary-width': '2px',
+    '--surface': themes.light.surface,
+    '--text': themes.light.text,
+    '--subtle': themes.light.subtle,
+    '--brand-soft': themes.light.brandSoft,
+    '--brand-text': themes.light.brandText,
+    '--focus-ring': themes.light.secondaryText,
+  } as CSSProperties,
+  atmosphere: {
+    '--afu-background': themes.dark.backdrop,
+    '--afu-foreground': themes.dark.brandText,
+    '--afu-muted': themes.dark.muted,
+    '--afu-boundary': themes.dark.controlBorder,
+    '--afu-active-boundary': themes.dark.brand,
+    '--afu-boundary-width': '1px',
+    '--surface': themes.dark.surface,
+    '--text': themes.dark.text,
+    '--subtle': themes.dark.subtle,
+    '--brand-soft': themes.dark.brandSoft,
+    '--brand-text': themes.dark.brandText,
+    '--focus-ring': themes.dark.focusRing,
+  } as CSSProperties,
+}
+
+function formatFileSize(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`
+  const unit = bytes < 1024 * 1024 ? 'kB' : 'MB'
+  const value = bytes / (unit === 'kB' ? 1024 : 1024 * 1024)
+  return `${value.toLocaleString('cs-CZ', { maximumFractionDigits: 1 })} ${unit}`
+}
+
+function acceptsFile(file: File, accept: string) {
+  const rules = accept.toLowerCase().split(',').map(rule => rule.trim()).filter(Boolean)
+  return !rules.length || rules.some(rule => {
+    if (rule.startsWith('.')) return file.name.toLowerCase().endsWith(rule)
+    if (rule.endsWith('/*')) return file.type.toLowerCase().startsWith(rule.slice(0, -1))
+    return file.type.toLowerCase() === rule
+  })
+}
+
+function fileKey(file: File) {
+  return JSON.stringify([file.name, file.size, file.type, file.lastModified])
+}
+
 export function FileDropzone({
-  label,files,onChange,accept,multiple=true,maxBytes=10*1024*1024,
-  disabled=false,variant='iris',error:externalError,
-}:FileDropzoneProps){
-  const uid=useId()
-  const input=useRef<HTMLInputElement>(null)
-  const [dragging,setDragging]=useState(false)
-  const [error,setError]=useState('')
-  const message=externalError||error
-  const hasFiles=files.length>0
-  const extensionMatches=(file:File)=>{
-    if(!accept)return true
-    return accept.split(',').some(part=>{
-      const token=part.trim().toLowerCase()
-      return token.startsWith('.')?file.name.toLowerCase().endsWith(token):token.endsWith('/*')?file.type.startsWith(token.slice(0,-1)):file.type===token
+  label,
+  files,
+  onChange,
+  variant = 'solid-brand',
+  size = 'default',
+  accept = '.pdf,.txt,.md,.png,.jpg,.jpeg,.webp',
+  maxSize,
+  maxBytes,
+  multiple = true,
+  disabled = false,
+  processing = false,
+  error,
+  onError,
+  dragOver = false,
+}: FileDropzoneProps) {
+  const uid = useId()
+  const fileLimit = maxSize ?? maxBytes ?? 10 * 1024 * 1024
+  const inputRef = useRef<HTMLInputElement>(null)
+  const actionRef = useRef<HTMLButtonElement>(null)
+  const dragDepth = useRef(0)
+  const [dragging, setDragging] = useState(false)
+  const [validationError, setValidationError] = useState<string>()
+  const blocked = disabled || processing
+  const activeDrop = !blocked && (dragging || dragOver)
+  const message = validationError || error
+  const state = processing ? 'processing' : activeDrop ? 'drag-over' : message ? 'error' : files.length ? 'ready' : 'empty'
+  const heading = typography[size === 'large' ? 'h1' : 'h2']
+  const headingId = `${uid}-heading`
+  const hintId = `${uid}-hint`
+  const errorId = `${uid}-error`
+  const describedBy = message ? `${hintId} ${errorId}` : hintId
+  const acceptedTypes = accept.split(',').map(rule => rule.trim().replace(/^\./, '').toUpperCase()).filter(Boolean).join(', ')
+  const styles = {
+    ...surfaceStyles[variant],
+    '--afu-accent': brandColors.irisPurple,
+    '--afu-padding': `${size === 'large' ? spacing[8] : spacing[6]}px`,
+    '--afu-gap': `${size === 'large' ? spacing[6] : spacing[4]}px`,
+    '--afu-heading-size': `${heading.size}px`,
+    '--afu-heading-leading': heading.lineHeight,
+    '--afu-heading-weight': heading.weight,
+    '--afu-heading-tracking': `${heading.tracking}em`,
+    '--afu-body-size': `${typography.bodySm.size}px`,
+    '--afu-body-leading': typography.bodySm.lineHeight,
+    '--afu-eyebrow-size': `${typography.overline.size}px`,
+    '--afu-eyebrow-tracking': `${typography.overline.tracking}em`,
+  } as CSSProperties
+
+  function addFiles(incoming: File[]) {
+    if (blocked || !incoming.length) return
+    let nextError: string | undefined
+    if (!multiple && incoming.length > 1) nextError = 'Vyber pouze jeden soubor.'
+    for (const file of incoming) {
+      if (nextError) break
+      if (!acceptsFile(file, accept)) nextError = `Soubor „${file.name}“ má nepodporovaný typ. Vyber jiný soubor.`
+      else if (file.size > fileLimit) nextError = `Soubor „${file.name}“ překračuje limit ${formatFileSize(fileLimit)}. Vyber menší soubor.`
+    }
+    setValidationError(nextError)
+    onError?.(nextError)
+    // Reject an invalid batch atomically, keeping all previously selected files.
+    if (nextError) return
+    const existing = multiple ? files : []
+    const seen = new Set(existing.map(fileKey))
+    const added = incoming.filter(file => {
+      const key = fileKey(file)
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
     })
+    onChange([...existing, ...added])
   }
-  const add=(next:File[])=>{
-    if(!next.length)return
-    const invalid=next.find(file=>file.size>maxBytes||!extensionMatches(file))
-    if(invalid){setError('Soubor '+invalid.name+' překračuje limit nebo má nepovolený typ.');return}
-    setError('')
-    onChange(multiple?[...files,...next.filter(file=>!files.some(existing=>existing.name===file.name&&existing.size===file.size))]:next.slice(0,1))
+
+  function isFileDrag(event: DragEvent<HTMLDivElement>) {
+    return Array.from(event.dataTransfer.types).includes('Files')
   }
-  const onInput=(event:ChangeEvent<HTMLInputElement>)=>{add(Array.from(event.target.files??[]));event.target.value=''}
-  const onDrop=(event:DragEvent<HTMLDivElement>)=>{
-    event.preventDefault()
-    setDragging(false)
-    if(!disabled)add(Array.from(event.dataTransfer.files))
-  }
-  const uploadTitle=dragging?'Pusť soubory sem':hasFiles?'Soubory jsou připravené':'Nahraj nebo přetáhni soubory'
-  return <div className={'af-field af-upload af-upload--'+variant+(hasFiles?' is-filled':'')+(message?' has-error':'')+(disabled?' is-disabled':'')}>
-    <label className="af-label" htmlFor={uid}>{label}</label>
-    <div className={'af-dropzone'+(dragging?' is-dragging':'')+(disabled?' is-disabled':'')} role="group"
-      aria-label={label}
-      onDragOver={e=>{e.preventDefault();if(!disabled)setDragging(true)}}
-      onDragLeave={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node))setDragging(false)}}
-      onDrop={onDrop}>
-      <div className="af-dropzone-inner">
-        <AxoIcon name={message?'alert-circle':hasFiles?'check':'folder'} size={30} className="af-dropzone-art"/>
-        <div className="af-dropzone-copy">
-          <strong>{message?'Zkontroluj soubory':uploadTitle}</strong>
-          <span>{hasFiles&&!message?files.length+' '+(files.length===1?'soubor připravený':'souborů připravených')+' k použití':'PDF, obrázky, CSV a další podporované formáty'}</span>
+
+  return (
+    <div className={`afu-dropzone afu-dropzone--${variant} afu-dropzone--${size}`}
+      style={styles} data-state={state} role="group" aria-label={label} aria-labelledby={label ? undefined : headingId}
+      aria-describedby={describedBy} aria-busy={processing || undefined}
+      onDragEnter={event => {
+        if (!isFileDrag(event)) return
+        event.preventDefault()
+        if (blocked) return
+        dragDepth.current += 1
+        setDragging(true)
+      }}
+      onDragOver={event => {
+        if (!isFileDrag(event)) return
+        event.preventDefault()
+        event.dataTransfer.dropEffect = blocked ? 'none' : 'copy'
+      }}
+      onDragLeave={event => {
+        if (!isFileDrag(event)) return
+        dragDepth.current = Math.max(0, dragDepth.current - 1)
+        if (!dragDepth.current) setDragging(false)
+      }}
+      onDrop={event => {
+        event.preventDefault()
+        dragDepth.current = 0
+        setDragging(false)
+        addFiles(Array.from(event.dataTransfer.files))
+      }}
+    >
+      <div className="afu-copy">
+        <p className="afu-eyebrow">{variant === 'atmosphere' ? 'AXOLOTL / WORKSPACE' : 'UPLOAD / ASSETS'}</p>
+        <h3 className="afu-headline" id={headingId}>
+          {variant === 'atmosphere' ? <>Upload files.<span className="afu-headline-accent">Work smarter.</span></> : 'Upload your files.'}
+        </h3>
+        <p className="afu-support">{variant === 'atmosphere' ? 'Všechny potřebné soubory na jednom místě.' : 'Přetáhni soubory nebo je vyber ze zařízení.'}</p>
+      </div>
+
+      <input ref={inputRef} type="file" hidden accept={accept} multiple={multiple}
+        disabled={blocked} aria-label={label ?? 'Vybrat soubory'} aria-describedby={describedBy}
+        aria-invalid={Boolean(message)} onChange={event => {
+          addFiles(Array.from(event.currentTarget.files ?? []))
+          // Selecting the same file again must also allow retrying a rejected file.
+          event.currentTarget.value = ''
+        }} />
+
+      <div className="afu-target">
+        <AxoIcon name="folder" size={size === 'large' ? spacing[8] : spacing[6]} />
+        <div className="afu-target-copy">
+          <strong>{activeDrop ? 'Pusť soubory sem' : files.length ? 'Přidej další soubory' : 'Přetáhni soubory sem'}</strong>
+          <span id={hintId}>{acceptedTypes || 'Všechny typy souborů'} · max. {formatFileSize(fileLimit)} / soubor</span>
         </div>
-        <AxoButton variant="secondary" size="default" disabled={disabled} onClick={()=>input.current?.click()}>
-          {hasFiles?'Přidat soubory':'Vybrat soubory'}
+        <AxoButton ref={actionRef} variant="secondary" icon="plus" disabled={disabled} loading={processing}
+          aria-describedby={describedBy} onClick={() => inputRef.current?.click()}>
+          {processing ? 'Zpracovávám…' : files.length ? 'Přidat soubory' : 'Vybrat soubory'}
         </AxoButton>
       </div>
-      <input ref={input} id={uid} type="file" accept={accept} multiple={multiple} disabled={disabled}
-        className="af-visually-hidden" aria-describedby={uid+'-hint'+(message?' '+uid+'-error':'')} onChange={onInput}/>
-      {hasFiles&&<ul className="af-file-list">{files.map((file,i)=><li key={file.name+'-'+i}>
-        <span><AxoIcon name="file-text" size={18}/><span title={file.name}>{file.name}</span><small>{file.size<1024?file.size+' B':(file.size/1024).toFixed(0)+' KB'}</small></span>
-        <button type="button" disabled={disabled} aria-label={'Odebrat '+file.name} onClick={()=>{setError('');onChange(files.filter((_,index)=>index!==i))}}><AxoIcon name="close" size={16}/></button>
-      </li>)}</ul>}
+
+      {files.length > 0 && (
+        <ul className="afu-files" aria-label="Vybrané soubory">
+          {files.map((file, index) => (
+            <li className="afu-file" key={`${fileKey(file)}-${index}`}>
+              <AxoIcon name="file-text" size={spacing[5]} />
+              <div className="afu-file-info"><strong title={file.name}>{file.name}</strong><span>{formatFileSize(file.size)}</span></div>
+              <AxoButton variant="ghost" size="compact" icon="close" iconOnly
+                aria-label={`Odebrat ${file.name}`} disabled={blocked} onClick={() => {
+                  onChange(files.filter((_, fileIndex) => fileIndex !== index))
+                  requestAnimationFrame(() => actionRef.current?.focus())
+                }} />
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {message && <p className="afu-error" role="alert" id={errorId}><AxoIcon name="alert-circle" tone="danger" size={spacing[4]} /><span>{message}</span></p>}
+      <div className="afu-status" role="status" aria-atomic="true">
+        {processing ? <><AxoIcon name="loader" size={spacing[4]} /><span>Zpracovávám soubory…</span></> :
+          files.length > 0 && !message ? <><AxoIcon name="check" size={spacing[4]} /><span>Soubory jsou připravené. Počet: {files.length}.</span></> : null}
+      </div>
     </div>
-    <span className="af-hint" id={uid+'-hint'}>Maximálně {Math.round(maxBytes/1024/1024)} MB na soubor. {accept||'Běžné soubory'}.</span>
-    {message&&<span className="af-error" id={uid+'-error'} role="alert"><AxoIcon name="alert-circle" size={15}/>{message}</span>}
-  </div>
+  )
 }

@@ -55,62 +55,81 @@
 .af-stepper button{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--border);background:var(--subtle);color:var(--text);border-radius:50%;font:inherit;font-size:19px;cursor:pointer}
 .af-stepper button:hover:not(:disabled){border-color:var(--brand)}
 .af-stepper button:disabled{opacity:.3;cursor:not-allowed}
-/* File Upload: use only approved, unmodified color tokens and dark surfaces.
-   No tinted, alpha-mixed or lightened brand-color backgrounds. */
-.af-upload{--af-upload-accent:var(--brand);--af-upload-background:var(--canvas)}
-.af-upload--cyan{--af-upload-accent:var(--secondary)}
-.af-upload--pink{--af-upload-accent:var(--mascot)}
-.af-upload--lime{--af-upload-accent:var(--success)}
-.af-upload--midnight{--af-upload-accent:var(--brand);--af-upload-background:var(--backdrop)}
-.af-upload.has-error{--af-upload-accent:var(--error)}
-.af-dropzone{
-  position:relative;min-width:0;padding:12px;
-  border:1px solid var(--border);border-radius:var(--radius-lg);
-  background:var(--surface);
-  transition:border-color .25s ease;
-}
-.af-dropzone-inner{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  min-height:218px;gap:16px;padding:26px 20px;
-  border:2px dashed var(--af-upload-accent);border-radius:calc(var(--radius-lg) - 8px);
-  background:var(--af-upload-background);
-  text-align:center;transition:border-color .25s ease,border-style .25s ease;
-}
-.af-dropzone-art{color:var(--af-upload-accent);transition:transform .3s ease}
-.af-dropzone-copy{display:flex;flex-direction:column;gap:7px;align-items:center}
-.af-dropzone-copy strong{font-size:16px;font-weight:700;letter-spacing:-.025em;color:var(--text)}
-.af-dropzone-copy>span{font-size:11px;line-height:1.6;color:var(--muted)}
-.af-dropzone-inner>.axo-button{margin-top:2px}
-.af-dropzone:hover:not(.is-disabled){border-color:var(--af-upload-accent)}
-.af-dropzone:hover:not(.is-disabled) .af-dropzone-art{transform:translateY(-3px)}
-.af-dropzone.is-dragging{border-color:var(--af-upload-accent)}
-.af-dropzone.is-dragging .af-dropzone-inner{
-  border-style:solid;
-  outline:2px solid var(--af-upload-accent);
-  outline-offset:-7px;
-}
-.af-upload.is-filled .af-dropzone-inner{min-height:158px}
-.af-upload.is-filled .af-dropzone{border-color:var(--af-upload-accent)}
-.af-file-list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:7px}
-.af-file-list li{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;
-  padding:11px 13px;background:var(--subtle);border-radius:var(--radius-md);
-  border:1px solid var(--border);
-}
-.af-file-list li>span{display:flex;align-items:center;gap:10px;min-width:0;font-size:12px}
-.af-file-list li>span svg{flex:none;color:var(--af-upload-accent)}
-.af-file-list li>span>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.af-file-list small{color:var(--muted);white-space:nowrap}
-.af-file-list li>button{
-  display:grid;place-items:center;width:28px;height:28px;flex:none;
-  background:transparent;border:0;border-radius:50%;color:var(--text);cursor:pointer
-}
-.af-file-list li>button:hover:not(:disabled){background:var(--surface)}
-.af-file-list li>button:disabled{opacity:.5;cursor:not-allowed}
-.af-error{display:flex;gap:7px;align-items:center;font-size:11px;color:var(--error);line-height:1.5}
-.af-visually-hidden{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;clip-path:inset(50%);pointer-events:none}
-.af-field.is-disabled,.af-dropzone.is-disabled{opacity:.55}
+.af-field.is-disabled{opacity:.55}
 .af-field :is(button,input):focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
 .af-field :is(.af-multi-control input,.af-number-control input):focus-visible{outline:0}
 @media(max-width:500px){.af-calendar{max-width:100%}.af-stepper{gap:4px;padding:0 7px}}
-@media(prefers-reduced-motion:reduce){.af-multi-control,.af-date-trigger,.af-number-control,.af-dropzone,.af-dropzone-inner,.af-dropzone-art{transition:none}}
+@media(prefers-reduced-motion:reduce){.af-multi-control,.af-date-trigger,.af-number-control{transition:none}}
+
+/* File Upload: one implementation, two approved surfaces and two sizes. */
+.afu-dropzone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--afu-gap);
+  min-width: 0;
+  padding: var(--afu-padding);
+  border-radius: var(--radius-lg);
+  background: var(--afu-background);
+  color: var(--afu-foreground);
+  font-size: var(--afu-body-size);
+  line-height: var(--afu-body-leading);
+}
+
+.afu-copy { display: grid; gap: 8px; }
+.afu-eyebrow {
+  margin: 0;
+  font-size: var(--afu-eyebrow-size);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: var(--afu-eyebrow-tracking);
+}
+.afu-headline {
+  margin: 0;
+  font-size: var(--afu-heading-size);
+  font-weight: var(--afu-heading-weight);
+  line-height: var(--afu-heading-leading);
+  letter-spacing: var(--afu-heading-tracking);
+  overflow-wrap: anywhere;
+}
+.afu-headline-accent { display: block; color: var(--afu-accent); }
+.afu-support { margin: 0; color: var(--afu-muted); }
+
+.afu-target {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: var(--afu-padding) 16px;
+  border: var(--afu-boundary-width) dashed var(--afu-boundary);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+.afu-dropzone[data-state="drag-over"] .afu-target {
+  border-style: solid;
+  border-color: var(--afu-active-boundary);
+}
+.afu-dropzone[data-state="error"] .afu-target { border-color: var(--error); }
+.afu-target-copy { display: grid; gap: 4px; min-width: 0; }
+.afu-target-copy strong { font-weight: 600; }
+.afu-target-copy span { color: var(--afu-muted); font-size: 12px; overflow-wrap: anywhere; }
+
+.afu-files { display: grid; gap: 0; list-style: none; margin: 0; padding: 0; }
+.afu-file {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--afu-boundary);
+}
+.afu-file-info { display: grid; flex: 1; min-width: 0; gap: 4px; }
+.afu-file-info strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+.afu-file-info span { color: var(--afu-muted); font-size: 12px; }
+.afu-error, .afu-status { display: flex; align-items: flex-start; gap: 8px; margin: 0; overflow-wrap: anywhere; }
+.afu-error > .axo-icon, .afu-status > .axo-icon { margin-top: 2px; }
+.afu-status:empty { display: none; }
+
+@media (max-width: 560px) {
+  .afu-dropzone { padding: 16px; }
+  .afu-target { padding: 24px 12px; }
+}

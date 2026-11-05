@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch, type FormAccent } from '../components/FormControls'
 import { SearchSpotlight } from '../components/SearchSpotlight'
-import { AxoButton } from '../components/Buttons'
-import { MultiSelect, DatePickerField, NumberInput, FileDropzone, type FileDropzoneVariant } from '../components/AdvancedFormControls'
+import { MultiSelect, DatePickerField, NumberInput, FileDropzone, type FileUploadVariant, type FileUploadSize } from '../components/AdvancedFormControls'
 import { ThemeSwitch } from '../components/ThemeSwitch'
 import { type ThemeName } from '../design-system/foundations/colors'
 import './forms-studio.css'
@@ -50,6 +49,20 @@ function AccentPicker({label,value,onChange}:{label:string;value:FormAccent;onCh
   </fieldset>
 }
 
+const uploadPreviews: { variant: FileUploadVariant; size: FileUploadSize; label: string }[] = [
+  { variant: 'solid-brand', size: 'default', label: 'Solid Brand / Default' },
+  { variant: 'solid-brand', size: 'large', label: 'Solid Brand / Large' },
+  { variant: 'atmosphere', size: 'default', label: 'Atmosphere / Default' },
+  { variant: 'atmosphere', size: 'large', label: 'Atmosphere / Large' },
+]
+const uploadStateOptions = [
+  { value: 'empty', label: 'Empty' },
+  { value: 'drag-over', label: 'Drag Over preview' },
+  { value: 'uploaded', label: 'Uploaded / Ready' },
+  { value: 'error', label: 'Error' },
+]
+type UploadPreview = { files: File[]; error?: string; dragOver?: boolean }
+
 function isValidHttpUrl(value:string) {
   try { const url=new URL(value.trim()); return ['http:','https:'].includes(url.protocol)&&url.hostname.includes('.') }
   catch { return false }
@@ -71,9 +84,21 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
   const [selectedTags,setSelectedTags]=useState<string[]>(['seo','oneplay'])
   const [dueDate,setDueDate]=useState('')
   const [budget,setBudget]=useState<number|null>(199)
-  const [files,setFiles]=useState<File[]>([])
-  const [fileVariant,setFileVariant]=useState<FileDropzoneVariant>('iris')
-  const [fileDemoError,setFileDemoError]=useState('')
+  const [uploadState, setUploadState] = useState('empty')
+  const [uploadRevision, setUploadRevision] = useState(0)
+  const [uploads, setUploads] = useState<UploadPreview[]>(() => uploadPreviews.map(() => ({ files: [] })))
+  function previewUploads(state: string) {
+    setUploadState(state)
+    setUploadRevision(revision => revision + 1)
+    setUploads(uploadPreviews.map(() => ({
+      files: state === 'uploaded' || state === 'error' ? [
+        new File(['Poznámky k projektu Axolotl.'], 'Poznámky.txt', { type: 'text/plain', lastModified: 0 }),
+        new File(['# Workspace\nPodklady pro nový projekt.'], 'Workspace.md', { type: 'text/markdown', lastModified: 0 }),
+      ] : [],
+      dragOver: state === 'drag-over',
+      error: state === 'error' ? 'Soubor „Archiv.zip“ má nepodporovaný typ. Vyber jiný soubor.' : undefined,
+    })))
+  }
   const validUrl=!url.trim() || isValidHttpUrl(url)
   return <div className="fs-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / INPUTS & FORMS</p>
@@ -178,38 +203,22 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
     </section>
 
     <section className="panel fs-panel">
-      <div className="fs-section-head"><span>11 / FILE UPLOAD</span><h2>Nahrávání souborů</h2><p>Vlastní drag & drop komponenta s výraznou přerušovanou hranicí, čtyřmi barevnými směry a odlišnými stavy před nahráním, po nahrání a při chybě.</p></div>
-      <div className="fs-upload-variants">
-        <span className="fs-overline">BAREVNÉ VARIANTY</span>
-        <div className="fs-upload-color-row">
-          {([
-            {id:'iris',label:'Iris Purple'},
-            {id:'cyan',label:'Bright Cyan'},
-            {id:'pink',label:'Axolotl Pink'},
-            {id:'lime',label:'Success Lime'},
-            {id:'midnight',label:'Dark Gradient'},
-          ] as const).map(option=><button type="button" className={'fs-upload-color is-'+option.id+(fileVariant===option.id?' is-active':'')}
-            key={option.id} aria-pressed={fileVariant===option.id} onClick={()=>setFileVariant(option.id)}>
-            <span aria-hidden="true"/>{option.label}
-          </button>)}
-        </div>
+      <div className="fs-section-head"><span>11 / FILE UPLOAD</span><h2>File Upload</h2><p>Dvě schválené plochy, dvě velikosti. Vyber soubory ze zařízení nebo je přetáhni do některého z náhledů.</p></div>
+      <div className="fs-upload-toolbar">
+        <FormSelect label="Nastavit ukázkový stav" options={uploadStateOptions} value={uploadState} onChange={previewUploads} />
+        <p>Stav se nastaví ve všech čtyřech náhledech. Uploaded a Error používají ukázkové soubory; každý náhled lze dál samostatně ovládat.</p>
       </div>
-      <div className="fs-upload-variants">
-        <span className="fs-overline">NÁHLED STAVŮ</span>
-        <div className="fs-upload-state-row">
-          <AxoButton variant="outline" size="compact" onClick={()=>{setFiles([]);setFileDemoError('')}}>Prázdné</AxoButton>
-          <AxoButton variant="secondary" size="compact" onClick={()=>{
-            setFiles([new File(['asset,url\\nlogo,/logo.png'], 'oneplay-assets.csv', {type:'text/csv'})])
-            setFileDemoError('')
-          }}>Nahráno</AxoButton>
-          <AxoButton variant="ghost" size="compact" onClick={()=>{setFiles([]);setFileDemoError('Nepodporovaný formát. Nahraj obrázek, PDF nebo CSV.')}}>Chyba</AxoButton>
-        </div>
-      </div>
-      <div className="fs-upload-preview">
-        <FileDropzone label="Přílohy projektu" files={files} variant={fileVariant}
-          onChange={next=>{setFiles(next);setFileDemoError('')}} error={fileDemoError}
-          accept=".png,.jpg,.jpeg,.webp,.pdf,.csv,.txt" maxBytes={10*1024*1024}/>
-        <p className="fs-upload-disclaimer">Vyzkoušej také přetažení souboru myší. Jde pouze o lokální demonstraci, žádný soubor se neposílá na server. Stavy „Nahráno“ a „Chyba“ lze vyvolat i ukázkovými tlačítky.</p>
+      <div className="fs-upload-grid">
+        {uploadPreviews.map((preview, index) => (
+          <article className="fs-upload-specimen" key={preview.label}>
+            <p className="fs-upload-label"><span>0{index + 1}</span><strong>{preview.label}</strong></p>
+            <FileDropzone key={uploadRevision} variant={preview.variant} size={preview.size}
+              label={`${preview.label} · Přílohy projektu`} accept=".png,.jpg,.jpeg,.webp,.pdf,.csv,.txt,.md" maxBytes={10 * 1024 * 1024}
+              files={uploads[index].files} error={uploads[index].error} dragOver={uploads[index].dragOver}
+              onChange={files => setUploads(current => current.map((item, itemIndex) => itemIndex === index ? { ...item, files, dragOver: false } : item))}
+              onError={error => setUploads(current => current.map((item, itemIndex) => itemIndex === index ? { ...item, error, dragOver: false } : item))} />
+          </article>
+        ))}
       </div>
     </section>
 
