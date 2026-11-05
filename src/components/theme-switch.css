@@ -1,3 +1,8 @@
+/* Shared approved switch palettes: reused by navigation selection, not copied. */
+:root{
+  --axo-switch-light-background: linear-gradient(115deg,#9668FF 0%,#7C4BFE 55%,#642FDF 100%);
+  --axo-switch-dark-background: linear-gradient(125deg,#231055,#4205AA 55%,#6707D8);
+}
 /* Axolotl Theme Switch · single morphing CSS sun/moon, no hover animation. */
 .axo-theme-switch{
   display:inline-flex;align-items:center;justify-content:space-between;gap:16px;
@@ -9,7 +14,7 @@
 .axo-theme-switch-track{
   position:relative;display:block;width:78px;height:40px;border-radius:var(--radius-pill);
   box-sizing:border-box;overflow:hidden;border:none;
-  background:linear-gradient(115deg,#9668FF 0%,#7C4BFE 55%,#642FDF 100%);
+  background:var(--axo-switch-light-background);
   box-shadow:inset 0 1px 3px #24075B40,0 1px 3px #4B13BF24;
   transition:background .5s ease,box-shadow .5s ease;
 }
@@ -21,7 +26,7 @@
   transition:transform .5s cubic-bezier(.22,.8,.25,1),box-shadow .5s ease,background .5s ease;
 }
 .axo-theme-switch-control input:checked + .axo-theme-switch-track{
-  background:linear-gradient(125deg,#231055,#4205AA 55%,#6707D8);
+  background:var(--axo-switch-dark-background);
   box-shadow:inset 0 1px 4px #05021155;
 }
 .axo-theme-switch-control input:checked + .axo-theme-switch-track .axo-theme-switch-orb{
