@@ -1,0 +1,58 @@
+/* Spotlight Search: a dedicated animated search field, separate from normal form inputs. */
+@property --sf-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+.sf-search{
+  position:relative;isolation:isolate;display:flex;align-items:center;
+  width:100%;max-width:720px;height:56px;padding:0 20px;gap:14px;
+  border:1px solid var(--border);border-radius:var(--radius-pill);
+  background:var(--surface);color:var(--text);
+  transition:border-color .3s ease,box-shadow .35s ease;
+}
+.sf-search::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;
+  padding:2px;z-index:0;pointer-events:none;opacity:.62;
+  background:conic-gradient(from var(--sf-angle),transparent 0deg,transparent 205deg,#0F9FDC44 250deg,#0F9FDC 276deg,#7C4BFE 306deg,#8101EC 324deg,transparent 356deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  animation:sf-border-spin 5s linear infinite;
+  transition:opacity .35s ease;
+}
+.sf-search:hover::before{opacity:1}
+.sf-search:focus-within{
+  border-color:transparent;
+  animation:sf-focus-halo 2.4s ease-in-out infinite;
+}
+.sf-search:focus-within::before{
+  opacity:1;
+  animation:sf-border-spin 3s linear infinite,sf-border-breathe 2.4s ease-in-out infinite;
+}
+.sf-search-icon{position:relative;z-index:1;flex:none;color:var(--muted);transition:color .25s ease}
+.sf-search:hover .sf-search-icon,.sf-search:focus-within .sf-search-icon{color:var(--brand)}
+.sf-search input{
+  position:relative;z-index:1;display:block;flex:1;width:100%;min-width:0;
+  height:100%;border:0!important;outline:0!important;box-shadow:none!important;
+  border-radius:0;background:transparent;color:var(--text);font:inherit;
+  font-size:14px;font-weight:500;padding:0;letter-spacing:0;
+}
+.sf-search input::-webkit-search-decoration,.sf-search input::-webkit-search-cancel-button{appearance:none}
+.sf-search-hint{
+  position:absolute;z-index:1;left:53px;right:20px;top:50%;
+  transform:translateY(-50%);pointer-events:none;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;font-size:14px;
+  color:var(--muted);font-weight:450;
+}
+.sf-search-caret{display:inline-block;height:15px;vertical-align:-3px;margin-left:2px;border-right:1.5px solid var(--brand);animation:sf-caret-blink .9s step-end infinite}
+.sf-search.is-disabled{opacity:.5;pointer-events:none}
+.sf-search.is-disabled::before{animation:none;opacity:0}
+@keyframes sf-border-spin{to{--sf-angle:360deg}}
+@keyframes sf-border-breathe{0%,100%{opacity:.67}50%{opacity:1}}
+@keyframes sf-focus-halo{0%,100%{box-shadow:0 0 0 2px #7C4BFE12}50%{box-shadow:0 0 0 4px #7C4BFE26}}
+@keyframes sf-caret-blink{50%{border-color:transparent}}
+@media(prefers-reduced-motion:reduce){
+  .sf-search,.sf-search::before,.sf-search-icon{transition:none;animation:none}
+  .sf-search::before{opacity:.8}
+  .sf-search:focus-within{box-shadow:0 0 0 2px var(--focus-ring)}
+  .sf-search:focus-within::before{animation:none}
+  .sf-search-caret{display:none}
+}
