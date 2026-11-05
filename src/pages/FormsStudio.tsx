@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch, type FormAccent } from '../components/FormControls'
 import { SearchSpotlight } from '../components/SearchSpotlight'
-import { MultiSelect, DatePickerField, NumberInput, FileDropzone, type FileUploadVariant, type FileUploadSize } from '../components/AdvancedFormControls'
+import { MultiSelect, DatePickerField, NumberInput, FileDropzone, type FileUploadSize } from '../components/AdvancedFormControls'
 import { ThemeSwitch } from '../components/ThemeSwitch'
 import { type ThemeName } from '../design-system/foundations/colors'
 import './forms-studio.css'
@@ -49,11 +49,9 @@ function AccentPicker({label,value,onChange}:{label:string;value:FormAccent;onCh
   </fieldset>
 }
 
-const uploadPreviews: { variant: FileUploadVariant; size: FileUploadSize; label: string }[] = [
-  { variant: 'solid-brand', size: 'default', label: 'Solid Brand / Default' },
-  { variant: 'solid-brand', size: 'large', label: 'Solid Brand / Large' },
-  { variant: 'atmosphere', size: 'default', label: 'Atmosphere / Default' },
-  { variant: 'atmosphere', size: 'large', label: 'Atmosphere / Large' },
+const uploadPreviews: { size: FileUploadSize; label: string }[] = [
+  { size: 'default', label: 'Atmosphere / Default' },
+  { size: 'large', label: 'Atmosphere / Large' },
 ]
 const uploadStateOptions = [
   { value: 'empty', label: 'Empty' },
@@ -203,16 +201,16 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
     </section>
 
     <section className="panel fs-panel">
-      <div className="fs-section-head"><span>11 / FILE UPLOAD</span><h2>File Upload</h2><p>Dvě schválené plochy, dvě velikosti. Vyber soubory ze zařízení nebo je přetáhni do některého z náhledů.</p></div>
+      <div className="fs-section-head"><span>11 / FILE UPLOAD</span><h2>File Upload</h2><p>Schválený vizuální směr Atmosphere ve velikostech Default a Large. Vyber soubory ze zařízení nebo je přetáhni do náhledu.</p></div>
       <div className="fs-upload-toolbar">
         <FormSelect label="Nastavit ukázkový stav" options={uploadStateOptions} value={uploadState} onChange={previewUploads} />
-        <p>Stav se nastaví ve všech čtyřech náhledech. Uploaded a Error používají ukázkové soubory; každý náhled lze dál samostatně ovládat.</p>
+        <p>Stav se nastaví v obou náhledech. Uploaded a Error používají ukázkové soubory; každý náhled lze dál samostatně ovládat.</p>
       </div>
       <div className="fs-upload-grid">
         {uploadPreviews.map((preview, index) => (
           <article className="fs-upload-specimen" key={preview.label}>
             <p className="fs-upload-label"><span>0{index + 1}</span><strong>{preview.label}</strong></p>
-            <FileDropzone key={uploadRevision} variant={preview.variant} size={preview.size}
+            <FileDropzone key={uploadRevision} size={preview.size}
               label={`${preview.label} · Přílohy projektu`} accept=".png,.jpg,.jpeg,.webp,.pdf,.csv,.txt,.md" maxBytes={10 * 1024 * 1024}
               files={uploads[index].files} error={uploads[index].error} dragOver={uploads[index].dragOver}
               onChange={files => setUploads(current => current.map((item, itemIndex) => itemIndex === index ? { ...item, files, dragOver: false } : item))}
