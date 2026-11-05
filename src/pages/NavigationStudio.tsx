@@ -31,6 +31,8 @@ const browserTabs=[
 
 export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeName;onModeChange:(mode:ThemeName)=>void;standalone?:boolean}){
   const [open,setOpen]=useState<Menu>(null)
+  const [mobileOpen,setMobileOpen]=useState(false)
+  const [mobileGroup,setMobileGroup]=useState<'workspace'|'media'|'checks'|null>(null)
   const [activeTab,setActiveTab]=useState(0)
   const [feedback,setFeedback]=useState('')
   const [time,setTime]=useState(()=>new Date())
@@ -41,8 +43,8 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
     return ()=>window.clearInterval(id)
   },[])
   useEffect(()=>{
-    function onKey(event:KeyboardEvent){if(event.key==='Escape')setOpen(null)}
-    function onPointer(event:MouseEvent){if(rootRef.current&&!rootRef.current.contains(event.target as Node))setOpen(null)}
+    function onKey(event:KeyboardEvent){if(event.key==='Escape'){setOpen(null);setMobileOpen(false);setMobileGroup(null)}}
+    function onPointer(event:MouseEvent){if(rootRef.current&&!rootRef.current.contains(event.target as Node)){setOpen(null);setMobileOpen(false);setMobileGroup(null)}}
     document.addEventListener('keydown',onKey)
     document.addEventListener('mousedown',onPointer)
     return ()=>{document.removeEventListener('keydown',onKey);document.removeEventListener('mousedown',onPointer)}
@@ -79,6 +81,7 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
           <span className="nh-indicator" title="Ukázkový indikátor stavu URL" aria-label="Ukázkový stav URL"/>
         </div>
         <div className="nh-clock"><strong>{time.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'})}</strong><small>{time.toLocaleDateString('cs-CZ',{day:'numeric',month:'numeric',year:'numeric'})}</small></div>
+        <span className="nh-mobile-page-label">Dashboard</span>
         <div className="nh-popup-anchor nh-alert-anchor">
           <NavigationButton state={open==='notifications' ? 'expanded' : 'inactive'} shape="round" icon="bell" className="nh-circle" aria-haspopup="menu" aria-expanded={open==='notifications'} aria-label="Upozornění" onClick={()=>toggle('notifications')}/>
           {open==='notifications'&&<div className="nh-menu nh-menu-right" role="menu"><p>Upozornění</p>{groups.notifications.map(x=><span className="nh-menu-empty" key={x}>{x}</span>)}</div>}
@@ -88,8 +91,44 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
           {open==='profile'&&<div className="nh-menu nh-menu-right" role="menu">{groups.profile.map(x=><button role="menuitem" type="button" key={x} onClick={()=>{setFeedback(x+' · ukázka');setOpen(null)}}>{x}</button>)}</div>}
         </div>
         <div className="nh-theme"><ThemeSwitch theme={mode} onThemeChange={onModeChange} label="Tmavý režim"/></div>
+        <NavigationButton shape="round" state={mobileOpen ? 'expanded' : 'inactive'} icon={mobileOpen ? 'close' : 'menu'}
+          className="nh-mobile-trigger" aria-label={mobileOpen ? 'Zavřít nabídku' : 'Otevřít nabídku'} aria-controls="nh-mobile-panel"
+          aria-expanded={mobileOpen} onClick={()=>{setMobileOpen(v=>!v);setOpen(null)}}/>
       </header>
     </div>
+    {mobileOpen && <nav className="nh-mobile-panel" id="nh-mobile-panel" aria-label="Mobilní nabídka Axolotl">
+      <p className="nh-mobile-section-title">Navigace</p>
+      {([['workspace','Workspace'],['media','Tools'],['checks','SEO check']] as const).map(([id,label])=>
+        <div className="nh-mobile-group" key={id}>
+          <NavigationButton shape="label" state={mobileGroup===id ? 'expanded' : 'inactive'} className="nh-mobile-group-trigger"
+            iconRight="chevron-down" aria-expanded={mobileGroup===id} aria-controls={'nh-mobile-'+id}
+            onClick={()=>setMobileGroup(current=>current===id?null:id)}>{label}</NavigationButton>
+          {mobileGroup===id && <div className="nh-mobile-subitems" id={'nh-mobile-'+id}>
+            {groups[id].map(item=><button type="button" key={item} onClick={()=>{
+              setFeedback(item+' · ukázková navigace');setMobileOpen(false);setMobileGroup(null)
+            }}>{item}<Icon name="arrow"/></button>)}
+          </div>}
+        </div>
+      )}
+      <p className="nh-mobile-section-title">Pracovní URL</p>
+      <div className="nh-mobile-url" role="group" aria-label="Aktuální pracovní URL">
+        <span title={browserTabs[activeTab].url}>{browserTabs[activeTab].url}</span>
+        <button type="button" aria-label="Kopírovat URL" onClick={()=>void copyURL()}><Icon name="copy"/></button>
+        <button type="button" aria-label="Vybrat pracovní URL" aria-expanded={open==='tabs'}
+          onClick={()=>toggle('tabs')}><Icon name="tabs"/></button>
+      </div>
+      {open==='tabs' && <div className="nh-mobile-subitems" aria-label="Pracovní URL">
+        {browserTabs.map((tab,index)=><button type="button" key={tab.url} aria-current={activeTab===index?'true':undefined}
+          onClick={()=>{setActiveTab(index);setOpen(null);setFeedback('')}}>{tab.title}{activeTab===index&&<Icon name="check"/>}</button>)}
+      </div>}
+      <div className="nh-mobile-panel-footer">
+        <button type="button" className="nh-mobile-settings" onClick={()=>{setOpen(null);setMobileOpen(false);setFeedback('Nastavení · ukázka')}}>
+          <Icon name="gear"/> Nastavení
+        </button>
+        <ThemeSwitch theme={mode} onThemeChange={onModeChange} label="Tmavý režim"/>
+      </div>
+      {feedback && <p className="nh-mobile-feedback" role="status">{feedback}</p>}
+    </nav>}
     <div className={standalone?'nh-feedback nh-feedback-floating':'nh-feedback'} role="status" aria-live="polite">{feedback}</div>
   </div>
 }
