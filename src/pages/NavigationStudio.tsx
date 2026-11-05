@@ -61,7 +61,7 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
         <div className="nh-brand" aria-label="Axolotl">✳</div>
         <NavigationButton state={standalone ? 'current' : 'inactive'} shape="round" icon="home" className="nh-home" aria-label="Home" onClick={()=>{setOpen(null);setFeedback('Dashboard · ukázková navigace')}}/>
         <div className="nh-nav-set">
-          {([['workspace','Můj workspace'],['media','Média'],['checks','Kontrola']] as const).map(([id,label])=><div className="nh-popup-anchor" key={id}>
+          {([['workspace','Workspace'],['media','Tools'],['checks','SEO check']] as const).map(([id,label])=><div className="nh-popup-anchor" key={id}>
             <NavigationButton state={open===id ? 'expanded' : 'inactive'} shape="label" className="nh-pill" iconRight="chevron-down" aria-haspopup="menu" aria-expanded={open===id} onClick={()=>toggle(id)}>{label}</NavigationButton>
             {open===id&&<div className="nh-menu" role="menu">{groups[id].map(item=><button role="menuitem" type="button" key={item} onClick={()=>{setFeedback(item+' · ukázková navigace');setOpen(null)}}>{item}<Icon name="arrow"/></button>)}</div>}
           </div>)}
@@ -129,9 +129,9 @@ function NavigationButtonGallery({ mode }: { mode: ThemeName }) {
         {navigationStates.map(({ state, label, description }) =>
           <div className="nh-gallery-specimen" key={state}>
             <NavigationButton shape="label" state={state} iconRight="chevron-down"
-              aria-label={'Můj workspace · ' + label}
+              aria-label={'Workspace · ' + label}
               aria-expanded={state === 'expanded'}
-              onClick={() => setSample('Textové tlačítko · ' + label)}>Můj workspace</NavigationButton>
+              onClick={() => setSample('Textové tlačítko · ' + label)}>Workspace</NavigationButton>
             <div><strong>{label}</strong><small>{description}</small></div>
           </div>
         )}
@@ -159,7 +159,7 @@ export default function NavigationStudio({theme,onThemeChange,onOpenDashboard}:{
     <section className="panel nh-panel">
       <div className="nh-heading"><span>03 / ANATOMY</span><h2>Komponenty a chování</h2><p>Dropdowny vycházejí ze způsobu ovládání selectu v Inputs & Forms. Jde o koncepční navigační menu, nikoliv další samostatný select.</p></div>
       <div className="nh-anatomy">
-        <div><strong>Brand & navigace</strong><p>Logo · Home · Můj workspace · Média · Kontrola</p></div>
+        <div><strong>Brand & navigace</strong><p>Logo · Home · Workspace · Média · Kontrola</p></div>
         <div><strong>URL Display</strong><p>Read-only URL · Copy · přepínač otevřených karet · stavový indikátor</p></div>
         <div><strong>Utility</strong><p>Aktuální čas a datum · upozornění · nastavení/profil · Theme Switch</p></div>
       </div>
