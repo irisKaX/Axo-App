@@ -90,5 +90,6 @@
  .icl-file-thumb{width:28px;height:28px}
  .icl-file>.axo-button--default{min-width:0}
  .icl-preview-toolbar{top:16px;right:16px}
- .icl-preview-phase{display:none}
+ .icl-preview-toolbar{top:auto;bottom:12px;right:12px}
+ .icl-preview-phase button{width:30px;height:30px}
 }
