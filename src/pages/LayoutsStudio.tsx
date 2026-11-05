@@ -19,6 +19,7 @@ const cells = [
 ] as const
 
 function LayoutPreview({viewport,theme,headerOnly=false}:{viewport:Viewport;theme:ThemeName;headerOnly?:boolean}){
+  const [menuOpen,setMenuOpen] = useState(false)
   return <div className={'ls-canvas ls-canvas--'+viewport} data-theme={theme} style={{
     '--ls-canvas':themes[theme].canvas,
     '--ls-surface':themes[theme].surface,
@@ -34,7 +35,17 @@ function LayoutPreview({viewport,theme,headerOnly=false}:{viewport:Viewport;them
       <span className="ls-alert" aria-label="Upozornění" role="img">♧</span>
       <span className="ls-settings" aria-label="Nastavení" role="img">⚙</span>
       <span className="ls-switch" aria-hidden="true"><i/></span>
+      <span className="ls-mobile-title">Dashboard</span>
+      <button type="button" className="ls-menu-toggle" aria-expanded={menuOpen} aria-label={menuOpen?'Zavřít nabídku':'Otevřít nabídku'}
+        onClick={()=>setMenuOpen(v=>!v)}>{menuOpen?'×':'☰'}</button>
     </div>
+    {viewport==='mobile' && menuOpen && <div className="ls-mobile-sheet">
+      <strong>Navigace</strong>
+      <span>Workspace <b>⌄</b></span><span>Tools <b>⌄</b></span><span>SEO check <b>⌄</b></span>
+      <strong>Pracovní URL</strong>
+      <div className="ls-mobile-sheet-url">https://www.o2.cz/... <b>▣</b></div>
+      <div className="ls-mobile-sheet-foot"><span>⚙ Nastavení</span><span className="ls-mobile-sheet-switch">☾</span></div>
+    </div>}
     {headerOnly ? <div className="ls-shell-placeholder">
       <span>CONTENT AREA</span>
       <div className="ls-shell-placeholder-grid" aria-hidden="true"><i/><i/></div>
@@ -60,13 +71,13 @@ export default function LayoutsStudio({theme}:{theme:ThemeName}){
     <div className="ls-status">LIVE RULES · EXISTING DASHBOARD · NO VISUAL REDESIGN</div>
 
     <section className="panel ls-panel">
-      <div className="ls-heading"><span>01 / APP SHELL</span><h2>Základní prostor aplikace</h2><p>Bez sidebaru. Horizontální schválená navigace a pod ní pracovní plocha. Ukázka níže je schematická, nikoli další kopie funkčního headeru.</p></div>
+      <div className="ls-heading"><span>01 / APP SHELL</span><h2>Základní prostor aplikace</h2><p>Bez sidebaru. Horizontální schválená navigace a pod ní pracovní plocha. Ukázka níže je schematická, nikoli další kopie funkčního headeru. Na mobilním náhledu lze menu otevřít tlačítkem vpravo.</p></div>
       <LayoutPreview viewport={viewport} theme={theme} headerOnly/>
       <div className="ls-rules">
         <Rule label="Canvas" value="themes[theme].canvas" description="V Dark Mode je hlavní plocha #090B10. Žádný celoplošný gradient."/>
         <Rule label="Header" value="HeaderPreview / NavigationButton" description="Na Dashboardu průhledný, bez vlastního borderu a stínu. Výchozí ovládací prvky mají výšku 38 px."/>
         <Rule label="Obsah" value="padding 16px · gap 16px" description="Dashboard používá 16px vnější odsazení a oddělení headeru, gridu a footeru. Pod 800 px 12 px."/>
-        <Rule label="Responzivita" value="800px / 480px" description="Do 480 px: horní řada má logo, Home, Upozornění, Nastavení a Theme Switch; druhá řada obsahuje tři stejně široké navigační položky, třetí řada plnou URL. Čas se na úzkém mobilu skrývá."/>
+        <Rule label="Responzivita" value="800px / 480px" description="Do 800 px používá aplikace jednu kompaktní lištu: logo, Home, název stránky, Upozornění a menu. Workspace, Tools, SEO check, pracovní URL, Nastavení a Theme Switch jsou v rozbalovacím panelu. Desktopový header se nezalamuje do několika řádků."/>
       </div>
     </section>
 
