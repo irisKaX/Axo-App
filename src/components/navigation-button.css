@@ -1,0 +1,42 @@
+/* Navigation semantics on top of canonical AxoButton variants.
+ * A current destination is NOT the same as a hovered or expanded menu.
+ * All controls in the horizontal navigation share the 38px default rhythm.
+ */
+.nav-button.axo-button {
+  height: var(--axo-button-height);
+  flex-shrink: 0;
+}
+.nav-button--round.axo-button {
+  width: var(--axo-button-height);
+  min-width: var(--axo-button-height);
+  padding: 0;
+  border-radius: var(--radius-round);
+}
+.nav-button--label.axo-button {
+  width: auto;
+  min-width: 0;
+  padding: 2px;
+  white-space: nowrap;
+}
+.nav-button--label.axo-button--primary {
+  padding: 0 14px;
+}
+.nav-button--label.axo-button--secondary {
+  background: var(--border);
+}
+.nav-button--label.axo-button--secondary .axo-button-reveal-inner {
+  padding: 0 12px;
+}
+.nav-button--label.axo-button--secondary:hover:not(:disabled) {
+  background: var(--brand-gradient);
+}
+.nav-button--label .axo-button-content-slot--end svg {
+  width: 12px;
+  height: 12px;
+}
+.nav-button[data-nav-state="expanded"]:not([aria-current="page"]) {
+  box-shadow: 0 0 0 1px var(--brand);
+}
+.nav-button[data-nav-state="expanded"].axo-button--secondary:hover {
+  box-shadow: 0 0 0 1px var(--brand);
+}
