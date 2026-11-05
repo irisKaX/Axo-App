@@ -6,8 +6,8 @@
 .db-page .nh-scroll{overflow:visible;padding:0}
 .db-page .nh-header{min-width:0;width:100%;gap:clamp(4px,.55vw,9px);padding:10px 12px;min-height:72px;background:transparent;border:0;box-shadow:none}
 .db-page .nh-nav-set{gap:clamp(3px,.4vw,7px)}
-.db-page .nh-pill{padding:0 clamp(7px,.65vw,11px);gap:clamp(4px,.5vw,8px)}
-.db-page .nh-url-zone{min-width:110px;gap:clamp(5px,.6vw,10px)}
+.db-page .nh-pill.axo-button{padding:0 clamp(8px,.7vw,12px)}
+.db-page .nh-url-zone{min-width:140px;max-width:240px;gap:clamp(5px,.6vw,10px)}
 .db-page .nh-url{padding-left:10px;gap:6px}
 .db-page .nh-clock{min-width:65px}
 .db-page .nh-popup-anchor{z-index:auto}
@@ -31,8 +31,7 @@
 @media(max-width:1230px){
   .db-page .nh-header{gap:5px;padding:9px}
   .db-page .nh-brand{width:30px;height:30px}
-  .db-page .nh-home,.db-page .nh-circle{width:35px;height:35px}
-  .db-page .nh-pill{height:36px;padding:0 7px;font-size:10px!important}
+  .db-page .nh-pill.axo-button{padding:0 8px;font-size:11px}
   .db-page .nh-url{height:36px}
   .db-page .nh-clock{min-width:59px}
   .db-page .nh-clock strong{font-size:13px}
@@ -41,7 +40,7 @@
   .db-page .nh-theme input:checked+.axo-theme-switch-track .axo-theme-switch-orb{transform:translateX(0)}
 }
 @media(max-width:1020px){
-  .db-page .nh-pill{gap:4px}
+  .db-page .nh-pill.axo-button .axo-button-content{gap:5px}
   .db-page .nh-pill svg:first-child{display:none}
   .db-page .nh-url>svg{display:none}
   .db-page .nh-clock{min-width:55px}
@@ -68,7 +67,7 @@
   .db-page .nh-header{gap:6px}
   .db-page .nh-nav-set{order:2;flex-basis:100%;justify-content:space-between}
   .db-page .nh-url-zone{order:3}
-  .db-page .nh-pill{padding:0 8px}
+  .db-page .nh-pill.axo-button{padding:0 8px}
   .db-page .nh-clock{margin-left:auto}
   .db-page .nh-url{min-width:0}
 }
