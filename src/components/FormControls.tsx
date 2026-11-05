@@ -1,6 +1,8 @@
 import { forwardRef, useEffect, useId, useRef, useState, type InputHTMLAttributes, type TextareaHTMLAttributes, type ReactNode } from 'react'
 import './form-controls.css'
 
+export type FormAccent = 'brand' | 'info' | 'success' | 'warning' | 'danger'
+
 export type FieldState = 'default' | 'error' | 'success'
 export type FormSize = 'compact' | 'default' | 'comfortable'
 export type SelectOption = { value: string; label: string; disabled?: boolean }
@@ -128,20 +130,20 @@ export function FormSelect({label,options,value,onChange,placeholder='Vyber mož
   </div>
 }
 
-type CheckProps={label:ReactNode;description?:string;checked:boolean;onChange:(checked:boolean)=>void;disabled?:boolean;id?:string;error?:string;required?:boolean}
-export function FormCheckbox({label,description,checked,onChange,disabled,id,error,required}:CheckProps){
+type CheckProps={label:ReactNode;description?:string;checked:boolean;onChange:(checked:boolean)=>void;disabled?:boolean;id?:string;error?:string;required?:boolean;accent?:FormAccent}
+export function FormCheckbox({label,description,checked,onChange,disabled,id,error,required,accent='brand'}:CheckProps){
   const uid=useId();const fieldId=id??uid;const messageId=uid+'-error'
-  return <label className={'fc-choice fc-checkbox'+(disabled?' is-disabled':'')} htmlFor={fieldId}>
+  return <label className={'fc-choice fc-checkbox fc-accent-'+accent+(disabled?' is-disabled':'')} htmlFor={fieldId}>
     <input id={fieldId} type="checkbox" required={required} aria-invalid={Boolean(error)} aria-describedby={error?messageId:undefined} checked={checked} onChange={e=>onChange(e.target.checked)} disabled={disabled}/>
     <span className="fc-checkbox-mark" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m4.5 10 4 4 7-8" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
     <span className="fc-choice-copy"><strong>{label}</strong>{description&&<small>{description}</small>}<Feedback id={messageId} error={error}/></span>
   </label>
 }
 export interface RadioOption extends SelectOption { description?:string }
-export function FormRadioGroup({label,options,value,onChange,name,disabled=false}:{
-  label:string;options:RadioOption[];value:string;onChange:(value:string)=>void;name:string;disabled?:boolean
+export function FormRadioGroup({label,options,value,onChange,name,disabled=false,accent='brand'}:{
+  label:string;options:RadioOption[];value:string;onChange:(value:string)=>void;name:string;disabled?:boolean;accent?:FormAccent
 }){
-  return <fieldset className="fc-radio-fieldset" disabled={disabled}><legend>{label}</legend><div className="fc-radio-list">
+  return <fieldset className={'fc-radio-fieldset fc-accent-'+accent} disabled={disabled}><legend>{label}</legend><div className="fc-radio-list">
     {options.map(o=><label key={o.value} className={'fc-choice fc-radio'+(disabled||o.disabled?' is-disabled':'')}>
       <input type="radio" name={name} value={o.value} checked={value===o.value} disabled={o.disabled||disabled} onChange={()=>onChange(o.value)}/>
       <span className="fc-radio-mark" aria-hidden="true"/>
@@ -149,9 +151,9 @@ export function FormRadioGroup({label,options,value,onChange,name,disabled=false
     </label>)}
   </div></fieldset>
 }
-export function FormSwitch({label,description,checked,onChange,disabled=false,id}:CheckProps){
+export function FormSwitch({label,description,checked,onChange,disabled=false,id,accent='brand'}:CheckProps){
   const uid=useId()
-  return <label className={'fc-switch-row'+(disabled?' is-disabled':'')} htmlFor={id??uid}>
+  return <label className={'fc-switch-row fc-accent-'+accent+(disabled?' is-disabled':'')} htmlFor={id??uid}>
     <span className="fc-choice-copy"><strong>{label}</strong>{description&&<small>{description}</small>}</span>
     <span className="fc-switch-control"><input id={id??uid} type="checkbox" role="switch" checked={checked} onChange={e=>onChange(e.target.checked)} disabled={disabled}/><span className="fc-switch-track" aria-hidden="true"><span className="fc-switch-thumb"/></span></span>
   </label>
