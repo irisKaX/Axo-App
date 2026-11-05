@@ -46,6 +46,8 @@
 .fc-accent-success{--fc-accent:var(--success)}
 .fc-accent-warning{--fc-accent:var(--warning)}
 .fc-accent-danger{--fc-accent:var(--error)}
+/* Bright accents use dark marks to keep checked states legible. */
+.fc-accent-success,.fc-accent-warning,.fc-accent-info{--fc-on-accent:#090B10}
 .fc-choice{position:relative;display:flex;align-items:flex-start;gap:14px;min-width:0;min-height:44px;padding-block:10px;cursor:pointer}
 .fc-choice input,.fc-switch-control input{position:absolute;width:1px;height:1px;opacity:0}
 .fc-choice-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
@@ -55,11 +57,11 @@
 .is-disabled .fc-choice-copy strong{color:var(--muted)}
 .fc-checkbox-mark,.fc-radio-mark{display:grid;place-items:center;flex:none;width:24px;height:24px;border:1.5px solid var(--control-border);background:var(--surface);transition:background .17s,border-color .17s,box-shadow .17s}
 .fc-checkbox-mark{border-radius:var(--radius-xs);transform:scale(1);transition:background .22s ease,border-color .22s ease,box-shadow .25s ease,transform .25s cubic-bezier(.2,.8,.2,1)}
-.fc-checkbox-mark svg{width:16px;height:16px;color:#FFFFFF;opacity:0;transform:scale(.7);transition:opacity .17s,transform .17s}
+.fc-checkbox-mark svg{width:16px;height:16px;color:var(--fc-on-accent,#FFFFFF);opacity:0;transform:scale(.7);transition:opacity .17s,transform .17s}
 .fc-checkbox input:checked+.fc-checkbox-mark{background:var(--fc-accent);border-color:var(--fc-accent)}
 .fc-checkbox input:checked+.fc-checkbox-mark svg{opacity:1;transform:scale(1)}
 .fc-radio-mark{border-radius:var(--radius-round)}
-.fc-radio-mark::after{content:"";width:10px;height:10px;border-radius:var(--radius-round);background:#FFFFFF;transform:scale(0);transition:transform .18s}
+.fc-radio-mark::after{content:"";width:10px;height:10px;border-radius:var(--radius-round);background:var(--fc-on-accent,#FFFFFF);transform:scale(0);transition:transform .18s}
 .fc-radio input:checked+.fc-radio-mark{background:var(--fc-accent);border-color:var(--fc-accent)}
 .fc-radio input:checked+.fc-radio-mark::after{transform:scale(1)}
 .fc-choice:hover:not(.is-disabled) :is(.fc-checkbox-mark,.fc-radio-mark){border-color:var(--fc-accent)}
@@ -76,7 +78,7 @@
 .fc-switch-track{display:flex;align-items:center;box-sizing:border-box;width:52px;height:30px;border-radius:var(--radius-pill);border:1.5px solid var(--control-border);background:var(--subtle);padding:3.5px;transition:background .2s,border-color .2s}
 .fc-switch-thumb{display:block;width:20px;height:20px;border-radius:var(--radius-round);background:#FFFFFF;box-shadow:0 1px 4px #00000026;transition:transform .2s}
 .fc-switch-control input:checked+.fc-switch-track{background:var(--fc-accent);border-color:var(--fc-accent)}
-.fc-switch-control input:checked+.fc-switch-track .fc-switch-thumb{transform:translateX(22px)}
+.fc-switch-control input:checked+.fc-switch-track .fc-switch-thumb{transform:translateX(22px);background:var(--fc-on-accent,#FFFFFF)}
 .fc-switch-row:hover:not(.is-disabled) .fc-switch-track{border-color:var(--fc-accent)}
 .fc-switch-control input:focus-visible+.fc-switch-track{outline:2px solid var(--focus-ring);outline-offset:3px}
 .fc-switch-control input:disabled+.fc-switch-track{border-color:var(--border);opacity:.65}
