@@ -25,7 +25,6 @@ export function WidgetLaunchButton({ onClick, label, disabled = false, className
       iconOnly
       iconMotion={false}
       aria-label={label}
-      title={label}
       disabled={disabled}
       onClick={onClick}
       className={['widget-launch-button', className].filter(Boolean).join(' ')}
