@@ -12,11 +12,12 @@
 .nh-brand{display:grid;place-items:center;width:35px;height:35px;flex:none;color:#A14CFF;border:1px solid #8101EC;border-radius:50%;font-size:18px;font-weight:800}
 .nh-home.axo-button{flex:none}
 .nh-nav-set{display:flex;align-items:center;gap:7px;flex:none}
-.nh-pill.axo-button{width:auto;min-width:0;padding:0 12px;font-size:12px;white-space:nowrap}
+.nh-pill.axo-button{width:auto;min-width:0;padding:2px;font-size:12px;white-space:nowrap}
+.nh-pill.axo-button .axo-button-reveal-inner{padding:0 12px}
 .nh-pill .axo-button-content-slot--end svg{width:12px;height:12px}
 .nh-pill.is-active .axo-button-reveal-inner{background:var(--subtle)}
 .nh-popup-anchor{position:relative;flex:none}
-.nh-url-zone{display:flex;align-items:center;gap:10px;flex:0 1 290px;width:290px;min-width:160px;max-width:290px;margin-left:auto}
+.nh-url-zone{display:flex;align-items:center;gap:10px;flex:0 1 440px;width:440px;min-width:260px;max-width:440px;margin-left:auto}
 .nh-url{height:40px;display:flex;align-items:center;gap:8px;min-width:0;width:100%;border:2px solid #8101EC;border-radius:var(--radius-pill);padding:0 7px 0 12px;background:var(--nh-subtle)}
 .nh-url>svg{color:var(--brand)}
 .nh-url-text{font-size:11px;font-weight:550;min-width:0;flex:1;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
