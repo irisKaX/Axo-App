@@ -9,10 +9,14 @@ export type WidgetSize = 'small' | 'large'
 
 export interface WidgetFoundationProps {
   size?: WidgetSize
-  eyebrow?: string
-  title?: string
-  accentTitle?: string
-  description?: string
+  /** Short uppercase tool identifier after the fixed AXOLOTL / prefix. */
+  toolCode: string
+  /** Full name of the tool, shown in white. */
+  title: string
+  /** Short purple description, maximum three words. */
+  tagline: string
+  /** One concise sentence describing the tool's purpose. */
+  description: string
   children?: ReactNode
   /** Called when the user requests the full tool; parent owns routing. */
   onOpenTool?: () => void
@@ -29,16 +33,22 @@ const sizes = {
 
 export function WidgetFoundation({
   size = 'small',
-  eyebrow = 'AXOLOTL / WIDGET',
-  title = 'Widget title.',
-  accentTitle = 'Build better.',
-  description = 'Základní kostra widgetu pro budoucí obsah.',
+  toolCode,
+  title,
+  tagline,
+  description,
   children,
   onOpenTool,
   launchLabel,
   dashboard = false,
 }: WidgetFoundationProps) {
   const headingId = useId()
+  const normalizedCode = toolCode.trim().toLocaleUpperCase('cs-CZ')
+  const normalizedTagline = tagline.trim()
+  // Treat the role limits as component contracts; malformed copy is caught in development.
+  if (import.meta.env.DEV && (!normalizedCode || normalizedTagline.split(/\s+/).filter(Boolean).length > 3)) {
+    console.warn('WidgetFoundation: toolCode is required and tagline should contain at most 3 words.')
+  }
   const specification = sizes[size]
   const heading = dashboard ? typography[size === 'large' ? 'h3' : 'h4'] : specification.heading
   const styles = {
@@ -68,11 +78,11 @@ export function WidgetFoundation({
     <article className={'widget-foundation'+(dashboard?' wf-dashboard':'')} data-size={size} style={styles} aria-labelledby={headingId}>
       <header className="wf-copy">
         <div className="wf-copy-top">
-          <p className="wf-eyebrow">{eyebrow}</p>
+          <p className="wf-eyebrow">AXOLOTL / {normalizedCode}</p>
           <WidgetLaunchButton label={launchLabel ?? `Otevřít nástroj: ${title}`} onClick={() => onOpenTool?.()} disabled={!onOpenTool}/>
         </div>
         <h3 className="wf-heading" id={headingId}>
-          {title}<span className="wf-heading-accent">{accentTitle}</span>
+          {title}<span className="wf-heading-accent">{normalizedTagline}</span>
         </h3>
         <p className="wf-description">{description}</p>
       </header>
