@@ -6,7 +6,7 @@ export type NavigationButtonState = 'inactive' | 'current' | 'expanded'
 export type NavigationButtonShape = 'round' | 'label'
 
 /**
- * Navigation state is independent from the generic Button variant:
+ * All navigation states use the ThemeSwitch purple surface.
  * current = destination currently displayed; expanded = transient open menu.
  * The parent/router is the sole source of truth for current.
  */
@@ -23,16 +23,15 @@ export function NavigationButton({
   children,
   ...props
 }: NavigationButtonProps) {
-  const isCurrent = state === 'current'
   return (
     <AxoButton
       {...props}
       size="default"
-      variant={isCurrent ? 'primary' : 'secondary'}
+      variant="primary"
       iconOnly={shape === 'round'}
       iconMotion={false}
       data-nav-state={state}
-      aria-current={isCurrent ? 'page' : undefined}
+      aria-current={state === 'current' ? 'page' : undefined}
       className={['nav-button', 'nav-button--' + shape, className].filter(Boolean).join(' ')}
     >
       {children}
