@@ -233,7 +233,7 @@ export function FileDropzone({
   const [dragging, setDragging] = useState(false)
   const [validationError, setValidationError] = useState<string>()
   const blocked = disabled || processing || previewOnly
-  const activeDrop = !blocked && (dragging || dragOver)
+  const activeDrop = !disabled && !processing && (dragging || dragOver)
   const message = validationError || error
   const state = processing ? 'processing' : activeDrop ? 'drag-over' : message ? 'error' : files.length ? 'ready' : 'empty'
   const heading = typography[size === 'large' ? 'h1' : 'h2']
