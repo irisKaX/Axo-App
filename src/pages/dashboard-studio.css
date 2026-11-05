@@ -4,7 +4,7 @@
 .db-header-slot{flex:none;min-width:0;position:relative;z-index:10}
 .db-page .nh-stage.nh-standalone{padding:0;margin:0;border:0;border-radius:0;background:transparent;overflow:visible}
 .db-page .nh-scroll{overflow:visible;padding:0}
-.db-page .nh-header{min-width:0;width:100%;gap:clamp(4px,.55vw,9px);padding:10px 12px;min-height:72px}
+.db-page .nh-header{min-width:0;width:100%;gap:clamp(4px,.55vw,9px);padding:10px 12px;min-height:72px;background:transparent;border:0;box-shadow:none}
 .db-page .nh-nav-set{gap:clamp(3px,.4vw,7px)}
 .db-page .nh-pill{padding:0 clamp(7px,.65vw,11px);gap:clamp(4px,.5vw,8px)}
 .db-page .nh-url-zone{min-width:110px;gap:clamp(5px,.6vw,10px)}
