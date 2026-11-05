@@ -1,31 +1,30 @@
 import { HeaderPreview } from './NavigationStudio'
+import { WidgetFoundation, type WidgetSize } from '../widgets/WidgetFoundation'
 import { type ThemeName } from '../design-system/foundations/colors'
 import './dashboard-studio.css'
 
 type Props = {theme:ThemeName;onThemeChange:(theme:ThemeName)=>void;onBack:()=>void}
-const widgets = [
-  {id:'widget1',label:'Widget 1'},
-  {id:'widget2',label:'Widget 2'},
-  {id:'widget3',label:'Widget 3'},
-  {id:'widget4',label:'Widget 4'},
-  {id:'widget5',label:'Widget 5'},
-  {id:'widget6',label:'Widget 6'}
+type WidgetSpec = {id:string;size:WidgetSize;title:string;accent:string;description:string}
+const dashboardWidgets:WidgetSpec[] = [
+  {id:'workspace',size:'large',title:'My workspace.',accent:'Stay organized.',description:'Prostor pro budoucí obsah widgetu.'},
+  {id:'qr',size:'small',title:'QR tools.',accent:'Create faster.',description:'Prostor pro budoucí obsah widgetu.'},
+  {id:'search',size:'small',title:'Find Phrase.',accent:'Search smarter.',description:'Prostor pro budoucí obsah widgetu.'},
+  {id:'media',size:'small',title:'Media tools.',accent:'Work better.',description:'Prostor pro budoucí obsah widgetu.'},
+  {id:'capture',size:'small',title:'Screenshot.',accent:'Capture more.',description:'Prostor pro budoucí obsah widgetu.'},
+  {id:'notebook',size:'large',title:'Notebook.',accent:'Think clearly.',description:'Prostor pro budoucí obsah widgetu.'},
 ]
+
 export default function DashboardStudio({theme,onThemeChange,onBack}:Props){
   return <div className="db-page">
     <div className="db-header-slot">
       <HeaderPreview mode={theme} onModeChange={onThemeChange} standalone/>
     </div>
-    <main className="db-grid" aria-label="Dashboard · náhled rozložení widgetů">
-      <section className="db-widget db-office" aria-label="Axolotl Office">
-        <span className="db-widget-symbol" aria-hidden="true">▤</span>
-        <div className="db-widget-foot"><h1>Axolotl Office</h1><p>Hlavní pracovní prostor · ukázka rozložení</p></div>
-      </section>
-      {widgets.map(item=><section className={'db-widget db-'+item.id} key={item.id}>
-        <span className="db-widget-symbol" aria-hidden="true">▤</span>
-        <div className="db-widget-foot"><h2>{item.label}</h2></div>
-      </section>)}
+    <main className="db-grid" aria-label="Dashboard · skutečné rozložení widgetů">
+      {dashboardWidgets.map(widget=><div className={'db-widget-cell db-widget-cell--'+widget.size} key={widget.id}>
+        <WidgetFoundation dashboard size={widget.size} eyebrow="AXOLOTL / WIDGET"
+          title={widget.title} accentTitle={widget.accent} description={widget.description}/>
+      </div>)}
     </main>
-    <button className="db-back" type="button" onClick={onBack} aria-label="Zpět do design katalogu"><span aria-hidden="true">←</span> Zpět do katalogu</button>
+    <div className="db-footer"><button className="db-back" type="button" onClick={onBack} aria-label="Zpět do design katalogu"><span aria-hidden="true">←</span> Zpět do katalogu</button></div>
   </div>
 }
