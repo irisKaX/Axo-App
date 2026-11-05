@@ -352,9 +352,9 @@ export function FileDropzone({
       )}
 
       {message && <p className="afu-error" role="alert" id={errorId}><AxoIcon name="alert-circle" tone="danger" size={spacing[4]} /><span>{message}</span></p>}
-      <div className="afu-status" role="status" aria-atomic="true">
+      <div className={'afu-status'+(!processing && files.length > 0 && !message ? ' is-ready' : '')} role="status" aria-atomic="true">
         {processing ? <><AxoIcon name="loader" size={spacing[4]} /><span>Zpracovávám soubory…</span></> :
-          files.length > 0 && !message ? <><AxoIcon name="check" size={spacing[4]} /><span>Soubory jsou připravené. Počet: {files.length}.</span></> : null}
+          files.length > 0 && !message ? <><AxoIcon name="check" size={spacing[4]} /><span>Soubory jsou připravené / {files.length}</span></> : null}
       </div>
     </div>
   )
