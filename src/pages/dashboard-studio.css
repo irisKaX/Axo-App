@@ -46,8 +46,7 @@
   .db-widget-cell--large{grid-column:span 2}
 }
 /* Narrow screens use one header row and an overlay menu, never wrapped desktop controls. */
-@media(max-width:800px){
-  .db-page{height:auto;min-height:100dvh;overflow:visible;padding:12px;gap:12px}
+@media(max-width:1050px){
   .db-page .nh-stage.nh-standalone{position:relative}
   .db-page .nh-header{
     display:grid;grid-template-columns:38px 38px minmax(0,1fr) 38px 38px;
@@ -66,6 +65,9 @@
   .db-page .nh-settings-anchor,.db-page .nh-theme{display:none}
   .db-page .nh-mobile-panel{display:flex}
   .db-page .nh-alert-anchor .nh-menu{right:0;left:auto;max-width:min(280px,calc(100vw - 32px))}
+}
+@media(max-width:800px){
+  .db-page{height:auto;min-height:100dvh;overflow:visible;padding:12px;gap:12px}
   .db-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:minmax(280px,auto);gap:12px}
   .db-widget-cell--large{grid-column:span 2}
 }
