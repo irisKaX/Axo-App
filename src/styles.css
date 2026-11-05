@@ -11,6 +11,9 @@ button, input { font: inherit; }
 button { cursor: pointer; }
 .app-shell { display: flex; min-height: 100vh; background: var(--canvas); color: var(--text); transition: background .2s, color .2s; }
 .sidebar { position: sticky; top: 0; align-self: flex-start; display: flex; flex-direction: column; width: 245px; min-width: 245px; height: 100vh; background: var(--surface); border-right: 1px solid var(--border); padding: 28px 16px; }
+.sidebar-nav { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: var(--control-border) transparent; overscroll-behavior: contain; }
+.sidebar-nav::-webkit-scrollbar { width: 6px; }
+.sidebar-nav::-webkit-scrollbar-thumb { background: var(--control-border); border-radius: var(--radius-pill); }
 .logo { display: flex; align-items: center; gap: 11px; width: 100%; padding: 0 10px 31px; border: 0; background: transparent; text-align: left; color: var(--text); }
 .logo-icon { display: grid; place-items: center; background: var(--brand-gradient); color: #FFFFFF; font-weight: 850; border-radius:var(--radius-sm); width: 38px; height: 38px; flex: none; }
 .logo strong, .logo small { display: block; }
@@ -50,6 +53,7 @@ button { cursor: pointer; }
   .app-shell { display: block; }
   .sidebar { width: 100%; height: auto; position: static; display: block; padding: 12px; }
   .logo { padding: 0 3px 12px; }
+  .sidebar-nav { display: flex; flex-wrap: wrap; align-items: start; gap: 0 12px; overflow: visible; min-height: auto; }
   .nav-group { display: inline-block; margin: 0 12px 0 0; }
   .nav-heading, .sidebar-bottom { display: none; }
   .nav-item { width: auto; display: inline-flex; padding: 9px 10px; }
