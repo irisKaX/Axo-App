@@ -22,11 +22,11 @@ export function ImageDropzoneSpecimen({state,size}: Props) {
           <AxoIcon name={isError ? 'alert-circle' : isReady ? 'check' : 'image'} size={size==='large'?32:26}/>
         </div>
         <div className="ids-copy">
-          <strong>{isDrag?'Pusť obrázky sem':isReady?'Obrázky jsou připravené':isError?'Nepodporovaný soubor':state==='disabled'?'Nahrávání není dostupné':'Přetáhni obrázky sem'}</strong>
-          <span>{isError?'Zkus PNG, JPG, WebP nebo AVIF.':isReady?'Můžeš přidat další obrázky.': 'Nebo je vyber ze svého zařízení.'}</span>
+          <strong>{isDrag?'Pusť obrázky sem':isReady?'Obrázky jsou připravené':isError?'Nepodporovaný soubor':state==='disabled'?'Nahrávání není dostupné':'Přetáhněte sem obrázky'}</strong>
+          <span>{isError?'Zkus PNG, JPG, WebP nebo AVIF.':isReady?'Můžete přidat další obrázky.': 'nebo je vyberte ze svého zařízení'}</span>
         </div>
         <span className="ids-choose" aria-hidden="true"><AxoIcon name="plus" size={16}/> Vybrat obrázky</span>
-        <span className="ids-hint">PNG · JPG · WEBP · AVIF <span>·</span> Více souborů najednou</span>
+        <span className="ids-hint">PNG · JPG · WebP · AVIF · BMP · GIF bez animace</span>
       </div>
       {isReady && <div className="ids-ready-list" aria-label="Ilustrační seznam vybraných obrázků">
         <div className="ids-file"><span className="ids-thumb ids-thumb--one"><AxoIcon name="image" size={17}/></span><span><strong>hero-banner.png</strong><small>2,4 MB</small></span><AxoIcon name="check" size={16}/></div>
