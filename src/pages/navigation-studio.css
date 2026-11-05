@@ -80,43 +80,84 @@
 .nh-spec-rule p{font-size:12px;color:var(--muted);line-height:1.7;margin:8px 0 0}
 @media(max-width:820px){.nh-spec-grid{grid-template-columns:1fr}}
 
-/* Mobile-only progressive disclosure. Desktop and catalog header remain unchanged.
-   The panel is an overlay, not additional rows in the header. */
-.nh-mobile-page-label,.nh-mobile-trigger,.nh-mobile-panel{display:none}
+/* Shared compact header: device previews and Dashboard use the same layouts. */
+.nh-mobile-page-label,.nh-mobile-trigger{display:none}
+.nh-stage:is([data-layout="mobile"],[data-layout="tablet"]){position:relative}
+.nh-stage:is([data-layout="mobile"],[data-layout="tablet"]) .nh-scroll{overflow:visible;padding:0}
+.nh-stage:is([data-layout="mobile"],[data-layout="tablet"]) .nh-header{
+  display:grid;grid-template-columns:38px 38px minmax(0,1fr) 38px 38px;
+  align-items:center;gap:8px;min-width:0;min-height:54px;padding:8px;
+}
+.nh-stage:is([data-layout="mobile"],[data-layout="tablet"]) .nh-brand{grid-column:1}
+.nh-stage:is([data-layout="mobile"],[data-layout="tablet"]) .nh-home{grid-column:2}
+.nh-stage:is([data-layout="mobile"],[data-layout="tablet"]) .nh-url-zone{grid-column:3;min-width:0}
+.nh-stage:is([data-layout="mobile"],[data-layout="tablet"]) .nh-alert-anchor{grid-column:4}
+.nh-stage:is([data-layout="mobile"],[data-layout="tablet"]) .nh-mobile-trigger{display:grid;grid-column:5}
+.nh-stage:is([data-layout="mobile"],[data-layout="tablet"]) :is(.nh-nav-set,.nh-clock,.nh-settings-anchor,.nh-theme){display:none}
+.nh-stage[data-layout="mobile"] .nh-header{grid-template-columns:38px minmax(0,1fr) 38px 38px}
+.nh-stage[data-layout="mobile"] :is(.nh-home,.nh-url-zone){display:none}
+.nh-stage[data-layout="mobile"] .nh-mobile-page-label{
+  display:block;grid-column:2;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  color:var(--nh-text);font-size:13px;font-weight:600;
+}
+.nh-stage[data-layout="mobile"] .nh-alert-anchor{grid-column:3}
+.nh-stage[data-layout="mobile"] .nh-mobile-trigger{grid-column:4}
+
+/* Native modal dialog provides a backdrop, focus containment and inert background. */
 .nh-mobile-panel{
-  position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:40;
-  flex-direction:column;gap:10px;
-  padding:16px;
-  background:var(--nh-surface);color:var(--nh-text);
+  position:fixed;inset:12px;margin:0;width:auto;max-width:none;height:fit-content;
+  max-height:calc(100dvh - 24px);overflow:auto;overscroll-behavior:contain;
+  flex-direction:column;gap:20px;padding:20px;
+  background:var(--nh-surface);color:var(--nh-text);font:inherit;
   border:1px solid var(--nh-border);border-radius:var(--radius-lg);
-  box-shadow:0 18px 44px #0006;
-  max-height:calc(100dvh - 100px);overflow-y:auto;overscroll-behavior:contain;
 }
-.nh-mobile-section-title{margin:8px 0 0;font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--nh-muted)}
+.nh-mobile-panel[open]{display:flex}
+.nh-mobile-panel::backdrop{background:var(--nh-canvas);opacity:.94}
+.nh-stage[data-layout="tablet"] .nh-mobile-panel{
+  padding:24px;
+}
+.nh-stage[data-layout="tablet"]:not(.nh-device-preview) .nh-mobile-panel{
+  inset:16px 16px auto auto;width:min(640px,calc(100vw - 32px));max-height:calc(100dvh - 32px);
+}
+.nh-mobile-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:16px;border-bottom:1px solid var(--nh-border)}
+.nh-mobile-panel-heading>div{display:grid;gap:6px}
+.nh-mobile-panel-heading>div>span{font-size:10px;letter-spacing:.12em;font-weight:600;color:var(--nh-muted)}
+.nh-mobile-panel-heading h3{margin:0;font-size:20px;line-height:1.3;font-weight:600;letter-spacing:-.02em}
+.nh-mobile-panel-body{display:grid;gap:24px;min-width:0}
+.nh-stage[data-layout="tablet"] .nh-mobile-panel-body{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.nh-mobile-navigation,.nh-mobile-utilities{display:grid;align-content:start;gap:12px;min-width:0}
+.nh-mobile-utilities{border-top:1px solid var(--nh-border);padding-top:20px}
+.nh-stage[data-layout="tablet"] .nh-mobile-utilities{border-top:0;border-left:1px solid var(--nh-border);padding-top:0;padding-left:24px}
+.nh-mobile-section-title{margin:0 0 8px;font-size:10px;font-weight:600;letter-spacing:.12em;color:var(--nh-muted)}
 .nh-mobile-group{min-width:0}
-.nh-mobile-group-trigger.nav-button{width:100%;justify-content:center}
-.nh-mobile-subitems{
-  display:grid;gap:3px;margin-top:7px;padding:7px;
-  border:1px solid var(--nh-border);border-radius:var(--radius-md);background:var(--nh-canvas)
-}
+.nh-mobile-group-trigger.nav-button{width:100%}
+.nh-mobile-group-trigger .axo-button-content{width:100%;justify-content:space-between}
+.nh-mobile-subitems{display:grid;gap:2px;margin-top:8px;padding:4px 0}
 .nh-mobile-subitems button{
   display:flex;justify-content:space-between;align-items:center;gap:12px;
   min-height:40px;border:0;border-radius:var(--radius-sm);
-  padding:8px 12px;background:transparent;color:var(--nh-text);text-align:left;font-size:12px
+  padding:8px 12px;background:transparent;color:var(--nh-text);text-align:left;font:inherit;font-size:12px;cursor:pointer;
 }
 .nh-mobile-subitems button:hover{background:var(--nh-subtle)}
-.nh-mobile-subitems button:focus-visible,.nh-mobile-url button:focus-visible,.nh-mobile-settings:focus-visible{
-  outline:2px solid var(--nh-focus);outline-offset:2px
-}
-.nh-mobile-url{display:flex;align-items:center;gap:8px;height:38px;min-width:0;padding:0 8px 0 12px;
+.nh-mobile-panel button:focus-visible{outline:2px solid var(--nh-focus);outline-offset:2px}
+.nh-mobile-url{display:flex;align-items:center;gap:6px;height:38px;min-width:0;padding:0 6px 0 12px;
   border:2px solid var(--brand);border-radius:var(--radius-pill);background:var(--nh-surface)}
 .nh-mobile-url>span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
-.nh-mobile-url button{width:28px;height:28px;display:grid;place-items:center;flex:none;background:transparent;color:var(--nh-text);border:0;border-radius:var(--radius-sm)}
-.nh-mobile-url button svg{transition:transform .28s ease}
-.nh-mobile-url button:hover svg{transform:rotate(-9deg)}
-.nh-mobile-panel-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--nh-border);padding-top:14px}
-.nh-mobile-settings{height:38px;display:inline-flex;align-items:center;gap:8px;padding:0 12px;background:var(--nh-subtle);color:var(--nh-text);border:1px solid var(--nh-border);border-radius:var(--radius-pill);font-size:12px}
-.nh-mobile-panel-footer .axo-theme-switch-label{display:none}
-.nh-mobile-panel-footer .axo-theme-switch-track{height:38px}
-.nh-mobile-feedback{font-size:11px;color:var(--nh-muted);margin:0}
-@media(prefers-reduced-motion:reduce){.nh-mobile-url button svg{transition:none}.nh-mobile-url button:hover svg{transform:none}}
+.nh-mobile-url button{width:28px;height:28px;display:grid;place-items:center;flex:none;background:transparent;color:var(--nh-text);border:0;border-radius:var(--radius-sm);cursor:pointer}
+.nh-mobile-panel-footer{border-top:1px solid var(--nh-border);padding-top:16px}
+.nh-mobile-panel-footer .axo-theme-switch{width:100%;justify-content:space-between}
+.nh-mobile-settings{width:100%;min-height:38px;display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--nh-subtle);color:var(--nh-text);border:1px solid var(--nh-border);border-radius:var(--radius-pill);font:inherit;font-size:12px;cursor:pointer}
+.nh-mobile-settings>svg:last-child{margin-left:auto}
+.nh-mobile-notifications{font-size:12px;line-height:1.6}
+.nh-mobile-notifications p{margin:6px 0 0;color:var(--nh-muted)}
+.nh-mobile-feedback{font-size:11px;line-height:1.6;color:var(--nh-muted);margin:0}
+
+/* Inline, interactive device specimens; no second navigation implementation. */
+.nh-responsive-previews{display:grid;gap:24px}
+.nh-device-scroll{min-width:0;overflow-x:auto;padding-bottom:4px}
+.nh-device-preview{position:relative;isolation:isolate;max-width:none;margin:0;min-height:860px}
+.nh-device-preview--mobile{width:390px}
+.nh-device-preview--tablet{width:768px;min-height:650px}
+.nh-preview-backdrop{position:absolute;inset:36px 0 0;background:var(--nh-canvas);opacity:.94;z-index:30;border-radius:0 0 var(--radius-lg) var(--radius-lg)}
+.nh-device-preview .nh-mobile-panel{position:absolute;inset:104px 12px 12px;width:auto;max-height:none;height:auto;z-index:40}
+.nh-device-preview--tablet .nh-mobile-panel{left:auto;width:640px}

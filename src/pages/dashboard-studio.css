@@ -45,27 +45,6 @@
   .db-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:minmax(280px,auto)}
   .db-widget-cell--large{grid-column:span 2}
 }
-/* Narrow screens use one header row and an overlay menu, never wrapped desktop controls. */
-@media(max-width:1050px){
-  .db-page .nh-stage.nh-standalone{position:relative}
-  .db-page .nh-header{
-    display:grid;grid-template-columns:38px 38px minmax(0,1fr) 38px 38px;
-    grid-template-rows:38px;align-items:center;gap:8px;
-    min-height:54px;padding:8px 0;
-  }
-  .db-page .nh-brand{grid-column:1}
-  .db-page .nh-home{grid-column:2}
-  .db-page .nh-mobile-page-label{
-    display:block;grid-column:3;min-width:0;overflow:hidden;
-    white-space:nowrap;text-overflow:ellipsis;font-size:13px;font-weight:650;
-  }
-  .db-page .nh-alert-anchor{grid-column:4}
-  .db-page .nh-mobile-trigger{display:grid;grid-column:5}
-  .db-page .nh-nav-set,.db-page .nh-url-zone,.db-page .nh-clock,
-  .db-page .nh-settings-anchor,.db-page .nh-theme{display:none}
-  .db-page .nh-mobile-panel{display:flex}
-  .db-page .nh-alert-anchor .nh-menu{right:0;left:auto;max-width:min(280px,calc(100vw - 32px))}
-}
 @media(max-width:800px){
   .db-page{height:auto;min-height:100dvh;overflow:visible;padding:12px;gap:12px}
   .db-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:minmax(280px,auto);gap:12px}
