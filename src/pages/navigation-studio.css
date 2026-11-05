@@ -9,16 +9,11 @@
 .nh-scroll{overflow-x:auto;overflow-y:visible;padding-bottom:6px}
 .nh-header{display:flex;align-items:center;gap:9px;width:100%;min-width:1120px;padding:12px;background:var(--nh-surface);border:1px solid var(--nh-border);border-radius:var(--radius-lg);min-height:70px}
 .nh-header button{cursor:pointer}.nh-header svg{flex-shrink:0}
-.nh-brand{display:grid;place-items:center;width:35px;height:35px;flex:none;color:#A14CFF;border:1px solid #8101EC;border-radius:50%;font-size:18px;font-weight:800}
-.nh-home.axo-button{flex:none}
+.nh-brand{display:grid;place-items:center;width:38px;height:38px;flex:none;color:#A14CFF;border:1px solid #8101EC;border-radius:50%;font-size:18px;font-weight:800}
 .nh-nav-set{display:flex;align-items:center;gap:7px;flex:none}
-.nh-pill.axo-button{width:auto;min-width:0;padding:2px;font-size:12px;white-space:nowrap}
-.nh-pill.axo-button .axo-button-reveal-inner{padding:0 12px}
-.nh-pill .axo-button-content-slot--end svg{width:12px;height:12px}
-.nh-pill.is-active .axo-button-reveal-inner{background:var(--subtle)}
 .nh-popup-anchor{position:relative;flex:none}
 .nh-url-zone{display:flex;align-items:center;gap:10px;flex:1;min-width:170px}
-.nh-url{height:40px;display:flex;align-items:center;gap:8px;min-width:0;width:100%;border:2px solid #8101EC;border-radius:var(--radius-pill);padding:0 7px 0 12px;background:var(--nh-subtle)}
+.nh-url{height:38px;display:flex;align-items:center;gap:8px;min-width:0;width:100%;border:2px solid #8101EC;border-radius:var(--radius-pill);padding:0 7px 0 12px;background:var(--nh-subtle)}
 .nh-url>svg{color:var(--brand)}
 .nh-url-text{font-size:11px;font-weight:550;min-width:0;flex:1;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
 .nh-url-action{display:grid;place-items:center;flex:none;width:26px;height:28px;border:0;background:transparent;color:var(--nh-muted);border-radius:8px;padding:0}
@@ -27,7 +22,6 @@
 .nh-indicator{width:9px;height:9px;border-radius:50%;background:#49DEAA;flex:none}
 .nh-clock{display:flex;flex-direction:column;text-align:center;min-width:76px;white-space:nowrap}
 .nh-clock strong{font-size:15px;line-height:1.2}.nh-clock small{font-size:9px;color:var(--nh-muted);margin-top:3px}
-.nh-circle.axo-button{flex:none}
 .nh-theme{display:flex;align-items:center;flex:none}.nh-theme .axo-theme-switch-label{display:none}
 .nh-theme .axo-theme-switch-track{width:70px;height:38px}.nh-theme .axo-theme-switch-orb{width:26px;height:26px}
 .nh-theme .axo-theme-switch-orb{transform:translateX(30px)}
