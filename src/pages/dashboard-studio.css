@@ -45,63 +45,31 @@
   .db-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:minmax(280px,auto)}
   .db-widget-cell--large{grid-column:span 2}
 }
+/* Narrow screens use one header row and an overlay menu, never wrapped desktop controls. */
 @media(max-width:800px){
   .db-page{height:auto;min-height:100dvh;overflow:visible;padding:12px;gap:12px}
-  .db-page .nh-header{flex-wrap:wrap;gap:7px;min-height:0}
-  .db-page .nh-url-zone{order:2;flex-basis:100%;max-width:none}
-  .db-page .nh-nav-set{flex:1}
+  .db-page .nh-stage.nh-standalone{position:relative}
+  .db-page .nh-header{
+    display:grid;grid-template-columns:38px 38px minmax(0,1fr) 38px 38px;
+    grid-template-rows:38px;align-items:center;gap:8px;
+    min-height:54px;padding:8px 0;
+  }
+  .db-page .nh-brand{grid-column:1}
+  .db-page .nh-home{grid-column:2}
+  .db-page .nh-mobile-page-label{
+    display:block;grid-column:3;min-width:0;overflow:hidden;
+    white-space:nowrap;text-overflow:ellipsis;font-size:13px;font-weight:650;
+  }
+  .db-page .nh-alert-anchor{grid-column:4}
+  .db-page .nh-mobile-trigger{display:grid;grid-column:5}
+  .db-page .nh-nav-set,.db-page .nh-url-zone,.db-page .nh-clock,
+  .db-page .nh-settings-anchor,.db-page .nh-theme{display:none}
+  .db-page .nh-mobile-panel{display:flex}
+  .db-page .nh-alert-anchor .nh-menu{right:0;left:auto;max-width:min(280px,calc(100vw - 32px))}
   .db-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:minmax(280px,auto);gap:12px}
   .db-widget-cell--large{grid-column:span 2}
 }
 @media(max-width:600px){
   .db-grid{grid-template-columns:1fr;grid-auto-rows:minmax(270px,auto)}
   .db-widget-cell--large{grid-column:span 1}
-}
-/* Intentional mobile navigation: row 1 utility actions, row 2 destinations, row 3 URL.
- * Only applies to the standalone Dashboard, not the approved desktop header. */
-@media(max-width:480px){
-  .db-page .nh-header{
-    display:grid;
-    grid-template-columns:38px 38px minmax(0,1fr) 38px 38px 70px;
-    grid-template-rows:38px 38px 38px;
-    align-items:center;
-    gap:8px 6px;
-    padding:8px 0;
-  }
-  .db-page .nh-brand{grid-column:1;grid-row:1}
-  .db-page .nh-home{grid-column:2;grid-row:1}
-  .db-page .nh-alert-anchor{grid-column:4;grid-row:1}
-  .db-page .nh-settings-anchor{grid-column:5;grid-row:1}
-  .db-page .nh-theme{grid-column:6;grid-row:1;min-width:0}
-  .db-page .nh-nav-set{
-    grid-column:1/-1;
-    grid-row:2;
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    align-items:center;
-    width:100%;
-    min-width:0;
-    gap:6px;
-    order:initial;
-    flex-basis:auto;
-  }
-  .db-page .nh-nav-set>.nh-popup-anchor{min-width:0}
-  .db-page .nh-nav-set .nav-button--label{
-    width:100%;
-    min-width:0;
-    padding:0 5px;
-  }
-  .db-page .nh-nav-set .axo-button-content{max-width:100%;gap:5px}
-  .db-page .nh-url-zone{
-    grid-column:1/-1;
-    grid-row:3;
-    order:initial;
-    flex-basis:auto;
-    width:100%;
-    min-width:0;
-    max-width:none;
-    margin:0;
-  }
-  .db-page .nh-url{min-width:0}
-  .db-page .nh-clock{display:none}
 }
