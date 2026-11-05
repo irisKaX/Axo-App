@@ -8,7 +8,7 @@
 .db-page .nh-nav-set{gap:clamp(3px,.4vw,7px)}
 .db-page .nh-pill.axo-button{padding:2px}
 .db-page .nh-pill.axo-button .axo-button-reveal-inner{padding:0 clamp(8px,.7vw,12px)}
-.db-page .nh-url-zone{min-width:260px;max-width:440px;gap:clamp(5px,.6vw,10px)}
+.db-page .nh-url-zone{min-width:110px;gap:clamp(5px,.6vw,10px)}
 .db-page .nh-url{padding-left:10px;gap:6px}
 .db-page .nh-clock{min-width:65px}
 .db-page .nh-popup-anchor{z-index:auto}
