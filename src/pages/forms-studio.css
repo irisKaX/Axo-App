@@ -55,3 +55,22 @@
 .fs-guide-note code{color:var(--text)}
 @media(max-width:850px){.fs-theme-layout{grid-template-columns:1fr}}
 @media(max-width:510px){.fs-theme-previews{grid-template-columns:1fr}.fs-theme-sample{min-height:125px}}
+
+/* Semantic color selector for approved form controls. */
+.fs-accent-picker{min-width:0;border:0;margin:0;padding:0 0 7px}
+.fs-accent-picker legend{font-size:11px;font-weight:650;color:var(--muted);padding:0 0 9px}
+.fs-accent-buttons{display:flex;flex-wrap:wrap;gap:7px}
+.fs-accent-option{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--surface);color:var(--text);font:inherit;font-size:10px;font-weight:550;cursor:pointer}
+.fs-accent-option:hover{border-color:var(--brand)}
+.fs-accent-option.is-active{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand)}
+.fs-accent-option:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.fs-accent-dot{width:10px;height:10px;flex:none;border-radius:50%;background:var(--brand)}
+.fs-accent-dot.is-info{background:var(--info)}
+.fs-accent-dot.is-success{background:var(--success)}
+.fs-accent-dot.is-warning{background:var(--warning)}
+.fs-accent-dot.is-danger{background:var(--error)}
+.fs-toggles{margin-top:16px}
+/* Special search has its own reusable component, not a style override for FormInput. */
+.fs-spotlight-stage{display:flex;flex-direction:column;align-items:flex-start;gap:22px;background:var(--canvas);border:1px solid var(--border);border-radius:var(--radius-lg);padding:clamp(24px,4vw,40px)}
+.fs-spotlight-stage .sf-search{max-width:720px}
+.fs-spotlight-stage p{font-size:12px;color:var(--muted);line-height:1.75;max-width:730px;margin:0}
