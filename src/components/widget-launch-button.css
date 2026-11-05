@@ -1,0 +1,41 @@
+/* Widget → Tool launch action.
+ * A single compact, round icon control designed for widget header top-right.
+ * Reuses the approved Iris Purple token and widget surface, never a new gradient.
+ */
+.widget-launch-button.axo-button {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  padding: 0;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--brand);
+  border-radius: var(--radius-round);
+  box-shadow: none;
+}
+.widget-launch-button.axo-button:hover:not(:disabled) {
+  color: #FFFFFF;
+  background: var(--brand);
+  border-color: var(--brand);
+  box-shadow: none;
+}
+.widget-launch-button.axo-button:active:not(:disabled) {
+  box-shadow: none;
+}
+.widget-launch-button .axo-button-icon {
+  transition: transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.widget-launch-button:hover:not(:disabled) .axo-button-icon,
+.widget-launch-button:focus-visible .axo-button-icon {
+  transform: translate(1px,-1px) rotate(8deg);
+}
+/* Launcher lives at the widget's top edge: tooltip must open downward. */
+.widget-launch-button.axo-button[data-tooltip]::after {
+  top: calc(100% + 10px);
+  bottom: auto;
+}
+@media(prefers-reduced-motion:reduce){
+  .widget-launch-button .axo-button-icon{transition:none}
+  .widget-launch-button:hover:not(:disabled) .axo-button-icon,
+  .widget-launch-button:focus-visible .axo-button-icon{transform:none}
+}
