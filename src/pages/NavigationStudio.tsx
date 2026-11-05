@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { AxoIcon, type AxoIconName } from '../components/AxoIcon'
+import { AxoButton } from '../components/Buttons'
 import { ThemeSwitch } from '../components/ThemeSwitch'
 import { themes, type ThemeName } from '../design-system/foundations/colors'
 import './navigation-studio.css'
@@ -58,10 +59,10 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
     <div className="nh-scroll">
       <header className="nh-header" aria-label="Ukázka horizontální navigace">
         <div className="nh-brand" aria-label="Axolotl">✳</div>
-        <button type="button" className="nh-home" aria-label="Home" onClick={()=>{setOpen(null);setFeedback('Dashboard · ukázková navigace')}}><Icon name="home"/></button>
+        <AxoButton variant={standalone ? 'primary' : 'secondary'} size="compact" icon="home" iconOnly className="nh-home" aria-label="Home" aria-current={standalone ? 'page' : undefined} onClick={()=>{setOpen(null);setFeedback('Dashboard · ukázková navigace')}}/>
         <div className="nh-nav-set">
           {([['workspace','Můj workspace','work'],['media','Média','media'],['checks','Kontrola','shield']] as const).map(([id,label,icon])=><div className="nh-popup-anchor" key={id}>
-            <button type="button" className={'nh-pill'+(open===id?' is-active':'')} aria-haspopup="menu" aria-expanded={open===id} onClick={()=>toggle(id)}><Icon name={icon}/><span>{label}</span><Icon name="down"/></button>
+            <AxoButton variant="secondary" size="default" className={'nh-pill'+(open===id?' is-active':'')} icon={iconAliases[icon]} iconRight="chevron-down" aria-haspopup="menu" aria-expanded={open===id} onClick={()=>toggle(id)}>{label}</AxoButton>
             {open===id&&<div className="nh-menu" role="menu">{groups[id].map(item=><button role="menuitem" type="button" key={item} onClick={()=>{setFeedback(item+' · ukázková navigace');setOpen(null)}}>{item}<Icon name="arrow"/></button>)}</div>}
           </div>)}
         </div>
@@ -79,11 +80,11 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
         </div>
         <div className="nh-clock"><strong>{time.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'})}</strong><small>{time.toLocaleDateString('cs-CZ',{day:'numeric',month:'numeric',year:'numeric'})}</small></div>
         <div className="nh-popup-anchor">
-          <button type="button" className="nh-circle" aria-haspopup="menu" aria-expanded={open==='notifications'} aria-label="Upozornění" onClick={()=>toggle('notifications')}><Icon name="bell"/></button>
+          <AxoButton variant="primary" size="compact" icon="bell" iconOnly className="nh-circle" aria-haspopup="menu" aria-expanded={open==='notifications'} aria-label="Upozornění" onClick={()=>toggle('notifications')}/>
           {open==='notifications'&&<div className="nh-menu nh-menu-right" role="menu"><p>Upozornění</p>{groups.notifications.map(x=><span className="nh-menu-empty" key={x}>{x}</span>)}</div>}
         </div>
         <div className="nh-popup-anchor">
-          <button type="button" className="nh-circle" aria-haspopup="menu" aria-expanded={open==='profile'} aria-label="Nastavení a profil" onClick={()=>toggle('profile')}><Icon name="gear"/></button>
+          <AxoButton variant="primary" size="compact" icon="settings" iconOnly className="nh-circle" aria-haspopup="menu" aria-expanded={open==='profile'} aria-label="Nastavení a profil" onClick={()=>toggle('profile')}/>
           {open==='profile'&&<div className="nh-menu nh-menu-right" role="menu">{groups.profile.map(x=><button role="menuitem" type="button" key={x} onClick={()=>{setFeedback(x+' · ukázka');setOpen(null)}}>{x}</button>)}</div>}
         </div>
         <div className="nh-theme"><ThemeSwitch theme={mode} onThemeChange={onModeChange} label="Tmavý režim"/></div>
