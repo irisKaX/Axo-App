@@ -14,6 +14,14 @@
 .fc-field textarea{min-height:144px;resize:vertical}
 .fc-field input::placeholder,.fc-field textarea::placeholder,.fc-select-placeholder{color:var(--muted);opacity:1}
 .fc-field :is(input,textarea,.fc-select-trigger):hover:not(:disabled){border-color:var(--brand)}
+/* Filled is persistent after blur: softer than focus, clearer than an empty field.
+   Error/success and disabled keep their existing semantic states. */
+.fc-field.is-filled:not(:focus-within):not(.fc-error):not(.fc-success)
+:is(input:not([type="checkbox"]):not([type="radio"]),textarea,.fc-select-trigger):not(:disabled){
+  border-color:var(--brand);
+  background:color-mix(in srgb,var(--brand) 5%,var(--surface));
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--brand) 22%,transparent);
+}
 /* Hide the resting stroke while focused: the inset stroke is the only indicator.
    The theme's focus color remains visible even on error/success fields. */
 .fc-field :is(input,textarea,.fc-select-trigger):focus-visible,.fc-field .fc-select-trigger[aria-expanded="true"]{
