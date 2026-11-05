@@ -32,6 +32,13 @@
   padding: 0 14px;
   white-space: nowrap;
 }
+/* Center the label and chevron as one balanced group. */
+.nav-button--label .axo-button-content {
+  width: max-content;
+  margin-inline: auto;
+  justify-content: center;
+  gap: 8px;
+}
 .nav-button--label .axo-button-content-slot--end svg {
   width: 12px;
   height: 12px;
