@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ImageConverterLayout } from './ImageConverterLayout'
 import { layout, spacing } from '../design-system/foundations/spacing'
 import { themes, type ThemeName } from '../design-system/foundations/colors'
 import './layouts-studio.css'
@@ -64,11 +65,18 @@ function Rule({label,value,description}:{label:string;value:string;description:s
 
 export default function LayoutsStudio({theme}:{theme:ThemeName}){
   const [viewport,setViewport]=useState<Viewport>('desktop')
+  const [category,setCategory]=useState<'common'|'image-converter'>('image-converter')
+  const [fullPreview,setFullPreview]=useState(false)
   return <div className="ls-page">
     <p className="eyebrow">LIBRARY / LAYOUTS</p>
     <h1>Layouts<span className="heading-accent">.</span></h1>
-    <p className="intro">Pravidla skládání schválených komponent do skutečných obrazovek Axolotlu. Zatím evidujeme App Shell a Dashboard Grid; ostatní layouty připravíme při vytváření nástrojů.</p>
-    <div className="ls-status">LIVE RULES · EXISTING DASHBOARD · NO VISUAL REDESIGN</div>
+    <p className="intro">Katalog skutečných aplikačních rozložení. Společná pravidla máme oddělená od jednotlivých nástrojů; každý nástroj má vlastní návrh stránky v reálných proporcích.</p>
+    <nav className="ls-category-nav" aria-label="Sekce Layouts">
+      <button type="button" aria-current={category==='common'?'page':undefined} className={category==='common'?'is-selected':''} onClick={()=>setCategory('common')}>App Shell & Dashboard Grid</button>
+      <button type="button" aria-current={category==='image-converter'?'page':undefined} className={category==='image-converter'?'is-selected':''} onClick={()=>setCategory('image-converter')}>Tools / Image Converter</button>
+    </nav>
+    {category==='common' && <>
+      <div className="ls-status">SHARED LAYOUT RULES · EXISTING DASHBOARD</div>
 
     <section className="panel ls-panel">
       <div className="ls-heading"><span>01 / APP SHELL</span><h2>Základní prostor aplikace</h2><p>Bez sidebaru. Horizontální schválená navigace a pod ní pracovní plocha. Ukázka níže je schematická, nikoli další kopie funkčního headeru. Na mobilním náhledu lze menu otevřít tlačítkem vpravo.</p></div>
@@ -109,6 +117,20 @@ export default function LayoutsStudio({theme}:{theme:ThemeName}){
         <div><strong>Responsive Patterns</strong><p>Vlastní pravidla pro náročnější nástroje na malých obrazovkách.</p></div>
       </div>
     </section>
-    <footer className="page-footer">Axolotl · Layouts · App Shell & Dashboard Grid · {layout.gaps.default}px základní grid gap / {spacing[3]}px compact</footer>
+    </>}
+    {category==='image-converter' && <section className="ls-tool-section">
+      <div className="ls-heading"><span>TOOLS / 01 IMAGE CONVERTER</span><h2>Image Converter · návrh celé stránky</h2>
+        <p>Plnohodnotná pracovní kompozice, ne zmenšený obrázek. Obsah respektuje současné komponenty a stále neřeší žádné skutečné nahrávání ani konverzi. Slider a Image Compare jsou zatím pouze vyznačené návrhové plochy.</p></div>
+      <div className="ls-tool-actions">
+        <span>DESKTOP-FIRST · RESPONSIVE LAYOUT · DESIGN ONLY</span>
+        <button type="button" onClick={()=>setFullPreview(true)}>Otevřít v celé obrazovce ↗</button>
+      </div>
+      <div className="ls-tool-preview">
+        <ImageConverterLayout theme={theme} onThemeChange={()=>{}}/>
+      </div>
+      <div className="ls-tool-footnote"><strong>První z nástrojových layoutů</strong><p>QR generátor, Metadata Check, Find Phrase a další zde dostanou vlastní podsekce, až začneme navrhovat jejich rozložení. Budou skládat existující prvky design systému, nikoli vytvářet další kopie komponent.</p></div>
+    </section>}
+    {fullPreview && <ImageConverterLayout theme={theme} onThemeChange={()=>{}} fullScreen onClose={()=>setFullPreview(false)}/>}
+    <footer className="page-footer">Axolotl · Layouts · {category==='common'?'App Shell & Dashboard Grid':'Tools / Image Converter'} · {layout.gaps.default}px grid / {spacing[3]}px compact</footer>
   </div>
 }
