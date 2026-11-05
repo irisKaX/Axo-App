@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch } from '../components/FormControls'
+import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch, type FormAccent } from '../components/FormControls'
+import { SearchSpotlight } from '../components/SearchSpotlight'
 import { ThemeSwitch } from '../components/ThemeSwitch'
 import { type ThemeName } from '../design-system/foundations/colors'
 import './forms-studio.css'
@@ -17,6 +18,27 @@ const viewModes=[
   {value:'automatic',label:'Automaticky',description:'Nedostupná volba',disabled:true},
 ]
 
+const formAccentOptions: {value:FormAccent;label:string}[]=[
+  {value:'brand',label:'Iris Purple'},
+  {value:'info',label:'Info Blue'},
+  {value:'success',label:'Success Lime'},
+  {value:'warning',label:'Warning Yellow'},
+  {value:'danger',label:'Danger Pink'}
+]
+function AccentPicker({label,value,onChange}:{label:string;value:FormAccent;onChange:(value:FormAccent)=>void}){
+  return <fieldset className="fs-accent-picker">
+    <legend>{label}</legend>
+    <div className="fs-accent-buttons">
+      {formAccentOptions.map(option=><button type="button" key={option.value}
+        className={'fs-accent-option'+(value===option.value?' is-active':'')}
+        onClick={()=>onChange(option.value)} aria-pressed={value===option.value}>
+        <span className={'fs-accent-dot is-'+option.value} aria-hidden="true"/>
+        {option.label}
+      </button>)}
+    </div>
+  </fieldset>
+}
+
 function isValidHttpUrl(value:string) {
   try { const url=new URL(value.trim()); return ['http:','https:'].includes(url.protocol)&&url.hostname.includes('.') }
   catch { return false }
@@ -31,11 +53,15 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
   const [view,setView]=useState('comfortable')
   const [autosave,setAutosave]=useState(true)
   const [notifications,setNotifications]=useState(false)
+  const [checkboxAccent,setCheckboxAccent]=useState<FormAccent>('brand')
+  const [radioAccent,setRadioAccent]=useState<FormAccent>('brand')
+  const [switchAccent,setSwitchAccent]=useState<FormAccent>('brand')
+  const [spotlightValue,setSpotlightValue]=useState('')
   const validUrl=!url.trim() || isValidHttpUrl(url)
   return <div className="fs-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / INPUTS & FORMS</p>
     <h1>Inputs <span className="heading-accent">& Forms.</span></h1>
-    <p className="intro">Formulářové prvky v Neo Iris: měkké radiusy, jasná hierarchie a vlastní vzhled dropdownu. Knihovna sdílených inputů a formulářových prvků.</p>
+    <p className="intro">Formulářové prvky v Neo Iris: pilulkové inputy, vlastní dropdowny a sémantické barevné varianty. Na konci najdeš speciální animované vyhledávací pole.</p>
     <div className="fs-status">SCHVÁLENÉ FORM COMPONENTS</div>
 
     <section className="panel fs-panel">
@@ -65,21 +91,24 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
       <div className="fs-section-head"><span>04 / CHECKBOX & RADIO</span><h2>Výběr jedné nebo více možností</h2><p>Checkbox dovoluje nezávislé volby. Radio ze skupiny povoluje právě jednu.</p></div>
       <div className="fs-choice-layout">
         <div className="fs-choice-box"><span className="fs-overline">CHECKBOX</span>
-          <FormCheckbox label="Odebírat novinky" description="Dostávat produktové aktualizace" checked={subscribe} onChange={setSubscribe}/>
+          <AccentPicker label="Barevná varianta" value={checkboxAccent} onChange={setCheckboxAccent}/>
+          <FormCheckbox label="Odebírat novinky" description="Dostávat produktové aktualizace" checked={subscribe} onChange={setSubscribe} accent={checkboxAccent}/>
           <FormCheckbox label="Nedostupná možnost" checked={false} onChange={()=>{}} disabled/>
           <FormCheckbox label="Uzamčená preference" checked={true} onChange={()=>{}} disabled/>
         </div>
         <div className="fs-choice-box"><span className="fs-overline">RADIO GROUP</span>
-          <FormRadioGroup label="Hustota zobrazení" name="axolotl-density" options={viewModes} value={view} onChange={setView}/>
+          <AccentPicker label="Barevná varianta" value={radioAccent} onChange={setRadioAccent}/>
+          <FormRadioGroup label="Hustota zobrazení" name="axolotl-density" options={viewModes} value={view} onChange={setView} accent={radioAccent}/>
         </div>
       </div>
     </section>
 
     <section className="panel fs-panel">
       <div className="fs-section-head"><span>05 / TOGGLE SWITCH</span><h2>Nastavení zapnuto / vypnuto</h2><p>Switch mění okamžitý stav. Kontrola pomocí klávesnice funguje přes nativní přístupný input, vzhled je kompletně vlastní.</p></div>
+      <AccentPicker label="Barevná varianta přepínačů" value={switchAccent} onChange={setSwitchAccent}/>
       <div className="fs-toggles">
-        <FormSwitch label="Automatické ukládání" description={autosave?'Zapnuto · změny se ukládají průběžně':'Vypnuto · změny se neukládají'} checked={autosave} onChange={setAutosave}/>
-        <FormSwitch label="Notifikace" description={notifications?'Zapnuto':'Vypnuto'} checked={notifications} onChange={setNotifications}/>
+        <FormSwitch label="Automatické ukládání" description={autosave?'Zapnuto · změny se ukládají průběžně':'Vypnuto · změny se neukládají'} checked={autosave} onChange={setAutosave} accent={switchAccent}/>
+        <FormSwitch label="Notifikace" description={notifications?'Zapnuto':'Vypnuto'} checked={notifications} onChange={setNotifications} accent={switchAccent}/>
         <FormSwitch label="Uzamčené nastavení" description="Aktuálně nelze změnit" checked={true} onChange={()=>{}} disabled/>
       </div>
     </section>
@@ -95,6 +124,16 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
         </div>
       </div>
       <div className="fs-guide-note">Toto je návrh vzhledu přepínače k vizuálnímu schválení. Pro přístupnost používá nativní checkbox se sémantikou <code>switch</code>, viditelný focus a podporu omezeného pohybu.</div>
+    </section>
+
+    <section className="panel fs-panel">
+      <div className="fs-section-head"><span>07 / SPECIAL SEARCH INPUT</span><h2>Search Spotlight</h2><p>Prémiové vyhledávání assetů a frází. Gradientový obvod se pomalu pohybuje nepřetržitě, na hover zesílí a při focusu jemně pulzuje. Ukázkové texty se píší a mažou pouze tehdy, když je pole prázdné a není aktivní.</p></div>
+      <div className="fs-spotlight-stage">
+        <span className="fs-overline">LIVE SEARCH / ANIMATED BORDER</span>
+        <SearchSpotlight value={spotlightValue} onChange={setSpotlightValue}
+          phrases={['Jaký asset hledáte?','Zadejte hledanou frázi…','Najděte obrázek nebo dokument…','Vyhledejte asset na webu…']}/>
+        <p>Po kliknutí se animovaný text skryje a do skutečného inputu můžeš psát. Text se nikdy automaticky nevkládá do hodnoty hledání.</p>
+      </div>
     </section>
 
     <footer className="page-footer">Axolotl · Components / Inputs & Forms · Návrh k vizuálnímu schválení</footer>
