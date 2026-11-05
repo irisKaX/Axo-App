@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type ChangeEvent, type DragEvent } from 'react'
 import { AxoIcon } from './AxoIcon'
+import { AxoButton } from './Buttons'
 import type { SelectOption } from './FormControls'
 import './advanced-form-controls.css'
 
@@ -178,7 +179,7 @@ export function FileDropzone({label,files,onChange,accept,multiple=true,maxBytes
       onDragOver={e=>{e.preventDefault();if(!disabled)setDragging(true)}} onDragLeave={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node))setDragging(false)}} onDrop={onDrop}>
       <AxoIcon name="folder" size={25} tone="brand"/>
       <strong>Přetáhni soubor sem</strong><span>nebo vyber soubor ze zařízení</span>
-      <button type="button" disabled={disabled} onClick={()=>input.current?.click()}>Vybrat soubor</button>
+      <AxoButton variant="secondary" size="default" disabled={disabled} onClick={()=>input.current?.click()}>Vybrat soubor</AxoButton>
       <input ref={input} id={uid} type="file" accept={accept} multiple={multiple} disabled={disabled}
         className="af-visually-hidden" onChange={onInput}/>
     </div>
