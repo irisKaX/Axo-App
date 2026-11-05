@@ -187,6 +187,7 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
             {id:'cyan',label:'Bright Cyan'},
             {id:'pink',label:'Axolotl Pink'},
             {id:'lime',label:'Success Lime'},
+            {id:'midnight',label:'Dark Gradient'},
           ] as const).map(option=><button type="button" className={'fs-upload-color is-'+option.id+(fileVariant===option.id?' is-active':'')}
             key={option.id} aria-pressed={fileVariant===option.id} onClick={()=>setFileVariant(option.id)}>
             <span aria-hidden="true"/>{option.label}
