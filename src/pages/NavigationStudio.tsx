@@ -79,11 +79,11 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
           <span className="nh-indicator" title="Ukázkový indikátor stavu URL" aria-label="Ukázkový stav URL"/>
         </div>
         <div className="nh-clock"><strong>{time.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'})}</strong><small>{time.toLocaleDateString('cs-CZ',{day:'numeric',month:'numeric',year:'numeric'})}</small></div>
-        <div className="nh-popup-anchor">
+        <div className="nh-popup-anchor nh-alert-anchor">
           <NavigationButton state={open==='notifications' ? 'expanded' : 'inactive'} shape="round" icon="bell" className="nh-circle" aria-haspopup="menu" aria-expanded={open==='notifications'} aria-label="Upozornění" onClick={()=>toggle('notifications')}/>
           {open==='notifications'&&<div className="nh-menu nh-menu-right" role="menu"><p>Upozornění</p>{groups.notifications.map(x=><span className="nh-menu-empty" key={x}>{x}</span>)}</div>}
         </div>
-        <div className="nh-popup-anchor">
+        <div className="nh-popup-anchor nh-settings-anchor">
           <NavigationButton state={open==='profile' ? 'expanded' : 'inactive'} shape="round" icon="settings" className="nh-circle" aria-haspopup="menu" aria-expanded={open==='profile'} aria-label="Nastavení a profil" onClick={()=>toggle('profile')}/>
           {open==='profile'&&<div className="nh-menu nh-menu-right" role="menu">{groups.profile.map(x=><button role="menuitem" type="button" key={x} onClick={()=>{setFeedback(x+' · ukázka');setOpen(null)}}>{x}</button>)}</div>}
         </div>
