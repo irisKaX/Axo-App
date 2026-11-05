@@ -145,26 +145,82 @@ export default function NavigationStudio({theme,onThemeChange,onOpenDashboard}:{
   return <div className="nh-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / NAVIGATION & HEADER</p>
     <h1>Navigation <span className="heading-accent">& Header.</span></h1>
-    <p className="intro">Horizontal Workspace Navigation V2 · Clean Neo Iris. Jediná horizontální lišta bez sidebaru. Obsahuje logo, Home, pracovní nabídky, URL display, karty prohlížeče, indikátor, čas, upozornění, nastavení a již existující Theme Switch.</p>
-    <div className="nh-status">DESIGN CANDIDATE · HORIZONTAL / SINGLE ROW · DARK & LIGHT</div>
+    <p className="intro">Schválená horizontální navigace Axolotl Workspace. Jeden řádek bez sidebaru, jednotná výška ovládacích prvků a vlastní NavigationButton s oddělenými stavy stránky a rozbaleného menu.</p>
+    <div className="nh-status">APPROVED · HORIZONTAL HEADER · DARK & LIGHT</div>
     <div className="nh-open-dashboard"><button type="button" onClick={onOpenDashboard}>Otevřít Dashboard v reálné velikosti ↗</button><span>Bez sidebaru katalogu, celý viewport laptopu.</span></div>
     <section className="panel nh-panel">
       <div className="nh-heading"><span>01 / LIVE HEADER</span><h2>Horizontální navigace</h2><p>Režim ovládá globální přepínač katalogu a sdílený Theme Switch v náhledu. Pro skutečný náhled v plné šířce použij samostatnou sekci Dashboard.</p></div>
       <HeaderPreview mode={theme} onModeChange={onThemeChange}/>
     </section>
     <section className="panel nh-panel">
-      <div className="nh-heading"><span>02 / NAVIGATION BUTTONS</span><h2>NavigationButton · stavy a tvary</h2><p>Samostatná komponenta. Všechna navigační tlačítka včetně Upozornění a Nastavení používají stejné fialové pozadí jako přepínač motivu podle Light/Dark režimu. Current používá existující animovaný Orbital Glow z Primary 2, Expanded označuje právě otevřené menu. URL display sdílí stejné fialové pozadí jako tlačítka. Všechny varianty mají výšku 38 px.</p></div>
+      <div className="nh-heading"><span>02 / NAVIGATION BUTTONS</span><h2>NavigationButton · stavy a tvary</h2><p>Samostatná komponenta. Všechna navigační tlačítka včetně Upozornění a Nastavení používají stejné fialové pozadí jako přepínač motivu podle Light/Dark režimu. Current používá existující animovaný Orbital Glow z Primary 2, Expanded označuje právě otevřené menu. URL display má neutrální Surface výplň a fialový 2px border. Všechny varianty mají výšku 38 px.</p></div>
       <NavigationButtonGallery mode={theme}/>
     </section>
     <section className="panel nh-panel">
       <div className="nh-heading"><span>03 / ANATOMY</span><h2>Komponenty a chování</h2><p>Dropdowny vycházejí ze způsobu ovládání selectu v Inputs & Forms. Jde o koncepční navigační menu, nikoliv další samostatný select.</p></div>
       <div className="nh-anatomy">
-        <div><strong>Brand & navigace</strong><p>Logo · Home · Workspace · Média · Kontrola</p></div>
+        <div><strong>Brand & navigace</strong><p>Logo · Home · Workspace · Tools · SEO check</p></div>
         <div><strong>URL Display</strong><p>Read-only URL · Copy · přepínač otevřených karet · stavový indikátor</p></div>
         <div><strong>Utility</strong><p>Aktuální čas a datum · upozornění · nastavení/profil · Theme Switch</p></div>
       </div>
       <p className="nh-note">V tomto náhledu jsou URL a stav indikátoru ukázkové. Přepínač karet URL pouze mění v demonstraci, skutečné karty prohlížeče nelze z běžné webové aplikace automaticky vyčítat. Pro produkční integraci bude potřeba vlastní správa pracovních URL.</p>
     </section>
-    <footer className="page-footer">Axolotl · Navigation & Header V2 · Clean Neo Iris · návrh k vizuálnímu schválení</footer>
+    <section className="panel nh-panel">
+      <div className="nh-heading"><span>04 / APPROVED SPECIFICATION</span><h2>Schválená pravidla headeru</h2><p>Implementační kontrakt pro další stránky Axolotlu. Žádné samostatné varianty barev, jiná výška tlačítek ani vlastní obrysy v jednotlivých nástrojích.</p></div>
+      <div className="nh-spec-grid">
+        <article className="nh-spec-item">
+          <strong>Struktura a plocha</strong>
+          <p>Horizontální navigace bez sidebaru. V Dashboardu nemá header vlastní pozadí, border ani stín. Hlavní aplikační Canvas v Dark Mode je <code>#090B10</code>. V katalogu je header zobrazen uvnitř odděleného demonstračního rámečku.</p>
+          <code>HeaderPreview · DashboardStudio</code>
+        </article>
+        <article className="nh-spec-item">
+          <strong>Jednotná geometrie</strong>
+          <p>Textová i kulatá navigační tlačítka, URL display i Theme Switch mají výšku <strong>38 px</strong>. Kulatá tlačítka mají 38 × 38 px. Text tlačítek a URL je 11 px. Všechny prvky jsou v jedné optické ose.</p>
+          <code>NavigationButton · controls.default</code>
+        </article>
+        <article className="nh-spec-item">
+          <strong>NavigationButton / Inactive</strong>
+          <p>Všechna tlačítka včetně Home, Upozornění a Nastavení mají stejnou fialovou výplň z Theme Switch, podle Light/Dark režimu. Textová tlačítka jsou bez počátečních ikon; pouze centrovaný text a pravý chevron.</p>
+          <code>--axo-switch-dark-background · --axo-switch-light-background</code>
+        </article>
+        <article className="nh-spec-item">
+          <strong>NavigationButton / Current</strong>
+          <p>Aktuální stránka používá <strong>Orbital Glow z Primary 2</strong>, nikoli bílý outline. Current určuje skutečně zobrazená stránka. Zároveň se nastavuje <code>aria-current="page"</code>. Pressed, hover a expanded nejsou totéž co Current.</p>
+          <code>state="current" · AxoButton primary-2</code>
+        </article>
+        <article className="nh-spec-item">
+          <strong>Expanded, hover a fokus</strong>
+          <p>Otevřené menu používá 2px zvýraznění Surface z aktuálního tématu. Hover zachová fialovou paletu. Keyboard focus zůstává viditelný a není zaměnitelný za Expanded. Menu má <code>aria-expanded</code> a zavírá se Escape nebo kliknutím mimo.</p>
+          <code>state="expanded" · :focus-visible · aria-expanded</code>
+        </article>
+        <article className="nh-spec-item">
+          <strong>URL display</strong>
+          <p>Pouze read-only adresa, nikoli editovatelný input. Pružně zabírá volné místo. Má výšku 38 px, výplň <strong>Surface #141820</strong> v Dark Mode a 2px fialový border. Obsahuje ikonu, zkrácenou URL, Copy, oddělovač, Tabs a samostatný indikátor.</p>
+          <code>.nh-url-zone · .nh-url · theme.surface</code>
+        </article>
+        <article className="nh-spec-item">
+          <strong>URL akce a tooltipy</strong>
+          <p>Copy a Tabs nemění při hoveru barvu pozadí. Natočí pouze ikonku o −9° s plynulým přechodem a respektují reduced motion. Tooltipy kulatých NavigationButton se zobrazují <strong>pod tlačítky</strong>, aby neutíkaly mimo horní okraj okna.</p>
+          <code>.nh-url-action · .nav-button--round</code>
+        </article>
+        <article className="nh-spec-item">
+          <strong>Pomocné ovládací prvky</strong>
+          <p>Pořadí: logo, Home, Workspace, Tools, SEO check, URL, stavový indikátor, čas/datum, Upozornění, Nastavení a Theme Switch. Ikonky používají AxoIcon. Theme Switch je jediný sdílený přepínač s fialovou kolejnicí a žlutým sluncem/měsícem.</p>
+          <code>NavigationStudio · ThemeSwitch · AxoIcon</code>
+        </article>
+        <article className="nh-spec-item">
+          <strong>Responzivita a vrstva menu</strong>
+          <p>Desktop má jednu řadu. Na menším viewportu se hlavička zalomí, ale ovládací prvky si ponechávají správnou výšku. Dropdowny a tooltipy nesmí být schované pod Dashboardem. Nesmí vznikat prázdná mezera omezením maximální šířky URL.</p>
+          <code>navigation-studio.css · dashboard-studio.css</code>
+        </article>
+        <article className="nh-spec-item">
+          <strong>Rozsah demonstrace</strong>
+          <p>Současná navigace je živý návrh komponent: dropdowny, kopírování a Theme Switch fungují. Vzorkové URL a indikátor jsou demonstrační. Pro budoucí produkční směrování bude Current vycházet z routeru a seznam URL z dat aplikace, nikoli z fiktivních karet prohlížeče.</p>
+          <code>HeaderPreview · NavigationButtonProps</code>
+        </article>
+      </div>
+      <div className="nh-spec-rule"><strong>Pravidlo údržby</strong><p>NavigationButton vychází z AxoButton, ale jeho stav se řídí samostatně. Pro nový nástroj nepřidávat lokální CSS kopie barev ani jiný button preset. Všechny barevné role, gradienty a efekty jsou evidované také ve Foundations → Colors.</p></div>
+    </section>
+    <footer className="page-footer">Axolotl · Navigation & Header · Schváleno · Design System</footer>
   </div>
 }
