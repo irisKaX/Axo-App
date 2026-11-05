@@ -6,8 +6,9 @@
 .db-page .nh-scroll{overflow:visible;padding:0}
 .db-page .nh-header{min-width:0;width:100%;gap:clamp(4px,.55vw,9px);padding:10px 12px;min-height:72px;background:transparent;border:0;box-shadow:none}
 .db-page .nh-nav-set{gap:clamp(3px,.4vw,7px)}
-.db-page .nh-pill.axo-button{padding:0 clamp(8px,.7vw,12px)}
-.db-page .nh-url-zone{min-width:140px;max-width:240px;gap:clamp(5px,.6vw,10px)}
+.db-page .nh-pill.axo-button{padding:2px}
+.db-page .nh-pill.axo-button .axo-button-reveal-inner{padding:0 clamp(8px,.7vw,12px)}
+.db-page .nh-url-zone{min-width:260px;max-width:440px;gap:clamp(5px,.6vw,10px)}
 .db-page .nh-url{padding-left:10px;gap:6px}
 .db-page .nh-clock{min-width:65px}
 .db-page .nh-popup-anchor{z-index:auto}
@@ -31,7 +32,8 @@
 @media(max-width:1230px){
   .db-page .nh-header{gap:5px;padding:9px}
   .db-page .nh-brand{width:30px;height:30px}
-  .db-page .nh-pill.axo-button{padding:0 8px;font-size:11px}
+  .db-page .nh-pill.axo-button{padding:2px;font-size:11px}
+  .db-page .nh-pill.axo-button .axo-button-reveal-inner{padding:0 8px}
   .db-page .nh-url{height:36px}
   .db-page .nh-clock{min-width:59px}
   .db-page .nh-clock strong{font-size:13px}
@@ -67,7 +69,7 @@
   .db-page .nh-header{gap:6px}
   .db-page .nh-nav-set{order:2;flex-basis:100%;justify-content:space-between}
   .db-page .nh-url-zone{order:3}
-  .db-page .nh-pill.axo-button{padding:0 8px}
+  .db-page .nh-pill.axo-button .axo-button-reveal-inner{padding:0 8px}
   .db-page .nh-clock{margin-left:auto}
   .db-page .nh-url{min-width:0}
 }
