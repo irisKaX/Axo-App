@@ -1,9 +1,10 @@
-/* Small uses one dashboard column; Large uses two. */
-.ws-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
-.ws-preview { min-width: 0; }
-.ws-preview--large { grid-column: span 2; }
-.ws-preview-label { margin: 0 0 16px; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .075em; line-height: 1.4; }
-@media (max-width: 1200px) {
-  .ws-grid { grid-template-columns: 1fr; }
-  .ws-preview--large { grid-column: auto; }
+/* Catalog specimens use the same dashboard-fit WidgetFoundation as the real app. */
+.ws-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.ws-preview{min-width:0}
+.ws-preview--large{grid-column:span 2}
+.ws-preview-label{margin:0 0 16px;color:var(--muted);font-size:12px;font-weight:600;letter-spacing:.075em;line-height:1.4}
+.ws-preview .widget-foundation{height:296px}
+@media(max-width:1050px){
+  .ws-grid{grid-template-columns:1fr}
+  .ws-preview--large{grid-column:auto}
 }
