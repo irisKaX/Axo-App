@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { brandColors, referencePalette, readableColorCombinations, colorRoles, purple, neutral, semantic, themes, contrastRatio, type ThemeName } from '../design-system/foundations/colors'
 import './color-studio.css'
+import { ColorInventory } from './ColorInventory'
 
 const essentials = [
   { name: 'Electric Purple', hex: brandColors.irisPurple, role: 'Primary UI' },
@@ -34,7 +35,7 @@ export default function ColorStudio({ theme, onThemeChange }: { theme: ThemeName
     <p className="eyebrow">FOUNDATIONS / COLORS V2</p>
     <h1>Electric <span className="heading-accent">Colors.</span></h1>
     <p className="intro">Z referenčních barev Figmy jsme sestavili jednotný vizuální jazyk: výrazná fialová, jasná modrá a opravdu neutrální tmavé pozadí. O2 má vlastní přesnou modrou.</p>
-    <div className="studio-status">FIGMA-BASED · V2 DESIGN CANDIDATE</div>
+    <div className="studio-status">COLORS V2 · APPROVED FOUNDATIONS + TOKEN REFERENCE</div>
 
     <section className="studio-panel">
       <div className="studio-section-head"><div className="studio-overline">01 · THE PALETTE</div><h2>Základní barvy a akcent</h2><p>Čtyři základní role doplňuje Sunshine Yellow pro slunce a měsíc v přepínači motivu. Žlutá není primární akční barvou.</p></div>
@@ -131,6 +132,8 @@ export default function ColorStudio({ theme, onThemeChange }: { theme: ThemeName
       <div className="studio-section-head"><div className="studio-overline">06 · HOW TO USE</div><h2>Jednoduchá pravidla</h2><p>Každá barva má svou práci. Maskot a jeho růžová/levandulová identita zůstávají samostatnou vrstvou, kterou sladíme později.</p></div>
       <div className="studio-roles">{colorRoles.map(role=><div key={role.id}><i style={{background:role.color}}/><strong>{role.name}</strong><p>{role.usage}</p></div>)}</div>
     </section>
+
+    <ColorInventory theme={theme}/>
 
     <details className="studio-technical">
       <summary><span><strong>Technické podklady a přesné barvy z Figmy</strong><small>Vzorník reference, technické škály, Light/Dark tokeny a kontrasty</small></span><span aria-hidden="true">⌄</span></summary>
