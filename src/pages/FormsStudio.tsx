@@ -11,6 +11,7 @@ const regions=[
   {value:'ostrava',label:'Ostrava'},
   {value:'other',label:'Jiné město',disabled:true},
 ]
+const spotlightPhrases = ['Jaký asset hledáte?','Zadejte hledanou frázi…','Najděte obrázek nebo dokument…','Vyhledejte asset na webu…'] as const
 const viewModes=[
   {value:'comfortable',label:'Comfortable',description:'Vzdušnější pracovní rozložení'},
   {value:'compact',label:'Compact',description:'Více informací na obrazovce'},
@@ -131,7 +132,7 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
       <div className="fs-spotlight-stage">
         <span className="fs-overline">LIVE SEARCH / ANIMATED BORDER</span>
         <SearchSpotlight value={spotlightValue} onChange={setSpotlightValue}
-          phrases={['Jaký asset hledáte?','Zadejte hledanou frázi…','Najděte obrázek nebo dokument…','Vyhledejte asset na webu…']}/>
+          phrases={spotlightPhrases}/>
         <p>Po kliknutí se animovaný text skryje a do skutečného inputu můžeš psát. Text se nikdy automaticky nevkládá do hodnoty hledání.</p>
       </div>
     </section>
