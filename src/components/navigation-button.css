@@ -56,3 +56,10 @@
 .nav-button[data-nav-state="expanded"].axo-button:hover:not(:disabled) {
   box-shadow: 0 0 0 2px var(--nh-surface, var(--surface));
 }
+
+/* Header icon tooltips open below the control, never above the viewport.
+ * Scoped to NavigationButton; canonical Buttons tooltip remains unchanged. */
+.nav-button--round.axo-button[data-tooltip]::after {
+  top: calc(100% + 10px);
+  bottom: auto;
+}
