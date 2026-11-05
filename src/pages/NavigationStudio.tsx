@@ -95,9 +95,9 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
 }
 
 const navigationStates = [
-  { state: 'inactive', label: 'Inactive', description: 'Neaktivní položka' },
-  { state: 'current', label: 'Current', description: 'Aktuální stránka' },
-  { state: 'expanded', label: 'Expanded', description: 'Otevřená nabídka' },
+  { state: 'inactive', label: 'Inactive', description: 'Fialové pozadí' },
+  { state: 'current', label: 'Current', description: 'Aktuální stránka · obrys' },
+  { state: 'expanded', label: 'Expanded', description: 'Otevřená nabídka · zvýraznění' },
 ] as const
 
 function NavigationButtonGallery({ mode }: { mode: ThemeName }) {
@@ -153,7 +153,7 @@ export default function NavigationStudio({theme,onThemeChange,onOpenDashboard}:{
       <HeaderPreview mode={theme} onModeChange={onThemeChange}/>
     </section>
     <section className="panel nh-panel">
-      <div className="nh-heading"><span>02 / NAVIGATION BUTTONS</span><h2>NavigationButton · stavy a tvary</h2><p>Samostatná komponenta. Current používá stejný fialový podklad jako přepínač motivu podle Light/Dark režimu, Inactive je neutrální, Expanded označuje pouze otevřené menu. Všechny varianty mají výšku 38 px.</p></div>
+      <div className="nh-heading"><span>02 / NAVIGATION BUTTONS</span><h2>NavigationButton · stavy a tvary</h2><p>Samostatná komponenta. Všechna navigační tlačítka včetně Upozornění a Nastavení používají stejné fialové pozadí jako přepínač motivu podle Light/Dark režimu. Current označuje aktuální stránku světlým vnitřním obrysem, Expanded označuje právě otevřené menu. Všechny varianty mají výšku 38 px.</p></div>
       <NavigationButtonGallery mode={theme}/>
     </section>
     <section className="panel nh-panel">
