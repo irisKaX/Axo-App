@@ -59,8 +59,6 @@
 .af-dropzone:is(:hover,.is-dragging){border-color:var(--brand);background:var(--brand-soft)}
 .af-dropzone strong{font-size:13px;color:var(--text)}
 .af-dropzone>span{font-size:11px;color:var(--muted)}
-.af-dropzone>button{min-height:38px;margin-top:5px;padding:0 19px;border-radius:var(--radius-pill);border:1px solid var(--brand);background:var(--surface);color:var(--text);font:inherit;font-size:12px;font-weight:650;cursor:pointer}
-.af-dropzone>button:hover{background:var(--subtle)}
 .af-file-list{list-style:none;margin:3px 0 0;padding:0;display:grid;gap:8px}
 .af-file-list li{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;padding:11px 13px;background:var(--subtle);border-radius:var(--radius-md);border:1px solid var(--border)}
 .af-file-list li>span{display:flex;align-items:center;gap:9px;min-width:0;font-size:12px}
