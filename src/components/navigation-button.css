@@ -31,6 +31,7 @@
   min-width: 0;
   padding: 0 14px;
   white-space: nowrap;
+  font-size: 11px;
 }
 /* Center the label and chevron as one balanced group. */
 .nav-button--label .axo-button-content {
