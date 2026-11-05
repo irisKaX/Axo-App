@@ -154,6 +154,10 @@ export interface FileDropzoneProps {
   files: File[]
   onChange: (files: File[]) => void
   size?: FileUploadSize
+  /** Contextual visual copy; default approved Workspace appearance remains unchanged. */
+  context?: 'workspace' | 'images'
+  /** For design catalog specimens: no file selection, drop or real uploading. */
+  previewOnly?: boolean
   accept?: string
   /** Maximum size of each file, in bytes. */
   maxSize?: number
@@ -209,6 +213,8 @@ export function FileDropzone({
   files,
   onChange,
   size = 'default',
+  context = 'workspace',
+  previewOnly = false,
   accept = '.pdf,.txt,.md,.png,.jpg,.jpeg,.webp',
   maxSize,
   maxBytes,
@@ -226,7 +232,7 @@ export function FileDropzone({
   const dragDepth = useRef(0)
   const [dragging, setDragging] = useState(false)
   const [validationError, setValidationError] = useState<string>()
-  const blocked = disabled || processing
+  const blocked = disabled || processing || previewOnly
   const activeDrop = !blocked && (dragging || dragOver)
   const message = validationError || error
   const state = processing ? 'processing' : activeDrop ? 'drag-over' : message ? 'error' : files.length ? 'ready' : 'empty'
@@ -280,7 +286,7 @@ export function FileDropzone({
   }
 
   return (
-    <div className={`afu-dropzone afu-dropzone--${size}`}
+    <div className={`afu-dropzone afu-dropzone--${size}${context==='images'?' afu-dropzone--images':''}`}
       style={styles} data-state={state} role="group" aria-label={label} aria-labelledby={label ? undefined : headingId}
       aria-describedby={describedBy} aria-busy={processing || undefined}
       onDragEnter={event => {
@@ -308,31 +314,32 @@ export function FileDropzone({
       }}
     >
       <div className="afu-copy">
-        <p className="afu-eyebrow">AXOLOTL / WORKSPACE</p>
+        <p className="afu-eyebrow">{context==='images'?'AXOLOTL / IMAGE CONVERTER':'AXOLOTL / WORKSPACE'}</p>
         <h3 className="afu-headline" id={headingId}>
-          Upload files.<span className="afu-headline-accent">Work smarter.</span>
+          {context==='images'?'Image Upload.':'Upload files.'}<span className="afu-headline-accent">{context==='images'?'Více obrázků najednou.':'Work smarter.'}</span>
         </h3>
-        <p className="afu-support">Všechny potřebné soubory na jednom místě.</p>
+        <p className="afu-support">{context==='images'?'Přidejte jeden nebo více obrázků pro konverzi.':'Všechny potřebné soubory na jednom místě.'}</p>
       </div>
 
-      <input ref={inputRef} type="file" hidden accept={accept} multiple={multiple}
+      {!previewOnly && <input ref={inputRef} type="file" hidden accept={accept} multiple={multiple}
         disabled={blocked} aria-label={label ?? 'Vybrat soubory'} aria-describedby={describedBy}
         aria-invalid={Boolean(message)} onChange={event => {
           addFiles(Array.from(event.currentTarget.files ?? []))
           // Selecting the same file again must also allow retrying a rejected file.
           event.currentTarget.value = ''
-        }} />
+        }} />}
 
       <div className="afu-target">
-        <AxoIcon name="folder" size={size === 'large' ? spacing[8] : spacing[6]} />
+        <AxoIcon name={context==='images'?'image':'folder'} size={size === 'large' ? spacing[8] : spacing[6]} />
         <div className="afu-target-copy">
-          <strong>{activeDrop ? 'Pusť soubory sem' : files.length ? 'Přidej další soubory' : 'Přetáhni soubory sem'}</strong>
-          <span id={hintId}>{acceptedTypes || 'Všechny typy souborů'} · max. {formatFileSize(fileLimit)} / soubor</span>
+          <strong>{context==='images' ? (activeDrop?'Pusťte obrázky sem':files.length?'Obrázky jsou připravené':'Přetáhněte sem obrázky') : (activeDrop ? 'Pusť soubory sem' : files.length ? 'Přidej další soubory' : 'Přetáhni soubory sem')}</strong>
+          <span id={hintId}>{context==='images'?'nebo je vyberte ze svého zařízení':(acceptedTypes || 'Všechny typy souborů')+' · max. '+formatFileSize(fileLimit)+' / soubor'}</span>
         </div>
-        <AxoButton ref={actionRef} variant="secondary" icon="plus" disabled={disabled} loading={processing}
+        <AxoButton ref={actionRef} variant="secondary" icon="plus" disabled={disabled||previewOnly} loading={processing}
           aria-describedby={describedBy} onClick={() => inputRef.current?.click()}>
-          {processing ? 'Zpracovávám…' : files.length ? 'Přidat soubory' : 'Vybrat soubory'}
+          {processing ? 'Zpracovávám…' : files.length ? 'Přidat soubory' : context==='images'?'Vybrat obrázky':'Vybrat soubory'}
         </AxoButton>
+        {context==='images'&&<span className="afu-image-formats">PNG · JPG · WebP · AVIF · BMP · GIF bez animace</span>}
       </div>
 
       {files.length > 0 && (
