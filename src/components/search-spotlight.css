@@ -31,7 +31,7 @@
 .sf-search:hover .sf-search-icon,.sf-search:focus-within .sf-search-icon{color:var(--brand)}
 .sf-search input{
   position:relative;z-index:1;display:block;flex:1;width:100%;min-width:0;
-  height:100%;border:0!important;outline:0!important;box-shadow:none!important;
+  height:100%;border:0;outline:0;box-shadow:none;
   border-radius:0;background:transparent;color:var(--text);font:inherit;
   font-size:14px;font-weight:500;padding:0;letter-spacing:0;
 }
