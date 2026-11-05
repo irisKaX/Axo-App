@@ -127,6 +127,7 @@
 .afu-file-info strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
 .afu-file-info span { color: var(--afu-muted); font-size: 12px; }
 .afu-error, .afu-status { display: flex; align-items: flex-start; gap: 8px; margin: 0; overflow-wrap: anywhere; }
+.afu-error { color: var(--error); }
 .afu-error > .axo-icon, .afu-status > .axo-icon { margin-top: 2px; }
 .afu-status:empty { display: none; }
 .afu-status.is-ready { color: var(--success); font-weight: 600; }
