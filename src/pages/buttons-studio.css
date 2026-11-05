@@ -32,3 +32,17 @@
   .bs-size-row{grid-template-columns:1fr}
   .bs-variant-actions{width:100%}
 }
+
+/* Widget launch action: one catalog specimen, not an extra button family. */
+.bs-widget-launch-demo{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.9fr);align-items:start;gap:24px}
+.bs-widget-launch-surface{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;color:var(--text)}
+.bs-widget-launch-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.bs-widget-launch-heading>div{display:grid;gap:6px}
+.bs-widget-launch-heading span{color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.08em}
+.bs-widget-launch-heading strong{font-size:18px;font-weight:600;line-height:1.3}
+.bs-widget-launch-empty{height:100px;margin-top:16px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--canvas)}
+.bs-widget-launch-description{display:grid;gap:8px;min-width:0}
+.bs-widget-launch-description strong{font-size:14px}
+.bs-widget-launch-description p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}
+.bs-widget-launch-description code{font-size:11px;line-height:1.5;overflow-wrap:anywhere;color:var(--accent)}
+@media(max-width:800px){.bs-widget-launch-demo{grid-template-columns:1fr}}
