@@ -90,7 +90,7 @@ export default function ButtonsStudio() {
           <strong>WidgetLaunchButton</strong>
           <p>Compact 32 × 32 px · kulatý tvar · ikona External Link · výchozí Surface a Iris Purple border · fialová výplň při hoveru · jemný náklon ikonky · tooltip směrem dolů.</p>
           <p>Pravý horní roh widgetu. Akce se v aplikaci propojí s konkrétním nástrojem přes jeho skutečné směrování. Nemění vzhled globálních Primary, Secondary ani navigačních tlačítek.</p>
-          <code>&lt;WidgetLaunchButton label="Otevřít QR generátor" onClick={handleOpenTool} /&gt;</code>
+          <code>{'<WidgetLaunchButton label="Otevřít QR generátor" onClick={handleOpenTool} />'}</code>
         </div>
       </div>
     </section>
