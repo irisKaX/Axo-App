@@ -43,8 +43,8 @@
 }
 /* Expanded is transient, distinct from the current page. */
 .nav-button[data-nav-state="expanded"].axo-button {
-  box-shadow: 0 0 0 2px var(--nh-focus, var(--focus-ring));
+  box-shadow: 0 0 0 2px var(--nh-subtle, var(--subtle));
 }
 .nav-button[data-nav-state="expanded"].axo-button:hover:not(:disabled) {
-  box-shadow: 0 0 0 2px var(--nh-focus, var(--focus-ring));
+  box-shadow: 0 0 0 2px var(--nh-subtle, var(--subtle));
 }
