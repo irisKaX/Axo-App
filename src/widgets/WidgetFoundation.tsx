@@ -1,4 +1,5 @@
 import { useId, type CSSProperties, type ReactNode } from 'react'
+import { WidgetLaunchButton } from '../components/WidgetLaunchButton'
 import { themes } from '../design-system/foundations/colors'
 import { density, spacing } from '../design-system/foundations/spacing'
 import { typography } from '../design-system/foundations/typography'
@@ -13,6 +14,9 @@ export interface WidgetFoundationProps {
   accentTitle?: string
   description?: string
   children?: ReactNode
+  /** Called when the user requests the full tool; parent owns routing. */
+  onOpenTool?: () => void
+  launchLabel?: string
   /** Fit the full dashboard grid cell instead of using catalog content minimums. */
   dashboard?: boolean
 }
@@ -30,6 +34,8 @@ export function WidgetFoundation({
   accentTitle = 'Build better.',
   description = 'Základní kostra widgetu pro budoucí obsah.',
   children,
+  onOpenTool,
+  launchLabel,
   dashboard = false,
 }: WidgetFoundationProps) {
   const headingId = useId()
@@ -61,7 +67,10 @@ export function WidgetFoundation({
   return (
     <article className={'widget-foundation'+(dashboard?' wf-dashboard':'')} data-size={size} style={styles} aria-labelledby={headingId}>
       <header className="wf-copy">
-        <p className="wf-eyebrow">{eyebrow}</p>
+        <div className="wf-copy-top">
+          <p className="wf-eyebrow">{eyebrow}</p>
+          <WidgetLaunchButton label={launchLabel ?? `Otevřít nástroj: ${title}`} onClick={() => onOpenTool?.()} disabled={!onOpenTool}/>
+        </div>
         <h3 className="wf-heading" id={headingId}>
           {title}<span className="wf-heading-accent">{accentTitle}</span>
         </h3>
