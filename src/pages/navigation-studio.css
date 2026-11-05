@@ -8,15 +8,15 @@
 .nh-stage-label{font-size:10px;font-weight:750;letter-spacing:.12em;color:var(--nh-muted);display:flex;justify-content:space-between;gap:10px;margin-bottom:14px}.nh-stage-label span{letter-spacing:0;font-weight:500}
 .nh-scroll{overflow-x:auto;overflow-y:visible;padding-bottom:6px}
 .nh-header{display:flex;align-items:center;gap:9px;width:100%;min-width:1120px;padding:12px;background:var(--nh-surface);border:1px solid var(--nh-border);border-radius:var(--radius-lg);min-height:70px}
-.nh-header button{font:inherit;cursor:pointer}.nh-header svg{width:17px;height:17px;flex-shrink:0}
+.nh-header button{cursor:pointer}.nh-header svg{flex-shrink:0}
 .nh-brand{display:grid;place-items:center;width:35px;height:35px;flex:none;color:#A14CFF;border:1px solid #8101EC;border-radius:50%;font-size:18px;font-weight:800}
-.nh-home{display:grid;place-items:center;width:40px;height:40px;flex:none;color:#fff;background:#8101EC;border:0;border-radius:50%}
+.nh-home.axo-button{flex:none}
 .nh-nav-set{display:flex;align-items:center;gap:7px;flex:none}
-.nh-pill{display:flex;align-items:center;gap:8px;height:40px;padding:0 11px;border:1px solid var(--nh-border);background:var(--nh-subtle);color:var(--nh-text);border-radius:var(--radius-pill);white-space:nowrap;font-size:11px!important;font-weight:650!important}
-.nh-pill svg:last-child{height:12px;width:12px;color:var(--nh-muted)}
-.nh-pill:hover,.nh-pill.is-active{border-color:var(--brand)}
+.nh-pill.axo-button{width:auto;min-width:0;padding:0 12px;font-size:12px;white-space:nowrap}
+.nh-pill .axo-button-content-slot--end svg{width:12px;height:12px}
+.nh-pill.is-active .axo-button-reveal-inner{background:var(--subtle)}
 .nh-popup-anchor{position:relative;flex:none}
-.nh-url-zone{display:flex;align-items:center;gap:10px;flex:1;min-width:170px}
+.nh-url-zone{display:flex;align-items:center;gap:10px;flex:0 1 290px;width:290px;min-width:160px;max-width:290px;margin-left:auto}
 .nh-url{height:40px;display:flex;align-items:center;gap:8px;min-width:0;width:100%;border:2px solid #8101EC;border-radius:var(--radius-pill);padding:0 7px 0 12px;background:var(--nh-subtle)}
 .nh-url>svg{color:var(--brand)}
 .nh-url-text{font-size:11px;font-weight:550;min-width:0;flex:1;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
@@ -26,8 +26,7 @@
 .nh-indicator{width:9px;height:9px;border-radius:50%;background:#49DEAA;flex:none}
 .nh-clock{display:flex;flex-direction:column;text-align:center;min-width:76px;white-space:nowrap}
 .nh-clock strong{font-size:15px;line-height:1.2}.nh-clock small{font-size:9px;color:var(--nh-muted);margin-top:3px}
-.nh-circle{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--nh-border);background:var(--nh-subtle);color:var(--nh-text)}
-.nh-circle:hover{border-color:var(--brand)}
+.nh-circle.axo-button{flex:none}
 .nh-theme{display:flex;align-items:center;flex:none}.nh-theme .axo-theme-switch-label{display:none}
 .nh-theme .axo-theme-switch-track{width:70px;height:38px}.nh-theme .axo-theme-switch-orb{width:26px;height:26px}
 .nh-theme .axo-theme-switch-orb{transform:translateX(30px)}
