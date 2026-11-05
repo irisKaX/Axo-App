@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch, type FormAccent } from '../components/FormControls'
 import { SearchSpotlight } from '../components/SearchSpotlight'
+import { MultiSelect, DatePickerField, NumberInput, FileDropzone } from '../components/AdvancedFormControls'
 import { ThemeSwitch } from '../components/ThemeSwitch'
 import { type ThemeName } from '../design-system/foundations/colors'
 import './forms-studio.css'
@@ -10,6 +11,14 @@ const regions=[
   {value:'brno',label:'Brno'},
   {value:'ostrava',label:'Ostrava'},
   {value:'other',label:'Jiné město',disabled:true},
+]
+const tagOptions=[
+  {value:'seo',label:'SEO'},
+  {value:'oneplay',label:'Oneplay'},
+  {value:'media',label:'Média'},
+  {value:'metadata',label:'Metadata'},
+  {value:'kontrola',label:'Kontrola URL'},
+  {value:'archiv',label:'Archiv',disabled:true},
 ]
 const spotlightPhrases = ['Jaký asset hledáte?','Zadejte hledanou frázi…','Najděte obrázek nebo dokument…','Vyhledejte asset na webu…'] as const
 const viewModes=[
@@ -58,6 +67,10 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
   const [radioAccent,setRadioAccent]=useState<FormAccent>('brand')
   const [switchAccent,setSwitchAccent]=useState<FormAccent>('brand')
   const [spotlightValue,setSpotlightValue]=useState('')
+  const [selectedTags,setSelectedTags]=useState<string[]>(['seo','oneplay'])
+  const [dueDate,setDueDate]=useState('')
+  const [budget,setBudget]=useState<number|null>(199)
+  const [files,setFiles]=useState<File[]>([])
   const validUrl=!url.trim() || isValidHttpUrl(url)
   return <div className="fs-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / INPUTS & FORMS</p>
@@ -134,6 +147,38 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
         <SearchSpotlight value={spotlightValue} onChange={setSpotlightValue}
           phrases={spotlightPhrases}/>
         <p>Po kliknutí se animovaný text skryje a do skutečného inputu můžeš psát. Text se nikdy automaticky nevkládá do hodnoty hledání.</p>
+      </div>
+    </section>
+
+    <section className="panel fs-panel">
+      <div className="fs-section-head"><span>08 / MULTI-SELECT</span><h2>Vícenásobný výběr</h2><p>Vyber více kategorií, přidávej štítky, odeber je křížkem nebo klávesou Backspace. Vyhledávání filtruje zbývající možnosti.</p></div>
+      <div className="fs-advanced-grid">
+        <MultiSelect label="Kategorie projektu" options={tagOptions} value={selectedTags} onChange={setSelectedTags}/>
+        <div className="fs-advanced-note"><strong>Aktuálně vybráno</strong><p>{selectedTags.length?selectedTags.map(value=>tagOptions.find(option=>option.value===value)?.label).join(' · '):'Žádné kategorie'}</p></div>
+      </div>
+    </section>
+
+    <section className="panel fs-panel">
+      <div className="fs-section-head"><span>09 / DATE PICKER</span><h2>Datum a termíny</h2><p>Vlastní kalendář s českými názvy měsíců, výběrem dne a navigací mezi měsíci. Pro události, termíny úkolů a expirace.</p></div>
+      <div className="fs-advanced-grid">
+        <DatePickerField label="Termín dokončení" value={dueDate} onChange={setDueDate}/>
+        <div className="fs-advanced-note"><strong>Vybrané datum</strong><p>{dueDate?new Date(dueDate+'T12:00:00').toLocaleDateString('cs-CZ',{day:'numeric',month:'long',year:'numeric'}):'Zatím není stanovené'}</p></div>
+      </div>
+    </section>
+
+    <section className="panel fs-panel">
+      <div className="fs-section-head"><span>10 / NUMBER INPUT</span><h2>Číselné hodnoty</h2><p>Číselné pole s minimem, maximem, krokem a označením jednotky. Hodnotu lze psát nebo měnit tlačítky plus a minus.</p></div>
+      <div className="fs-advanced-grid">
+        <NumberInput label="Cena služby" value={budget} onChange={setBudget} min={0} max={10000} step={10} unit="Kč"/>
+        <div className="fs-advanced-note"><strong>Aktuální částka</strong><p>{budget===null?'Není zadána':new Intl.NumberFormat('cs-CZ',{style:'currency',currency:'CZK',maximumFractionDigits:2}).format(budget)}</p></div>
+      </div>
+    </section>
+
+    <section className="panel fs-panel">
+      <div className="fs-section-head"><span>11 / FILE UPLOAD</span><h2>Nahrávání souborů</h2><p>Drag & drop, výběr ze zařízení, kontrola typu a velikosti souboru a správa přiložených položek.</p></div>
+      <div className="fs-advanced-grid">
+        <FileDropzone label="Přílohy projektu" files={files} onChange={setFiles} accept=".png,.jpg,.jpeg,.webp,.pdf,.csv,.txt" maxBytes={10*1024*1024}/>
+        <div className="fs-advanced-note"><strong>Výběr souborů</strong><p>{files.length?files.length+' souborů připravených k použití':'Žádné soubory'}</p><p>Ukázka uchovává soubory pouze v paměti prohlížeče. Nic neposílá na server.</p></div>
       </div>
     </section>
 
