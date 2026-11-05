@@ -39,7 +39,7 @@ function LayoutPreview({viewport,theme,headerOnly=false}:{viewport:Viewport;them
       <button type="button" className="ls-menu-toggle" aria-expanded={menuOpen} aria-label={menuOpen?'Zavřít nabídku':'Otevřít nabídku'}
         onClick={()=>setMenuOpen(v=>!v)}>{menuOpen?'×':'☰'}</button>
     </div>
-    {viewport==='mobile' && menuOpen && <div className="ls-mobile-sheet">
+    {viewport!=='desktop' && menuOpen && <div className="ls-mobile-sheet">
       <strong>Navigace</strong>
       <span>Workspace <b>⌄</b></span><span>Tools <b>⌄</b></span><span>SEO check <b>⌄</b></span>
       <strong>Pracovní URL</strong>
@@ -77,7 +77,7 @@ export default function LayoutsStudio({theme}:{theme:ThemeName}){
         <Rule label="Canvas" value="themes[theme].canvas" description="V Dark Mode je hlavní plocha #090B10. Žádný celoplošný gradient."/>
         <Rule label="Header" value="HeaderPreview / NavigationButton" description="Na Dashboardu průhledný, bez vlastního borderu a stínu. Výchozí ovládací prvky mají výšku 38 px."/>
         <Rule label="Obsah" value="padding 16px · gap 16px" description="Dashboard používá 16px vnější odsazení a oddělení headeru, gridu a footeru. Pod 800 px 12 px."/>
-        <Rule label="Responzivita" value="800px / 480px" description="Do 800 px používá aplikace jednu kompaktní lištu: logo, Home, název stránky, Upozornění a menu. Workspace, Tools, SEO check, pracovní URL, Nastavení a Theme Switch jsou v rozbalovacím panelu. Desktopový header se nezalamuje do několika řádků."/>
+        <Rule label="Responzivita" value="800px / 480px" description="Do 1050 px používá aplikace jednu kompaktní lištu: logo, Home, název stránky, Upozornění a menu. Workspace, Tools, SEO check, pracovní URL, Nastavení a Theme Switch jsou v rozbalovacím panelu. Desktopový header se nezalamuje do několika řádků."/>
       </div>
     </section>
 
