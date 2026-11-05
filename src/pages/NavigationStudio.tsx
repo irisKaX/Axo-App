@@ -94,6 +94,52 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
   </div>
 }
 
+const navigationStates = [
+  { state: 'inactive', label: 'Inactive', description: 'Neaktivní položka' },
+  { state: 'current', label: 'Current', description: 'Aktuální stránka' },
+  { state: 'expanded', label: 'Expanded', description: 'Otevřená nabídka' },
+] as const
+
+function NavigationButtonGallery({ mode }: { mode: ThemeName }) {
+  const [sample, setSample] = useState('')
+  const t = themes[mode]
+  const style = {
+    '--nh-canvas': t.canvas,
+    '--nh-surface': t.surface,
+    '--nh-subtle': t.subtle,
+    '--nh-border': t.border,
+    '--nh-text': t.text,
+    '--nh-focus': t.focusRing,
+  } as CSSProperties
+  return <div className={'nh-stage nh-gallery-stage is-' + mode} style={style}>
+    <div className="nh-gallery-grid">
+      <div className="nh-gallery-row">
+        <p className="nh-gallery-row-heading">01 / KULATÁ NAVIGACE <span>38 × 38 px</span></p>
+        {navigationStates.map(({ state, label, description }) =>
+          <div className="nh-gallery-specimen" key={state}>
+            <NavigationButton shape="round" state={state} icon="home" aria-label={'Home · ' + label}
+              onClick={() => setSample('Kulaté tlačítko · ' + label)} />
+            <div><strong>{label}</strong><small>{description}</small></div>
+          </div>
+        )}
+      </div>
+      <div className="nh-gallery-row">
+        <p className="nh-gallery-row-heading">02 / TEXTOVÁ NAVIGACE <span>výška 38 px</span></p>
+        {navigationStates.map(({ state, label, description }) =>
+          <div className="nh-gallery-specimen" key={state}>
+            <NavigationButton shape="label" state={state} icon="workspace" iconRight="chevron-down"
+              aria-label={'Můj workspace · ' + label}
+              aria-expanded={state === 'expanded'}
+              onClick={() => setSample('Textové tlačítko · ' + label)}>Můj workspace</NavigationButton>
+            <div><strong>{label}</strong><small>{description}</small></div>
+          </div>
+        )}
+      </div>
+    </div>
+    <p className="nh-gallery-feedback" role="status">{sample ? 'Vybraná ukázka: ' + sample : 'Kliknutím na ukázku označíš stav k porovnání.'}</p>
+  </div>
+}
+
 export default function NavigationStudio({theme,onThemeChange,onOpenDashboard}:{theme:ThemeName;onThemeChange:(mode:ThemeName)=>void;onOpenDashboard:()=>void}){
   return <div className="nh-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / NAVIGATION & HEADER</p>
@@ -106,7 +152,11 @@ export default function NavigationStudio({theme,onThemeChange,onOpenDashboard}:{
       <HeaderPreview mode={theme} onModeChange={onThemeChange}/>
     </section>
     <section className="panel nh-panel">
-      <div className="nh-heading"><span>02 / ANATOMY</span><h2>Komponenty a chování</h2><p>Dropdowny vycházejí ze způsobu ovládání selectu v Inputs & Forms. Jde o koncepční navigační menu, nikoliv další samostatný select.</p></div>
+      <div className="nh-heading"><span>02 / NAVIGATION BUTTONS</span><h2>NavigationButton · stavy a tvary</h2><p>Samostatná komponenta. Current používá stejný fialový podklad jako přepínač motivu podle Light/Dark režimu, Inactive je neutrální, Expanded označuje pouze otevřené menu. Všechny varianty mají výšku 38 px.</p></div>
+      <NavigationButtonGallery mode={theme}/>
+    </section>
+    <section className="panel nh-panel">
+      <div className="nh-heading"><span>03 / ANATOMY</span><h2>Komponenty a chování</h2><p>Dropdowny vycházejí ze způsobu ovládání selectu v Inputs & Forms. Jde o koncepční navigační menu, nikoliv další samostatný select.</p></div>
       <div className="nh-anatomy">
         <div><strong>Brand & navigace</strong><p>Logo · Home · Můj workspace · Média · Kontrola</p></div>
         <div><strong>URL Display</strong><p>Read-only URL · Copy · přepínač otevřených karet · stavový indikátor</p></div>
