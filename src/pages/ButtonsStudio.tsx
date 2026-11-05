@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { AxoButton, buttonVariants, type ButtonVariant, type ButtonIconName } from '../components/Buttons'
 import { controls } from '../design-system/foundations/spacing'
 import './buttons-studio.css'
+import { WidgetLaunchButton } from '../components/WidgetLaunchButton'
 
 const titles: Record<ButtonVariant,string> = {
   primary:'Primary',
@@ -65,6 +66,31 @@ export default function ButtonsStudio() {
             <AxoButton size="default" variant="secondary" icon="plus" iconOnly aria-label="Sekundární akce" onClick={()=>setNote('Kulaté Secondary')}/>
             <span>Secondary</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="panel bs-panel">
+      <div className="bs-section-heading">
+        <div>
+          <span>02 / WIDGET ACTION</span>
+          <h2>Widget → Tool</h2>
+          <p>Jedno tlačítko určené k otevření plného nástroje z widgetu. Zatím pouze schvalujeme komponentu, do widgetů ji vložíme až poté.</p>
+        </div>
+      </div>
+      <div className="bs-widget-launch-demo">
+        <div className="bs-widget-launch-surface">
+          <div className="bs-widget-launch-heading">
+            <div><span>AXOLOTL / WIDGET</span><strong>QR tools.</strong></div>
+            <WidgetLaunchButton label="Otevřít QR generátor" onClick={()=>setNote('Widget → Tool · ukázka tlačítka. Přechod do nástroje bude zapojen po schválení.')} />
+          </div>
+          <div className="bs-widget-launch-empty" aria-hidden="true"/>
+        </div>
+        <div className="bs-widget-launch-description">
+          <strong>WidgetLaunchButton</strong>
+          <p>Compact 32 × 32 px · kulatý tvar · ikona External Link · výchozí Surface a Iris Purple border · fialová výplň při hoveru · jemný náklon ikonky · tooltip směrem dolů.</p>
+          <p>Pravý horní roh widgetu. Akce se v aplikaci propojí s konkrétním nástrojem přes jeho skutečné směrování. Nemění vzhled globálních Primary, Secondary ani navigačních tlačítek.</p>
+          <code>&lt;WidgetLaunchButton label="Otevřít QR generátor" onClick={handleOpenTool} /&gt;</code>
         </div>
       </div>
     </section>
