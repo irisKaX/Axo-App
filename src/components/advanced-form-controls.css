@@ -128,6 +128,7 @@
 .afu-error, .afu-status { display: flex; align-items: flex-start; gap: 8px; margin: 0; overflow-wrap: anywhere; }
 .afu-error > .axo-icon, .afu-status > .axo-icon { margin-top: 2px; }
 .afu-status:empty { display: none; }
+.afu-status.is-ready { color: var(--success); font-weight: 600; }
 
 @media (max-width: 560px) {
   .afu-dropzone { padding: 16px; }
