@@ -63,7 +63,7 @@ function Rule({label,value,description}:{label:string;value:string;description:s
   return <div className="ls-rule"><strong>{label}</strong><code>{value}</code><p>{description}</p></div>
 }
 
-export default function LayoutsStudio({theme}:{theme:ThemeName}){
+export default function LayoutsStudio({theme,onThemeChange}:{theme:ThemeName;onThemeChange:(theme:ThemeName)=>void}){
   const [viewport,setViewport]=useState<Viewport>('desktop')
   const [category,setCategory]=useState<'common'|'image-converter'>('image-converter')
   const [fullPreview,setFullPreview]=useState(false)
@@ -126,11 +126,11 @@ export default function LayoutsStudio({theme}:{theme:ThemeName}){
         <button type="button" onClick={()=>setFullPreview(true)}>Otevřít v celé obrazovce ↗</button>
       </div>
       <div className="ls-tool-preview">
-        <ImageConverterLayout theme={theme} onThemeChange={()=>{}}/>
+        <ImageConverterLayout theme={theme} onThemeChange={onThemeChange}/>
       </div>
       <div className="ls-tool-footnote"><strong>První z nástrojových layoutů</strong><p>QR generátor, Metadata Check, Find Phrase a další zde dostanou vlastní podsekce, až začneme navrhovat jejich rozložení. Budou skládat existující prvky design systému, nikoli vytvářet další kopie komponent.</p></div>
     </section>}
-    {fullPreview && <ImageConverterLayout theme={theme} onThemeChange={()=>{}} fullScreen onClose={()=>setFullPreview(false)}/>}
+    {fullPreview && <ImageConverterLayout theme={theme} onThemeChange={onThemeChange} fullScreen onClose={()=>setFullPreview(false)}/>}
     <footer className="page-footer">Axolotl · Layouts · {category==='common'?'App Shell & Dashboard Grid':'Tools / Image Converter'} · {layout.gaps.default}px grid / {spacing[3]}px compact</footer>
   </div>
 }
