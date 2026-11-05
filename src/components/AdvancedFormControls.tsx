@@ -144,7 +144,7 @@ export function NumberInput({label,value,onChange,min=0,max=Infinity,step=1,unit
   </div>
 }
 
-export type FileDropzoneVariant = 'iris' | 'cyan' | 'pink' | 'lime'
+export type FileDropzoneVariant = 'iris' | 'cyan' | 'pink' | 'lime' | 'midnight'
 export interface FileDropzoneProps {
   label:string
   files:File[]
