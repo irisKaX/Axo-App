@@ -72,3 +72,18 @@
 .ls-planned p{font-size:11px;line-height:1.7;color:var(--muted);margin:8px 0 0}
 @media(max-width:900px){.ls-rules,.ls-planned{grid-template-columns:1fr}}
 @media(max-width:680px){.ls-canvas--desktop .ls-shell-header{flex-wrap:wrap}.ls-canvas--desktop .ls-shell-links{flex-wrap:wrap}.ls-canvas--desktop .ls-url{flex-basis:100%}.ls-canvas--desktop .ls-widget-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none}.ls-canvas--desktop .ls-cell--large{grid-column:span 2}}
+
+/* Two-level catalog ownership: shared shell rules vs actual tool pages. */
+.ls-category-nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 26px}
+.ls-category-nav button{min-height:38px;padding:8px 16px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font:inherit;font-size:12px;font-weight:650;border-radius:var(--radius-pill);cursor:pointer}
+.ls-category-nav button.is-selected{border-color:var(--brand);color:var(--text);background:var(--subtle)}
+.ls-category-nav button:focus-visible,.ls-tool-actions button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
+.ls-tool-section{margin-bottom:24px}
+.ls-tool-section>.ls-heading{margin-bottom:16px}
+.ls-tool-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}
+.ls-tool-actions>span{color:var(--muted);font-size:10px;letter-spacing:.06em;font-weight:650}
+.ls-tool-actions button{background:var(--brand-gradient);border:0;border-radius:var(--radius-pill);min-height:38px;padding:9px 17px;color:#fff;font:inherit;font-size:12px;font-weight:650;cursor:pointer}
+.ls-tool-preview{width:100%;min-width:0;background:var(--canvas);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden}
+.ls-tool-footnote{margin-top:16px;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-lg);padding:18px}
+.ls-tool-footnote strong{font-size:13px}
+.ls-tool-footnote p{max-width:780px;font-size:11px;line-height:1.7;margin:7px 0 0;color:var(--muted)}
