@@ -19,7 +19,7 @@ const cells = [
 ] as const
 
 function LayoutPreview({viewport,theme,headerOnly=false}:{viewport:Viewport;theme:ThemeName;headerOnly?:boolean}){
-  return <div className={'ls-canvas ls-canvas--'+viewport} style={{
+  return <div className={'ls-canvas ls-canvas--'+viewport} data-theme={theme} style={{
     '--ls-canvas':themes[theme].canvas,
     '--ls-surface':themes[theme].surface,
     '--ls-border':themes[theme].border,
