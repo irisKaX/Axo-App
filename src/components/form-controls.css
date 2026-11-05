@@ -10,7 +10,7 @@
   padding:14px 20px;box-shadow:none;outline:none;
   transition:background-color .16s ease;
 }
-.fc-field input:not([type="checkbox"]):not([type="radio"]),.fc-field .fc-select-trigger{height:var(--fc-height);padding-block:0}
+.fc-field input:not([type="checkbox"]):not([type="radio"]),.fc-field .fc-select-trigger{height:var(--fc-height);padding-block:0;border-radius:var(--radius-pill)}
 .fc-field textarea{min-height:144px;resize:vertical}
 .fc-field input::placeholder,.fc-field textarea::placeholder,.fc-select-placeholder{color:var(--muted);opacity:1}
 .fc-field :is(input,textarea,.fc-select-trigger):hover:not(:disabled){border-color:var(--brand)}
@@ -40,6 +40,12 @@
 .fc-select-option.is-selected:hover:not(:disabled){background:var(--brand-soft)}
 .fc-select-option:disabled{color:var(--muted);cursor:not-allowed}
 /* Native controls remain focusable; labels supply a >=44px interaction target. */
+/* One semantic color axis for checkbox, radio and toggle. */
+.fc-accent-brand{--fc-accent:var(--brand)}
+.fc-accent-info{--fc-accent:var(--info)}
+.fc-accent-success{--fc-accent:var(--success)}
+.fc-accent-warning{--fc-accent:var(--warning)}
+.fc-accent-danger{--fc-accent:var(--error)}
 .fc-choice{position:relative;display:flex;align-items:flex-start;gap:14px;min-width:0;min-height:44px;padding-block:10px;cursor:pointer}
 .fc-choice input,.fc-switch-control input{position:absolute;width:1px;height:1px;opacity:0}
 .fc-choice-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
@@ -48,15 +54,16 @@
 .fc-choice.is-disabled,.fc-switch-row.is-disabled{cursor:not-allowed}
 .is-disabled .fc-choice-copy strong{color:var(--muted)}
 .fc-checkbox-mark,.fc-radio-mark{display:grid;place-items:center;flex:none;width:24px;height:24px;border:1.5px solid var(--control-border);background:var(--surface);transition:background .17s,border-color .17s,box-shadow .17s}
-.fc-checkbox-mark{border-radius:var(--radius-xs)}
+.fc-checkbox-mark{border-radius:var(--radius-xs);transform:scale(1);transition:background .22s ease,border-color .22s ease,box-shadow .25s ease,transform .25s cubic-bezier(.2,.8,.2,1)}
 .fc-checkbox-mark svg{width:16px;height:16px;color:#FFFFFF;opacity:0;transform:scale(.7);transition:opacity .17s,transform .17s}
-.fc-checkbox input:checked+.fc-checkbox-mark{background:var(--brand);border-color:var(--brand)}
+.fc-checkbox input:checked+.fc-checkbox-mark{background:var(--fc-accent);border-color:var(--fc-accent)}
 .fc-checkbox input:checked+.fc-checkbox-mark svg{opacity:1;transform:scale(1)}
 .fc-radio-mark{border-radius:var(--radius-round)}
 .fc-radio-mark::after{content:"";width:10px;height:10px;border-radius:var(--radius-round);background:#FFFFFF;transform:scale(0);transition:transform .18s}
-.fc-radio input:checked+.fc-radio-mark{background:var(--brand);border-color:var(--brand)}
+.fc-radio input:checked+.fc-radio-mark{background:var(--fc-accent);border-color:var(--fc-accent)}
 .fc-radio input:checked+.fc-radio-mark::after{transform:scale(1)}
-.fc-choice:hover:not(.is-disabled) :is(.fc-checkbox-mark,.fc-radio-mark){border-color:var(--brand)}
+.fc-choice:hover:not(.is-disabled) :is(.fc-checkbox-mark,.fc-radio-mark){border-color:var(--fc-accent)}
+.fc-checkbox:hover:not(.is-disabled) .fc-checkbox-mark{transform:scale(1.07);box-shadow:0 0 0 4px color-mix(in srgb,var(--fc-accent) 16%,transparent)}
 .fc-choice input:focus-visible+:is(.fc-checkbox-mark,.fc-radio-mark){outline:2px solid var(--focus-ring);outline-offset:3px}
 .fc-choice input:disabled+:is(.fc-checkbox-mark,.fc-radio-mark){border-color:var(--border);background:var(--subtle)}
 .fc-choice input:disabled:checked+:is(.fc-checkbox-mark,.fc-radio-mark){border-color:var(--control-border);background:var(--control-border)}
@@ -68,9 +75,9 @@
 .fc-switch-control{display:block;flex:none;position:relative}
 .fc-switch-track{display:flex;align-items:center;box-sizing:border-box;width:52px;height:30px;border-radius:var(--radius-pill);border:1.5px solid var(--control-border);background:var(--subtle);padding:3.5px;transition:background .2s,border-color .2s}
 .fc-switch-thumb{display:block;width:20px;height:20px;border-radius:var(--radius-round);background:#FFFFFF;box-shadow:0 1px 4px #00000026;transition:transform .2s}
-.fc-switch-control input:checked+.fc-switch-track{background:var(--brand);border-color:var(--brand)}
+.fc-switch-control input:checked+.fc-switch-track{background:var(--fc-accent);border-color:var(--fc-accent)}
 .fc-switch-control input:checked+.fc-switch-track .fc-switch-thumb{transform:translateX(22px)}
-.fc-switch-row:hover:not(.is-disabled) .fc-switch-track{border-color:var(--brand)}
+.fc-switch-row:hover:not(.is-disabled) .fc-switch-track{border-color:var(--fc-accent)}
 .fc-switch-control input:focus-visible+.fc-switch-track{outline:2px solid var(--focus-ring);outline-offset:3px}
 .fc-switch-control input:disabled+.fc-switch-track{border-color:var(--border);opacity:.65}
 /* System contrast modes suppress shadows; replace rather than stack indicators. */
