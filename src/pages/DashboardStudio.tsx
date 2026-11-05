@@ -5,16 +5,15 @@ import { type ThemeName } from '../design-system/foundations/colors'
 import './dashboard-studio.css'
 
 type Props = {theme:ThemeName;onThemeChange:(theme:ThemeName)=>void;onBack:()=>void}
-type WidgetSpec = {id:string;size:WidgetSize;title:string;accent:string;description:string}
+type WidgetSpec = {id:string;size:WidgetSize;toolCode:string;title:string;tagline:string;description:string}
 const dashboardWidgets:WidgetSpec[] = [
-  {id:'workspace',size:'large',title:'My workspace.',accent:'Stay organized.',description:'Prostor pro budoucí obsah widgetu.'},
-  {id:'qr',size:'small',title:'QR tools.',accent:'Create faster.',description:'Prostor pro budoucí obsah widgetu.'},
-  {id:'search',size:'small',title:'Find Phrase.',accent:'Search smarter.',description:'Prostor pro budoucí obsah widgetu.'},
-  {id:'media',size:'small',title:'Media tools.',accent:'Work better.',description:'Prostor pro budoucí obsah widgetu.'},
-  {id:'capture',size:'small',title:'Screenshot.',accent:'Capture more.',description:'Prostor pro budoucí obsah widgetu.'},
-  {id:'notebook',size:'large',title:'Notebook.',accent:'Think clearly.',description:'Prostor pro budoucí obsah widgetu.'},
+  {id:'workspace',size:'large',toolCode:'WORKSPACE',title:'Workspace.',tagline:'Pracovní prostor.',description:'Spravujte poznámky, projekty a úkoly na jednom místě.'},
+  {id:'qr',size:'small',toolCode:'QR',title:'QR generátor.',tagline:'QR kódy snadno.',description:'Vytvářejte QR kódy pro webové adresy.'},
+  {id:'search',size:'small',toolCode:'FIND PHRASE',title:'Find Phrase.',tagline:'Hledání na webu.',description:'Vyhledejte zvolenou frázi v obsahu webové stránky.'},
+  {id:'media',size:'small',toolCode:'MEDIA',title:'Media Tools.',tagline:'Práce s obrázky.',description:'Stahujte a převádějte obrázky z webových stránek.'},
+  {id:'capture',size:'small',toolCode:'SCREENSHOT',title:'Screenshot.',tagline:'Snímek stránky.',description:'Pořiďte snímek vybrané webové stránky.'},
+  {id:'notebook',size:'large',toolCode:'NOTEBOOK',title:'Notebook.',tagline:'Poznámky a úkoly.',description:'Zapisujte poznámky, úkoly a důležité termíny.'},
 ]
-
 export default function DashboardStudio({theme,onThemeChange,onBack}:Props){
   const [notice, setNotice] = useState('')
   return <div className="db-page">
@@ -23,8 +22,8 @@ export default function DashboardStudio({theme,onThemeChange,onBack}:Props){
     </div>
     <main className="db-grid" aria-label="Dashboard · skutečné rozložení widgetů">
       {dashboardWidgets.map(widget=><div className={'db-widget-cell db-widget-cell--'+widget.size} key={widget.id}>
-        <WidgetFoundation dashboard size={widget.size} eyebrow="AXOLOTL / WIDGET"
-          title={widget.title} accentTitle={widget.accent} description={widget.description}
+        <WidgetFoundation dashboard size={widget.size} toolCode={widget.toolCode}
+          title={widget.title} tagline={widget.tagline} description={widget.description}
           launchLabel={'Otevřít nástroj: '+widget.title} onOpenTool={()=>setNotice('Nástroj '+widget.title+' zatím není připojený.')}/>
       </div>)}
     </main>
