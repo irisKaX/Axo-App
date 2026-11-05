@@ -335,8 +335,8 @@ export function FileDropzone({
           <strong>{context==='images' ? (activeDrop?'Pusťte obrázky sem':files.length?'Obrázky jsou připravené':'Přetáhněte sem obrázky') : (activeDrop ? 'Pusť soubory sem' : files.length ? 'Přidej další soubory' : 'Přetáhni soubory sem')}</strong>
           <span id={hintId}>{context==='images'?'nebo je vyberte ze svého zařízení':(acceptedTypes || 'Všechny typy souborů')+' · max. '+formatFileSize(fileLimit)+' / soubor'}</span>
         </div>
-        <AxoButton ref={actionRef} variant="secondary" icon="plus" disabled={disabled||previewOnly} loading={processing}
-          aria-describedby={describedBy} onClick={() => inputRef.current?.click()}>
+        <AxoButton ref={actionRef} variant="secondary" icon="plus" disabled={disabled} loading={processing}
+          aria-describedby={describedBy} onClick={() => { if (!previewOnly) inputRef.current?.click() }}>
           {processing ? 'Zpracovávám…' : files.length ? 'Přidat soubory' : context==='images'?'Vybrat obrázky':'Vybrat soubory'}
         </AxoButton>
         {context==='images'&&<span className="afu-image-formats">PNG · JPG · WebP · AVIF · BMP · GIF bez animace</span>}
