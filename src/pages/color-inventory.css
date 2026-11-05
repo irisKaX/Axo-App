@@ -1,0 +1,46 @@
+/* Colors inventory extends the approved Colors v2 presentation without changing
+ * existing hero, swatches, theme switch or technical panels.
+ */
+.ci-inventory{display:block}
+.ci-token-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ci-token{display:flex;gap:12px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-md);min-width:0;background:var(--canvas)}
+.ci-token-swatch{display:block;width:55px;min-width:55px;height:80px;border:1px solid var(--border);border-radius:var(--radius-sm)}
+.ci-token-info{display:flex;flex-direction:column;gap:5px;min-width:0}
+.ci-token-info strong{font-size:12px;overflow-wrap:anywhere}
+.ci-token-info small{color:var(--muted);font-size:11px;line-height:1.45}
+.ci-token-info code,.ci-gradient-body code{color:var(--muted);font-size:10px;overflow-wrap:anywhere}
+.ci-copy{display:inline-flex;align-self:flex-start;padding:2px 0;border:0;background:transparent;color:var(--accent);font-size:11px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;text-align:left;cursor:pointer}
+.ci-copy:hover{text-decoration:underline}
+.ci-copy:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
+.ci-rule{margin-top:17px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--canvas);padding:18px 20px}
+.ci-rule strong{font-size:13px}
+.ci-rule p{font-size:12px;line-height:1.7;color:var(--muted);margin:9px 0 0}
+.ci-rule code{color:var(--text)}
+.ci-gradient-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.ci-gradient-card{min-width:0;background:var(--canvas);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.ci-gradient-preview{height:110px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+.ci-gradient-body{padding:18px;display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.ci-gradient-body>strong{font-size:14px}
+.ci-gradient-body p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+.ci-gradient-body small{font-size:11px;color:var(--muted);line-height:1.5}
+.ci-gradient-preview--orbital{background:var(--surface)}
+@property --ci-spin{syntax:"<angle>";inherits:false;initial-value:0deg}
+.ci-orbital-demo{width:155px;height:42px;position:relative;border-radius:var(--radius-pill);background:var(--surface);display:grid;place-items:center}
+.ci-orbital-demo::before{
+ content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;
+ background:conic-gradient(from var(--ci-spin),transparent 0deg,transparent 240deg,#168EDA80 278deg,#4CC9F0B3 304deg,#D2B4FF 320deg,transparent 340deg);
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+ -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+ animation:ci-orbital 2.8s linear infinite
+}
+.ci-orbital-demo>span{width:90px;height:5px;border-radius:var(--radius-pill);background:var(--subtle)}
+@keyframes ci-orbital{to{--ci-spin:360deg}}
+.ci-feedback-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.ci-feedback{border:1px solid;border-radius:var(--radius-lg);padding:17px;min-width:0}
+.ci-feedback>strong{text-transform:capitalize;font-size:14px}
+.ci-feedback>p{font-size:11px;margin:8px 0 15px}
+.ci-feedback>div{display:flex;gap:8px;justify-content:space-between;align-items:center;font-size:10px;margin-top:5px}
+.ci-feedback .ci-copy{color:inherit;max-width:100%;font-size:10px}
+@media(max-width:1150px){.ci-token-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ci-feedback-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.ci-token-grid,.ci-gradient-grid,.ci-feedback-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.ci-orbital-demo::before{animation:none}}
