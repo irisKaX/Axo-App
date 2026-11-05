@@ -135,3 +135,18 @@
   .afu-dropzone { padding: 16px; }
   .afu-target { padding: 24px 12px; }
 }
+
+/* Image Converter is a copy/state variant of the approved Atmosphere FileDropzone.
+ * Use only existing neutral surfaces and semantic state colors, no translucent tints. */
+.afu-dropzone--images .afu-target{background:var(--surface)}
+.afu-dropzone--images .afu-target>.axo-icon{color:var(--brand)}
+.afu-dropzone--images[data-state="drag-over"] .afu-target{border:2px solid var(--afu-active-boundary);background:var(--surface)}
+.afu-dropzone--images[data-state="ready"] .afu-target{border-color:var(--success)}
+.afu-dropzone--images[data-state="error"] .afu-target{border-color:var(--error)}
+.afu-dropzone--images[data-state="ready"] .afu-target>.axo-icon{color:var(--success)}
+.afu-dropzone--images[data-state="error"] .afu-target>.axo-icon{color:var(--error)}
+.afu-dropzone--images .afu-image-formats{color:var(--afu-muted);font-size:11px;line-height:1.65;text-align:center}
+.afu-dropzone--images .afu-error{background:transparent}
+.afu-dropzone--images .afu-target-copy strong{font-size:16px}
+.afu-dropzone--images .afu-target-copy span{font-size:12px}
+.afu-dropzone--images[data-state="ready"] .afu-file{border-color:var(--afu-boundary)}
