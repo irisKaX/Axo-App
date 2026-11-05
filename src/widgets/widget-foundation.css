@@ -13,6 +13,10 @@
 }
 
 .wf-copy { display: grid; gap: var(--wf-copy-gap); }
+.wf-copy-top { display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-width:0; }
+.wf-copy-top .wf-eyebrow { min-width:0;flex:1;padding-top:4px; }
+.wf-copy-top .widget-launch-button { flex:none; }
+
 .wf-eyebrow {
   margin: 0;
   font-size: var(--wf-eyebrow-size);
