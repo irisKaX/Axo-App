@@ -102,6 +102,7 @@
   padding: var(--afu-padding) 16px;
   border: var(--afu-boundary-width) dashed var(--afu-boundary);
   border-radius: var(--radius-md);
+  background: var(--surface);
   text-align: center;
 }
 .afu-dropzone[data-state="drag-over"] .afu-target {
