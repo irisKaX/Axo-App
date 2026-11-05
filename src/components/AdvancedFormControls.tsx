@@ -144,6 +144,7 @@ export function NumberInput({label,value,onChange,min=0,max=Infinity,step=1,unit
   </div>
 }
 
+export type FileDropzoneVariant = 'iris' | 'cyan' | 'pink' | 'lime'
 export interface FileDropzoneProps {
   label:string
   files:File[]
@@ -152,12 +153,19 @@ export interface FileDropzoneProps {
   multiple?:boolean
   maxBytes?:number
   disabled?:boolean
+  variant?:FileDropzoneVariant
+  error?:string
 }
-export function FileDropzone({label,files,onChange,accept,multiple=true,maxBytes=10*1024*1024,disabled=false}:FileDropzoneProps){
+export function FileDropzone({
+  label,files,onChange,accept,multiple=true,maxBytes=10*1024*1024,
+  disabled=false,variant='iris',error:externalError,
+}:FileDropzoneProps){
   const uid=useId()
   const input=useRef<HTMLInputElement>(null)
   const [dragging,setDragging]=useState(false)
   const [error,setError]=useState('')
+  const message=externalError||error
+  const hasFiles=files.length>0
   const extensionMatches=(file:File)=>{
     if(!accept)return true
     return accept.split(',').some(part=>{
@@ -166,28 +174,44 @@ export function FileDropzone({label,files,onChange,accept,multiple=true,maxBytes
     })
   }
   const add=(next:File[])=>{
+    if(!next.length)return
     const invalid=next.find(file=>file.size>maxBytes||!extensionMatches(file))
     if(invalid){setError('Soubor '+invalid.name+' překračuje limit nebo má nepovolený typ.');return}
     setError('')
     onChange(multiple?[...files,...next.filter(file=>!files.some(existing=>existing.name===file.name&&existing.size===file.size))]:next.slice(0,1))
   }
   const onInput=(event:ChangeEvent<HTMLInputElement>)=>{add(Array.from(event.target.files??[]));event.target.value=''}
-  const onDrop=(event:DragEvent<HTMLDivElement>)=>{event.preventDefault();setDragging(false);if(!disabled)add(Array.from(event.dataTransfer.files))}
-  return <div className={'af-field'+(files.length?' is-filled':'')}>
+  const onDrop=(event:DragEvent<HTMLDivElement>)=>{
+    event.preventDefault()
+    setDragging(false)
+    if(!disabled)add(Array.from(event.dataTransfer.files))
+  }
+  const uploadTitle=dragging?'Pusť soubory sem':hasFiles?'Soubory jsou připravené':'Nahraj nebo přetáhni soubory'
+  return <div className={'af-field af-upload af-upload--'+variant+(hasFiles?' is-filled':'')+(message?' has-error':'')+(disabled?' is-disabled':'')}>
     <label className="af-label" htmlFor={uid}>{label}</label>
     <div className={'af-dropzone'+(dragging?' is-dragging':'')+(disabled?' is-disabled':'')} role="group"
-      onDragOver={e=>{e.preventDefault();if(!disabled)setDragging(true)}} onDragLeave={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node))setDragging(false)}} onDrop={onDrop}>
-      <AxoIcon name="folder" size={25} tone="brand"/>
-      <strong>Přetáhni soubor sem</strong><span>nebo vyber soubor ze zařízení</span>
-      <AxoButton variant="secondary" size="default" disabled={disabled} onClick={()=>input.current?.click()}>Vybrat soubor</AxoButton>
+      aria-label={label}
+      onDragOver={e=>{e.preventDefault();if(!disabled)setDragging(true)}}
+      onDragLeave={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node))setDragging(false)}}
+      onDrop={onDrop}>
+      <div className="af-dropzone-inner">
+        <AxoIcon name={message?'alert-circle':hasFiles?'check':'folder'} size={30} className="af-dropzone-art"/>
+        <div className="af-dropzone-copy">
+          <strong>{message?'Zkontroluj soubory':uploadTitle}</strong>
+          <span>{hasFiles&&!message?files.length+' '+(files.length===1?'soubor připravený':'souborů připravených')+' k použití':'PDF, obrázky, CSV a další podporované formáty'}</span>
+        </div>
+        <AxoButton variant="secondary" size="default" disabled={disabled} onClick={()=>input.current?.click()}>
+          {hasFiles?'Přidat soubory':'Vybrat soubory'}
+        </AxoButton>
+      </div>
       <input ref={input} id={uid} type="file" accept={accept} multiple={multiple} disabled={disabled}
-        className="af-visually-hidden" onChange={onInput}/>
+        className="af-visually-hidden" aria-describedby={uid+'-hint'+(message?' '+uid+'-error':'')} onChange={onInput}/>
+      {hasFiles&&<ul className="af-file-list">{files.map((file,i)=><li key={file.name+'-'+i}>
+        <span><AxoIcon name="file-text" size={18}/><span title={file.name}>{file.name}</span><small>{file.size<1024?file.size+' B':(file.size/1024).toFixed(0)+' KB'}</small></span>
+        <button type="button" disabled={disabled} aria-label={'Odebrat '+file.name} onClick={()=>{setError('');onChange(files.filter((_,index)=>index!==i))}}><AxoIcon name="close" size={16}/></button>
+      </li>)}</ul>}
     </div>
-    <span className="af-hint">Maximálně {Math.round(maxBytes/1024/1024)} MB na soubor. {accept||'Běžné soubory'}.</span>
-    {error&&<span className="af-error" role="alert">{error}</span>}
-    {files.length>0&&<ul className="af-file-list">{files.map((file,i)=><li key={file.name+'-'+i}>
-      <span><AxoIcon name="file-text" size={17}/><span title={file.name}>{file.name}</span><small>{(file.size/1024).toFixed(0)} KB</small></span>
-      <button type="button" aria-label={'Odebrat '+file.name} onClick={()=>onChange(files.filter((_,index)=>index!==i))}><AxoIcon name="close" size={15}/></button>
-    </li>)}</ul>}
+    <span className="af-hint" id={uid+'-hint'}>Maximálně {Math.round(maxBytes/1024/1024)} MB na soubor. {accept||'Běžné soubory'}.</span>
+    {message&&<span className="af-error" id={uid+'-error'} role="alert"><AxoIcon name="alert-circle" size={15}/>{message}</span>}
   </div>
 }
