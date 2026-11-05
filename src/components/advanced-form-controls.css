@@ -61,7 +61,7 @@
 @media(max-width:500px){.af-calendar{max-width:100%}.af-stepper{gap:4px;padding:0 7px}}
 @media(prefers-reduced-motion:reduce){.af-multi-control,.af-date-trigger,.af-number-control{transition:none}}
 
-/* File Upload: one implementation, two approved surfaces and two sizes. */
+/* File Upload: approved Atmosphere surface, Default and Large sizes. */
 .afu-dropzone {
   display: flex;
   flex-direction: column;
