@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch, type FormAccent } from '../components/FormControls'
 import { SearchSpotlight } from '../components/SearchSpotlight'
-import { MultiSelect, DatePickerField, NumberInput, FileDropzone } from '../components/AdvancedFormControls'
+import { AxoButton } from '../components/Buttons'
+import { MultiSelect, DatePickerField, NumberInput, FileDropzone, type FileDropzoneVariant } from '../components/AdvancedFormControls'
 import { ThemeSwitch } from '../components/ThemeSwitch'
 import { type ThemeName } from '../design-system/foundations/colors'
 import './forms-studio.css'
@@ -71,6 +72,8 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
   const [dueDate,setDueDate]=useState('')
   const [budget,setBudget]=useState<number|null>(199)
   const [files,setFiles]=useState<File[]>([])
+  const [fileVariant,setFileVariant]=useState<FileDropzoneVariant>('iris')
+  const [fileDemoError,setFileDemoError]=useState('')
   const validUrl=!url.trim() || isValidHttpUrl(url)
   return <div className="fs-page">
     <p className="eyebrow">LIBRARY / COMPONENTS / INPUTS & FORMS</p>
@@ -175,10 +178,37 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
     </section>
 
     <section className="panel fs-panel">
-      <div className="fs-section-head"><span>11 / FILE UPLOAD</span><h2>Nahrávání souborů</h2><p>Drag & drop, výběr ze zařízení, kontrola typu a velikosti souboru a správa přiložených položek.</p></div>
-      <div className="fs-advanced-grid">
-        <FileDropzone label="Přílohy projektu" files={files} onChange={setFiles} accept=".png,.jpg,.jpeg,.webp,.pdf,.csv,.txt" maxBytes={10*1024*1024}/>
-        <div className="fs-advanced-note"><strong>Výběr souborů</strong><p>{files.length?files.length+' souborů připravených k použití':'Žádné soubory'}</p><p>Ukázka uchovává soubory pouze v paměti prohlížeče. Nic neposílá na server.</p></div>
+      <div className="fs-section-head"><span>11 / FILE UPLOAD</span><h2>Nahrávání souborů</h2><p>Vlastní drag & drop komponenta s výraznou přerušovanou hranicí, čtyřmi barevnými směry a odlišnými stavy před nahráním, po nahrání a při chybě.</p></div>
+      <div className="fs-upload-variants">
+        <span className="fs-overline">BAREVNÉ VARIANTY</span>
+        <div className="fs-upload-color-row">
+          {([
+            {id:'iris',label:'Iris Purple'},
+            {id:'cyan',label:'Bright Cyan'},
+            {id:'pink',label:'Axolotl Pink'},
+            {id:'lime',label:'Success Lime'},
+          ] as const).map(option=><button type="button" className={'fs-upload-color is-'+option.id+(fileVariant===option.id?' is-active':'')}
+            key={option.id} aria-pressed={fileVariant===option.id} onClick={()=>setFileVariant(option.id)}>
+            <span aria-hidden="true"/>{option.label}
+          </button>)}
+        </div>
+      </div>
+      <div className="fs-upload-variants">
+        <span className="fs-overline">NÁHLED STAVŮ</span>
+        <div className="fs-upload-state-row">
+          <AxoButton variant="outline" size="compact" onClick={()=>{setFiles([]);setFileDemoError('')}}>Prázdné</AxoButton>
+          <AxoButton variant="secondary" size="compact" onClick={()=>{
+            setFiles([new File(['asset,url\\nlogo,/logo.png'], 'oneplay-assets.csv', {type:'text/csv'})])
+            setFileDemoError('')
+          }}>Nahráno</AxoButton>
+          <AxoButton variant="ghost" size="compact" onClick={()=>{setFiles([]);setFileDemoError('Nepodporovaný formát. Nahraj obrázek, PDF nebo CSV.')}}>Chyba</AxoButton>
+        </div>
+      </div>
+      <div className="fs-upload-preview">
+        <FileDropzone label="Přílohy projektu" files={files} variant={fileVariant}
+          onChange={next=>{setFiles(next);setFileDemoError('')}} error={fileDemoError}
+          accept=".png,.jpg,.jpeg,.webp,.pdf,.csv,.txt" maxBytes={10*1024*1024}/>
+        <p className="fs-upload-disclaimer">Vyzkoušej také přetažení souboru myší. Jde pouze o lokální demonstraci, žádný soubor se neposílá na server. Stavy „Nahráno“ a „Chyba“ lze vyvolat i ukázkovými tlačítky.</p>
       </div>
     </section>
 
