@@ -54,6 +54,15 @@ export const purple = [
   ['900', brandColors.deepViolet], ['950', '#230A69'],
 ] as const
 
+/**
+ * APPROVED APPLICATION BACKGROUND RULE
+ * In Dark Mode, theme.dark.canvas (#090B10) is the main background of
+ * application screens, workspaces and the dashboard.
+ * Use the semantic --canvas / themes[theme].canvas token, never a local HEX.
+ * theme.dark.surface (#141820) is for widgets and raised content panels.
+ * theme.dark.backdrop is decorative only, not the default page background.
+ * Light Mode continues to use theme.light.canvas.
+ */
 /** True neutral surfaces; no violet undertone in the dark ramp. */
 export const neutral = [
   ['50', '#FAFBFD'], ['100', '#F5F7FA'], ['200', '#E5E9F0'],
@@ -66,7 +75,7 @@ export const colorRoles = [
   { id: 'primary', name: 'Iris Purple', token: 'brand.irisPurple', color: brandColors.irisPurple, usage: 'Primární akce a aktivní stav' },
   { id: 'secondary', name: 'Bright Cyan Blue', token: 'brand.blue', color: brandColors.blue, usage: 'Druhý brandový akcent a vizuální plochy' },
   { id: 'o2', name: 'O2 Blue', token: 'brand.o2Blue', color: brandColors.o2Blue, usage: 'Pouze identita a integrace O2' },
-  { id: 'neutral', name: 'True Dark', token: 'surface.canvas', color: '#090B10', usage: 'Neutrální pracovní prostředí' },
+  { id: 'neutral', name: 'True Dark', token: 'theme.dark.canvas', color: '#090B10', usage: 'Schválené hlavní pozadí aplikace v Dark Mode; plochy widgetů používají Surface' },
 ] as const
 
 export const semantic = {
