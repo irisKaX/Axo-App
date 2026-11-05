@@ -13,12 +13,12 @@
 .nh-nav-set{display:flex;align-items:center;gap:7px;flex:none}
 .nh-popup-anchor{position:relative;flex:none}
 .nh-url-zone{display:flex;align-items:center;gap:10px;flex:1;min-width:170px}
-.nh-url{height:38px;display:flex;align-items:center;gap:8px;min-width:0;width:100%;border:2px solid #8101EC;border-radius:var(--radius-pill);padding:0 7px 0 12px;background:var(--nh-subtle)}
-.nh-url>svg{color:var(--brand)}
+.nh-url{height:38px;display:flex;align-items:center;gap:8px;min-width:0;width:100%;border:0;border-radius:var(--radius-pill);padding:0 9px 0 12px;background:var(--nav-background);color:#FFFFFF}
+.nh-url>svg{color:#FFFFFF}
 .nh-url-text{font-size:11px;font-weight:550;min-width:0;flex:1;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
-.nh-url-action{display:grid;place-items:center;flex:none;width:26px;height:28px;border:0;background:transparent;color:var(--nh-muted);border-radius:8px;padding:0}
-.nh-url-action:hover{color:var(--nh-text);background:var(--nh-canvas)}
-.nh-url-separator{width:1px;height:18px;background:var(--nh-border);flex:none}
+.nh-url-action{display:grid;place-items:center;flex:none;width:26px;height:28px;border:0;background:transparent;color:#FFFFFF;border-radius:8px;padding:0}
+.nh-url-action:hover{color:#FFFFFF;background:transparent;filter:brightness(1.2)}
+.nh-url-separator{width:1px;height:18px;background:currentColor;opacity:.45;flex:none}
 .nh-indicator{width:9px;height:9px;border-radius:50%;background:#49DEAA;flex:none}
 .nh-clock{display:flex;flex-direction:column;text-align:center;min-width:76px;white-space:nowrap}
 .nh-clock strong{font-size:15px;line-height:1.2}.nh-clock small{font-size:9px;color:var(--nh-muted);margin-top:3px}
