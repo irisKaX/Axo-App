@@ -83,3 +83,16 @@
 .icl-compare-panel p{color:var(--muted);font-size:12px;line-height:1.65;margin:16px 0 0}
 @media(max-width:950px){.icl-primary-grid{grid-template-columns:1fr}.icl-upload .afu-target{min-height:230px}.icl-settings{gap:15px}}
 @media(max-width:650px){.icl-page{padding:12px;gap:15px}.icl-panel{padding:15px}.icl-demo-label{font-size:9px}.icl-file-row{flex-wrap:wrap;gap:9px}.icl-file-status{order:4}.icl-file-actions{margin-left:auto}.icl-file-name{min-width:0}.icl-file-thumb{width:40px;height:40px}.icl-compare-placeholder{height:180px}}
+
+/* In a full-viewport preview use the same responsive header controls as Dashboard. */
+@media(max-width:1050px){
+ .icl-shell--fullscreen .nh-stage.nh-standalone{position:relative}
+ .icl-shell--fullscreen .nh-header{display:grid;grid-template-columns:38px 38px minmax(0,1fr) 38px 38px;grid-template-rows:38px;align-items:center;gap:8px;min-height:54px;padding:8px 0}
+ .icl-shell--fullscreen .nh-brand{grid-column:1}
+ .icl-shell--fullscreen .nh-home{grid-column:2}
+ .icl-shell--fullscreen .nh-mobile-page-label{display:block;grid-column:3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:650}
+ .icl-shell--fullscreen .nh-alert-anchor{grid-column:4}
+ .icl-shell--fullscreen .nh-mobile-trigger{display:grid;grid-column:5}
+ .icl-shell--fullscreen .nh-nav-set,.icl-shell--fullscreen .nh-url-zone,.icl-shell--fullscreen .nh-clock,.icl-shell--fullscreen .nh-settings-anchor,.icl-shell--fullscreen .nh-theme{display:none}
+ .icl-shell--fullscreen .nh-mobile-panel{display:flex}
+}
