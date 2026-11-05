@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { AxoButton, buttonVariants, type ButtonVariant, type ButtonIconName } from '../components/Buttons'
+import { WidgetLaunchButton } from '../components/WidgetLaunchButton'
 import { controls } from '../design-system/foundations/spacing'
 import './buttons-studio.css'
 
@@ -27,6 +28,11 @@ const textIcons:Record<ButtonVariant,ButtonIconName> = {
   ghost:'arrow-right',
   danger:'trash'
 }
+
+const widgetLaunchExample = `<WidgetLaunchButton
+  label="Otevřít nástroj z widgetu"
+  onClick={handleOpenTool}
+/>`
 
 export default function ButtonsStudio() {
   const [note,setNote]=useState('Text a ikona jsou obsahové varianty stejného tlačítka.')
@@ -65,6 +71,24 @@ export default function ButtonsStudio() {
             <AxoButton size="default" variant="secondary" icon="plus" iconOnly aria-label="Sekundární akce" onClick={()=>setNote('Kulaté Secondary')}/>
             <span>Secondary</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="panel bs-panel">
+      <div className="bs-section-heading"><div><span>02 / WIDGET ACTION</span><h2>Widget → Tool</h2><p>Samostatná akce pro otevření celého nástroje z hlavičky widgetu. Náhled k vizuálnímu schválení.</p></div></div>
+      <div className="bs-widget-launch-demo">
+        <div className="bs-widget-launch-surface">
+          <div className="bs-widget-launch-heading">
+            <div><span>UKÁZKA HLAVIČKY</span><strong>Ukázkový widget</strong></div>
+            <WidgetLaunchButton label="Otevřít nástroj z widgetu" onClick={() => setNote('Ukázka: otevření nástroje z widgetu. Navigace zatím není připojena.')} />
+          </div>
+          <div className="bs-widget-launch-empty" aria-hidden="true" />
+        </div>
+        <div className="bs-widget-launch-description">
+          <strong>Widget → Tool</strong>
+          <p>V katalogu tlačítko zobrazí pouze stavovou zprávu. Skutečný nástroj později připojí vlastní obsluhu kliknutí.</p>
+          <pre><code>{widgetLaunchExample}</code></pre>
         </div>
       </div>
     </section>
