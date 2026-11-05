@@ -63,12 +63,14 @@ export default function App() {
         <span className="logo-icon">A</span>
         <span><strong>Axo-App</strong><small>Design System</small></span>
       </button>
+      <div className="sidebar-nav" aria-label="Sekce design katalogu">
       {groups.map(group=><nav className="nav-group" key={group.title} aria-label={group.title}>
         <p className="nav-heading">{group.title}</p>
         {group.items.map(item=><button type="button" key={item.id} className={'nav-item '+(section===item.id?'active':'')} aria-current={section===item.id?'page':undefined} onClick={()=>setSection(item.id)}>
           {item.label}{section===item.id&&<span className="nav-dot"/>}
         </button>)}
       </nav>)}
+      </div>
       <div className="sidebar-bottom">NEO IRIS · DESIGN FOUNDATION</div>
     </aside>
     <div className="workspace">
