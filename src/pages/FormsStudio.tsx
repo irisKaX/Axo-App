@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch, type FormAccent } from '../components/FormControls'
 import { SearchSpotlight } from '../components/SearchSpotlight'
-import { ImageDropzoneSpecimen, type ImageDropzoneState, type ImageDropzoneSize } from '../components/ImageDropzoneSpecimen'
 import { MultiSelect, DatePickerField, NumberInput, FileDropzone, type FileUploadSize } from '../components/AdvancedFormControls'
 import { ThemeSwitch } from '../components/ThemeSwitch'
 import { type ThemeName } from '../design-system/foundations/colors'
@@ -84,8 +83,8 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
   const [dueDate,setDueDate]=useState('')
   const [budget,setBudget]=useState<number|null>(199)
   const [uploadState, setUploadState] = useState('empty')
-  const [imageDropState,setImageDropState] = useState<ImageDropzoneState>('empty')
-  const [imageDropSize,setImageDropSize] = useState<ImageDropzoneSize>('default')
+  const [imageDropState,setImageDropState] = useState<'empty'|'drag'|'ready'|'error'|'disabled'>('empty')
+  const [imageDropSize,setImageDropSize] = useState<FileUploadSize>('default')
   const [uploadRevision, setUploadRevision] = useState(0)
   const [uploads, setUploads] = useState<UploadPreview[]>(() => uploadPreviews.map(() => ({ files: [] })))
   function previewUploads(state: string) {
@@ -221,29 +220,33 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
           </article>
         ))}
       </div>
-    </section>
-
-    <section className="panel fs-panel">
-      <div className="fs-section-head"><span>12 / IMAGE DROPZONE · DESIGN PREVIEW</span><h2>Image Dropzone</h2>
-        <p>Specializovaná varianta pro Image Converter. Čistě vizuální návrh pro jeden i více obrázků. Přepínače níže pouze mění ilustrační stav, žádné soubory se nenahrávají.</p>
+      <div className="fs-image-variant">
+        <div className="fs-section-head"><span>CONTEXT / IMAGE CONVERTER</span><h3>Image Upload · varianta stejné komponenty</h3>
+          <p>Jedna společná FileDropzone. Stejná schválená Atmosphere kompozice, pouze texty a vizuální stav pro konvertor obrázků. Žádné skutečné nahrávání.</p>
+        </div>
+        <div className="fs-image-drop-controls">
+          <fieldset><legend>Ukázkový stav</legend><div className="fs-image-drop-options">
+            {([['empty','Default'],['drag','Drag Active'],['ready','Ready'],['error','Error'],['disabled','Disabled']] as const)
+              .map(([value,label])=><button type="button" key={value} className={imageDropState===value?'is-selected':''}
+                aria-pressed={imageDropState===value} onClick={()=>setImageDropState(value)}>{label}</button>)}
+          </div></fieldset>
+          <fieldset><legend>Velikost</legend><div className="fs-image-drop-options">
+            {([['default','Default'],['large','Large']] as const).map(([value,label])=>
+              <button type="button" key={value} className={imageDropSize===value?'is-selected':''}
+                aria-pressed={imageDropSize===value} onClick={()=>setImageDropSize(value)}>{label}</button>)}
+          </div></fieldset>
+        </div>
+        <div className="fs-image-drop-stage">
+          <FileDropzone context="images" previewOnly size={imageDropSize} label="Image Converter · vizuální náhled"
+            accept=".png,.jpg,.jpeg,.webp,.avif,.bmp,.gif"
+            files={imageDropState==='ready' ? [
+              new File(['obrazek'],'hero-banner.png',{type:'image/png',lastModified:0}),
+              new File(['obrazek'],'product-photo.jpg',{type:'image/jpeg',lastModified:0})
+            ] : []}
+            error={imageDropState==='error' ? 'Soubor „archiv.zip“ není obrázek.' : undefined}
+            dragOver={imageDropState==='drag'} disabled={imageDropState==='disabled'} onChange={()=>{}}/>
+        </div>
       </div>
-      <div className="fs-image-drop-controls">
-        <fieldset><legend>Ukázkový stav</legend><div className="fs-image-drop-options">
-          {([
-            ['empty','Default'],['drag','Drag Active'],['ready','Ready / 2 files'],['error','Error'],['disabled','Disabled']
-          ] as const).map(([value,label])=><button key={value} type="button" aria-pressed={imageDropState===value}
-            className={imageDropState===value?'is-selected':''} onClick={()=>setImageDropState(value)}>{label}</button>)}
-        </div></fieldset>
-        <fieldset><legend>Velikost komponenty</legend><div className="fs-image-drop-options">
-          {([['default','Default'],['large','Large']] as const).map(([value,label])=>
-            <button key={value} type="button" aria-pressed={imageDropSize===value}
-              className={imageDropSize===value?'is-selected':''} onClick={()=>setImageDropSize(value)}>{label}</button>)}
-        </div></fieldset>
-      </div>
-      <div className="fs-image-drop-stage">
-        <ImageDropzoneSpecimen size={imageDropSize} state={imageDropState}/>
-      </div>
-      <p className="fs-image-drop-note">Jde o návrh vzhledu, nikoli funkční uploader. Miniatury a názvy ve stavu Ready jsou ukázkové. Existující schválený File Upload výše zůstává beze změny.</p>
     </section>
 
     <footer className="page-footer">Axolotl · Components / Inputs & Forms · Návrh k vizuálnímu schválení</footer>
