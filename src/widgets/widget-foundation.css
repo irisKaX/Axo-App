@@ -1,0 +1,40 @@
+/* Atmospheric shell and an intentionally empty, solid content surface. */
+.widget-foundation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wf-gap);
+  min-width: 0;
+  padding: var(--wf-padding);
+  border-radius: var(--radius-lg);
+  background: var(--wf-background);
+  color: var(--wf-text);
+  font-size: var(--wf-body-size);
+  line-height: var(--wf-body-leading);
+}
+
+.wf-copy { display: grid; gap: var(--wf-copy-gap); }
+.wf-eyebrow {
+  margin: 0;
+  font-size: var(--wf-eyebrow-size);
+  font-weight: var(--wf-eyebrow-weight);
+  line-height: var(--wf-eyebrow-leading);
+  letter-spacing: var(--wf-eyebrow-tracking);
+}
+.wf-heading {
+  margin: 0;
+  font-size: var(--wf-heading-size);
+  font-weight: var(--wf-heading-weight);
+  line-height: var(--wf-heading-leading);
+  letter-spacing: var(--wf-heading-tracking);
+  overflow-wrap: anywhere;
+}
+.wf-heading-accent { display: block; color: var(--wf-accent); }
+.wf-description { margin: 0; color: var(--wf-muted); }
+.wf-content {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--wf-content-height);
+  border: 1px solid var(--wf-border);
+  border-radius: var(--radius-md);
+  background: var(--wf-surface);
+}

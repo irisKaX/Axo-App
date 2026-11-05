@@ -12,6 +12,7 @@ import NavigationStudio from './pages/NavigationStudio'
 import DashboardStudio from './pages/DashboardStudio'
 import LoadingStudio from './pages/LoadingStudio'
 import VisualPatterns from './pages/VisualPatterns'
+import WidgetsStudio from './pages/WidgetsStudio'
 import { radiusCssVariables } from './design-system/foundations/spacing'
 import { semantic, themes, type ThemeName } from './design-system/foundations/colors'
 
@@ -72,7 +73,7 @@ export default function App() {
     </aside>
     <div className="workspace">
       <header className="topbar">
-        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section==='spacing'?'Foundations / Spacing & Grid':section==='components'?'Library / Buttons':section==='icons'?'Library / Icons':section==='forms'?'Library / Inputs & Forms':section==='cards'?'Library / Cards & Containers':section==='navigation'?'Library / Navigation & Header':section==='loading'?'Library / Loading & Progress':section==='patterns'?'Library / Visual Patterns':section}</span>
+        <span className="breadcrumbs">Design System <span>/</span> {section==='colors'?'Foundations / Colors':section==='expression'?'Foundations / Brand Expression':section==='visual'?'Foundations / Visual Direction':section==='spacing'?'Foundations / Spacing & Grid':section==='components'?'Library / Buttons':section==='icons'?'Library / Icons':section==='forms'?'Library / Inputs & Forms':section==='cards'?'Library / Cards & Containers':section==='navigation'?'Library / Navigation & Header':section==='loading'?'Library / Loading & Progress':section==='patterns'?'Library / Visual Patterns':section==='widgets'?'Library / Widgets':section}</span>
         <div className="theme-toggle" role="group" aria-label="Téma katalogu">
           <button type="button" className={theme==='light'?'chosen':''} onClick={()=>setTheme('light')} aria-pressed={theme==='light'}>☀ Light</button>
           <button type="button" className={theme==='dark'?'chosen':''} onClick={()=>setTheme('dark')} aria-pressed={theme==='dark'}>☾ Dark</button>
@@ -91,6 +92,7 @@ export default function App() {
           section==='navigation'?<NavigationStudio theme={theme} onThemeChange={setTheme} onOpenDashboard={()=>setSection('dashboard')}/>:
           section==='loading'?<LoadingStudio theme={theme}/>:
           section==='patterns'?<VisualPatterns theme={theme}/>:
+          section==='widgets'?<WidgetsStudio/>:
           <section className="panel placeholder"><p className="eyebrow">PŘIPRAVUJEME</p>
             <h1>{groups.flatMap(group=>group.items).find(item=>item.id===section)?.label}</h1>
             <p>Tu část design systému vytvoříme až po dokončení Colors.</p>

@@ -169,7 +169,7 @@ export interface FileDropzoneProps {
   dragOver?: boolean
 }
 
-const atmosphereStyles: CSSProperties = {
+const atmosphereStyles: CSSProperties & Record<`--${string}`, string | number> = {
     '--afu-background': themes.dark.backdrop,
     '--afu-foreground': themes.dark.brandText,
     '--afu-muted': themes.dark.muted,
