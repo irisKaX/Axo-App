@@ -36,7 +36,7 @@
   background:linear-gradient(130deg,var(--axo-gradient-first) 0%,var(--axo-gradient-middle) 52%,var(--axo-gradient-last) 100%) border-box no-repeat;
   color:#FFFFFF;
   box-shadow:0 3px 8px #00000026;
-  transition:--axo-gradient-first .48s ease,--axo-gradient-last .48s ease,box-shadow .25s ease,filter .2s ease,transform .22s ease;
+  transition:--axo-gradient-first 1.2s cubic-bezier(.65,0,.35,1),--axo-gradient-last 1.2s cubic-bezier(.65,0,.35,1),box-shadow .65s ease-in-out,filter .2s ease,transform .22s ease;
 }
 .axo-button--primary:hover:not(:disabled),.axo-button--primary-2:hover:not(:disabled){
   --axo-gradient-first:var(--axo-gradient-purple);
