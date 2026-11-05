@@ -1,4 +1,4 @@
-/* All navigation controls use the exact ThemeSwitch purple background per theme.
+/* All navigation controls and the URL display share the ThemeSwitch purple background.
  * Navigation state is a separate semantic layer, not a Primary/Secondary hierarchy.
  * Canonical AxoButton stays unchanged. Round and labelled controls stay 38px high.
  */
@@ -13,7 +13,8 @@
   border: 0;
   box-shadow: none;
 }
-.nav-button.axo-button--primary:hover:not(:disabled) {
+.nav-button.axo-button--primary:hover:not(:disabled),
+.nav-button.axo-button--primary-2:hover:not(:disabled) {
   background: var(--nav-background);
   color: #FFFFFF;
   box-shadow: none;
@@ -35,12 +36,10 @@
   width: 12px;
   height: 12px;
 }
-/* White inner stroke distinguishes current destination without another fill. */
+/* Current inherits the exact animated Primary 2 orbital border.
+ * No duplicate pseudo-element or white outline is introduced here. */
 .nav-button[data-nav-state="current"].axo-button {
-  box-shadow: inset 0 0 0 2px #FFFFFF;
-}
-.nav-button[data-nav-state="current"].axo-button:hover:not(:disabled) {
-  box-shadow: inset 0 0 0 2px #FFFFFF;
+  box-shadow: none;
 }
 /* Expanded is transient, distinct from the current page. */
 .nav-button[data-nav-state="expanded"].axo-button {
