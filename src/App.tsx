@@ -96,7 +96,7 @@ export default function App() {
           section==='loading'?<LoadingStudio theme={theme}/>:
           section==='patterns'?<VisualPatterns theme={theme}/>:
           section==='widgets'?<WidgetsStudio/>:
-          section==='layouts'?<LayoutsStudio theme={theme}/>:
+          section==='layouts'?<LayoutsStudio theme={theme} onThemeChange={setTheme}/>:
           <section className="panel placeholder"><p className="eyebrow">PŘIPRAVUJEME</p>
             <h1>{groups.flatMap(group=>group.items).find(item=>item.id===section)?.label}</h1>
             <p>Tu část design systému vytvoříme až po dokončení Colors.</p>
