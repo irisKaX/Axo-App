@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type DragEvent 
 import { AxoIcon } from './AxoIcon'
 import { AxoButton } from './Buttons'
 import type { SelectOption } from './FormControls'
-import { brandColors, themes } from '../design-system/foundations/colors'
+import { themes } from '../design-system/foundations/colors'
 import { spacing } from '../design-system/foundations/spacing'
 import { typography } from '../design-system/foundations/typography'
 import './advanced-form-controls.css'
@@ -147,15 +147,12 @@ export function NumberInput({label,value,onChange,min=0,max=Infinity,step=1,unit
   </div>
 }
 
-export type FileUploadVariant = 'solid-brand' | 'atmosphere'
 export type FileUploadSize = 'default' | 'large'
-export type FileDropzoneVariant = FileUploadVariant
 
 export interface FileDropzoneProps {
   label?: string
   files: File[]
   onChange: (files: File[]) => void
-  variant?: FileUploadVariant
   size?: FileUploadSize
   accept?: string
   /** Maximum size of each file, in bytes. */
@@ -172,22 +169,7 @@ export interface FileDropzoneProps {
   dragOver?: boolean
 }
 
-const surfaceStyles: Record<FileUploadVariant, CSSProperties> = {
-  'solid-brand': {
-    '--afu-background': brandColors.blue,
-    '--afu-foreground': themes.light.secondaryText,
-    '--afu-muted': themes.light.secondaryText,
-    '--afu-boundary': themes.light.secondaryText,
-    '--afu-active-boundary': themes.light.secondaryText,
-    '--afu-boundary-width': '2px',
-    '--surface': themes.light.surface,
-    '--text': themes.light.text,
-    '--subtle': themes.light.subtle,
-    '--brand-soft': themes.light.brandSoft,
-    '--brand-text': themes.light.brandText,
-    '--focus-ring': themes.light.secondaryText,
-  } as CSSProperties,
-  atmosphere: {
+const atmosphereStyles: CSSProperties = {
     '--afu-background': themes.dark.backdrop,
     '--afu-foreground': themes.dark.brandText,
     '--afu-muted': themes.dark.muted,
@@ -200,7 +182,6 @@ const surfaceStyles: Record<FileUploadVariant, CSSProperties> = {
     '--brand-soft': themes.dark.brandSoft,
     '--brand-text': themes.dark.brandText,
     '--focus-ring': themes.dark.focusRing,
-  } as CSSProperties,
 }
 
 function formatFileSize(bytes: number) {
@@ -227,7 +208,6 @@ export function FileDropzone({
   label,
   files,
   onChange,
-  variant = 'solid-brand',
   size = 'default',
   accept = '.pdf,.txt,.md,.png,.jpg,.jpeg,.webp',
   maxSize,
@@ -257,8 +237,8 @@ export function FileDropzone({
   const describedBy = message ? `${hintId} ${errorId}` : hintId
   const acceptedTypes = accept.split(',').map(rule => rule.trim().replace(/^\./, '').toUpperCase()).filter(Boolean).join(', ')
   const styles = {
-    ...surfaceStyles[variant],
-    '--afu-accent': brandColors.irisPurple,
+    ...atmosphereStyles,
+    '--afu-accent': themes.dark.brand,
     '--afu-padding': `${size === 'large' ? spacing[8] : spacing[6]}px`,
     '--afu-gap': `${size === 'large' ? spacing[6] : spacing[4]}px`,
     '--afu-heading-size': `${heading.size}px`,
@@ -300,7 +280,7 @@ export function FileDropzone({
   }
 
   return (
-    <div className={`afu-dropzone afu-dropzone--${variant} afu-dropzone--${size}`}
+    <div className={`afu-dropzone afu-dropzone--${size}`}
       style={styles} data-state={state} role="group" aria-label={label} aria-labelledby={label ? undefined : headingId}
       aria-describedby={describedBy} aria-busy={processing || undefined}
       onDragEnter={event => {
@@ -328,11 +308,11 @@ export function FileDropzone({
       }}
     >
       <div className="afu-copy">
-        <p className="afu-eyebrow">{variant === 'atmosphere' ? 'AXOLOTL / WORKSPACE' : 'UPLOAD / ASSETS'}</p>
+        <p className="afu-eyebrow">AXOLOTL / WORKSPACE</p>
         <h3 className="afu-headline" id={headingId}>
-          {variant === 'atmosphere' ? <>Upload files.<span className="afu-headline-accent">Work smarter.</span></> : 'Upload your files.'}
+          Upload files.<span className="afu-headline-accent">Work smarter.</span>
         </h3>
-        <p className="afu-support">{variant === 'atmosphere' ? 'Všechny potřebné soubory na jednom místě.' : 'Přetáhni soubory nebo je vyber ze zařízení.'}</p>
+        <p className="afu-support">Všechny potřebné soubory na jednom místě.</p>
       </div>
 
       <input ref={inputRef} type="file" hidden accept={accept} multiple={multiple}
