@@ -19,6 +19,9 @@
   border-color: var(--brand);
   box-shadow: none;
 }
+.widget-launch-button.axo-button--icon:not(.axo-button--primary):not(.axo-button--primary-2):hover:not(:disabled) {
+  box-shadow: none;
+}
 .widget-launch-button.axo-button:active:not(:disabled) {
   box-shadow: none;
 }
