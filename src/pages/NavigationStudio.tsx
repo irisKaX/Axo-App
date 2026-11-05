@@ -61,8 +61,8 @@ export function HeaderPreview({mode,onModeChange,standalone=false}: {mode:ThemeN
         <div className="nh-brand" aria-label="Axolotl">✳</div>
         <NavigationButton state={standalone ? 'current' : 'inactive'} shape="round" icon="home" className="nh-home" aria-label="Home" onClick={()=>{setOpen(null);setFeedback('Dashboard · ukázková navigace')}}/>
         <div className="nh-nav-set">
-          {([['workspace','Můj workspace','work'],['media','Média','media'],['checks','Kontrola','shield']] as const).map(([id,label,icon])=><div className="nh-popup-anchor" key={id}>
-            <NavigationButton state={open===id ? 'expanded' : 'inactive'} shape="label" className="nh-pill" icon={iconAliases[icon]} iconRight="chevron-down" aria-haspopup="menu" aria-expanded={open===id} onClick={()=>toggle(id)}>{label}</NavigationButton>
+          {([['workspace','Můj workspace'],['media','Média'],['checks','Kontrola']] as const).map(([id,label])=><div className="nh-popup-anchor" key={id}>
+            <NavigationButton state={open===id ? 'expanded' : 'inactive'} shape="label" className="nh-pill" iconRight="chevron-down" aria-haspopup="menu" aria-expanded={open===id} onClick={()=>toggle(id)}>{label}</NavigationButton>
             {open===id&&<div className="nh-menu" role="menu">{groups[id].map(item=><button role="menuitem" type="button" key={item} onClick={()=>{setFeedback(item+' · ukázková navigace');setOpen(null)}}>{item}<Icon name="arrow"/></button>)}</div>}
           </div>)}
         </div>
@@ -128,7 +128,7 @@ function NavigationButtonGallery({ mode }: { mode: ThemeName }) {
         <p className="nh-gallery-row-heading">02 / TEXTOVÁ NAVIGACE <span>výška 38 px</span></p>
         {navigationStates.map(({ state, label, description }) =>
           <div className="nh-gallery-specimen" key={state}>
-            <NavigationButton shape="label" state={state} icon="workspace" iconRight="chevron-down"
+            <NavigationButton shape="label" state={state} iconRight="chevron-down"
               aria-label={'Můj workspace · ' + label}
               aria-expanded={state === 'expanded'}
               onClick={() => setSample('Textové tlačítko · ' + label)}>Můj workspace</NavigationButton>
