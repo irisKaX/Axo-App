@@ -109,6 +109,7 @@ function NavigationButtonGallery({ mode }: { mode: ThemeName }) {
     '--nh-subtle': t.subtle,
     '--nh-border': t.border,
     '--nh-text': t.text,
+    '--nh-muted': t.muted,
     '--nh-focus': t.focusRing,
   } as CSSProperties
   return <div className={'nh-stage nh-gallery-stage is-' + mode} style={style}>
