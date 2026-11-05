@@ -23,7 +23,8 @@
 }
 .db-widget-cell{min-width:0;min-height:0}
 .db-widget-cell--large{grid-column:span 2}
-.db-footer{display:flex;flex:none;justify-content:flex-end;align-items:center;min-height:38px}
+.db-footer{display:flex;flex:none;justify-content:space-between;align-items:center;gap:12px;min-height:38px}
+.db-launch-notice{min-width:0;color:var(--muted);font-size:11px;line-height:1.4}
 .db-back{position:static;z-index:15;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--surface);color:var(--text);font-size:12px;font-weight:650;padding:8px 15px;min-height:36px;display:flex;gap:9px;align-items:center;cursor:pointer}
 .db-back:hover{border-color:var(--brand);background:var(--subtle)}
 .db-back:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
