@@ -13,6 +13,8 @@ export interface WidgetFoundationProps {
   accentTitle?: string
   description?: string
   children?: ReactNode
+  /** Fit the full dashboard grid cell instead of using catalog content minimums. */
+  dashboard?: boolean
 }
 
 const sizes = {
@@ -28,10 +30,11 @@ export function WidgetFoundation({
   accentTitle = 'Build better.',
   description = 'Základní kostra widgetu pro budoucí obsah.',
   children,
+  dashboard = false,
 }: WidgetFoundationProps) {
   const headingId = useId()
   const specification = sizes[size]
-  const { heading } = specification
+  const heading = dashboard ? typography[size === 'large' ? 'h3' : 'h4'] : specification.heading
   const styles = {
     '--wf-background': themes.dark.backdrop,
     '--wf-surface': themes.dark.surface,
@@ -39,24 +42,24 @@ export function WidgetFoundation({
     '--wf-text': themes.dark.brandText,
     '--wf-muted': themes.dark.muted,
     '--wf-accent': themes.dark.brand,
-    '--wf-padding': `${specification.density.padding}px`,
-    '--wf-gap': `${specification.density.gap}px`,
+    '--wf-padding': `${dashboard ? (size === 'large' ? spacing[5] : spacing[4]) : specification.density.padding}px`,
+    '--wf-gap': `${dashboard ? spacing[3] : specification.density.gap}px`,
     '--wf-copy-gap': `${spacing[2]}px`,
-    '--wf-content-height': `${specification.contentHeight}px`,
+    '--wf-content-height': `${dashboard ? 0 : specification.contentHeight}px`,
     '--wf-heading-size': `${heading.size}px`,
     '--wf-heading-leading': heading.lineHeight,
     '--wf-heading-weight': heading.weight,
     '--wf-heading-tracking': `${heading.tracking}em`,
-    '--wf-body-size': `${typography.bodySm.size}px`,
+    '--wf-body-size': `${dashboard ? typography.caption.size : typography.bodySm.size}px`,
     '--wf-body-leading': typography.bodySm.lineHeight,
-    '--wf-eyebrow-size': `${typography.overline.size}px`,
+    '--wf-eyebrow-size': `${dashboard ? 10 : typography.overline.size}px`,
     '--wf-eyebrow-leading': typography.overline.lineHeight,
     '--wf-eyebrow-weight': typography.overline.weight,
     '--wf-eyebrow-tracking': `${typography.overline.tracking}em`,
   } as CSSProperties
 
   return (
-    <article className="widget-foundation" data-size={size} style={styles} aria-labelledby={headingId}>
+    <article className={'widget-foundation'+(dashboard?' wf-dashboard':'')} data-size={size} style={styles} aria-labelledby={headingId}>
       <header className="wf-copy">
         <p className="wf-eyebrow">{eyebrow}</p>
         <h3 className="wf-heading" id={headingId}>
