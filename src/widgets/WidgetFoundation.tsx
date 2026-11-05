@@ -36,8 +36,8 @@ export function WidgetFoundation({
   const specification = sizes[size]
   const heading = dashboard ? typography[size === 'large' ? 'h3' : 'h4'] : specification.heading
   const styles = {
-    '--wf-background': '#000200',
-    '--wf-surface': themes.dark.surface,
+    '--wf-background': themes.dark.surface,
+    '--wf-surface': themes.dark.canvas,
     '--wf-border': themes.dark.border,
     '--wf-text': themes.dark.brandText,
     '--wf-muted': themes.dark.muted,
