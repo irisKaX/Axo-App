@@ -50,3 +50,17 @@
 .nh-open-dashboard button:hover{background:var(--brand-soft)}
 .nh-open-dashboard button:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
 .nh-open-dashboard span{font-size:11px;color:var(--muted)}
+
+/* Independent NavigationButton specimen board: both shapes, all three states. */
+.nh-gallery-stage{margin:0;background:var(--nh-canvas);color:var(--nh-text)}
+.nh-gallery-grid{display:grid;gap:24px}
+.nh-gallery-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:16px;row-gap:14px;align-items:start}
+.nh-gallery-row-heading{grid-column:1/-1;margin:0;color:var(--nh-text);font-size:11px;font-weight:700;letter-spacing:.07em}
+.nh-gallery-row-heading span{margin-left:10px;color:var(--nh-muted,var(--muted));font-size:11px;font-weight:400;letter-spacing:normal}
+.nh-gallery-specimen{display:flex;align-items:center;gap:12px;min-width:0}
+.nh-gallery-specimen>div{display:grid;gap:3px;min-width:0}
+.nh-gallery-specimen strong{font-size:12px}
+.nh-gallery-specimen small{color:var(--nh-muted,var(--muted));font-size:10px}
+.nh-gallery-feedback{margin:18px 0 0;color:var(--nh-muted,var(--muted));font-size:11px;min-height:16px}
+@media(max-width:1150px){.nh-gallery-row{grid-template-columns:1fr 1fr}}
+@media(max-width:740px){.nh-gallery-row{grid-template-columns:1fr}}
