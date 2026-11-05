@@ -17,8 +17,7 @@ export function ColorInventory({ theme }: { theme: ThemeName }) {
     try { await navigator.clipboard.writeText(value); setCopied(value) }
     catch { setCopied('') }
   }
-  const semanticTokens = Object.entries(t).filter(([key]) => key !== 'gradient' && key !== 'backdrop')
-    as [keyof typeof foundationRoles, string][]
+  const semanticTokens = Object.entries(t).filter(([key]) => key !== 'gradient' && key !== 'backdrop') as [keyof typeof foundationRoles, string][]
 
   return <div className="ci-inventory">
     <section className="studio-panel">
