@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { HeaderPreview } from './NavigationStudio'
 import { WidgetFoundation, type WidgetSize } from '../widgets/WidgetFoundation'
 import { type ThemeName } from '../design-system/foundations/colors'
@@ -15,6 +16,7 @@ const dashboardWidgets:WidgetSpec[] = [
 ]
 
 export default function DashboardStudio({theme,onThemeChange,onBack}:Props){
+  const [notice, setNotice] = useState('')
   return <div className="db-page">
     <div className="db-header-slot">
       <HeaderPreview mode={theme} onModeChange={onThemeChange} standalone/>
@@ -22,9 +24,10 @@ export default function DashboardStudio({theme,onThemeChange,onBack}:Props){
     <main className="db-grid" aria-label="Dashboard · skutečné rozložení widgetů">
       {dashboardWidgets.map(widget=><div className={'db-widget-cell db-widget-cell--'+widget.size} key={widget.id}>
         <WidgetFoundation dashboard size={widget.size} eyebrow="AXOLOTL / WIDGET"
-          title={widget.title} accentTitle={widget.accent} description={widget.description}/>
+          title={widget.title} accentTitle={widget.accent} description={widget.description}
+          launchLabel={'Otevřít nástroj: '+widget.title} onOpenTool={()=>setNotice('Nástroj '+widget.title+' zatím není připojený.')}/>
       </div>)}
     </main>
-    <div className="db-footer"><button className="db-back" type="button" onClick={onBack} aria-label="Zpět do design katalogu"><span aria-hidden="true">←</span> Zpět do katalogu</button></div>
+    <div className="db-footer"><span className="db-launch-notice" role="status" aria-live="polite">{notice}</span><button className="db-back" type="button" onClick={onBack} aria-label="Zpět do design katalogu"><span aria-hidden="true">←</span> Zpět do katalogu</button></div>
   </div>
 }
