@@ -1,7 +1,9 @@
-/* Navigation semantics on top of canonical AxoButton variants.
- * A current destination is NOT the same as a hovered or expanded menu.
- * All controls in the horizontal navigation share the 38px default rhythm.
+/* NavigationButton has navigation semantics, not generic button hierarchy.
+ * The current-state fill reuses the exact ThemeSwitch track palette per mode.
+ * Both round and labelled controls retain the canonical 38px height.
  */
+.nh-stage.is-dark { --nav-active-background: var(--axo-switch-dark-background); }
+.nh-stage.is-light { --nav-active-background: var(--axo-switch-light-background); }
 .nav-button.axo-button {
   height: var(--axo-button-height);
   flex-shrink: 0;
@@ -21,22 +23,47 @@
 .nav-button--label.axo-button--primary {
   padding: 0 14px;
 }
+.nav-button.axo-button--primary,
+.nav-button.axo-button--primary:hover:not(:disabled) {
+  background: var(--nav-active-background);
+  color: #FFFFFF;
+}
+.nav-button.axo-button--primary:hover:not(:disabled) {
+  box-shadow: 0 3px 8px #00000026;
+}
+.nav-button.axo-button--secondary {
+  background: var(--nh-subtle, var(--subtle));
+  border: 1px solid var(--nh-border, var(--border));
+  color: var(--nh-text, var(--text));
+}
 .nav-button--label.axo-button--secondary {
-  background: var(--border);
+  padding: 1px;
 }
 .nav-button--label.axo-button--secondary .axo-button-reveal-inner {
   padding: 0 12px;
+  background: var(--nh-surface, var(--surface));
+  color: var(--nh-text, var(--text));
 }
 .nav-button--label.axo-button--secondary:hover:not(:disabled) {
-  background: var(--brand-gradient);
+  background: var(--nav-active-background);
+  border-color: transparent;
+}
+.nav-button--label.axo-button--secondary:hover:not(:disabled) .axo-button-reveal-inner {
+  background: transparent;
+  color: #FFFFFF;
+}
+.nav-button--round.axo-button--secondary:hover:not(:disabled) {
+  background: var(--nh-surface, var(--surface));
+  border-color: var(--nh-border, var(--border));
 }
 .nav-button--label .axo-button-content-slot--end svg {
   width: 12px;
   height: 12px;
 }
 .nav-button[data-nav-state="expanded"]:not([aria-current="page"]) {
-  box-shadow: 0 0 0 1px var(--brand);
+  border-color: var(--nh-focus, var(--focus-ring));
+  box-shadow: 0 0 0 1px var(--nh-focus, var(--focus-ring));
 }
 .nav-button[data-nav-state="expanded"].axo-button--secondary:hover {
-  box-shadow: 0 0 0 1px var(--brand);
+  box-shadow: 0 0 0 1px var(--nh-focus, var(--focus-ring));
 }
