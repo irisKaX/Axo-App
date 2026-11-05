@@ -23,9 +23,11 @@ export const FormInput = forwardRef<HTMLInputElement, InputProps>(function FormI
   const inputId=id??uid
   const messageId=uid+'-message'
   const state=error?'error':success?'success':fieldState
-  return <div className={'fc-field fc-'+fieldSize+' fc-'+state+' '+className}>
+  const [uncontrolledFilled,setUncontrolledFilled]=useState(()=>String(rest.defaultValue??rest.value??'').trim().length>0)
+  const filled=rest.value===undefined?uncontrolledFilled:String(rest.value??'').trim().length>0
+  return <div className={'fc-field fc-'+fieldSize+' fc-'+state+(filled?' is-filled':'')+' '+className}>
     <label htmlFor={inputId}>{label}{required&&<span className="fc-required" aria-hidden="true"> *</span>}</label>
-    <input ref={ref} id={inputId} required={required} aria-invalid={state==='error'} aria-describedby={hint||error||success?messageId:undefined} {...rest}/>
+    <input ref={ref} id={inputId} required={required} aria-invalid={state==='error'} aria-describedby={hint||error||success?messageId:undefined} {...rest} onInput={event=>{setUncontrolledFilled(event.currentTarget.value.trim().length>0);rest.onInput?.(event)}}/>
     <Feedback id={messageId} hint={hint} error={error} success={success}/>
   </div>
 })
@@ -37,9 +39,11 @@ export const FormTextarea=forwardRef<HTMLTextAreaElement,TextareaProps>(function
   const inputId=id??uid
   const messageId=uid+'-message'
   const state=error?'error':success?'success':fieldState
-  return <div className={'fc-field fc-'+fieldSize+' fc-'+state+' '+className}>
+  const [uncontrolledFilled,setUncontrolledFilled]=useState(()=>String(rest.defaultValue??rest.value??'').trim().length>0)
+  const filled=rest.value===undefined?uncontrolledFilled:String(rest.value??'').trim().length>0
+  return <div className={'fc-field fc-'+fieldSize+' fc-'+state+(filled?' is-filled':'')+' '+className}>
     <label htmlFor={inputId}>{label}{required&&<span className="fc-required" aria-hidden="true"> *</span>}</label>
-    <textarea ref={ref} id={inputId} required={required} aria-invalid={state==='error'} aria-describedby={hint||error||success?messageId:undefined} {...rest}/>
+    <textarea ref={ref} id={inputId} required={required} aria-invalid={state==='error'} aria-describedby={hint||error||success?messageId:undefined} {...rest} onInput={event=>{setUncontrolledFilled(event.currentTarget.value.trim().length>0);rest.onInput?.(event)}}/>
     <Feedback id={messageId} hint={hint} error={error} success={success}/>
   </div>
 })
@@ -107,7 +111,7 @@ export function FormSelect({label,options,value,onChange,placeholder='Vyber mož
     else if(event.key==='Escape'){event.preventDefault();setOpen(false);trigger.current?.focus()}
     else if(event.key==='Tab'){trigger.current?.focus();setOpen(false)}
   }
-  return <div className={'fc-field fc-select-field fc-'+fieldSize+' fc-'+state}>
+  return <div className={'fc-field fc-select-field fc-'+fieldSize+' fc-'+state+(selected?' is-filled':'')}>
     <span className="fc-label" id={labelId}>{label}</span>
     <div className="fc-select-wrapper" ref={wrapper} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget as Node))setOpen(false)}}>
       <button ref={trigger} id={triggerId} type="button" className="fc-select-trigger"
