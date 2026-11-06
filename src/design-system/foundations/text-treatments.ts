@@ -37,6 +37,20 @@ export const textTreatments = {
   },
 } as const
 
+/**
+ * Mandatory pair used by widget and tool-page headings:
+ * neutral heading + Iris Purple dot; Iris Purple heading + neutral dot.
+ * The component ContrastDot normalizes a supplied trailing period.
+ */
+export const toolHeadingPunctuation = {
+  neutralText: 'theme.text',
+  accentText: 'brand.irisPurple',
+  neutralLineDot: 'brand.irisPurple',
+  accentLineDot: 'theme.text',
+  punctuation: '.',
+  example: { title: 'Konvertor webP.', tagline: 'Převod obrázků.' },
+} as const
+
 export const textTreatmentRoles = {
   accentDot: typography.display,
   accentWord: typography.h2,
