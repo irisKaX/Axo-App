@@ -13,8 +13,7 @@ import './image-converter-layout.css'
 type Stage = 'empty' | 'ready' | 'converted'
 type Props = { theme:ThemeName; onThemeChange:(theme:ThemeName)=>void; fullScreen?:boolean; onClose?:()=>void }
 const formats = [{value:'webp',label:'WebP'},{value:'jpg',label:'JPG'},{value:'png',label:'PNG'},{value:'avif',label:'AVIF'}]
-const qualities = [{value:'balanced',label:'Vyvážená'},{value:'high',label:'Vysoká'},{value:'custom',label:'Vlastní'}]
-const resizeOptions = [{value:'original',label:'Zachovat původní rozměry'},{value:'half',label:'Zmenšit na 50 %'},{value:'1920',label:'Maximální šířka 1920 px'}]
+const qualities = [{value:'balanced',label:'Vyvážená'},{value:'high',label:'Vysoká'}]
 const examples = [
   {name:'hero-banner.png',bytes:2516582,after:'412 kB'},
   {name:'product-photo.jpg',bytes:1887436,after:'286 kB'},
@@ -32,9 +31,6 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
   const [format,setFormat]=useState('webp')
   const [quality,setQuality]=useState('balanced')
   const [qualityValue,setQualityValue]=useState(80)
-  const [lastCustom,setLastCustom]=useState(60)
-  const [advanced,setAdvanced]=useState(false)
-  const [resize,setResize]=useState('original')
   const [metadata,setMetadata]=useState(false)
   const [notice,setNotice]=useState('')
   const hasFiles=stage!=='empty' && files.length>0
@@ -55,7 +51,6 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
     setQuality(next)
     if(next==='balanced')setQualityValue(80)
     else if(next==='high')setQualityValue(95)
-    else setQualityValue(lastCustom)
   }
   const appendFiles=(incoming:File[])=>{
     if(!incoming.length)return
@@ -73,8 +68,7 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
   }
   const onSlide=(value:number)=>{
     setQualityValue(value)
-    setLastCustom(value)
-    setQuality('custom')
+    setQuality('')
   }
   const runPreview=()=>{
     if(!hasFiles)return
@@ -107,14 +101,8 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
               <FormSelect label="Výstupní formát" options={formats} value={format} onChange={setFormat}/>
               <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={chooseQuality} name={'icl-quality-'+radioName}/>
               <QualitySlider label="Kvalita obrázku" value={qualityValue} onChange={onSlide}/>
-              <div className="icl-advanced">
-                <button className="icl-advanced-toggle" type="button" aria-expanded={advanced} onClick={()=>setAdvanced(value=>!value)}>
-                  Pokročilá nastavení <AxoIcon name={advanced?'chevron-up':'chevron-down'} size={16}/>
-                </button>
-                {advanced && <div className="icl-advanced-body">
-                  <FormSelect label="Rozměry obrázků" options={resizeOptions} value={resize} onChange={setResize}/>
-                  <FormSwitch label="Zachovat metadata" description="Pokud to formát podporuje" checked={metadata} onChange={setMetadata}/>
-                </div>}
+              <div className="icl-metadata-setting">
+                <FormSwitch label="Zachovat metadata" description="Pokud to formát podporuje" checked={metadata} onChange={setMetadata}/>
               </div>
             </div>
             <div className="icl-settings-note"><AxoIcon name="info" size={16}/><span>Zvolené parametry se použijí na všechny vybrané soubory.</span></div>
