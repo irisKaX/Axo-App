@@ -1,4 +1,4 @@
-import { useId, useState, type CSSProperties } from 'react'
+import { useId, useRef, useState, type CSSProperties } from 'react'
 import { FileDropzone } from '../components/AdvancedFormControls'
 import { FormSelect, FormRadioGroup, FormSwitch } from '../components/FormControls'
 import { AxoButton } from '../components/Buttons'
@@ -26,6 +26,7 @@ const showSize = (bytes:number)=> bytes>=1048576 ? (bytes/1048576).toLocaleStrin
 /** Catalog prototype. The controls and upload are real UI; conversion and downloads are intentionally not implemented. */
 export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClose}:Props){
   const radioName=useId()
+  const addInputRef=useRef<HTMLInputElement>(null)
   const [stage,setStage]=useState<Stage>('empty')
   const [files,setFiles]=useState<File[]>([])
   const [format,setFormat]=useState('webp')
@@ -55,6 +56,20 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
     if(next==='balanced')setQualityValue(80)
     else if(next==='high')setQualityValue(95)
     else setQualityValue(lastCustom)
+  }
+  const appendFiles=(incoming:File[])=>{
+    if(!incoming.length)return
+    setFiles(current=>{
+      const seen=new Set(current.map(file=>[file.name,file.size,file.lastModified].join(':')))
+      return [...current,...incoming.filter(file=>{
+        const key=[file.name,file.size,file.lastModified].join(':')
+        if(seen.has(key))return false
+        seen.add(key)
+        return true
+      })]
+    })
+    setStage('ready')
+    setNotice('')
   }
   const onSlide=(value:number)=>{
     setQualityValue(value)
@@ -123,7 +138,7 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
                   <AxoButton icon="close" iconOnly size="compact" variant="ghost" aria-label={'Odebrat '+file.name} onClick={()=>fileChanged(files.filter((_,i)=>i!==index))}/>
                 </div>)}</div>
                 <div className="icl-list-bottom"><span>{converted?'Ukázkové výsledky převodu':files.length+' obrázků připraveno'}</span>
-                  <AxoButton variant="outline" size="compact" icon="plus" onClick={()=>previewStage('ready')}>Přidat další</AxoButton>
+                  <AxoButton variant="outline" size="compact" icon="plus" onClick={()=>addInputRef.current?.click()}>Přidat další</AxoButton>
                 </div>
                 {converted&&<p className="icl-result-note"><AxoIcon name="check" size={15}/> Ukázka dokončena. Výsledné velikosti jsou ilustrační.</p>}
               </div>}
@@ -140,6 +155,10 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
         </footer>
       </section>
     </main>
+    <input ref={addInputRef} type="file" hidden multiple accept=".png,.jpg,.jpeg,.webp,.avif,.bmp,.gif" aria-label="Přidat další obrázky" onChange={event=>{
+      appendFiles(Array.from(event.currentTarget.files??[]))
+      event.currentTarget.value=''
+    }}/>
     {fullScreen ? <div className="icl-preview-toolbar" aria-label="Ovládání katalogového náhledu">
       <button type="button" className="icl-preview-exit" onClick={onClose} title="Zpět do katalogu" aria-label="Zpět do katalogu"><AxoIcon name="close" size={17}/></button>
       <div className="icl-preview-phase" role="group" aria-label="Ukázkové stavy">
