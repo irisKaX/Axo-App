@@ -77,18 +77,30 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
           </div>
         </section>
         <aside className="icl-side-column" aria-label="Nastavení Image Converteru">
-          <div className="icl-side-heading"><span className="icl-overline">NASTAVENÍ</span><h2>Parametry převodu</h2></div>
-          <FormSelect label="Výstupní formát" options={formats} value={format} onChange={setFormat}/>
-          <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={selectQuality} name={'icl-quality-'+qualityGroupId}/>
-          <QualitySlider label="Kvalita" value={qualityValue} onChange={value=>{
-            setQualityValue(value)
-            setCustomQuality(value)
-            setQuality('custom')
-          }}/>
-          <div className="icl-primary-action">
-            {converted
-              ? <AxoButton variant="secondary" icon="download" disabled>Stáhnout vše</AxoButton>
-              : <AxoButton variant="primary" icon="refresh" disabled={!hasFiles} onClick={()=>setStage('converted')}>Převést do {formats.find(item=>item.value===format)?.label??'WebP'}</AxoButton>}
+          <div className="icl-side-heading">
+            <span className="icl-overline">NASTAVENÍ / 02</span>
+            <h2><ContrastDot tone="neutral">Parametry převodu</ContrastDot></h2>
+            <p>Zvolte formát a kvalitu výsledných obrázků.</p>
+          </div>
+          <div className="icl-settings-fields">
+            <FormSelect label="Výstupní formát" options={formats} value={format} onChange={setFormat}/>
+            <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={selectQuality} name={'icl-quality-'+qualityGroupId}/>
+            <QualitySlider label="Kvalita" value={qualityValue} onChange={value=>{
+              setQualityValue(value)
+              setCustomQuality(value)
+              setQuality('custom')
+            }}/>
+          </div>
+          <div className="icl-action-area">
+            <div className="icl-action-status" role="status">
+              <AxoIcon name={converted?'check':hasFiles?'image':'info'} size={17}/>
+              <span>{converted?'Ukázka převodu dokončena.':hasFiles?'3 obrázky připravené k převodu.':'Nejdříve vyberte obrázky'}</span>
+            </div>
+            <div className="icl-primary-action">
+              {converted
+                ? <AxoButton variant="secondary" icon="download" disabled>Stáhnout vše</AxoButton>
+                : <AxoButton variant="primary" icon="refresh" disabled={!hasFiles} onClick={()=>setStage('converted')}>Převést do {formats.find(item=>item.value===format)?.label??'WebP'}</AxoButton>}
+            </div>
           </div>
         </aside>
       </div>
