@@ -1,6 +1,5 @@
 import { useId, useState, type CSSProperties } from 'react'
 import { FileDropzone } from '../components/AdvancedFormControls'
-import DataRain from '../components/DataRain'
 import { FormSelect, FormRadioGroup } from '../components/FormControls'
 import { AxoButton } from '../components/Buttons'
 import { AxoIcon } from '../components/AxoIcon'
@@ -20,16 +19,7 @@ const examples = [
   {name:'product-photo.jpg',result:'product-photo.webp',size:'1,8 MB',after:'286 kB'},
   {name:'thumbnail.png',result:'thumbnail.webp',size:'850 kB',after:'128 kB'}
 ]
-
-
-function ConverterFormats(){
- return <div className="icl-format-panel" aria-label="Podporované vstupní formáty">
-  <span className="icl-format-label">VSTUPNÍ FORMÁTY</span>
-  <div className="icl-format-chips">{['PNG','JPG','WebP','AVIF','BMP','GIF'].map(format=><span key={format} className="icl-format-chip">{format}</span>)}</div>
-  <span className="icl-format-note">GIF bez animace</span>
- </div>
-}
-
+const mockFiles = examples.map((file,i)=>new File(['náhled'],file.name,{type:i===1?'image/jpeg':'image/png',lastModified:i}))
 
 /** Visual composition only. The catalog controls sit outside the actual tool page. */
 export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClose}:Props){
@@ -71,7 +61,7 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
           </div>
           <div className="icl-main-column">
             {!hasFiles
-              ? <div className="icl-upload-stack"><div className="icl-upload-stage"><DataRain fullscreen={false} count={fullScreen ? 1600 : 1000} flowSpeed={1} obstacleRadius={fullScreen ? 76 : 52} autopilot palette={{calm:"#0F9FDC",mid:"#7C4BFE",hot:"#FF3D9A"}}/><div className="icl-upload-icon" aria-hidden="true"><AxoIcon name="image" size={29}/></div><FileDropzone context="images" previewOnly size="default" files={[]} onChange={()=>{}} label="File Upload · Image Converter"/></div><ConverterFormats/></div>
+              ? <FileDropzone context="images" previewOnly size="default" files={[]} onChange={()=>{}} label="File Upload · Image Converter"/>
               : <div className="icl-files">
                   {examples.map(file=><article className="icl-file" key={file.name}>
                     <div className="icl-file-thumb"><AxoIcon name="image" size={21}/></div>
