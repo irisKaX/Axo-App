@@ -35,7 +35,16 @@
 .icl-undeveloped>.axo-icon{flex:none;color:var(--brand)}
 .icl-undeveloped strong{font-size:12px}
 .icl-undeveloped p{font-size:11px;line-height:1.5;color:var(--muted);margin:5px 0 0}
-.icl-primary-action{margin-top:auto;padding-top:15px;border-top:1px solid var(--border)}
+/* Primary action belongs near the settings heading; never a footer separated by a divider. */
+.icl-primary-action{display:flex;justify-content:center;align-items:center;margin:0;padding:0}
+.icl-primary-action>.axo-button{width:230px;max-width:100%;height:38px}
+.icl-primary-action>.axo-button .axo-button-label{text-overflow:clip}
+/* Use the approved neutral input surface, not the tinted filled-select background. */
+.icl-side-column .fc-select-field.is-filled:not(:focus-within):not(.fc-error):not(.fc-success) .fc-select-trigger{
+  background:var(--surface);border-color:var(--control-border);box-shadow:none;
+}
+.icl-side-column .fc-radio-list{display:flex;flex-wrap:wrap;column-gap:12px;row-gap:3px}
+.icl-side-column .fc-radio-list .fc-choice{gap:9px}
 .icl-files{display:grid;align-content:start;gap:10px;min-height:0}
 .icl-file{display:flex;align-items:center;gap:11px;min-width:0;padding:12px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--canvas)}
 .icl-file-thumb{width:44px;height:44px;display:grid;place-items:center;flex:none;background:var(--subtle);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--brand)}
