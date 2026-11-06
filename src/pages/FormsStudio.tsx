@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox, FormRadioGroup, FormSwitch, type FormAccent } from '../components/FormControls'
 import { SearchSpotlight } from '../components/SearchSpotlight'
+import { QualitySlider, type QualitySliderState } from '../components/QualitySlider'
 import { MultiSelect, DatePickerField, NumberInput, FileDropzone, type FileUploadSize } from '../components/AdvancedFormControls'
 import { ThemeSwitch } from '../components/ThemeSwitch'
 import { type ThemeName } from '../design-system/foundations/colors'
@@ -82,6 +83,8 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
   const [selectedTags,setSelectedTags]=useState<string[]>(['seo','oneplay'])
   const [dueDate,setDueDate]=useState('')
   const [budget,setBudget]=useState<number|null>(199)
+  const [qualitySliderValue,setQualitySliderValue] = useState(80)
+  const [qualitySliderPreview,setQualitySliderPreview] = useState<QualitySliderState>('default')
   const [uploadState, setUploadState] = useState('empty')
   const [imageDropState,setImageDropState] = useState<'empty'|'drag'|'ready'|'error'|'disabled'>('empty')
   const [imageDropSize,setImageDropSize] = useState<FileUploadSize>('default')
@@ -245,6 +248,34 @@ export default function FormsStudio({theme,onThemeChange}:{theme:ThemeName;onThe
             ] : []}
             error={imageDropState==='error' ? 'Soubor „archiv.zip“ není obrázek.' : undefined}
             dragOver={imageDropState==='drag'} disabled={imageDropState==='disabled'} onChange={()=>{}}/>
+        </div>
+      </div>
+    </section>
+
+    <section className="panel fs-panel">
+      <div className="fs-section-head"><span>12 / QUALITY SLIDER</span><h2>Quality Slider · 0–100</h2>
+        <p>Nová komponenta pro nastavení kvality konverze. Vlastní Neo Iris vzhled, žádný nativní vizuál. Hodnota se mění jen v katalogové ukázce, bez zpracování obrázků.</p>
+      </div>
+      <div className="fs-slider-layout">
+        <div className="fs-slider-live">
+          <span className="fs-overline">LIVE PREVIEW</span>
+          <QualitySlider label="Kvalita převodu" value={qualitySliderValue} onChange={setQualitySliderValue}/>
+          <div className="fs-slider-shortcuts" aria-label="Ukázkové předvolby kvality">
+            {([40,80,95] as const).map(value=><button type="button" key={value}
+              className={qualitySliderValue===value?'is-active':''} aria-pressed={qualitySliderValue===value}
+              onClick={()=>setQualitySliderValue(value)}>{value===40?'Úsporná':value===80?'Vyvážená':'Vysoká'} · {value} %</button>)}
+          </div>
+          <p>Vyzkoušej přetažení jezdce, kliknutí do lišty nebo šipky na klávesnici.</p>
+        </div>
+        <div className="fs-slider-examples">
+          <span className="fs-overline">VISUAL STATES</span>
+          <div className="fs-slider-state-choices">
+            {(['default','hover','focus','disabled'] as const).map(state=><button type="button" key={state}
+              aria-pressed={qualitySliderPreview===state} className={qualitySliderPreview===state?'is-selected':''}
+              onClick={()=>setQualitySliderPreview(state)}>{state==='default'?'Default':state==='hover'?'Hover':state==='focus'?'Focus':'Disabled'}</button>)}
+          </div>
+          <QualitySlider label="Náhled stavu" value={80} onChange={()=>{}} state={qualitySliderPreview}/>
+          <p>Stav je pouze ilustrační. Komponenta zatím není propojená s nástrojem.</p>
         </div>
       </div>
     </section>
