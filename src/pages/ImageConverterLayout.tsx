@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { FileDropzone } from '../components/AdvancedFormControls'
 import { FormSelect, FormRadioGroup } from '../components/FormControls'
 import { AxoButton } from '../components/Buttons'
@@ -6,6 +6,7 @@ import { AxoIcon } from '../components/AxoIcon'
 import { ContrastDot } from '../components/TextTreatments'
 import { HeaderPreview } from './NavigationStudio'
 import type { ThemeName } from '../design-system/foundations/colors'
+import { toolHeadingStack } from '../design-system/foundations/typography'
 import './image-converter-layout.css'
 
 type Stage = 'empty' | 'ready' | 'converted'
@@ -34,7 +35,10 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
       <div className="icl-composition">
         <section className="icl-workspace" aria-label="Pracovní plocha Image Converteru">
           <div className="icl-workspace-head">
-            <div className="icl-heading-copy">
+            <div className="icl-heading-copy" style={{
+              '--tool-heading-gap': toolHeadingStack.gap + 'px',
+              '--tool-heading-leading': toolHeadingStack.lineHeight,
+            } as CSSProperties}>
               <span className="icl-overline">AXOLOTL/WebP</span>
               <div className="icl-heading-pair">
                 <h1><ContrastDot tone="neutral">Konvertor webP.</ContrastDot></h1>
