@@ -60,6 +60,22 @@
   flex:1;
   background:transparent;
 }
+/* Slightly stronger visual hierarchy inside the converter drop target only.
+   The global FileUpload and the approved 38px button height are unchanged. */
+.icl-workspace .afu-dropzone--images .afu-target{gap:20px}
+.icl-workspace .afu-dropzone--images .afu-target>.axo-icon{width:32px;height:32px}
+.icl-workspace .afu-dropzone--images .afu-target-copy{gap:7px}
+.icl-workspace .afu-dropzone--images .afu-target-copy strong{font-size:19px;line-height:1.4}
+.icl-workspace .afu-dropzone--images .afu-target-copy span{font-size:14px;line-height:1.5}
+.icl-workspace .afu-dropzone--images .afu-target>.axo-button{font-size:14px;padding-inline:24px}
+.icl-workspace .afu-dropzone--images .afu-image-formats{font-size:12px;line-height:1.6}
+@media(max-width:600px){
+ .icl-workspace .afu-dropzone--images .afu-target{gap:10px}
+ .icl-workspace .afu-dropzone--images .afu-target-copy strong{font-size:16px}
+ .icl-workspace .afu-dropzone--images .afu-target-copy span{font-size:12px}
+ .icl-workspace .afu-dropzone--images .afu-target>.axo-button{font-size:12px;padding-inline:16px}
+ .icl-workspace .afu-dropzone--images .afu-image-formats{font-size:10px}
+}
 /* The existing FileUpload keeps its own approved typography, surface and buttons.
    Only the context's available size is adjusted here. */
 .icl-inline-controls{display:flex;gap:7px;flex-wrap:wrap;padding:10px 20px 18px;border-top:1px solid var(--border)}
