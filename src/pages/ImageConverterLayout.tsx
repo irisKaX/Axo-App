@@ -36,8 +36,10 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
           <div className="icl-workspace-head">
             <div className="icl-heading-copy">
               <span className="icl-overline">AXOLOTL/WebP</span>
-              <h1><ContrastDot tone="neutral">Konvertor webP.</ContrastDot></h1>
-              <h2><ContrastDot tone="accent">Převod obrázků.</ContrastDot></h2>
+              <div className="icl-heading-pair">
+                <h1><ContrastDot tone="neutral">Konvertor webP.</ContrastDot></h1>
+                <h2><ContrastDot tone="accent">Převod obrázků.</ContrastDot></h2>
+              </div>
               <p>Převádějte a optimalizujte jeden nebo více obrázků.</p>
             </div>
             {hasFiles && <span className="icl-workspace-count">3 obrázky</span>}
