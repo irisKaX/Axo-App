@@ -25,6 +25,8 @@
   letter-spacing: var(--wf-eyebrow-tracking);
 }
 .wf-heading {
+  --tt-dot-neutral: var(--wf-text);
+  --tt-dot-accent: var(--wf-accent);
   margin: 0;
   font-size: var(--wf-heading-size);
   font-weight: var(--wf-heading-weight);
