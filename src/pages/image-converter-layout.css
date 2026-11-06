@@ -177,3 +177,12 @@
 @media(max-width:850px){.icl-format-panel{gap:8px}.icl-format-note{margin-left:0}.icl-upload-stage .afu-target,.icl-upload-stage .afu-dropzone--images .afu-target{min-height:260px}}
 @media(max-width:600px){.icl-upload-stack{gap:9px}.icl-upload-stage .afu-target,.icl-upload-stage .afu-dropzone--images .afu-target{min-height:225px;padding:24px 12px}.icl-format-panel{padding:10px;gap:8px}.icl-format-label{width:100%}.icl-format-chip{padding:4px 8px}.icl-rain-drop{width:1.5px}}
 @media(prefers-reduced-motion:reduce){.icl-rain-drop{animation:none;transform:translateY(145px);will-change:auto}.icl-upload-stage:hover .icl-rain-drop,.icl-upload-stage:focus-within .icl-rain-drop{filter:none}}
+
+/* Reference-inspired flowing trails and saturated icon treatment. */
+.icl-rain-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.95}
+.icl-upload-stage{background:radial-gradient(ellipse at 35% 72%,#211026 0%,#0a0d1a 55%,#060b12 100%)}
+.icl-upload-icon{position:absolute;top:20%;left:50%;transform:translateX(-50%);z-index:2;display:grid;place-items:center;width:53px;height:53px;border-radius:17px;color:#ad83ff;background:linear-gradient(145deg,#352061,#181c35);border:1px solid #9061ff;box-shadow:0 0 26px #7c4bfe45,inset 0 1px 0 #a18aff66;pointer-events:none}
+.icl-upload-stage .afu-target{padding-top:56px}
+.icl-shell:not(.icl-shell--fullscreen) .icl-upload-icon{top:16%;width:44px;height:44px;border-radius:14px}
+.icl-shell:not(.icl-shell--fullscreen) .icl-upload-icon .axo-icon{width:25px;height:25px}
+@media(max-width:600px){.icl-upload-icon{top:12%;width:42px;height:42px;border-radius:13px}.icl-upload-stage .afu-target{padding-top:48px}}
