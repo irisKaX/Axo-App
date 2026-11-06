@@ -1,0 +1,10 @@
+
+/* Original Data Rain engine canvas layers, contained within the converter upload surface. */
+.dr-root{position:fixed;inset:0;overflow:hidden;pointer-events:none;isolation:isolate}
+.dr-root--contained{position:absolute;inset:0;width:100%;height:100%}
+.dr-main,.dr-bloom{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.dr-main{z-index:2;opacity:1}
+.dr-bloom{z-index:1;filter:blur(9px);opacity:.62;transform:scale(1.015);transform-origin:center}
+.dr-vignette{z-index:3;position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 48%,transparent 14%,rgba(4,7,17,.18) 62%,rgba(4,7,17,.45) 100%)}
+.dr-grain{z-index:4;position:absolute;inset:0;pointer-events:none;opacity:.09;background-image:repeating-linear-gradient(0deg,transparent 0px,transparent 3px,rgba(255,255,255,.07) 4px),repeating-linear-gradient(90deg,transparent 0px,transparent 4px,rgba(255,255,255,.05) 5px)}
+@media(prefers-reduced-motion:reduce){.dr-bloom{opacity:.3}}
