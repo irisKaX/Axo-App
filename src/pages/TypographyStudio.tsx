@@ -1,8 +1,8 @@
 import { useState, type CSSProperties } from 'react'
 import { typography, typographySamples, fontWeights, fontFamilies, type TypographyRole } from '../design-system/foundations/typography'
 import { WorkspaceComposition } from '../components/WorkspaceComposition'
-import { AccentDot, AccentWord, EyebrowHeading } from '../components/TextTreatments'
-import { textTreatments } from '../design-system/foundations/text-treatments'
+import { AccentDot, AccentWord, EyebrowHeading, ContrastDot } from '../components/TextTreatments'
+import { textTreatments, toolHeadingPunctuation } from '../design-system/foundations/text-treatments'
 import './typography-studio.css'
 
 const sampleRoles: TypographyRole[] = ['display', 'h1', 'h2', 'h3', 'h4', 'bodyLg', 'body', 'bodySm', 'label', 'button', 'caption', 'overline']
@@ -83,6 +83,20 @@ export default function TypographyStudio() {
           <p>Verzálkový popisek 8 px nad nadpisem. Nadpis končí fialovou tečkou.</p>
           <code>textTreatments.eyebrowHeading</code>
         </article>
+      </div>
+      <div className="typo-pair-rule">
+        <div className="typo-pair-preview">
+          <span className="typo-kicker">AXOLOTL / WebP</span>
+          <ContrastDot as="h3" tone="neutral">{toolHeadingPunctuation.example.title}</ContrastDot>
+          <ContrastDot as="h3" tone="accent">{toolHeadingPunctuation.example.tagline}</ContrastDot>
+          <p>Převádějte a optimalizujte jeden nebo více obrázků.</p>
+        </div>
+        <div className="typo-pair-description">
+          <span className="typo-kicker">PRAVIDLO / DVOJICE NADPISŮ</span>
+          <h3>Kontrastní tečka</h3>
+          <p>Platí pro každou dvojici nadpisů u widgetů a stránek nástrojů: <strong>světlý text končí fialovou tečkou, fialový text končí světlou tečkou.</strong> Samotná tečka je vždy samostatně barvená, nikoli součástí barvy celého řádku.</p>
+          <p>Zdroj: <code>ContrastDot</code> a <code>toolHeadingPunctuation</code>. Při změně tématu se světlá/neutrální barva řídí povrchem a sémantickým textovým tokenem.</p>
+        </div>
       </div>
     </section>
 
