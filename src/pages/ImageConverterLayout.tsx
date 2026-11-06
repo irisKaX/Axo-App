@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useId, useState, type CSSProperties } from 'react'
 import { FileDropzone } from '../components/AdvancedFormControls'
 import { FormSelect, FormRadioGroup } from '../components/FormControls'
 import { AxoButton } from '../components/Buttons'
@@ -23,6 +23,7 @@ const mockFiles = examples.map((file,i)=>new File(['náhled'],file.name,{type:i=
 
 /** Visual composition only. The catalog controls sit outside the actual tool page. */
 export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClose}:Props){
+  const qualityGroupId=useId()
   const [stage,setStage]=useState<Stage>('empty')
   const [format,setFormat]=useState('webp')
   const [quality,setQuality]=useState('balanced')
@@ -78,7 +79,7 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
         <aside className="icl-side-column" aria-label="Nastavení Image Converteru">
           <div className="icl-side-heading"><span className="icl-overline">NASTAVENÍ</span><h2>Parametry převodu</h2></div>
           <FormSelect label="Výstupní formát" options={formats} value={format} onChange={setFormat}/>
-          <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={selectQuality} name="icl-quality"/>
+          <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={selectQuality} name={'icl-quality-'+qualityGroupId}/>
           <QualitySlider label="Kvalita" value={qualityValue} onChange={value=>{
             setQualityValue(value)
             setCustomQuality(value)
