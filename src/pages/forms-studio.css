@@ -107,3 +107,17 @@
 .fs-image-drop-stage{background:var(--canvas);border-radius:var(--radius-xl);border:1px solid var(--border);padding:clamp(12px,3vw,28px)}
 .fs-image-drop-stage>.afu-dropzone{max-width:840px;margin:0 auto}
 .fs-image-drop-note{max-width:740px;margin:15px 0 0;color:var(--muted);font-size:11px;line-height:1.7}
+
+/* Design-only Quality Slider documentation; the component owns all slider visuals. */
+.fs-slider-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.fs-slider-live,.fs-slider-examples{display:flex;flex-direction:column;gap:24px;padding:clamp(20px,3vw,30px);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--canvas);min-width:0}
+.fs-slider-live>.qs-slider,.fs-slider-examples>.qs-slider{width:100%}
+.fs-slider-shortcuts,.fs-slider-state-choices{display:flex;flex-wrap:wrap;gap:8px}
+.fs-slider-shortcuts button,.fs-slider-state-choices button{
+  min-height:34px;padding:7px 12px;border:1px solid var(--border);border-radius:var(--radius-pill);
+  color:var(--text);background:var(--surface);font:inherit;font-size:11px;cursor:pointer
+}
+.fs-slider-shortcuts button:is(.is-active,:hover),.fs-slider-state-choices button:is(.is-selected,:hover){border-color:var(--brand)}
+.fs-slider-shortcuts button:focus-visible,.fs-slider-state-choices button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
+.fs-slider-live>p,.fs-slider-examples>p{font-size:11px;line-height:1.7;margin:0;color:var(--muted)}
+@media(max-width:850px){.fs-slider-layout{grid-template-columns:1fr}}
