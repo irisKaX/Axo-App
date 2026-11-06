@@ -77,11 +77,6 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
         </section>
         <aside className="icl-side-column" aria-label="Nastavení Image Converteru">
           <div className="icl-side-heading"><span className="icl-overline">NASTAVENÍ</span><h2>Parametry převodu</h2></div>
-          <div className="icl-primary-action">
-            {converted
-              ? <AxoButton variant="secondary" icon="download" disabled>Stáhnout vše</AxoButton>
-              : <AxoButton variant="primary" icon="refresh" disabled={!hasFiles} onClick={()=>setStage('converted')}>Převést do {formats.find(item=>item.value===format)?.label??'WebP'}</AxoButton>}
-          </div>
           <FormSelect label="Výstupní formát" options={formats} value={format} onChange={setFormat}/>
           <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={selectQuality} name="icl-quality"/>
           <QualitySlider label="Kvalita" value={qualityValue} onChange={value=>{
@@ -89,6 +84,11 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
             setCustomQuality(value)
             setQuality('custom')
           }}/>
+          <div className="icl-primary-action">
+            {converted
+              ? <AxoButton variant="secondary" icon="download" disabled>Stáhnout vše</AxoButton>
+              : <AxoButton variant="primary" icon="refresh" disabled={!hasFiles} onClick={()=>setStage('converted')}>Převést do {formats.find(item=>item.value===format)?.label??'WebP'}</AxoButton>}
+          </div>
         </aside>
       </div>
     </main>
