@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ImageConverterLayout } from './ImageConverterLayout'
+import { ImageConverterLayout, type ConverterLayoutVariant } from './ImageConverterLayout'
 import { layout, spacing } from '../design-system/foundations/spacing'
 import { themes, type ThemeName } from '../design-system/foundations/colors'
 import './layouts-studio.css'
@@ -67,6 +67,7 @@ export default function LayoutsStudio({theme,onThemeChange}:{theme:ThemeName;onT
   const [viewport,setViewport]=useState<Viewport>('desktop')
   const [category,setCategory]=useState<'common'|'image-converter'>('image-converter')
   const [fullPreview,setFullPreview]=useState(false)
+  const [converterVariant,setConverterVariant]=useState<ConverterLayoutVariant>('a')
   return <div className="ls-page">
     <p className="eyebrow">LIBRARY / LAYOUTS</p>
     <h1>Layouts<span className="heading-accent">.</span></h1>
@@ -121,16 +122,28 @@ export default function LayoutsStudio({theme,onThemeChange}:{theme:ThemeName;onT
     {category==='image-converter' && <section className="ls-tool-section">
       <div className="ls-heading"><span>TOOLS / 01 IMAGE CONVERTER</span><h2>Image Converter · návrh celé stránky</h2>
         <p>Plnohodnotná pracovní kompozice, ne zmenšený obrázek. Obsah respektuje současné komponenty a stále neřeší žádné skutečné nahrávání ani konverzi. Slider a Image Compare jsou zatím pouze vyznačené návrhové plochy.</p></div>
+      <div className="ls-converter-variants" role="group" aria-label="Varianta rozložení Image Converteru">
+        <button type="button" className={converterVariant==='a'?'is-selected':''} aria-pressed={converterVariant==='a'}
+          onClick={()=>setConverterVariant('a')}>
+          <span>A / JEDNA KARTA</span><strong>Společný workspace</strong>
+          <small>Nahrávání a nastavení v jedné pracovní kartě</small>
+        </button>
+        <button type="button" className={converterVariant==='b'?'is-selected':''} aria-pressed={converterVariant==='b'}
+          onClick={()=>setConverterVariant('b')}>
+          <span>B / DVĚ KARTY</span><strong>Pracovní plocha + nastavení</strong>
+          <small>Samostatné plochy vedle sebe</small>
+        </button>
+      </div>
       <div className="ls-tool-actions">
-        <span>DESKTOP-FIRST · RESPONSIVE LAYOUT · DESIGN ONLY</span>
+        <span>VARIANTA {converterVariant.toUpperCase()} · DESIGN ONLY · REÁLNÉ PROPORCE</span>
         <button type="button" onClick={()=>setFullPreview(true)}>Otevřít v celé obrazovce ↗</button>
       </div>
       <div className="ls-tool-preview">
-        <ImageConverterLayout theme={theme} onThemeChange={onThemeChange}/>
+        <ImageConverterLayout key={converterVariant} theme={theme} onThemeChange={onThemeChange} variant={converterVariant}/>
       </div>
       <div className="ls-tool-footnote"><strong>První z nástrojových layoutů</strong><p>QR generátor, Metadata Check, Find Phrase a další zde dostanou vlastní podsekce, až začneme navrhovat jejich rozložení. Budou skládat existující prvky design systému, nikoli vytvářet další kopie komponent.</p></div>
     </section>}
-    {fullPreview && <ImageConverterLayout theme={theme} onThemeChange={onThemeChange} fullScreen onClose={()=>setFullPreview(false)}/>}
+    {fullPreview && <ImageConverterLayout theme={theme} onThemeChange={onThemeChange} variant={converterVariant} fullScreen onClose={()=>setFullPreview(false)}/>}
     <footer className="page-footer">Axolotl · Layouts · {category==='common'?'App Shell & Dashboard Grid':'Tools / Image Converter'} · {layout.gaps.default}px grid / {spacing[3]}px compact</footer>
   </div>
 }
