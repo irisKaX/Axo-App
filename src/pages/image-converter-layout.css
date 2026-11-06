@@ -116,3 +116,111 @@
  .icl-footer-status small{font-size:9px}
  .icl-preview-toolbar{right:12px;bottom:12px}
 }
+
+/* Viewport-fit correction: the main tool is bounded by the available screen height.
+   Inner panels scroll when needed; the shared action footer is never clipped. */
+.icl-shell--fullscreen{
+  height:100vh;
+  height:100dvh;
+  overflow:hidden;
+  padding:8px 12px;
+}
+.icl-shell--fullscreen .icl-page{
+  min-height:0;
+  overflow:hidden;
+  padding:12px clamp(12px,1.6vw,22px) 10px;
+}
+.icl-shell--fullscreen .icl-page-head{
+  flex:none;
+  margin-bottom:12px;
+  gap:10px;
+}
+.icl-shell--fullscreen .icl-heading-copy{
+  gap:5px;
+}
+.icl-shell--fullscreen .icl-heading-copy h1{
+  font-size:clamp(24px,2.3vw,34px);
+  line-height:1.14;
+}
+.icl-shell--fullscreen .icl-tool{
+  min-height:0;
+  flex:1 1 0;
+}
+.icl-tool-body{
+  min-height:0;
+  overflow:hidden;
+}
+.icl-settings,.icl-workarea{
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
+.icl-tool-footer{
+  flex:0 0 auto;
+  min-height:60px;
+  padding:9px clamp(14px,1.7vw,22px);
+}
+.icl-empty-surface{
+  min-height:0;
+  flex:1 1 0;
+}
+.icl-empty-surface>.afu-dropzone{
+  min-height:0;
+  flex:1 1 0;
+  gap:0;
+}
+.icl-empty-surface .afu-target{
+  min-height:0;
+  height:100%;
+  flex:1 1 0;
+  gap:12px;
+  padding:15px;
+}
+.icl-empty-surface .afu-target>.axo-icon{
+  width:27px;
+  height:27px;
+  padding:9px;
+}
+.icl-empty-surface .afu-image-formats{
+  font-size:10px;
+}
+.icl-shell--fullscreen .icl-settings,
+.icl-shell--fullscreen .icl-workarea{
+  padding:clamp(12px,1.4vw,20px);
+  gap:13px;
+}
+.icl-shell--fullscreen .icl-settings-fields{gap:14px}
+.icl-shell--fullscreen .icl-settings{gap:14px}
+.icl-shell--fullscreen .icl-advanced{padding-top:10px}
+.icl-shell--fullscreen .icl-settings-note{padding-top:10px}
+.icl-shell--fullscreen .icl-file-list{min-height:0;max-height:none;flex:1 1 auto}
+.icl-shell--fullscreen .icl-file-content{min-height:0}
+.icl-preview-toolbar{
+  top:79px;
+  bottom:auto;
+  right:24px;
+  filter:drop-shadow(0 3px 9px #0007);
+}
+.icl-shell--fullscreen .icl-page-context{padding-right:170px}
+@media(max-height:820px) and (min-width:621px){
+  .icl-shell--fullscreen .icl-page{padding-top:7px;padding-bottom:7px}
+  .icl-shell--fullscreen .icl-page-head{margin-bottom:8px}
+  .icl-shell--fullscreen .icl-heading-copy h1{font-size:clamp(23px,2vw,30px)}
+  .icl-shell--fullscreen .icl-settings,
+  .icl-shell--fullscreen .icl-workarea{padding:12px 16px;gap:10px}
+  .icl-shell--fullscreen .icl-settings-fields{gap:10px}
+  .icl-shell--fullscreen .icl-settings{gap:11px}
+  .icl-shell--fullscreen .icl-tool-footer{min-height:54px;padding-top:7px;padding-bottom:7px}
+  .icl-shell--fullscreen .icl-empty-surface .afu-target{gap:9px;padding:11px}
+  .icl-shell--fullscreen .icl-empty-surface .afu-target>.axo-icon{width:24px;height:24px;padding:8px}
+}
+@media(max-width:620px){
+  .icl-shell--fullscreen{overflow:auto}
+  .icl-shell--fullscreen .icl-page{overflow:visible;flex:none}
+  .icl-tool-body{overflow:visible}
+  .icl-settings,.icl-workarea{overflow:visible}
+  .icl-empty-surface .afu-target{min-height:230px}
+  .icl-preview-toolbar{top:auto;bottom:12px;right:12px}
+  .icl-shell--fullscreen .icl-page-context{display:none}
+}
