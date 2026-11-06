@@ -9,7 +9,7 @@ import './image-converter-layout.css'
 
 export type ConverterLayoutVariant = 'a' | 'b'
 type Stage = 'empty' | 'ready' | 'converted'
-type Props = { theme: ThemeName; onThemeChange: (theme: ThemeName) => void; variant?: ConverterLayoutVariant; fullScreen?: boolean; onClose?: () => void }
+type Props = { theme: ThemeName; onThemeChange: (theme: ThemeName) => void; variant?: ConverterLayoutVariant; onVariantChange?: (variant: ConverterLayoutVariant) => void; fullScreen?: boolean; onClose?: () => void }
 const formats = [{value:'webp',label:'WebP'},{value:'jpg',label:'JPG'},{value:'png',label:'PNG'},{value:'avif',label:'AVIF'}]
 const qualities = [{value:'balanced',label:'Vyvážená'},{value:'high',label:'Vysoká'},{value:'custom',label:'Vlastní'}]
 const examples = [
@@ -20,7 +20,7 @@ const examples = [
 const mockFiles = examples.map((file,i)=>new File(['náhled'],file.name,{type:i===1?'image/jpeg':'image/png',lastModified:i}))
 
 /** Visual composition only. The catalog controls sit outside the actual tool page. */
-export function ImageConverterLayout({theme,onThemeChange,variant='a',fullScreen=false,onClose}:Props){
+export function ImageConverterLayout({theme,onThemeChange,variant='a',onVariantChange,fullScreen=false,onClose}:Props){
   const [stage,setStage]=useState<Stage>('empty')
   const [format,setFormat]=useState('webp')
   const [quality,setQuality]=useState('balanced')
@@ -77,6 +77,10 @@ export function ImageConverterLayout({theme,onThemeChange,variant='a',fullScreen
 
     {fullScreen && <div className="icl-preview-toolbar" aria-label="Ovládání ukázky mimo návrh stránky">
       <button type="button" className="icl-preview-exit" onClick={onClose} title="Zpět do katalogu" aria-label="Zpět do katalogu"><AxoIcon name="close" size={17}/></button>
+      <div className="icl-preview-variants" role="group" aria-label="Změnit variantu rozložení">
+        <button type="button" aria-pressed={variant==='a'} onClick={()=>onVariantChange?.('a')} title="Varianta A · jedna karta">A</button>
+        <button type="button" aria-pressed={variant==='b'} onClick={()=>onVariantChange?.('b')} title="Varianta B · dvě karty">B</button>
+      </div>
       <div className="icl-preview-phase" role="group" aria-label="Změnit ukázkový stav">
         {([['empty','01'],['ready','02'],['converted','03']] as const).map(([value,label])=>
           <button type="button" key={value} aria-pressed={stage===value} className={stage===value?'is-active':''}
