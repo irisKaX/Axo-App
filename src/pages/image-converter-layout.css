@@ -29,15 +29,20 @@
 .icl-side-column>.fc-field{width:100%}
 .icl-side-column>.fc-radio-fieldset{min-width:0;margin:0}
 .icl-side-column .fc-radio-list{display:flex;flex-wrap:wrap;gap:10px}
-.icl-side-heading{display:grid;gap:6px;flex:none;margin-bottom:3px}
+.icl-side-heading{display:grid;gap:8px;flex:none;padding-bottom:20px;border-bottom:1px solid var(--border)}
 .icl-side-heading h2{font-size:19px;line-height:1.25;letter-spacing:-.03em;margin:0}
+.icl-side-heading p{font-size:12px;line-height:1.65;color:var(--muted);margin:0}
+.icl-settings-fields{display:flex;flex-direction:column;gap:22px;min-width:0}
+.icl-action-area{display:flex;flex-direction:column;gap:14px;margin-top:auto;padding-top:20px;border-top:1px solid var(--border)}
+.icl-action-status{display:flex;justify-content:center;align-items:center;gap:9px;min-height:44px;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--canvas);color:var(--muted);font-size:11px;line-height:1.4;text-align:center}
+.icl-action-status>.axo-icon{flex:none;color:var(--muted)}
 .icl-undeveloped{display:flex;align-items:flex-start;gap:12px;padding:15px;border:1px dashed var(--border);border-radius:var(--radius-lg);background:var(--canvas)}
 .icl-undeveloped>.axo-icon{flex:none;color:var(--brand)}
 .icl-undeveloped strong{font-size:12px}
 .icl-undeveloped p{font-size:11px;line-height:1.5;color:var(--muted);margin:5px 0 0}
-/* Primary action belongs near the settings heading; never a footer separated by a divider. */
+/* Full-width primary action stays within the approved 38px AxoButton geometry. */
 .icl-primary-action{display:flex;justify-content:center;align-items:center;margin:0;padding:0}
-.icl-primary-action>.axo-button{width:230px;max-width:100%;height:38px}
+.icl-primary-action>.axo-button{width:100%;max-width:100%;height:38px}
 .icl-primary-action>.axo-button .axo-button-label{text-overflow:clip}
 /* Use the approved neutral input surface, not the tinted filled-select background. */
 .icl-side-column .fc-select-field.is-filled:not(:focus-within):not(.fc-error):not(.fc-success) .fc-select-trigger{
@@ -55,7 +60,7 @@
 .icl-list-note{display:flex;align-items:center;gap:8px;margin-top:5px;color:var(--muted);font-size:11px}
 .icl-list-note>.axo-icon{color:var(--brand);flex:none}
 /* B: independent work card and settings card with equal visual system geometry. */
-.icl-composition{grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:16px}
+.icl-composition{grid-template-columns:minmax(0,1.3fr) minmax(320px,.7fr);gap:16px}
 .icl-workspace,.icl-side-column{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-xl);padding:clamp(16px,2vw,28px)}
 /* Apply the approved Atmospheric backdrop to the entire left tool card. */
 .icl-workspace{background:var(--backdrop)}
@@ -117,6 +122,9 @@
  .icl-composition,.icl-composition{grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:12px}
  .icl-workspace,.icl-side-column{padding:14px}
  .icl-side-column{gap:12px}
+ .icl-settings-fields{gap:14px}
+ .icl-side-heading{padding-bottom:12px}
+ .icl-action-area{gap:10px;padding-top:12px}
  .icl-page{padding:12px}
 }
 @media(max-width:600px){
@@ -133,6 +141,11 @@
  .icl-main-column>.afu-dropzone .afu-target{gap:8px;padding:10px;min-height:0}
  .icl-main-column>.afu-dropzone .afu-target>.axo-icon{display:none}
  .icl-side-column{gap:9px}
+ .icl-settings-fields{gap:10px}
+ .icl-side-heading{padding-bottom:9px}
+ .icl-side-heading p{font-size:11px}
+ .icl-action-area{margin-top:0;gap:8px;padding-top:9px}
+ .icl-action-status{min-height:36px;padding:7px;font-size:10px}
  .icl-file{padding:7px;gap:7px}
  .icl-file-thumb{width:28px;height:28px}
  .icl-preview-toolbar{right:12px;bottom:12px}
