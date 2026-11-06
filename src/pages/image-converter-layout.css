@@ -1,112 +1,85 @@
-/* Image Converter design catalog: approved direction B, two separate work surfaces. */
-.icl-shell{background:var(--canvas);color:var(--text);width:100%;height:100%;min-width:0;position:relative;isolation:isolate;display:flex;flex-direction:column}
-.icl-shell--fullscreen{position:fixed;inset:0;z-index:110;overflow:hidden;padding:12px 16px;background:var(--canvas)}
+/* Unified Image Converter workspace: one surface, approved Neo Iris tokens and components. */
+.icl-shell{background:var(--canvas);color:var(--text);position:relative;isolation:isolate;width:100%;height:100%;min-width:0;display:flex;flex-direction:column}
+.icl-shell--fullscreen{position:fixed;inset:0;z-index:110;overflow:auto;padding:12px 16px;background:var(--canvas)}
 .icl-app-header{flex:none;min-width:0;position:relative;z-index:20}
 .icl-app-header .nh-stage.nh-standalone{padding:0;margin:0;border:0;border-radius:0;background:transparent}
 .icl-app-header .nh-scroll{overflow:visible;padding:0}
 .icl-app-header .nh-header{min-width:0;width:100%;gap:clamp(4px,.55vw,9px);padding:9px 12px;min-height:64px;background:transparent;border:0;box-shadow:none}
 .icl-app-header .nh-url-zone{min-width:110px;gap:clamp(5px,.6vw,10px)}
 .icl-app-header .nh-feedback-floating{display:none}
-.icl-page{width:100%;max-width:1440px;margin:0 auto;min-height:0;display:flex;flex-direction:column;flex:1;padding:clamp(12px,1.5vw,22px)}
-.icl-composition{flex:1;min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(310px,.7fr);gap:20px}
-.icl-workspace{min-width:0;min-height:0;display:flex;flex-direction:column}
-.icl-workspace-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px;flex:none}
-/* Shared widget rhythm: 8px around the paired heading, no extra gap between its two lines. */
+.icl-page{width:100%;max-width:1440px;margin:0 auto;min-height:0;flex:1;display:flex;flex-direction:column;padding:clamp(14px,2vw,28px)}
+.icl-page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:20px;flex:none}
 .icl-heading-copy{min-width:0;display:grid;gap:var(--tool-heading-gap,8px)}
-.icl-heading-pair{display:grid;gap:0;min-width:0}
-.icl-overline{color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.12em}
-.icl-heading-copy h1{font-size:clamp(23px,2.2vw,34px);line-height:var(--tool-heading-leading,1.24);letter-spacing:-.045em;margin:0}
-.icl-heading-copy h2{font-size:clamp(18px,1.7vw,25px);line-height:var(--tool-heading-leading,1.24);letter-spacing:-.03em;color:var(--brand);margin:0}
-.icl-heading-copy p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}
-.icl-workspace-count{font-size:11px;color:var(--muted);white-space:nowrap}
-.icl-main-column{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:stretch;justify-content:center}
-.icl-main-column>.afu-dropzone{width:100%;min-height:0;max-height:100%;display:flex;flex-direction:column;justify-content:center}
-/* The shared File Upload already has its own heading. In a tool page the card heading owns this role; show only its approved drop target. */
-.icl-main-column>.afu-dropzone .afu-copy{display:none}
-.icl-main-column>.afu-dropzone{padding:clamp(12px,2vw,22px);border-radius:var(--radius-lg)}
-.icl-main-column>.afu-dropzone .afu-target{min-height:0;flex:1;justify-content:center}
-.icl-side-column{min-width:0;min-height:0;display:flex;flex-direction:column;gap:18px}
-.icl-side-column>.fc-field{width:100%}
-.icl-side-column>.fc-radio-fieldset{min-width:0;margin:0}
-.icl-side-column .fc-radio-list{display:flex;flex-wrap:wrap;gap:10px}
-.icl-side-heading{display:grid;gap:8px;flex:none;padding-bottom:20px;border-bottom:1px solid var(--border)}
-.icl-side-heading h2{font-size:19px;line-height:1.25;letter-spacing:-.03em;margin:0}
-.icl-side-heading p{font-size:12px;line-height:1.65;color:var(--muted);margin:0}
-.icl-settings-fields{display:flex;flex-direction:column;gap:22px;min-width:0}
-.icl-action-area{display:flex;flex-direction:column;gap:14px;margin-top:auto;padding-top:20px;border-top:1px solid var(--border)}
-.icl-action-status{display:flex;justify-content:center;align-items:center;gap:9px;min-height:44px;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--canvas);color:var(--muted);font-size:11px;line-height:1.4;text-align:center}
-.icl-action-status>.axo-icon{flex:none;color:var(--muted)}
-.icl-undeveloped{display:flex;align-items:flex-start;gap:12px;padding:15px;border:1px dashed var(--border);border-radius:var(--radius-lg);background:var(--canvas)}
-.icl-undeveloped>.axo-icon{flex:none;color:var(--brand)}
-.icl-undeveloped strong{font-size:12px}
-.icl-undeveloped p{font-size:11px;line-height:1.5;color:var(--muted);margin:5px 0 0}
-/* Full-width primary action stays within the approved 38px AxoButton geometry. */
-.icl-primary-action{display:flex;justify-content:center;align-items:center;margin:0;padding:0}
-.icl-primary-action>.axo-button{width:100%;max-width:100%;height:38px}
-.icl-primary-action>.axo-button .axo-button-label{text-overflow:clip}
-/* Use the approved neutral input surface, not the tinted filled-select background. */
-.icl-side-column .fc-select-field.is-filled:not(:focus-within):not(.fc-error):not(.fc-success) .fc-select-trigger{
-  background:var(--surface);border-color:var(--control-border);box-shadow:none;
-}
-.icl-side-column .fc-radio-list{display:flex;flex-wrap:wrap;column-gap:12px;row-gap:3px}
-.icl-side-column .fc-radio-list .fc-choice{gap:9px}
-.icl-files{display:grid;align-content:start;gap:10px;min-height:0}
-.icl-file{display:flex;align-items:center;gap:11px;min-width:0;padding:12px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--canvas)}
-.icl-file-thumb{width:44px;height:44px;display:grid;place-items:center;flex:none;background:var(--subtle);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--brand)}
-.icl-file-copy{display:grid;gap:4px;min-width:0;flex:1}
-.icl-file-copy strong{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.icl-file-copy small{font-size:11px;color:var(--muted)}
-.icl-file>.axo-button{flex:none}
-.icl-list-note{display:flex;align-items:center;gap:8px;margin-top:5px;color:var(--muted);font-size:11px}
-.icl-list-note>.axo-icon{color:var(--brand);flex:none}
-/* B: independent work card and settings card with equal visual system geometry. */
-.icl-composition{grid-template-columns:minmax(0,1.3fr) minmax(320px,.7fr);gap:16px}
-.icl-workspace,.icl-side-column{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-xl);padding:clamp(16px,2vw,28px)}
-/* Apply the approved Atmospheric backdrop to the entire left tool card. */
-.icl-workspace{background:var(--backdrop)}
-.icl-side-column{gap:20px}
-/* The nested File Upload is now an open, transparent zone within that card. */
-.icl-main-column>.afu-dropzone{max-width:none;width:100%;margin:0;padding:0;background:transparent}
-.icl-main-column>.afu-dropzone .afu-target,
-.icl-main-column>.afu-dropzone--images .afu-target{
-  min-height:clamp(300px,43vh,480px);
-  max-height:none;
-  flex:1;
-  background:transparent;
-}
-/* Slightly stronger visual hierarchy inside the converter drop target only.
-   The global FileUpload and the approved 38px button height are unchanged. */
-.icl-workspace .afu-dropzone--images .afu-target{gap:20px}
-.icl-workspace .afu-dropzone--images .afu-target>.axo-icon{width:32px;height:32px}
-.icl-workspace .afu-dropzone--images .afu-target-copy{gap:7px}
-.icl-workspace .afu-dropzone--images .afu-target-copy strong{font-size:19px;line-height:1.4}
-.icl-workspace .afu-dropzone--images .afu-target-copy span{font-size:14px;line-height:1.5}
-/* Secondary Gradient Reveal needs its 2px gradient shell intact. Grow width, never outer padding. */
-.icl-workspace .afu-dropzone--images .afu-target>.axo-button{font-size:14px;padding:2px}
-.icl-workspace .afu-dropzone--images .afu-image-formats{font-size:12px;line-height:1.6}
-@media(max-width:600px){
- .icl-workspace .afu-dropzone--images .afu-target{gap:10px}
- .icl-workspace .afu-dropzone--images .afu-target-copy strong{font-size:16px}
- .icl-workspace .afu-dropzone--images .afu-target-copy span{font-size:12px}
- .icl-workspace .afu-dropzone--images .afu-target>.axo-button{font-size:14px;padding:2px}
- .icl-workspace .afu-dropzone--images .afu-image-formats{font-size:10px}
-}
-/* The existing FileUpload keeps its own approved typography, surface and buttons.
-   Only the context's available size is adjusted here. */
-.icl-inline-controls{display:flex;gap:7px;flex-wrap:wrap;padding:10px 20px 18px;border-top:1px solid var(--border)}
-.icl-inline-controls button{min-height:32px;padding:7px 13px;background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-pill);font:inherit;font-size:11px;cursor:pointer}
-.icl-inline-controls button[aria-pressed="true"]{border-color:var(--brand)}
-.icl-preview-toolbar{position:absolute;z-index:80;right:24px;bottom:18px;display:flex;align-items:center;gap:8px;filter:drop-shadow(0 4px 10px #0008)}
+.icl-overline{font-size:10px;font-weight:750;letter-spacing:.15em;color:var(--brand)}
+.icl-heading-copy h1{margin:0;font-size:clamp(24px,2.6vw,38px);letter-spacing:-.045em;line-height:var(--tool-heading-leading,1.2)}
+.icl-heading-copy p{font-size:12px;line-height:1.5;color:var(--muted);margin:0}
+.icl-page-context{display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:10px;letter-spacing:.09em;color:var(--muted)}
+.icl-page-context .axo-icon{color:var(--brand)}
+.icl-tool{flex:1;min-height:0;border:1px solid var(--border);border-radius:var(--radius-xl);background:var(--surface);overflow:hidden;display:flex;flex-direction:column}
+.icl-tool-body{display:grid;grid-template-columns:minmax(250px,29%) minmax(0,1fr);flex:1;min-width:0;min-height:0}
+.icl-settings{min-width:0;padding:clamp(17px,2vw,26px);background:color-mix(in srgb,var(--surface) 87%,var(--subtle));border-right:1px solid var(--border);display:flex;flex-direction:column;gap:22px}
+.icl-section-head h2,.icl-area-head h2{font-size:14px;line-height:1.35;letter-spacing:-.02em;margin:0;font-weight:750}
+.icl-section-head p{font-size:11px;line-height:1.55;margin:5px 0 0;color:var(--muted)}
+.icl-settings-fields{display:flex;flex-direction:column;gap:20px;min-width:0}
+.icl-settings-fields .fc-select-field{width:100%;min-width:0}
+.icl-settings-fields .fc-select-field.is-filled:not(:focus-within):not(.fc-error):not(.fc-success) .fc-select-trigger{background:var(--surface);border-color:var(--control-border);box-shadow:none}
+.icl-settings-fields .fc-radio-fieldset{min-width:0;margin:0}
+.icl-settings-fields .fc-radio-list{display:flex;flex-wrap:wrap;gap:8px 12px}
+.icl-settings-fields .fc-radio-list .fc-choice{gap:7px}
+.icl-settings-fields .qs-slider{min-width:0}
+.icl-advanced{border-top:1px solid var(--border);padding-top:15px}
+.icl-advanced-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:transparent;border:0;padding:3px 0;color:var(--brand);font:inherit;font-size:12px;font-weight:650;cursor:pointer}
+.icl-advanced-toggle:focus-visible{outline:2px solid var(--focus-ring);outline-offset:4px;border-radius:4px}
+.icl-advanced-body{display:flex;flex-direction:column;gap:17px;padding-top:20px}
+.icl-settings-note{display:flex;gap:9px;align-items:flex-start;margin-top:auto;border-top:1px solid var(--border);padding-top:16px;color:var(--muted);font-size:10px;line-height:1.6}
+.icl-settings-note>.axo-icon{flex:none}
+.icl-workarea{min-width:0;min-height:0;padding:clamp(16px,2vw,26px);display:flex;flex-direction:column;gap:15px;background:var(--surface)}
+.icl-area-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.icl-area-head>span{font-size:11px;color:var(--muted)}
+.icl-empty-surface{display:flex;flex:1;min-width:0;min-height:0}
+.icl-empty-surface>.afu-dropzone{width:100%;display:flex;flex-direction:column;background:transparent;padding:0;margin:0;border:0}
+.icl-empty-surface .afu-copy{display:none}
+.icl-empty-surface .afu-target{flex:1;min-height:clamp(280px,39vh,460px);background:var(--canvas);justify-content:center;padding:20px;gap:17px}
+.icl-empty-surface .afu-target>.axo-icon{width:32px;height:32px;color:var(--brand);background:var(--brand-soft);border:1px solid var(--control-border);box-sizing:content-box;padding:12px;border-radius:var(--radius-lg)}
+.icl-empty-surface .afu-target-copy{text-align:center}
+.icl-empty-surface .afu-target-copy strong{font-size:clamp(16px,1.4vw,19px)}
+.icl-empty-surface .afu-target-copy span{font-size:12px}
+.icl-empty-surface .afu-target>.axo-button{padding:2px}
+.icl-empty-surface .afu-image-formats{font-size:11px;color:var(--muted);line-height:1.65;text-align:center}
+.icl-empty-surface .afu-files,.icl-empty-surface .afu-status{display:none}
+.icl-file-content{flex:1;display:flex;flex-direction:column;min-height:0}
+.icl-file-table-head,.icl-file-row{display:grid;grid-template-columns:minmax(0,1fr) 95px 100px 38px;align-items:center;gap:10px}
+.icl-file-table-head{padding:10px 8px;border-bottom:1px solid var(--border);color:var(--muted);font-size:10px;font-weight:750;letter-spacing:.07em}
+.icl-file-list{overflow:auto;max-height:470px}
+.icl-file-row{padding:11px 8px;border-bottom:1px solid var(--border);min-width:0}
+.icl-file-name{display:flex;align-items:center;gap:11px;min-width:0}
+.icl-file-thumb{width:44px;height:41px;flex:none;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--subtle);color:var(--brand);display:grid;place-items:center}
+.icl-file-copy{min-width:0;display:grid;gap:4px}
+.icl-file-copy strong{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.icl-file-copy small{font-size:10px;color:var(--muted)}
+.icl-file-size,.icl-file-state{font-size:11px;color:var(--muted)}
+.icl-file-state{display:flex;align-items:center;gap:5px}
+.icl-file-state.is-done{color:var(--success)}
+.icl-file-row>.axo-button--icon{justify-self:center}
+.icl-list-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:18px;font-size:11px;color:var(--muted);flex-wrap:wrap}
+.icl-result-note{display:flex;gap:8px;align-items:center;color:var(--success);font-size:11px;margin:12px 0 0}
+.icl-tool-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px clamp(16px,2vw,26px);border-top:1px solid var(--border);background:var(--subtle)}
+.icl-footer-status{display:flex;align-items:center;gap:10px;min-width:0}
+.icl-status-icon{width:36px;height:36px;border-radius:var(--radius-md);display:grid;place-items:center;color:var(--muted);background:var(--surface);border:1px solid var(--border);flex:none}
+.icl-status-icon.is-ready{color:var(--brand)}
+.icl-footer-status strong,.icl-footer-status small{display:block}
+.icl-footer-status strong{font-size:12px;font-weight:700}
+.icl-footer-status small{font-size:10px;line-height:1.5;color:var(--muted);margin-top:3px}
+.icl-tool-footer>.axo-button{flex:none}
+.icl-inline-controls{display:flex;gap:8px;flex-wrap:wrap;padding:10px 20px 15px;border-top:1px solid var(--border)}
+.icl-inline-controls button{padding:7px 13px;min-height:32px;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--surface);color:var(--text);font:inherit;font-size:11px;cursor:pointer}
+.icl-inline-controls button[aria-pressed="true"]{border-color:var(--brand);color:var(--brand)}
+.icl-preview-toolbar{position:fixed;z-index:180;right:25px;bottom:18px;display:flex;align-items:center;gap:8px;filter:drop-shadow(0 4px 10px #0008)}
 .icl-preview-exit,.icl-preview-phase button{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--surface);color:var(--text);font:inherit;cursor:pointer}
-.icl-preview-exit:hover,.icl-preview-phase button:hover{border-color:var(--brand)}
-.icl-preview-phase{display:flex;align-items:center;gap:4px;padding:4px;border-radius:var(--radius-pill);background:var(--surface);border:1px solid var(--border)}
+.icl-preview-phase{display:flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--surface)}
 .icl-preview-phase button{border:0;font-size:10px}
-.icl-preview-phase button.is-active{background:var(--subtle);color:var(--brand)}
+.icl-preview-phase button.is-active{color:var(--brand);background:var(--subtle)}
 .icl-preview-toolbar button:focus-visible,.icl-inline-controls button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
-.icl-compare-mask{position:fixed;inset:0;z-index:150;display:grid;place-items:center;background:#090B10DF;padding:16px}
-.icl-compare-dialog{width:min(560px,100%);border:1px solid var(--border);background:var(--surface);padding:24px;border-radius:var(--radius-xl)}
-.icl-compare-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.icl-compare-dialog p{font-size:12px;color:var(--muted)}
 @media(max-width:1050px){
  .icl-app-header .nh-stage.nh-standalone{position:relative}
  .icl-app-header .nh-header{display:grid;grid-template-columns:38px 38px minmax(0,1fr) 38px 38px;grid-template-rows:38px;align-items:center;gap:8px;min-height:54px;padding:8px 0}
@@ -119,35 +92,27 @@
  .icl-app-header .nh-mobile-panel{display:flex}
 }
 @media(max-width:850px){
- .icl-composition,.icl-composition{grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:12px}
- .icl-workspace,.icl-side-column{padding:14px}
- .icl-side-column{gap:12px}
- .icl-settings-fields{gap:14px}
- .icl-side-heading{padding-bottom:12px}
- .icl-action-area{gap:10px;padding-top:12px}
+ .icl-tool-body{grid-template-columns:minmax(225px,34%) minmax(0,1fr)}
+ .icl-settings,.icl-workarea{padding:15px;gap:16px}
+ .icl-settings-fields{gap:15px}
  .icl-page{padding:12px}
+ .icl-file-table-head,.icl-file-row{grid-template-columns:minmax(0,1fr) 62px 75px 32px;gap:5px}
+ .icl-file-thumb{width:34px;height:34px}
+ .icl-file-state{font-size:10px}
+ .icl-settings-fields .fc-radio-list{gap:7px}
 }
-@media(max-width:600px){
- .icl-shell--fullscreen{padding:8px}
- .icl-app-header .nh-header{padding:6px 0}
- .icl-composition,.icl-composition{grid-template-columns:1fr;gap:9px}
- .icl-workspace,.icl-side-column{padding:10px}
- .icl-workspace-head{margin-bottom:10px}
- .icl-heading-copy h1{font-size:20px}
- .icl-heading-copy h2{font-size:16px}
- .icl-heading-copy p{font-size:10px}
- .icl-main-column>.afu-dropzone{gap:8px;padding:10px}
- .icl-main-column>.afu-dropzone .afu-copy{display:none}
- .icl-main-column>.afu-dropzone .afu-target{gap:8px;padding:10px;min-height:0}
- .icl-main-column>.afu-dropzone .afu-target>.axo-icon{display:none}
- .icl-side-column{gap:9px}
- .icl-settings-fields{gap:10px}
- .icl-side-heading{padding-bottom:9px}
- .icl-side-heading p{font-size:11px}
- .icl-action-area{margin-top:0;gap:8px;padding-top:9px}
- .icl-action-status{min-height:36px;padding:7px;font-size:10px}
- .icl-file{padding:7px;gap:7px}
- .icl-file-thumb{width:28px;height:28px}
+@media(max-width:620px){
+ .icl-shell--fullscreen{padding:7px}
+ .icl-page-head{align-items:flex-start;flex-direction:column;gap:10px}
+ .icl-page-context{display:none}
+ .icl-tool-body{grid-template-columns:minmax(0,1fr)}
+ .icl-settings{border-right:0;border-bottom:1px solid var(--border)}
+ .icl-settings-note{display:none}
+ .icl-workarea{padding:14px}
+ .icl-empty-surface .afu-target{min-height:245px}
+ .icl-file-table-head,.icl-file-row{grid-template-columns:minmax(0,1fr) 60px 70px 32px;gap:5px}
+ .icl-tool-footer{padding:12px}
+ .icl-tool-footer>.axo-button{max-width:48%;min-width:0}
+ .icl-footer-status small{font-size:9px}
  .icl-preview-toolbar{right:12px;bottom:12px}
- .icl-preview-phase button{width:30px;height:30px}
 }
