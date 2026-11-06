@@ -12,7 +12,8 @@ permissions:
 
 concurrency:
   group: github-pages
-  cancel-in-progress: true
+  # Never cancel an in-flight Pages publication when another commit arrives.
+  cancel-in-progress: false
 
 jobs:
   build:
