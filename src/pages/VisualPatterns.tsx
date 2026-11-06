@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { WorkspaceComposition } from '../components/WorkspaceComposition'
+import DataRain from '../components/DataRain'
 import { AccentWord, EyebrowHeading } from '../components/TextTreatments'
 import { themes, type ThemeName } from '../design-system/foundations/colors'
 import { radius } from '../design-system/foundations/spacing'
@@ -7,6 +8,7 @@ import './visual-patterns.css'
 
 export default function VisualPatterns({theme}: {theme:ThemeName}) {
   const [showStructure,setShowStructure]=useState(false)
+  const [rainDensity,setRainDensity]=useState<'calm'|'full'>('full')
   const t=themes[theme]
   return <div className="vp-page">
     <p className="eyebrow">LIBRARY / VISUAL PATTERNS</p>
@@ -64,7 +66,29 @@ export default function VisualPatterns({theme}: {theme:ThemeName}) {
       </div>
     </section>
     <section className="panel vp-panel">
-      <div className="vp-section-head"><span>03 / USAGE RULES</span><h2>Jedna identita, různé role</h2><p>Atmosféra má pomáhat hierarchii, nikoli obarvit všechny prvky aplikace.</p></div>
+      <div className="vp-section-head">
+        <span>03 / ANIMATED BACKGROUNDS</span>
+        <h2>Data Rain</h2>
+        <p>Samostatný interaktivní vizuální vzor s prouděním částic, světelnými stopami a reakcí na pohyb kurzoru. Původní Data Rain od anark z 21st.dev, uchovaný pro budoucí použití. Není součástí konvertoru obrázků.</p>
+      </div>
+      <div className="vp-rain-demo">
+        <DataRain fullscreen={false} count={rainDensity==='full'?2400:950} flowSpeed={1} obstacleRadius={66} autopilot palette={{calm:'#0F9FDC',mid:'#7C4BFE',hot:'#FF3D9A'}}/>
+        <div className="vp-rain-overlay" aria-hidden="true">
+          <span>VISUAL PATTERN / 01</span>
+          <strong>Data Rain.</strong>
+          <small>Pohybem myši ovlivníte proudění částic.</small>
+        </div>
+      </div>
+      <div className="vp-rain-controls">
+        <div><strong>DataRain</strong><span>Animovaný Canvas · interaktivní · respektuje omezení pohybu v systému</span></div>
+        <div className="vp-rain-buttons" role="group" aria-label="Hustota animace">
+          <button type="button" aria-pressed={rainDensity==='calm'} onClick={()=>setRainDensity('calm')}>Jemnější</button>
+          <button type="button" aria-pressed={rainDensity==='full'} onClick={()=>setRainDensity('full')}>Originální intenzita</button>
+        </div>
+      </div>
+    </section>
+    <section className="panel vp-panel">
+      <div className="vp-section-head"><span>04 / USAGE RULES</span><h2>Jedna identita, různé role</h2><p>Atmosféra má pomáhat hierarchii, nikoli obarvit všechny prvky aplikace.</p></div>
       <div className="vp-rules">
         <div><strong>Backdrop</strong><p>Vhodný pro úvodní kompozice a větší kontextové plochy. Nikoli jako pozadí každého inputu.</p></div>
         <div><strong>Neutral Surfaces</strong><p>Widgety, metriky a data čteme na neutrálním podkladu s jasným kontrastem.</p></div>
