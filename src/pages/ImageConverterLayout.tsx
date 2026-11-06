@@ -19,7 +19,27 @@ const examples = [
   {name:'product-photo.jpg',result:'product-photo.webp',size:'1,8 MB',after:'286 kB'},
   {name:'thumbnail.png',result:'thumbnail.webp',size:'850 kB',after:'128 kB'}
 ]
-const mockFiles = examples.map((file,i)=>new File(['náhled'],file.name,{type:i===1?'image/jpeg':'image/png',lastModified:i}))
+
+const rainColumns = Array.from({length:54},(_,i)=>({
+ left:`${((i*37.719)%99).toFixed(2)}%`,
+ delay:`-${((i*1.47)%9).toFixed(2)}s`,
+ duration:`${(4.6+(i%7)*.63).toFixed(2)}s`,
+ opacity:.22+(i%6)*.1,
+ length:`${24+(i%5)*15}px`
+}))
+function ConverterRain(){
+ return <div className="icl-rain" aria-hidden="true">{rainColumns.map((column,i)=><span key={i} className="icl-rain-drop" style={{
+ '--rain-x':column.left,'--rain-delay':column.delay,'--rain-duration':column.duration,'--rain-opacity':column.opacity,'--rain-length':column.length
+ } as CSSProperties}/>)}</div>
+}
+function ConverterFormats(){
+ return <div className="icl-format-panel" aria-label="Podporované vstupní formáty">
+  <span className="icl-format-label">VSTUPNÍ FORMÁTY</span>
+  <div className="icl-format-chips">{['PNG','JPG','WebP','AVIF','BMP','GIF'].map(format=><span key={format} className="icl-format-chip">{format}</span>)}</div>
+  <span className="icl-format-note">GIF bez animace</span>
+ </div>
+}
+
 
 /** Visual composition only. The catalog controls sit outside the actual tool page. */
 export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClose}:Props){
@@ -61,7 +81,7 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
           </div>
           <div className="icl-main-column">
             {!hasFiles
-              ? <FileDropzone context="images" previewOnly size="default" files={[]} onChange={()=>{}} label="File Upload · Image Converter"/>
+              ? <div className="icl-upload-stack"><div className="icl-upload-stage"><ConverterRain/><FileDropzone context="images" previewOnly size="default" files={[]} onChange={()=>{}} label="File Upload · Image Converter"/></div><ConverterFormats/></div>
               : <div className="icl-files">
                   {examples.map(file=><article className="icl-file" key={file.name}>
                     <div className="icl-file-thumb"><AxoIcon name="image" size={21}/></div>
