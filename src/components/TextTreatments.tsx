@@ -28,7 +28,7 @@ export function ContrastDot({ children, tone = 'neutral', as: Tag = 'span' }: {
   tone?: 'neutral' | 'accent'
   as?: 'span' | 'h1' | 'h2' | 'h3'
 }) {
-  const value = children.trim().replace(/\\.\\s*$/, '')
+  const value = children.trim().replace(/[.]\s*$/, '')
   return <Tag className={'tt-contrast-dot tt-contrast-dot--' + tone}>
     {value}<span className="tt-contrast-punctuation">.</span>
   </Tag>
