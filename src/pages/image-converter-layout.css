@@ -67,13 +67,14 @@
 .icl-workspace .afu-dropzone--images .afu-target-copy{gap:7px}
 .icl-workspace .afu-dropzone--images .afu-target-copy strong{font-size:19px;line-height:1.4}
 .icl-workspace .afu-dropzone--images .afu-target-copy span{font-size:14px;line-height:1.5}
-.icl-workspace .afu-dropzone--images .afu-target>.axo-button{font-size:14px;padding-inline:24px}
+/* Secondary Gradient Reveal needs its 2px gradient shell intact. Grow width, never outer padding. */
+.icl-workspace .afu-dropzone--images .afu-target>.axo-button{width:248px;max-width:100%;font-size:14px;padding:2px}
 .icl-workspace .afu-dropzone--images .afu-image-formats{font-size:12px;line-height:1.6}
 @media(max-width:600px){
  .icl-workspace .afu-dropzone--images .afu-target{gap:10px}
  .icl-workspace .afu-dropzone--images .afu-target-copy strong{font-size:16px}
  .icl-workspace .afu-dropzone--images .afu-target-copy span{font-size:12px}
- .icl-workspace .afu-dropzone--images .afu-target>.axo-button{font-size:12px;padding-inline:16px}
+ .icl-workspace .afu-dropzone--images .afu-target>.axo-button{width:220px;max-width:100%;font-size:12px;padding:2px}
  .icl-workspace .afu-dropzone--images .afu-image-formats{font-size:10px}
 }
 /* The existing FileUpload keeps its own approved typography, surface and buttons.
