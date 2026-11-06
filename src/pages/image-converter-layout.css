@@ -46,9 +46,18 @@
 /* B: independent work card and settings card with equal visual system geometry. */
 .icl-composition{grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:16px}
 .icl-workspace,.icl-side-column{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-xl);padding:clamp(16px,2vw,28px)}
+/* Apply the approved Atmospheric backdrop to the entire left tool card. */
+.icl-workspace{background:var(--backdrop)}
 .icl-side-column{gap:20px}
-.icl-main-column>.afu-dropzone{max-width:560px;margin:auto}
-.icl-main-column>.afu-dropzone .afu-target{min-height:190px;max-height:300px}
+/* The nested File Upload is now an open, transparent zone within that card. */
+.icl-main-column>.afu-dropzone{max-width:none;width:100%;margin:0;padding:0;background:transparent}
+.icl-main-column>.afu-dropzone .afu-target,
+.icl-main-column>.afu-dropzone--images .afu-target{
+  min-height:clamp(300px,43vh,480px);
+  max-height:none;
+  flex:1;
+  background:transparent;
+}
 /* The existing FileUpload keeps its own approved typography, surface and buttons.
    Only the context's available size is adjusted here. */
 .icl-inline-controls{display:flex;gap:7px;flex-wrap:wrap;padding:10px 20px 18px;border-top:1px solid var(--border)}
