@@ -1,5 +1,6 @@
 import { useId, type CSSProperties, type ReactNode } from 'react'
 import { WidgetLaunchButton } from '../components/WidgetLaunchButton'
+import { ContrastDot } from '../components/TextTreatments'
 import { themes } from '../design-system/foundations/colors'
 import { density, spacing } from '../design-system/foundations/spacing'
 import { typography } from '../design-system/foundations/typography'
@@ -82,7 +83,7 @@ export function WidgetFoundation({
           <WidgetLaunchButton label={launchLabel ?? `Otevřít nástroj: ${title}`} onClick={() => onOpenTool?.()} disabled={!onOpenTool}/>
         </div>
         <h3 className="wf-heading" id={headingId}>
-          {title}<span className="wf-heading-accent">{normalizedTagline}</span>
+          <ContrastDot tone="neutral">{title}</ContrastDot><span className="wf-heading-accent"><ContrastDot tone="accent">{normalizedTagline}</ContrastDot></span>
         </h3>
         <p className="wf-description">{description}</p>
       </header>
