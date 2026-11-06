@@ -3,6 +3,7 @@ import { FileDropzone } from '../components/AdvancedFormControls'
 import { FormSelect, FormRadioGroup } from '../components/FormControls'
 import { AxoButton } from '../components/Buttons'
 import { AxoIcon } from '../components/AxoIcon'
+import { ContrastDot } from '../components/TextTreatments'
 import { HeaderPreview } from './NavigationStudio'
 import type { ThemeName } from '../design-system/foundations/colors'
 import './image-converter-layout.css'
@@ -34,9 +35,9 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
         <section className="icl-workspace" aria-label="Pracovní plocha Image Converteru">
           <div className="icl-workspace-head">
             <div className="icl-heading-copy">
-              <span className="icl-overline">AXOLOTL / IMAGE CONVERTER</span>
-              <h1>Image Converter.</h1>
-              <h2>Převod obrázků.</h2>
+              <span className="icl-overline">AXOLOTL/WebP</span>
+              <h1><ContrastDot tone="neutral">Konvertor webP.</ContrastDot></h1>
+              <h2><ContrastDot tone="accent">Převod obrázků.</ContrastDot></h2>
               <p>Převádějte a optimalizujte jeden nebo více obrázků.</p>
             </div>
             {hasFiles && <span className="icl-workspace-count">3 obrázky</span>}
