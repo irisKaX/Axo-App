@@ -7,8 +7,9 @@ import { HeaderPreview } from './NavigationStudio'
 import type { ThemeName } from '../design-system/foundations/colors'
 import './image-converter-layout.css'
 
+export type ConverterLayoutVariant = 'a' | 'b'
 type Stage = 'empty' | 'ready' | 'converted'
-type Props = { theme: ThemeName; onThemeChange: (theme: ThemeName) => void; fullScreen?: boolean; onClose?: () => void }
+type Props = { theme: ThemeName; onThemeChange: (theme: ThemeName) => void; variant?: ConverterLayoutVariant; fullScreen?: boolean; onClose?: () => void }
 const formats = [{value:'webp',label:'WebP'},{value:'jpg',label:'JPG'},{value:'png',label:'PNG'},{value:'avif',label:'AVIF'}]
 const qualities = [{value:'balanced',label:'Vyvážená'},{value:'high',label:'Vysoká'},{value:'custom',label:'Vlastní'}]
 const examples = [
@@ -19,7 +20,7 @@ const examples = [
 const mockFiles = examples.map((file,i)=>new File(['náhled'],file.name,{type:i===1?'image/jpeg':'image/png',lastModified:i}))
 
 /** Visual composition only. The catalog controls sit outside the actual tool page. */
-export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClose}:Props){
+export function ImageConverterLayout({theme,onThemeChange,variant='a',fullScreen=false,onClose}:Props){
   const [stage,setStage]=useState<Stage>('empty')
   const [format,setFormat]=useState('webp')
   const [quality,setQuality]=useState('balanced')
@@ -27,21 +28,20 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
   const hasFiles=stage!=='empty'
   const converted=stage==='converted'
 
-  return <div className={'icl-shell'+(fullScreen?' icl-shell--fullscreen':'')}>
+  return <div className={'icl-shell icl-shell--'+variant+(fullScreen?' icl-shell--fullscreen':'')}>
     <div className="icl-app-header"><HeaderPreview mode={theme} onModeChange={onThemeChange} standalone/></div>
     <main className="icl-page">
-      <div className="icl-page-heading">
-        <div><span className="icl-overline">AXOLOTL / IMAGE CONVERTER</span>
-          <h1>Image Converter<span>.</span></h1>
-          <p>Převádějte a optimalizujte jeden nebo více obrázků.</p>
-        </div>
-      </div>
-      <section className="icl-workspace" aria-label="Pracovní plocha konvertoru">
-        <div className="icl-workspace-head">
-          <div><span className="icl-overline">MEDIA / CONVERTER</span><h2>{stage==='empty'?'Nahrání a nastavení':stage==='ready'?'Obrázky připravené k převodu':'Výsledky konverze'}</h2></div>
-          <span className="icl-workspace-count">{hasFiles?'3 obrázky':'Žádné obrázky'}</span>
-        </div>
-        <div className="icl-workspace-body">
+      <div className="icl-composition">
+        <section className="icl-workspace" aria-label="Pracovní plocha Image Converteru">
+          <div className="icl-workspace-head">
+            <div className="icl-heading-copy">
+              <span className="icl-overline">AXOLOTL / IMAGE CONVERTER</span>
+              <h1>Image Converter.</h1>
+              <h2>Převod obrázků.</h2>
+              <p>Převádějte a optimalizujte jeden nebo více obrázků.</p>
+            </div>
+            {hasFiles && <span className="icl-workspace-count">3 obrázky</span>}
+          </div>
           <div className="icl-main-column">
             {!hasFiles
               ? <FileDropzone context="images" previewOnly size="default" files={[]} onChange={()=>{}} label="File Upload · Image Converter"/>
@@ -53,26 +53,26 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
                     {converted && <AxoButton variant="outline" size="compact" icon="image" onClick={()=>setShowCompare(true)}>Porovnat</AxoButton>}
                     <AxoButton variant="ghost" size="compact" icon={converted?'download':'trash'} iconOnly disabled aria-label="Akce souboru (budoucí návrh)"/>
                   </article>)}
-                  <div className="icl-list-note">
-                    <AxoIcon name={converted?'check':'info'} size={16}/>
+                  <div className="icl-list-note"><AxoIcon name={converted?'check':'info'} size={16}/>
                     <span>{converted?'Převedené soubory jsou připravené ke stažení.':'Ilustrační seznam pro budoucí komponentu File Item.'}</span>
                   </div>
                 </div>}
           </div>
-          <div className="icl-side-column">
-            <FormSelect label="Výstupní formát" options={formats} value={format} onChange={setFormat}/>
-            <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={setQuality} name="icl-quality"/>
-            <div className="icl-undeveloped"><AxoIcon name="settings" size={17}/>
-              <div><strong>Quality Slider</strong><p>Čeká na schválení v Inputs & Forms.</p></div>
-            </div>
-            <div className="icl-primary-action">
-              {converted
-                ? <AxoButton variant="secondary" icon="download" disabled>Stáhnout vše jako ZIP</AxoButton>
-                : <AxoButton variant="primary" icon="refresh" disabled={!hasFiles} onClick={()=>setStage('converted')}>Převést obrázky</AxoButton>}
-            </div>
+        </section>
+        <aside className="icl-side-column" aria-label="Nastavení Image Converteru">
+          {variant==='b' && <div className="icl-side-heading"><span className="icl-overline">NASTAVENÍ</span><h2>Parametry převodu</h2></div>}
+          <FormSelect label="Výstupní formát" options={formats} value={format} onChange={setFormat}/>
+          <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={setQuality} name="icl-quality"/>
+          <div className="icl-undeveloped"><AxoIcon name="settings" size={17}/>
+            <div><strong>Quality Slider</strong><p>Čeká na schválení v Inputs & Forms.</p></div>
           </div>
-        </div>
-      </section>
+          <div className="icl-primary-action">
+            {converted
+              ? <AxoButton variant="secondary" icon="download" disabled>Stáhnout vše jako ZIP</AxoButton>
+              : <AxoButton variant="primary" icon="refresh" disabled={!hasFiles} onClick={()=>setStage('converted')}>Převést obrázky</AxoButton>}
+          </div>
+        </aside>
+      </div>
     </main>
 
     {fullScreen && <div className="icl-preview-toolbar" aria-label="Ovládání ukázky mimo návrh stránky">
