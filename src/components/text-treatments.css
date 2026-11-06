@@ -4,3 +4,9 @@
 .tt-eyebrow-stack { display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
 .tt-eyebrow { font-size:12px; font-weight:600; line-height:1.4; letter-spacing:.075em; text-transform:uppercase; color:var(--muted); }
 .tt-eyebrow-stack > .tt-accent-dot { margin:0; }
+
+/* Paired tool/widget headings: alternate the dot against the text color. */
+.tt-contrast-dot--neutral{color:var(--tt-dot-neutral,var(--text))}
+.tt-contrast-dot--neutral>.tt-contrast-punctuation{color:var(--tt-dot-accent,var(--brand))}
+.tt-contrast-dot--accent{color:var(--tt-dot-accent,var(--brand))}
+.tt-contrast-dot--accent>.tt-contrast-punctuation{color:var(--tt-dot-neutral,var(--text))}
