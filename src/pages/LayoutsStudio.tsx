@@ -143,7 +143,7 @@ export default function LayoutsStudio({theme,onThemeChange}:{theme:ThemeName;onT
       </div>
       <div className="ls-tool-footnote"><strong>První z nástrojových layoutů</strong><p>QR generátor, Metadata Check, Find Phrase a další zde dostanou vlastní podsekce, až začneme navrhovat jejich rozložení. Budou skládat existující prvky design systému, nikoli vytvářet další kopie komponent.</p></div>
     </section>}
-    {fullPreview && <ImageConverterLayout theme={theme} onThemeChange={onThemeChange} variant={converterVariant} fullScreen onClose={()=>setFullPreview(false)}/>}
+    {fullPreview && <ImageConverterLayout theme={theme} onThemeChange={onThemeChange} variant={converterVariant} onVariantChange={setConverterVariant} fullScreen onClose={()=>setFullPreview(false)}/>}
     <footer className="page-footer">Axolotl · Layouts · {category==='common'?'App Shell & Dashboard Grid':'Tools / Image Converter'} · {layout.gaps.default}px grid / {spacing[3]}px compact</footer>
   </div>
 }
