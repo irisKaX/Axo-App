@@ -20,11 +20,11 @@
 .icl-heading-copy p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}
 .icl-workspace-count{font-size:11px;color:var(--muted);white-space:nowrap}
 .icl-main-column{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:stretch;justify-content:center}
-.icl-main-column>.afu-dropzone{width:100%;min-height:0;max-height:100%;display:flex;flex-direction:column;justify-content:center}
+.icl-main-column .afu-dropzone{width:100%;min-height:0;max-height:100%;display:flex;flex-direction:column;justify-content:center}
 /* The shared File Upload already has its own heading. In a tool page the card heading owns this role; show only its approved drop target. */
-.icl-main-column>.afu-dropzone .afu-copy{display:none}
-.icl-main-column>.afu-dropzone{padding:clamp(12px,2vw,22px);border-radius:var(--radius-lg)}
-.icl-main-column>.afu-dropzone .afu-target{min-height:0;flex:1;justify-content:center}
+.icl-main-column .afu-dropzone .afu-copy{display:none}
+.icl-main-column .afu-dropzone{padding:clamp(12px,2vw,22px);border-radius:var(--radius-lg)}
+.icl-main-column .afu-dropzone .afu-target{min-height:0;flex:1;justify-content:center}
 .icl-side-column{min-width:0;min-height:0;display:flex;flex-direction:column;gap:18px}
 .icl-side-column>.fc-field{width:100%}
 .icl-side-column>.fc-radio-fieldset{min-width:0;margin:0}
@@ -66,9 +66,9 @@
 .icl-workspace{background:var(--backdrop)}
 .icl-side-column{gap:20px}
 /* The nested File Upload is now an open, transparent zone within that card. */
-.icl-main-column>.afu-dropzone{max-width:none;width:100%;margin:0;padding:0;background:transparent}
-.icl-main-column>.afu-dropzone .afu-target,
-.icl-main-column>.afu-dropzone--images .afu-target{
+.icl-main-column .afu-dropzone{max-width:none;width:100%;margin:0;padding:0;background:transparent}
+.icl-main-column .afu-dropzone .afu-target,
+.icl-main-column .afu-dropzone--images .afu-target{
   min-height:clamp(300px,43vh,480px);
   max-height:none;
   flex:1;
@@ -136,10 +136,10 @@
  .icl-heading-copy h1{font-size:20px}
  .icl-heading-copy h2{font-size:16px}
  .icl-heading-copy p{font-size:10px}
- .icl-main-column>.afu-dropzone{gap:8px;padding:10px}
- .icl-main-column>.afu-dropzone .afu-copy{display:none}
- .icl-main-column>.afu-dropzone .afu-target{gap:8px;padding:10px;min-height:0}
- .icl-main-column>.afu-dropzone .afu-target>.axo-icon{display:none}
+ .icl-main-column .afu-dropzone{gap:8px;padding:10px}
+ .icl-main-column .afu-dropzone .afu-copy{display:none}
+ .icl-main-column .afu-dropzone .afu-target{gap:8px;padding:10px;min-height:0}
+ .icl-main-column .afu-dropzone .afu-target>.axo-icon{display:none}
  .icl-side-column{gap:9px}
  .icl-settings-fields{gap:10px}
  .icl-side-heading{padding-bottom:9px}
@@ -151,3 +151,29 @@
  .icl-preview-toolbar{right:12px;bottom:12px}
  .icl-preview-phase button{width:30px;height:30px}
 }
+
+/* Converter-specific upload design: A layout, B data rain, C format chips. */
+.icl-upload-stack{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0;min-height:0;flex:1;justify-content:center}
+.icl-upload-stage{position:relative;isolation:isolate;display:flex;min-width:0;min-height:0;flex:1;overflow:hidden;border:1px dashed var(--control-border);border-radius:var(--radius-lg);background:radial-gradient(ellipse at 50% 58%,#160e2d,#090d19 65%,#070b12);transition:border-color .25s,box-shadow .25s}
+.icl-upload-stage:focus-within{border-color:var(--brand);box-shadow:0 0 0 2px color-mix(in srgb,var(--brand) 25%,transparent)}
+.icl-upload-stage .afu-dropzone{position:relative;z-index:1;width:100%;flex:1;padding:0;min-height:0;display:flex;background:transparent}
+.icl-upload-stage .afu-target,.icl-upload-stage .afu-dropzone--images .afu-target{border:0!important;background:transparent!important;box-shadow:none!important;min-height:clamp(285px,38vh,445px);position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 18px;gap:18px}
+.icl-upload-stage .afu-target>.axo-icon{display:none}
+.icl-upload-stage .afu-image-formats{display:none!important}
+.icl-upload-stage .afu-target-copy{text-align:center}
+.icl-rain{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;opacity:.92;mask-image:linear-gradient(90deg,#0009,#000 18%,#000 82%,#0009)}
+.icl-rain:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#090d19b8 0%,#090d1955 43%,transparent 75%);pointer-events:none}
+.icl-rain-drop{position:absolute;left:var(--rain-x);top:-100px;height:var(--rain-length);width:2px;opacity:var(--rain-opacity);border-radius:4px;background:linear-gradient(to bottom,transparent,#0f9fdc 25%,#7c4bfe 70%,transparent);box-shadow:0 0 10px #7c4bfe70;animation:icl-data-rain var(--rain-duration) var(--rain-delay) linear infinite;will-change:transform}
+.icl-upload-stage:hover .icl-rain-drop,.icl-upload-stage:focus-within .icl-rain-drop{animation-duration:calc(var(--rain-duration) * .72);filter:brightness(1.4)}
+@keyframes icl-data-rain{0%{transform:translateY(-100px)}100%{transform:translateY(660px)}}
+.icl-format-panel{display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-width:0;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius-md);background:color-mix(in srgb,var(--surface) 86%,transparent)}
+.icl-format-label{font-size:10px;font-weight:750;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+.icl-format-chips{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.icl-format-chip{display:inline-flex;align-items:center;justify-content:center;min-height:24px;padding:4px 9px;border:1px solid var(--border);border-radius:8px;background:var(--subtle);font-size:10px;font-weight:700;letter-spacing:.025em;color:var(--text)}
+.icl-format-note{margin-left:auto;font-size:10px;color:var(--muted);white-space:nowrap}
+.icl-shell:not(.icl-shell--fullscreen) .icl-upload-stack{gap:9px}
+.icl-shell:not(.icl-shell--fullscreen) .icl-upload-stage .afu-target{min-height:clamp(230px,30vh,360px)}
+.icl-shell:not(.icl-shell--fullscreen) .icl-format-panel{padding:9px 11px;gap:8px}
+@media(max-width:850px){.icl-format-panel{gap:8px}.icl-format-note{margin-left:0}.icl-upload-stage .afu-target,.icl-upload-stage .afu-dropzone--images .afu-target{min-height:260px}}
+@media(max-width:600px){.icl-upload-stack{gap:9px}.icl-upload-stage .afu-target,.icl-upload-stage .afu-dropzone--images .afu-target{min-height:225px;padding:24px 12px}.icl-format-panel{padding:10px;gap:8px}.icl-format-label{width:100%}.icl-format-chip{padding:4px 8px}.icl-rain-drop{width:1.5px}}
+@media(prefers-reduced-motion:reduce){.icl-rain-drop{animation:none;transform:translateY(145px);will-change:auto}.icl-upload-stage:hover .icl-rain-drop,.icl-upload-stage:focus-within .icl-rain-drop{filter:none}}
