@@ -62,7 +62,7 @@ function ConverterRain() {
     function render(){
       if(!running)return
       ctx!.clearRect(0,0,width,height)
-      intensity+=(mouseX>=0?1:0-intensity)*.035
+      intensity+=((mouseX>=0?1:0)-intensity)*.035
       const colors={pink:[255,77,159],violet:[124,75,254],blue:[15,159,220]}
       for(const p of particles){
         const dx=p.x-mouseX,dy=p.y-mouseY,dist=Math.hypot(dx,dy)
