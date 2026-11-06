@@ -1,0 +1,41 @@
+/* Neo Iris Quality Slider. Custom-painted native range semantics; no browser default styling. */
+.qs-slider{
+  width:100%;min-width:0;display:flex;flex-direction:column;gap:13px;
+  --qs-track:#222832;--qs-fill:var(--brand-gradient);--qs-thumb:var(--brand);
+}
+.qs-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.qs-heading label{font-size:12px;font-weight:650;color:var(--text)}
+.qs-heading output{font-size:13px;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums}
+.qs-range{
+  -webkit-appearance:none;appearance:none;display:block;width:100%;height:32px;
+  min-width:0;margin:0;padding:0;border:0;border-radius:0;background:transparent;
+  cursor:pointer;touch-action:none;outline:none;
+}
+.qs-range::-webkit-slider-runnable-track{
+  height:6px;border:0;border-radius:999px;
+  background:linear-gradient(to right,transparent 0%,transparent var(--qs-progress),var(--qs-track) var(--qs-progress),var(--qs-track) 100%),var(--brand-gradient);
+  background:linear-gradient(to right,var(--brand) 0%,var(--brand) var(--qs-progress),var(--qs-track) var(--qs-progress),var(--qs-track) 100%);
+}
+.qs-range::-moz-range-track{height:6px;border:0;border-radius:999px;background:var(--qs-track)}
+.qs-range::-moz-range-progress{height:6px;border-radius:999px;background:var(--brand)}
+.qs-range::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:20px;height:20px;
+  margin-top:-7px;border:3px solid var(--surface);border-radius:50%;
+  background:var(--brand);box-shadow:0 0 0 1px var(--brand);
+  transition:box-shadow .18s ease,transform .18s ease;
+}
+.qs-range::-moz-range-thumb{
+  width:14px;height:14px;border:3px solid var(--surface);border-radius:50%;
+  background:var(--brand);box-shadow:0 0 0 1px var(--brand);
+  transition:box-shadow .18s ease,transform .18s ease;
+}
+.qs-slider:is(.qs-slider--hover,:hover) .qs-range:not(:disabled)::-webkit-slider-thumb{box-shadow:0 0 0 4px var(--brand-soft);transform:scale(1.07)}
+.qs-slider:is(.qs-slider--hover,:hover) .qs-range:not(:disabled)::-moz-range-thumb{box-shadow:0 0 0 4px var(--brand-soft);transform:scale(1.07)}
+.qs-slider .qs-range:focus-visible::-webkit-slider-thumb,
+.qs-slider--focus .qs-range::-webkit-slider-thumb{box-shadow:0 0 0 4px var(--focus-ring)}
+.qs-slider .qs-range:focus-visible::-moz-range-thumb,
+.qs-slider--focus .qs-range::-moz-range-thumb{box-shadow:0 0 0 4px var(--focus-ring)}
+.qs-limits{display:flex;justify-content:space-between;gap:12px;margin-top:-5px;color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.qs-slider--disabled{opacity:.48}
+.qs-slider--disabled .qs-range{cursor:not-allowed}
+@media(prefers-reduced-motion:reduce){.qs-range::-webkit-slider-thumb,.qs-range::-moz-range-thumb{transition:none}}
