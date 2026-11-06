@@ -27,10 +27,13 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
   const [format,setFormat]=useState('webp')
   const [quality,setQuality]=useState('balanced')
   const [qualityValue,setQualityValue]=useState(80)
+  const [customQuality,setCustomQuality]=useState(60)
+  // Demo-only quality presets: choosing Custom restores the last manually chosen value.
   const selectQuality=(next:string)=>{
     setQuality(next)
     if(next==='balanced')setQualityValue(80)
-    if(next==='high')setQualityValue(95)
+    else if(next==='high')setQualityValue(95)
+    else if(next==='custom')setQualityValue(customQuality)
   }
   const [showCompare,setShowCompare]=useState(false)
   const hasFiles=stage!=='empty'
@@ -74,17 +77,18 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
         </section>
         <aside className="icl-side-column" aria-label="Nastavení Image Converteru">
           <div className="icl-side-heading"><span className="icl-overline">NASTAVENÍ</span><h2>Parametry převodu</h2></div>
+          <div className="icl-primary-action">
+            {converted
+              ? <AxoButton variant="secondary" icon="download" disabled>Stáhnout vše</AxoButton>
+              : <AxoButton variant="primary" icon="refresh" disabled={!hasFiles} onClick={()=>setStage('converted')}>Převést do {formats.find(item=>item.value===format)?.label??'WebP'}</AxoButton>}
+          </div>
           <FormSelect label="Výstupní formát" options={formats} value={format} onChange={setFormat}/>
           <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={selectQuality} name="icl-quality"/>
           <QualitySlider label="Kvalita" value={qualityValue} onChange={value=>{
             setQualityValue(value)
+            setCustomQuality(value)
             setQuality('custom')
           }}/>
-          <div className="icl-primary-action">
-            {converted
-              ? <AxoButton variant="secondary" icon="download" disabled>Stáhnout vše jako ZIP</AxoButton>
-              : <AxoButton variant="primary" icon="refresh" disabled={!hasFiles} onClick={()=>setStage('converted')}>Převést obrázky</AxoButton>}
-          </div>
         </aside>
       </div>
     </main>
