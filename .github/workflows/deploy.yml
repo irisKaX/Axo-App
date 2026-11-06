@@ -50,6 +50,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Clear stale Pages deployment lock
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # One-time cleanup of the exact deployment SHA reported by GitHub's 400 response.
+          gh api -X POST "repos/${{ github.repository }}/pages/deployments/99838973f189ae258e47c864a93afae77ee08863/cancel"
+          sleep 8
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
