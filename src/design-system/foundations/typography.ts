@@ -8,6 +8,18 @@ export const fontFamilies = {
   code: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
 } as const
 
+/**
+ * Shared vertical rhythm for widget and full tool-page heading stacks.
+ * Eyebrow → paired heading: 8px; between heading lines: 0px;
+ * paired heading → description: 8px. Each line uses 1.24 leading.
+ * Keep font size independent from these spacing rules.
+ */
+export const toolHeadingStack = {
+  gap: 8,
+  pairedLineGap: 0,
+  lineHeight: 1.24,
+} as const
+
 export const fontWeights = [
   {name: 'Regular', value: 400},
   {name: 'Medium', value: 500},
