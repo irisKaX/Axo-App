@@ -17,3 +17,19 @@ export function EyebrowHeading({ eyebrow, children, as: Tag = 'h3' }: { eyebrow:
     <AccentDot as={Tag}>{children}</AccentDot>
   </div>
 }
+
+/**
+ * Canonical punctuated heading for tool pages and widgets.
+ * Neutral text ends with Iris Purple dot; accent text ends with neutral dot.
+ * Existing trailing punctuation in supplied copy is normalized automatically.
+ */
+export function ContrastDot({ children, tone = 'neutral', as: Tag = 'span' }: {
+  children: string
+  tone?: 'neutral' | 'accent'
+  as?: 'span' | 'h1' | 'h2' | 'h3'
+}) {
+  const value = children.trim().replace(/\\.\\s*$/, '')
+  return <Tag className={'tt-contrast-dot tt-contrast-dot--' + tone}>
+    {value}<span className="tt-contrast-punctuation">.</span>
+  </Tag>
+}
