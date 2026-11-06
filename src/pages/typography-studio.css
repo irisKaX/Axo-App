@@ -56,3 +56,16 @@
 @media(max-width:960px){.typo-weights{grid-template-columns:repeat(2,minmax(0,1fr))}.typo-family{grid-template-columns:1fr}}
 @media(max-width:680px){.typo-playground{grid-template-columns:1fr}.typo-scale-row{grid-template-columns:1fr;gap:8px}.typo-scale-meta{flex-direction:row;justify-content:space-between}.typo-family-display{font-size:54px}}
 @media(max-width:440px){.typo-weights{grid-template-columns:1fr}.typo-panel{padding:18px}.typo-playground-result{min-height:190px}}
+
+/* Binding punctuation contract for paired widget and tool headings. */
+.typo-pair-rule{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:18px;margin-top:18px}
+.typo-pair-preview,.typo-pair-description{min-width:0;border:1px solid var(--border);border-radius:var(--radius-lg);padding:clamp(18px,3vw,28px);background:var(--canvas)}
+.typo-pair-preview{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px}
+.typo-pair-preview .typo-kicker{font-size:11px;letter-spacing:.1em;color:var(--muted);margin-bottom:16px}
+.typo-pair-preview h3{font-size:clamp(20px,2.5vw,30px);line-height:1.22;letter-spacing:-.035em;margin:0}
+.typo-pair-preview p{font-size:12px;line-height:1.7;color:var(--muted);margin:10px 0 0}
+.typo-pair-description h3{font-size:18px;line-height:1.35;margin:12px 0}
+.typo-pair-description p{font-size:12px;line-height:1.8;color:var(--muted);margin:0 0 12px}
+.typo-pair-description strong{color:var(--text)}
+.typo-pair-description code{font-size:11px;color:var(--text)}
+@media(max-width:800px){.typo-pair-rule{grid-template-columns:1fr}}
