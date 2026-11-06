@@ -120,7 +120,7 @@ export default function LayoutsStudio({theme,onThemeChange}:{theme:ThemeName;onT
     </>}
     {category==='image-converter' && <section className="ls-tool-section">
       <div className="ls-heading"><span>TOOLS / 01 IMAGE CONVERTER</span><h2>Image Converter · návrh celé stránky</h2>
-        <p>Plnohodnotná pracovní kompozice, ne zmenšený obrázek. Obsah respektuje současné komponenty a stále neřeší žádné skutečné nahrávání ani konverzi. Slider a Image Compare jsou zatím pouze vyznačené návrhové plochy.</p></div>
+        <p>Plnohodnotná pracovní kompozice, ne zmenšený obrázek. Obsah respektuje schválené komponenty včetně Quality Slideru. Jde o návrh rozhraní bez skutečného nahrávání a konverze; Image Compare zatím zůstává připraveným návrhovým místem.</p></div>
       <div className="ls-tool-actions">
         <span>IMAGE CONVERTER · DESIGN ONLY · REÁLNÉ PROPORCE</span>
         <button type="button" onClick={()=>setFullPreview(true)}>Otevřít v celé obrazovce ↗</button>
