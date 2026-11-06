@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from 'react'
-import { typography, typographySamples, fontWeights, fontFamilies, type TypographyRole } from '../design-system/foundations/typography'
+import { typography, typographySamples, fontWeights, fontFamilies, toolHeadingStack, type TypographyRole } from '../design-system/foundations/typography'
 import { WorkspaceComposition } from '../components/WorkspaceComposition'
 import { AccentDot, AccentWord, EyebrowHeading, ContrastDot } from '../components/TextTreatments'
 import { textTreatments, toolHeadingPunctuation } from '../design-system/foundations/text-treatments'
@@ -87,14 +87,17 @@ export default function TypographyStudio() {
       <div className="typo-pair-rule">
         <div className="typo-pair-preview">
           <span className="typo-kicker">AXOLOTL / WebP</span>
-          <ContrastDot as="h3" tone="neutral">{toolHeadingPunctuation.example.title}</ContrastDot>
-          <ContrastDot as="h3" tone="accent">{toolHeadingPunctuation.example.tagline}</ContrastDot>
+          <div className="typo-pair-heading">
+            <ContrastDot as="h3" tone="neutral">{toolHeadingPunctuation.example.title}</ContrastDot>
+            <ContrastDot as="h3" tone="accent">{toolHeadingPunctuation.example.tagline}</ContrastDot>
+          </div>
           <p>Převádějte a optimalizujte jeden nebo více obrázků.</p>
         </div>
         <div className="typo-pair-description">
           <span className="typo-kicker">PRAVIDLO / DVOJICE NADPISŮ</span>
           <h3>Kontrastní tečka</h3>
           <p>Platí pro každou dvojici nadpisů u widgetů a stránek nástrojů: <strong>světlý text končí fialovou tečkou, fialový text končí světlou tečkou.</strong> Samotná tečka je vždy samostatně barvená, nikoli součástí barvy celého řádku.</p>
+          <p><strong>Rytmus podle widgetů:</strong> {toolHeadingStack.gap} px mezi eyebrow a dvojicí nadpisů, {toolHeadingStack.pairedLineGap} px navíc mezi bílým a fialovým řádkem a {toolHeadingStack.gap} px před popisem. Řádkování obou nadpisů je {toolHeadingStack.lineHeight}. Velikost písma zůstává samostatnou typografickou rolí.</p>
           <p>Zdroj: <code>ContrastDot</code> a <code>toolHeadingPunctuation</code>. Při změně tématu se světlá/neutrální barva řídí povrchem a sémantickým textovým tokenem.</p>
         </div>
       </div>
