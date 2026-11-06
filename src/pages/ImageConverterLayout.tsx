@@ -1,6 +1,6 @@
 import { useId, useState, type CSSProperties } from 'react'
 import { FileDropzone } from '../components/AdvancedFormControls'
-import { FormSelect, FormRadioGroup } from '../components/FormControls'
+import { FormSelect, FormRadioGroup, FormSwitch } from '../components/FormControls'
 import { AxoButton } from '../components/Buttons'
 import { AxoIcon } from '../components/AxoIcon'
 import { QualitySlider } from '../components/QualitySlider'
@@ -11,116 +11,142 @@ import { toolHeadingStack } from '../design-system/foundations/typography'
 import './image-converter-layout.css'
 
 type Stage = 'empty' | 'ready' | 'converted'
-type Props = { theme: ThemeName; onThemeChange: (theme: ThemeName) => void; fullScreen?: boolean; onClose?: () => void }
+type Props = { theme:ThemeName; onThemeChange:(theme:ThemeName)=>void; fullScreen?:boolean; onClose?:()=>void }
 const formats = [{value:'webp',label:'WebP'},{value:'jpg',label:'JPG'},{value:'png',label:'PNG'},{value:'avif',label:'AVIF'}]
 const qualities = [{value:'balanced',label:'Vyvážená'},{value:'high',label:'Vysoká'},{value:'custom',label:'Vlastní'}]
+const resizeOptions = [{value:'original',label:'Zachovat původní rozměry'},{value:'half',label:'Zmenšit na 50 %'},{value:'1920',label:'Maximální šířka 1920 px'}]
 const examples = [
-  {name:'hero-banner.png',result:'hero-banner.webp',size:'2,4 MB',after:'412 kB'},
-  {name:'product-photo.jpg',result:'product-photo.webp',size:'1,8 MB',after:'286 kB'},
-  {name:'thumbnail.png',result:'thumbnail.webp',size:'850 kB',after:'128 kB'}
+  {name:'hero-banner.png',bytes:2516582,after:'412 kB'},
+  {name:'product-photo.jpg',bytes:1887436,after:'286 kB'},
+  {name:'thumbnail.png',bytes:870400,after:'128 kB'},
 ]
-const mockFiles = examples.map((file,i)=>new File(['náhled'],file.name,{type:i===1?'image/jpeg':'image/png',lastModified:i}))
+const exampleFiles = examples.map((file,i)=>new File(['design preview'],file.name,{type:i===1?'image/jpeg':'image/png',lastModified:i+1}))
+const showSize = (bytes:number)=> bytes>=1048576 ? (bytes/1048576).toLocaleString('cs-CZ',{maximumFractionDigits:1})+' MB' : (bytes/1024).toLocaleString('cs-CZ',{maximumFractionDigits:0})+' kB'
 
-/** Visual composition only. The catalog controls sit outside the actual tool page. */
+/** Catalog prototype. The controls and upload are real UI; conversion and downloads are intentionally not implemented. */
 export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClose}:Props){
-  const qualityGroupId=useId()
+  const radioName=useId()
   const [stage,setStage]=useState<Stage>('empty')
+  const [files,setFiles]=useState<File[]>([])
   const [format,setFormat]=useState('webp')
   const [quality,setQuality]=useState('balanced')
   const [qualityValue,setQualityValue]=useState(80)
-  const [customQuality,setCustomQuality]=useState(60)
-  // Demo-only quality presets: choosing Custom restores the last manually chosen value.
-  const selectQuality=(next:string)=>{
+  const [lastCustom,setLastCustom]=useState(60)
+  const [advanced,setAdvanced]=useState(false)
+  const [resize,setResize]=useState('original')
+  const [metadata,setMetadata]=useState(false)
+  const [notice,setNotice]=useState('')
+  const hasFiles=stage!=='empty' && files.length>0
+  const converted=stage==='converted'
+  const formatLabel=formats.find(item=>item.value===format)?.label??'WebP'
+
+  const previewStage=(next:Stage)=>{
+    setStage(next)
+    setFiles(next==='empty'?[]:exampleFiles)
+    setNotice('')
+  }
+  const fileChanged=(next:File[])=>{
+    setFiles(next)
+    setStage(next.length?'ready':'empty')
+    setNotice('')
+  }
+  const chooseQuality=(next:string)=>{
     setQuality(next)
     if(next==='balanced')setQualityValue(80)
     else if(next==='high')setQualityValue(95)
-    else if(next==='custom')setQualityValue(customQuality)
+    else setQualityValue(lastCustom)
   }
-  const [showCompare,setShowCompare]=useState(false)
-  const hasFiles=stage!=='empty'
-  const converted=stage==='converted'
-
-  return <div className={'icl-shell icl-shell--b'+(fullScreen?' icl-shell--fullscreen':'')}>
+  const onSlide=(value:number)=>{
+    setQualityValue(value)
+    setLastCustom(value)
+    setQuality('custom')
+  }
+  const runPreview=()=>{
+    if(!hasFiles)return
+    if(converted){setNotice('Stažení je součástí budoucí implementace konvertoru.');return}
+    setStage('converted')
+    setNotice('')
+  }
+  return <div className={'icl-shell'+(fullScreen?' icl-shell--fullscreen':'')}>
     <div className="icl-app-header"><HeaderPreview mode={theme} onModeChange={onThemeChange} standalone/></div>
     <main className="icl-page">
-      <div className="icl-composition">
-        <section className="icl-workspace" aria-label="Pracovní plocha Image Converteru">
-          <div className="icl-workspace-head">
-            <div className="icl-heading-copy" style={{
-              '--tool-heading-gap': toolHeadingStack.gap + 'px',
-              '--tool-heading-leading': toolHeadingStack.lineHeight,
-            } as CSSProperties}>
-              <span className="icl-overline">AXOLOTL/WebP</span>
-              <div className="icl-heading-pair">
-                <h1><ContrastDot tone="neutral">Konvertor webP.</ContrastDot></h1>
-                <h2><ContrastDot tone="accent">Převod obrázků.</ContrastDot></h2>
-              </div>
-              <p>Převádějte a optimalizujte jeden nebo více obrázků.</p>
+      <header className="icl-page-head">
+        <div className="icl-heading-copy" style={{
+          '--tool-heading-gap': toolHeadingStack.gap+'px',
+          '--tool-heading-leading': toolHeadingStack.lineHeight,
+        } as CSSProperties}>
+          <span className="icl-overline">NÁSTROJE / MÉDIA / 01</span>
+          <h1><ContrastDot tone="neutral">Konvertor webP.</ContrastDot></h1>
+          <p>Převádějte a optimalizujte obrázky. Jednoduše i hromadně.</p>
+        </div>
+        <span className="icl-page-context"><AxoIcon name="image" size={15}/> IMAGE PROCESSING WORKSPACE</span>
+      </header>
+      <section className="icl-tool" aria-label="Image Converter – pracovní plocha">
+        <div className="icl-tool-body">
+          <aside className="icl-settings" aria-label="Parametry převodu">
+            <div className="icl-section-head">
+              <h2>Parametry převodu</h2>
+              <p>Společná nastavení pro všechny obrázky.</p>
             </div>
-            {hasFiles && <span className="icl-workspace-count">3 obrázky</span>}
-          </div>
-          <div className="icl-main-column">
-            {!hasFiles
-              ? <FileDropzone context="images" previewOnly size="default" files={[]} onChange={()=>{}} label="File Upload · Image Converter"/>
-              : <div className="icl-files">
-                  {examples.map(file=><article className="icl-file" key={file.name}>
-                    <div className="icl-file-thumb"><AxoIcon name="image" size={21}/></div>
-                    <div className="icl-file-copy"><strong>{converted?file.result:file.name}</strong><small>{converted?file.size+' → '+file.after:file.size}</small></div>
-                    <AxoButton variant="ghost" size="compact" icon="pencil" iconOnly disabled aria-label="Přejmenovat (budoucí návrh)"/>
-                    {converted && <AxoButton variant="outline" size="compact" icon="image" onClick={()=>setShowCompare(true)}>Porovnat</AxoButton>}
-                    <AxoButton variant="ghost" size="compact" icon={converted?'download':'trash'} iconOnly disabled aria-label="Akce souboru (budoucí návrh)"/>
-                  </article>)}
-                  <div className="icl-list-note"><AxoIcon name={converted?'check':'info'} size={16}/>
-                    <span>{converted?'Převedené soubory jsou připravené ke stažení.':'Ilustrační seznam pro budoucí komponentu File Item.'}</span>
-                  </div>
+            <div className="icl-settings-fields">
+              <FormSelect label="Výstupní formát" options={formats} value={format} onChange={setFormat}/>
+              <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={chooseQuality} name={'icl-quality-'+radioName}/>
+              <QualitySlider label="Kvalita obrázku" value={qualityValue} onChange={onSlide}/>
+              <div className="icl-advanced">
+                <button className="icl-advanced-toggle" type="button" aria-expanded={advanced} onClick={()=>setAdvanced(value=>!value)}>
+                  Pokročilá nastavení <AxoIcon name={advanced?'chevron-up':'chevron-down'} size={16}/>
+                </button>
+                {advanced && <div className="icl-advanced-body">
+                  <FormSelect label="Rozměry obrázků" options={resizeOptions} value={resize} onChange={setResize}/>
+                  <FormSwitch label="Zachovat metadata" description="Pokud to formát podporuje" checked={metadata} onChange={setMetadata}/>
                 </div>}
-          </div>
-        </section>
-        <aside className="icl-side-column" aria-label="Nastavení Image Converteru">
-          <div className="icl-side-heading">
-            <span className="icl-overline">NASTAVENÍ / 02</span>
-            <h2><ContrastDot tone="neutral">Parametry převodu</ContrastDot></h2>
-            <p>Zvolte formát a kvalitu výsledných obrázků.</p>
-          </div>
-          <div className="icl-settings-fields">
-            <FormSelect label="Výstupní formát" options={formats} value={format} onChange={setFormat}/>
-            <FormRadioGroup label="Kvalita převodu" options={qualities} value={quality} onChange={selectQuality} name={'icl-quality-'+qualityGroupId}/>
-            <QualitySlider label="Kvalita" value={qualityValue} onChange={value=>{
-              setQualityValue(value)
-              setCustomQuality(value)
-              setQuality('custom')
-            }}/>
-          </div>
-          <div className="icl-action-area">
-            <div className="icl-action-status" role="status">
-              <AxoIcon name={converted?'check':hasFiles?'image':'info'} size={17}/>
-              <span>{converted?'Ukázka převodu dokončena.':hasFiles?'3 obrázky připravené k převodu.':'Nejdříve vyberte obrázky'}</span>
+              </div>
             </div>
-            <div className="icl-primary-action">
-              {converted
-                ? <AxoButton variant="secondary" icon="download" disabled>Stáhnout vše</AxoButton>
-                : <AxoButton variant="primary" icon="refresh" disabled={!hasFiles} onClick={()=>setStage('converted')}>Převést do {formats.find(item=>item.value===format)?.label??'WebP'}</AxoButton>}
+            <div className="icl-settings-note"><AxoIcon name="info" size={16}/><span>Zvolené parametry se použijí na všechny vybrané soubory.</span></div>
+          </aside>
+          <section className="icl-workarea" aria-label="Obrázky ke konverzi">
+            <div className="icl-area-head">
+              <h2>{converted?'Výsledky převodu':'Vaše obrázky'}</h2>
+              <span>{files.length} {files.length===1?'soubor':files.length>=2&&files.length<=4?'soubory':'souborů'}</span>
+            </div>
+            {!hasFiles
+              ? <div className="icl-empty-surface"><FileDropzone context="images" size="default" files={[]} onChange={fileChanged} label="Nahrát obrázky" accept=".png,.jpg,.jpeg,.webp,.avif,.bmp,.gif" /></div>
+              : <div className="icl-file-content">
+                <div className="icl-file-table-head"><span>SOUBOR</span><span>VELIKOST</span><span>STAV</span><span/></div>
+                <div className="icl-file-list">{files.map((file,index)=><div className="icl-file-row" key={file.name+'-'+file.lastModified+'-'+index}>
+                  <div className="icl-file-name"><div className="icl-file-thumb"><AxoIcon name="image" size={20}/></div><div className="icl-file-copy">
+                    <strong title={file.name}>{converted?file.name.replace(/\.[^.]+$/,'.'+format):file.name}</strong>
+                    <small>{converted?'Výstup: '+formatLabel:'Připraveno ke konverzi'}</small>
+                  </div></div>
+                  <span className="icl-file-size">{converted?(examples[index]?.after??'Ukázka'):showSize(file.size)}</span>
+                  <span className={'icl-file-state'+(converted?' is-done':'')}><AxoIcon name={converted?'check':'info'} size={13}/>{converted?'Hotovo':'Připraveno'}</span>
+                  <AxoButton icon="close" iconOnly size="compact" variant="ghost" aria-label={'Odebrat '+file.name} onClick={()=>fileChanged(files.filter((_,i)=>i!==index))}/>
+                </div>)}</div>
+                <div className="icl-list-bottom"><span>{converted?'Ukázkové výsledky převodu':files.length+' obrázků připraveno'}</span>
+                  <AxoButton variant="outline" size="compact" icon="plus" onClick={()=>previewStage('ready')}>Přidat další</AxoButton>
+                </div>
+                {converted&&<p className="icl-result-note"><AxoIcon name="check" size={15}/> Ukázka dokončena. Výsledné velikosti jsou ilustrační.</p>}
+              </div>}
+          </section>
+        </div>
+        <footer className="icl-tool-footer">
+          <div className="icl-footer-status" role="status">
+            <span className={'icl-status-icon'+(hasFiles?' is-ready':'')}><AxoIcon name={converted?'check':hasFiles?'image':'info'} size={17}/></span>
+            <div><strong>{converted?'Konverze dokončena':hasFiles?'Připraveno ke konverzi':'Čeká na obrázky'}</strong>
+              <small>{notice|| (converted?'Výsledky jsou pouze návrhovou ukázkou':hasFiles?files.length+' obrázků · '+formatLabel:'Přidejte soubory a nastavte převod')}</small>
             </div>
           </div>
-        </aside>
-      </div>
+          <AxoButton variant={converted?'secondary':'primary'} icon={converted?'download':'refresh'} disabled={!hasFiles} onClick={runPreview}>{converted?'Stáhnout vše':'Převést do '+formatLabel}</AxoButton>
+        </footer>
+      </section>
     </main>
-
-    {fullScreen && <div className="icl-preview-toolbar" aria-label="Ovládání ukázky mimo návrh stránky">
+    {fullScreen ? <div className="icl-preview-toolbar" aria-label="Ovládání katalogového náhledu">
       <button type="button" className="icl-preview-exit" onClick={onClose} title="Zpět do katalogu" aria-label="Zpět do katalogu"><AxoIcon name="close" size={17}/></button>
-      <div className="icl-preview-phase" role="group" aria-label="Změnit ukázkový stav">
-        {([['empty','01'],['ready','02'],['converted','03']] as const).map(([value,label])=>
-          <button type="button" key={value} aria-pressed={stage===value} className={stage===value?'is-active':''}
-            title={value==='empty'?'Nahrání':value==='ready'?'Připravené obrázky':'Výsledky'} onClick={()=>{setStage(value);setShowCompare(false)}}>{label}</button>)}
+      <div className="icl-preview-phase" role="group" aria-label="Ukázkové stavy">
+        {([['empty','01'],['ready','02'],['converted','03']] as const).map(([value,label])=><button key={value} type="button" title={value==='empty'?'Nahrání':value==='ready'?'Soubory':'Výsledky'} aria-pressed={stage===value} className={stage===value?'is-active':''} onClick={()=>previewStage(value)}>{label}</button>)}
       </div>
+    </div> : <div className="icl-inline-controls" role="group" aria-label="Ukázkové stavy katalogu">
+      {([['empty','Nahrání'],['ready','Soubory'],['converted','Výsledky']] as const).map(([value,label])=><button key={value} type="button" aria-pressed={stage===value} onClick={()=>previewStage(value)}>{label}</button>)}
     </div>}
-    {!fullScreen && <div className="icl-inline-controls" role="group" aria-label="Stavy katalogového náhledu">
-      {([['empty','Nahrání'],['ready','Připravené'],['converted','Výsledky']] as const).map(([value,label])=>
-        <button type="button" key={value} aria-pressed={stage===value} onClick={()=>{setStage(value);setShowCompare(false)}}>{label}</button>)}
-    </div>}
-    {showCompare && <div className="icl-compare-mask"><div className="icl-compare-dialog" role="dialog" aria-modal="true" aria-label="Image Compare">
-      <div className="icl-compare-top"><strong>Image Compare</strong><AxoButton size="compact" variant="ghost" icon="close" iconOnly aria-label="Zavřít" onClick={()=>setShowCompare(false)}/></div>
-      <p>Komponentu porovnání před a po nejprve vytvoříme v katalogu.</p>
-    </div></div>}
   </div>
 }
