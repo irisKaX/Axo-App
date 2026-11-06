@@ -3,7 +3,7 @@ import { WidgetLaunchButton } from '../components/WidgetLaunchButton'
 import { ContrastDot } from '../components/TextTreatments'
 import { themes } from '../design-system/foundations/colors'
 import { density, spacing } from '../design-system/foundations/spacing'
-import { typography } from '../design-system/foundations/typography'
+import { typography, toolHeadingStack } from '../design-system/foundations/typography'
 import './widget-foundation.css'
 
 export type WidgetSize = 'small' | 'large'
@@ -61,10 +61,10 @@ export function WidgetFoundation({
     '--wf-accent': themes.dark.brand,
     '--wf-padding': `${dashboard ? (size === 'large' ? spacing[5] : spacing[4]) : specification.density.padding}px`,
     '--wf-gap': `${dashboard ? spacing[3] : specification.density.gap}px`,
-    '--wf-copy-gap': `${spacing[2]}px`,
+    '--wf-copy-gap': `${toolHeadingStack.gap}px`,
     '--wf-content-height': `${dashboard ? 0 : specification.contentHeight}px`,
     '--wf-heading-size': `${heading.size}px`,
-    '--wf-heading-leading': heading.lineHeight,
+    '--wf-heading-leading': toolHeadingStack.lineHeight,
     '--wf-heading-weight': heading.weight,
     '--wf-heading-tracking': `${heading.tracking}em`,
     '--wf-body-size': `${dashboard ? typography.caption.size : typography.bodySm.size}px`,
