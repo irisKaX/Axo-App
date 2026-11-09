@@ -2,7 +2,7 @@ name: Deploy Axo-App to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, design/converter-precision-pass]
   workflow_dispatch:
 
 permissions:
@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
