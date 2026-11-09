@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useState } from 'react'
 import { spacing, radius, controls, density, layout } from '../design-system/foundations/spacing'
 import './spacing.css'
 
