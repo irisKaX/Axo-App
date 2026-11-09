@@ -1,9 +1,10 @@
 import { useState, type CSSProperties } from 'react'
 import { ColorsV2, TypographyV2, IconsV2 } from './FoundationPages'
+import SpacingV2 from './SpacingV2'
 import './catalog.css'
 
 type Theme = 'dark' | 'light'
-type Section = 'overview' | 'buttons' | 'colors' | 'typography' | 'icons' | 'components' | 'layouts' | 'playground'
+type Section = 'overview' | 'buttons' | 'colors' | 'typography' | 'spacing' | 'icons' | 'components' | 'layouts' | 'playground'
 type Variant = 'primary' | 'primary-2' | 'secondary' | 'outline' | 'ghost' | 'danger'
 
 const variants: { id: Variant; label: string; detail: string; caption: string }[] = [
@@ -17,7 +18,7 @@ const variants: { id: Variant; label: string; detail: string; caption: string }[
 
 const navigation: { label: string; items: { id: Section; name: string }[] }[] = [
   { label: 'CATALOG', items: [{ id: 'overview', name: 'Přehled' }] },
-  { label: 'FOUNDATIONS', items: [{ id: 'colors', name: 'Colors' }, { id: 'typography', name: 'Typography' }] },
+  { label: 'FOUNDATIONS', items: [{ id: 'colors', name: 'Colors' }, { id: 'typography', name: 'Typography' }, { id: 'spacing', name: 'Spacing & Grid' }] },
   { label: 'LIBRARY', items: [{ id: 'buttons', name: 'Buttons' }, { id: 'icons', name: 'Icons' }, { id: 'components', name: 'Další komponenty' }] },
   { label: 'EXPLORATION', items: [{ id: 'layouts', name: 'Widgets & Layouts' }, { id: 'playground', name: 'Playground' }] },
 ]
@@ -98,8 +99,8 @@ function ButtonsPage() {
 }
 
 const previews = [
-  ['01', 'Foundations', 'Barvy, gradienty, typografie a geometrie.'],
-  ['02', 'Buttons', 'První schválená skupina komponent.'],
+  ['01', 'Foundations', 'Barvy, typografie, spacing a geometrie.'],
+  ['02', 'Buttons', 'Schválená hierarchie tlačítek a animace.'],
   ['03', 'Widgets & Layouts', 'Příští návrhy pracovních obrazovek.'],
 ] as const
 
@@ -119,7 +120,7 @@ export default function CatalogApp() {
       <div className="v2-sidebar__label">DESIGN EXPLORATION</div>
       <nav className="v2-navigation" aria-label="Navigace katalogu">{navigation.map(group => <div className="v2-nav-group" key={group.label}><span>{group.label}</span>{group.items.map(item =>
         <button type="button" key={item.id} className={'v2-nav-item' + (section === item.id ? ' is-active' : '')} aria-current={section === item.id ? 'page' : undefined} onClick={() => setSection(item.id)}>
-          {item.name}{!(['overview','buttons','colors','typography','icons'] as Section[]).includes(item.id) ? <span className="v2-soon">Brzy</span> : section === item.id ? <span className="v2-active-dot" /> : null}
+          {item.name}{!(['overview','buttons','colors','typography','spacing','icons'] as Section[]).includes(item.id) ? <span className="v2-soon">Brzy</span> : section === item.id ? <span className="v2-active-dot" /> : null}
         </button>)}</div>)}</nav>
       <div className="v2-sidebar__footer"><span className="v2-footer-dot" /> DESIGN ONLY <span>·</span> CLEAN NEO IRIS</div>
     </aside>
@@ -127,7 +128,7 @@ export default function CatalogApp() {
       <header className="v2-topbar"><div className="v2-breadcrumb">CATALOG <span>/</span> {isButtons ? 'LIBRARY / ' : ''}<strong>{title}</strong></div>
         <div className="v2-topbar__right"><span className="v2-draft">DESIGN PREVIEW</span><button type="button" className="v2-theme-toggle" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label={labels[theme]} title={labels[theme]}><Glyph name={theme === 'dark' ? 'moon' : 'sun'} /></button></div>
       </header>
-      <main className="v2-main">{isButtons ? <ButtonsPage /> : section === 'colors' ? <ColorsV2 theme={theme} /> : section === 'typography' ? <TypographyV2 /> : section === 'icons' ? <IconsV2 /> : section === 'overview' ? <div className="v2-page">
+      <main className="v2-main">{isButtons ? <ButtonsPage /> : section === 'colors' ? <ColorsV2 theme={theme} /> : section === 'typography' ? <TypographyV2 /> : section === 'spacing' ? <SpacingV2 /> : section === 'icons' ? <IconsV2 /> : section === 'overview' ? <div className="v2-page">
         <div className="v2-page-title"><div><span className="v2-kicker">DESIGN EXPLORATION / V2</span><h1>Začínáme od <span className="v2-period">schváleného.</span></h1><p>Nový katalog vzniká postupně. Přenášíme jen to, co už má správnou vizuální podobu, a každý další prvek má své jasné místo.</p></div></div>
         <div className="v2-overview-grid">{previews.map(([number, heading, description]) => <div className="v2-overview-card" key={number}><span className="v2-kicker">{number}</span><h2>{heading}</h2><p>{description}</p><span className="v2-card-foot">{heading === 'Buttons' ? 'SCHVÁLENÝ STYL' : 'BUDEME PŘEVÁDĚT'}</span></div>)}</div>
         <button type="button" className="v2-open-buttons" onClick={() => setSection('buttons')}>Prohlédnout Buttons <Glyph name="arrow" /></button>
