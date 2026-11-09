@@ -67,6 +67,10 @@ export default function LayoutsStudio({theme,onThemeChange}:{theme:ThemeName;onT
   const [viewport,setViewport]=useState<Viewport>('desktop')
   const [category,setCategory]=useState<'common'|'image-converter'>('image-converter')
   const [fullPreview,setFullPreview]=useState(false)
+  const [converterViewport,setConverterViewport]=useState<'1440'|'1366'>('1440')
+  const converterWidth=Number(converterViewport)
+  const converterHeight=converterViewport==='1440'?900:768
+  const converterSrc=import.meta.env.BASE_URL+'?converter-canvas=1&theme='+theme
   return <div className="ls-page">
     <p className="eyebrow">LIBRARY / LAYOUTS</p>
     <h1>Layouts<span className="heading-accent">.</span></h1>
@@ -125,8 +129,14 @@ export default function LayoutsStudio({theme,onThemeChange}:{theme:ThemeName;onT
         <span>IMAGE CONVERTER · DESIGN ONLY · REÁLNÉ PROPORCE</span>
         <button type="button" onClick={()=>setFullPreview(true)}>Otevřít v celé obrazovce ↗</button>
       </div>
-      <div className="ls-tool-preview">
-        <ImageConverterLayout theme={theme} onThemeChange={onThemeChange}/>
+      <div className="ls-converter-viewport-control" role="group" aria-label="Skutečný rozměr náhledu">
+        <span>NÁHLED V MĚŘÍTKU 1:1 · BEZ ZMENŠOVÁNÍ</span>
+        <button type="button" aria-pressed={converterViewport==='1440'} onClick={()=>setConverterViewport('1440')}>1440 × 900</button>
+        <button type="button" aria-pressed={converterViewport==='1366'} onClick={()=>setConverterViewport('1366')}>1366 × 768</button>
+      </div>
+      <p className="ls-converter-viewport-hint">Stejná komponenta jako v aplikaci. Náhled má skutečnou šířku a výšku zvoleného viewportu. Pokud se do katalogu nevejde, posuňte jej vodorovně nebo svisle; nic se automaticky nezmenšuje.</p>
+      <div className="ls-tool-preview" aria-label={'Náhled konvertoru '+converterWidth+' × '+converterHeight+' px'}>
+        <iframe key={converterSrc} className="ls-converter-iframe" title="Konvertor v reálných rozměrech" src={converterSrc} style={{width:converterWidth,height:converterHeight}} />
       </div>
       <div className="ls-tool-footnote"><strong>První z nástrojových layoutů</strong><p>QR generátor, Metadata Check, Find Phrase a další zde dostanou vlastní podsekce, až začneme navrhovat jejich rozložení. Budou skládat existující prvky design systému, nikoli vytvářet další kopie komponent.</p></div>
     </section>}
