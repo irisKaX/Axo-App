@@ -88,7 +88,7 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
           <h1><ContrastDot tone="neutral">Konvertor webP.</ContrastDot></h1>
           <p>Převádějte a optimalizujte obrázky. Jednoduše i hromadně.</p>
         </div>
-        <span className="icl-page-context"><AxoIcon name="image" size={15}/> IMAGE PROCESSING WORKSPACE</span>
+        <span className="icl-page-context"><AxoIcon name="image" size={15}/> DESIGN PREVIEW · PRECISION 02</span>
       </header>
       <section className="icl-tool" aria-label="Image Converter – pracovní plocha">
         <div className="icl-tool-body">
