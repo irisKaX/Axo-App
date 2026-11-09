@@ -61,6 +61,6 @@ Representative stale navigation and widget-count failures were reproduced agains
 
 ## Deployment and capability limits
 
-No deployment is claimed. The existing trusted-main Pages workflow publishes main plus the separate converter-design preview. Publishing this feature as another Pages subpath requires adding its branch to that trusted workflow; doing so would change main before this PR is reviewed. Production Pages and the converter design branch were left unchanged. Use `npm run dev` and Library → Layouts, or `?tool=image-converter`, for review.
+No deployment is claimed. The existing trusted-main Pages workflow publishes main plus the separate converter-design preview. Publishing this feature as another Pages subpath would require extending that deployment configuration. This change leaves the deployment workflow untouched. Production Pages and the converter design branch were left unchanged. Use `npm run dev` and Library → Layouts, or `?tool=image-converter`, for review.
 
 No real conversion, image compression, download backend, metadata processing or persistence was added. Every tool demonstration states its illustrative scope. No merge into main was performed.

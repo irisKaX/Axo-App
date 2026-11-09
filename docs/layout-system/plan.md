@@ -44,4 +44,6 @@ Files: tests/layout-system.spec.ts, docs/layout-system/{usage,verification}.md, 
 - [x] Run full existing suite with bounded per-test timeout; diagnose unrelated failures and run focused regressions.
 - [x] Capture and inspect representative screenshots, production build, strict typecheck.
 - [x] Review whole diff, fix material issues, document evidence and limitations.
-- [ ] Commit feature branch, push without force, create draft PR; check actual CI result. Do not merge.
+- [x] Commit feature branch, push without force, create draft PR; inspect actual CI status. Do not merge.
+
+Draft PR: https://github.com/irisKaX/Axo-App/pull/39. Feature checks passed locally; historical suite blockers remain documented.
