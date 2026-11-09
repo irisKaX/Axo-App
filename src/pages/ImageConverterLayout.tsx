@@ -1,17 +1,15 @@
-import { useId, useRef, useState, type CSSProperties } from 'react'
+import { useId, useRef, useState } from 'react'
 import { FileDropzone } from '../components/AdvancedFormControls'
 import { FormSelect, FormRadioGroup, FormSwitch } from '../components/FormControls'
 import { AxoButton } from '../components/Buttons'
 import { AxoIcon } from '../components/AxoIcon'
 import { QualitySlider } from '../components/QualitySlider'
-import { ContrastDot } from '../components/TextTreatments'
 import { HeaderPreview } from './NavigationStudio'
 import type { ThemeName } from '../design-system/foundations/colors'
-import { toolHeadingStack } from '../design-system/foundations/typography'
 import './image-converter-layout.css'
 
 type Stage = 'empty' | 'ready' | 'converted'
-type Props = { theme:ThemeName; onThemeChange:(theme:ThemeName)=>void; fullScreen?:boolean; onClose?:()=>void }
+type Props = { theme:ThemeName; onThemeChange:(theme:ThemeName)=>void; fullScreen?:boolean; onClose?:()=>void; hidePreviewControls?:boolean }
 const formats = [{value:'webp',label:'WebP'},{value:'jpg',label:'JPG'},{value:'png',label:'PNG'},{value:'avif',label:'AVIF'}]
 const qualities = [{value:'balanced',label:'Vyvážená'},{value:'high',label:'Vysoká'}]
 const examples = [
@@ -23,7 +21,7 @@ const exampleFiles = examples.map((file,i)=>new File(['design preview'],file.nam
 const showSize = (bytes:number)=> bytes>=1048576 ? (bytes/1048576).toLocaleString('cs-CZ',{maximumFractionDigits:1})+' MB' : (bytes/1024).toLocaleString('cs-CZ',{maximumFractionDigits:0})+' kB'
 
 /** Catalog prototype. The controls and upload are real UI; conversion and downloads are intentionally not implemented. */
-export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClose}:Props){
+export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClose,hidePreviewControls=false}:Props){
   const radioName=useId()
   const addInputRef=useRef<HTMLInputElement>(null)
   const [stage,setStage]=useState<Stage>('empty')
@@ -79,17 +77,6 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
   return <div className={'icl-shell'+(fullScreen?' icl-shell--fullscreen':'')}>
     <div className="icl-app-header"><HeaderPreview mode={theme} onModeChange={onThemeChange} standalone/></div>
     <main className="icl-page">
-      <header className="icl-page-head">
-        <div className="icl-heading-copy" style={{
-          '--tool-heading-gap': toolHeadingStack.gap+'px',
-          '--tool-heading-leading': toolHeadingStack.lineHeight,
-        } as CSSProperties}>
-          <span className="icl-overline">NÁSTROJE / MÉDIA / 01</span>
-          <h1><ContrastDot tone="neutral">Konvertor webP.</ContrastDot></h1>
-          <p>Převádějte a optimalizujte obrázky. Jednoduše i hromadně.</p>
-        </div>
-        <span className="icl-page-context"><AxoIcon name="image" size={15}/> DESIGN PREVIEW · PRECISION 02</span>
-      </header>
       <section className="icl-tool" aria-label="Image Converter – pracovní plocha">
         <div className="icl-tool-body">
           <aside className="icl-settings" aria-label="Parametry převodu">
@@ -147,7 +134,7 @@ export function ImageConverterLayout({theme,onThemeChange,fullScreen=false,onClo
       appendFiles(Array.from(event.currentTarget.files??[]))
       event.currentTarget.value=''
     }}/>
-    {fullScreen ? <div className="icl-preview-toolbar" aria-label="Ovládání katalogového náhledu">
+    {hidePreviewControls ? null : fullScreen ? <div className="icl-preview-toolbar" aria-label="Ovládání katalogového náhledu">
       <button type="button" className="icl-preview-exit" onClick={onClose} title="Zpět do katalogu" aria-label="Zpět do katalogu"><AxoIcon name="close" size={17}/></button>
       <div className="icl-preview-phase" role="group" aria-label="Ukázkové stavy">
         {([['empty','01'],['ready','02'],['converted','03']] as const).map(([value,label])=><button key={value} type="button" title={value==='empty'?'Nahrání':value==='ready'?'Soubory':'Výsledky'} aria-pressed={stage===value} className={stage===value?'is-active':''} onClick={()=>previewStage(value)}>{label}</button>)}
