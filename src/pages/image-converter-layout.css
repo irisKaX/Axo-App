@@ -403,3 +403,48 @@
   }
   .icl-empty-surface .afu-target-copy,.icl-empty-surface .afu-image-formats{text-align:center}
 }
+
+
+/* FULLSCREEN = ACTUAL VIEWPORT, not the catalog's centered 1440px page. */
+.icl-shell--fullscreen{
+  width:100vw;
+  width:100dvw;
+  height:100vh;
+  height:100dvh;
+  max-width:none;
+  margin:0;
+  padding:8px clamp(12px,1.15vw,24px);
+}
+.icl-shell--fullscreen .icl-page{
+  width:100%;
+  max-width:none;
+  min-width:0;
+  margin:0;
+  padding:clamp(10px,1.3vh,18px) 0 clamp(10px,1.3vh,18px);
+}
+.icl-shell--fullscreen .icl-page-head{
+  width:100%;
+  max-width:none;
+  margin-left:0;
+  margin-right:0;
+}
+.icl-shell--fullscreen .icl-tool{
+  width:100%;
+  max-width:none;
+  margin:0;
+}
+.icl-shell--fullscreen .icl-tool-body{
+  grid-template-columns:clamp(310px,25vw,415px) minmax(0,1fr);
+}
+.icl-shell--fullscreen .icl-app-header{width:100%}
+.icl-shell--fullscreen .icl-preview-toolbar{right:clamp(18px,1.4vw,30px)}
+@media(max-width:850px){
+  .icl-shell--fullscreen .icl-tool-body{
+    grid-template-columns:minmax(225px,34%) minmax(0,1fr);
+  }
+}
+@media(max-width:620px){
+  .icl-shell--fullscreen{width:100%;padding:7px}
+  .icl-shell--fullscreen .icl-tool-body{grid-template-columns:minmax(0,1fr)}
+  .icl-shell--fullscreen .icl-page{padding:10px 0}
+}
