@@ -27,7 +27,8 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Test border beam
-        run: npm test
+        timeout-minutes: 4
+        run: npx playwright test tests/border-beam.spec.ts --workers=1 --reporter=line
 
       - name: Upload visual test report
         if: always()

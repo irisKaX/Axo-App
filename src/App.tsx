@@ -14,6 +14,7 @@ import LoadingStudio from './pages/LoadingStudio'
 import VisualPatterns from './pages/VisualPatterns'
 import WidgetsStudio from './pages/WidgetsStudio'
 import LayoutsStudio from './pages/LayoutsStudio'
+import { ImageConverterLayout } from './pages/ImageConverterLayout'
 import { radiusCssVariables } from './design-system/foundations/spacing'
 import { semantic, themes, type ThemeName } from './design-system/foundations/colors'
 
@@ -41,8 +42,8 @@ const groups: { title: string; items: { id: Section; label: string }[] }[] = [
 ]
 
 export default function App() {
-  const [section, setSection] = useState<Section>('colors')
-  const [theme, setTheme] = useState<ThemeName>('dark')
+  const [section, setSection] = useState<Section>('layouts')
+  const [theme, setTheme] = useState<ThemeName>(() => new URLSearchParams(window.location.search).get('theme') === 'light' ? 'light' : 'dark')
   const t = themes[theme]
   const vars = {
     ...radiusCssVariables,
@@ -57,6 +58,7 @@ export default function App() {
     '--success': semantic[theme].success.foreground, '--warning': semantic[theme].warning.foreground,
     '--info': semantic[theme].info.foreground, '--error': semantic[theme].error.foreground,
   } as CSSProperties
+  if(new URLSearchParams(window.location.search).get('converter-canvas')==='1') return <div className="converter-live-root" style={vars} data-theme={theme}><ImageConverterLayout theme={theme} onThemeChange={setTheme} fullScreen hidePreviewControls/></div>
   if(section==='dashboard') return <div className="dashboard-shell" style={vars} data-theme={theme}><DashboardStudio theme={theme} onThemeChange={setTheme} onBack={()=>setSection('navigation')}/></div>
   return <div className="app-shell" style={vars} data-theme={theme}>
     <aside className="sidebar">

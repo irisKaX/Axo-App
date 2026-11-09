@@ -83,7 +83,16 @@
 .ls-tool-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}
 .ls-tool-actions>span{color:var(--muted);font-size:10px;letter-spacing:.06em;font-weight:650}
 .ls-tool-actions button{background:var(--brand-gradient);border:0;border-radius:var(--radius-pill);min-height:38px;padding:9px 17px;color:#fff;font:inherit;font-size:12px;font-weight:650;cursor:pointer}
-.ls-tool-preview{width:100%;min-width:0;background:var(--canvas);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden}
+.ls-tool-preview{width:100%;min-width:0;max-height:min(75vh,900px);background:var(--canvas);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
 .ls-tool-footnote{margin-top:16px;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-lg);padding:18px}
 .ls-tool-footnote strong{font-size:13px}
 .ls-tool-footnote p{max-width:780px;font-size:11px;line-height:1.7;margin:7px 0 0;color:var(--muted)}
+
+/* Actual tool viewport: never transform/scale or stretch its contents. */
+.ls-converter-viewport-control{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.ls-converter-viewport-control>span{margin-right:auto;font-size:10px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.ls-converter-viewport-control button{min-height:32px;padding:6px 12px;border:1px solid var(--border);background:var(--surface);color:var(--text);font:inherit;font-size:11px;border-radius:var(--radius-pill);cursor:pointer}
+.ls-converter-viewport-control button[aria-pressed="true"]{border-color:var(--brand);color:var(--brand)}
+.ls-converter-viewport-control button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+.ls-converter-viewport-hint{font-size:11px;line-height:1.5;color:var(--muted);margin:0 0 12px}
+.ls-converter-iframe{display:block;max-width:none;max-height:none;min-width:0;flex:none;border:0;background:var(--canvas)}
