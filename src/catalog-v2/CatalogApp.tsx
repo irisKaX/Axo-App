@@ -1,6 +1,7 @@
 import { useState, type CSSProperties } from 'react'
 import { ColorsV2, TypographyV2, IconsV2 } from './FoundationPages'
 import SpacingV2 from './SpacingV2'
+import { colorTokens } from '../design-system/foundations/colors'
 import './catalog.css'
 
 type Theme = 'dark' | 'light'
@@ -110,9 +111,47 @@ export default function CatalogApp() {
   const isButtons = section === 'buttons'
   const title = navigation.flatMap(g => g.items).find(x => x.id === section)?.name ?? 'Přehled'
   const labels = { dark: 'Přepnout na světlý motiv', light: 'Přepnout na tmavý motiv' }
+  const colors = colorTokens.semantic[theme]
+  const states = colorTokens.interaction[theme]
+  const brand = colorTokens.primitives.brand
+  const error = colorTokens.status[theme].error
+  const orbitalGlow = colorTokens.effects.orbitalGlow
   const cssTheme = {
-    '--v2-blue': '#0F9FDC', '--v2-mid': '#3B09C7', '--v2-purple': '#8101EC',
-    '--v2-gradient': 'linear-gradient(130deg,#0F9FDC 0%,#3B09C7 52%,#8101EC 100%)',
+    '--v2-blue': brand.blue, '--v2-mid': brand.royalBlue, '--v2-purple': brand.electricPurple,
+    '--v2-gradient': colorTokens.effects[theme].gradient,
+    // These shared roles retain the exact colors of the unmigrated component previews.
+    '--v2-canvas': colors.surface.canvas,
+    '--v2-surface': colors.surface.default,
+    '--v2-control-border': colors.border.control,
+    '--v2-focus-ring': states.focus.ring,
+    '--v2-text': colors.text.primary,
+    '--v2-muted': colors.text.secondary,
+    '--v2-accent': colors.text.accent,
+    '--v2-shadow': colorTokens.effects[theme].shadow,
+    '--v2-brand': brand.irisPurple,
+    '--v2-on-brand': colors.text.onBrand,
+    '--v2-success': colorTokens.status[theme].success.foreground,
+    '--v2-theme-icon': brand.sunshineYellow,
+    // Shared catalog surfaces, borders and neutral interaction states.
+    '--v2-shell-subtle': colors.surface.subtle,
+    '--v2-shell-raised': colors.surface.raised,
+    '--v2-shell-border': colors.border.default,
+    '--v2-shell-hover': states.hover.background,
+    '--v2-shell-pressed': states.pressed.background,
+    '--v2-shell-selected': states.selected.background,
+    '--v2-shell-indicator': states.selected.indicator,
+    // Button aliases are isolated from the shell and the remaining component previews.
+    '--v2-button-hover': states.hover.background,
+    '--v2-button-subtle': colors.surface.subtle,
+    '--v2-button-border': colors.border.default,
+    '--v2-button-hover-border': states.hover.border,
+    '--v2-button-accent': colors.border.accent,
+    '--v2-button-outline-hover-border': colorTokens.interaction.outline.hoverBorder,
+    '--v2-button-on-brand': colors.text.onBrand,
+    '--v2-button-danger': error.foreground,
+    '--v2-button-danger-border': error.border,
+    // Keep only the approved color stops; the pseudo-element supplies its animated angle.
+    '--v2-button-orbital-stops': orbitalGlow.slice(orbitalGlow.indexOf(',') + 1, -1),
   } as CSSProperties
   return <div className="v2-shell" data-theme={theme} style={cssTheme}>
     <aside className="v2-sidebar">
@@ -128,7 +167,7 @@ export default function CatalogApp() {
       <header className="v2-topbar"><div className="v2-breadcrumb">CATALOG <span>/</span> {isButtons ? 'LIBRARY / ' : ''}<strong>{title}</strong></div>
         <div className="v2-topbar__right"><span className="v2-draft">DESIGN PREVIEW</span><button type="button" className="v2-theme-toggle" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label={labels[theme]} title={labels[theme]}><Glyph name={theme === 'dark' ? 'moon' : 'sun'} /></button></div>
       </header>
-      <main className="v2-main">{isButtons ? <ButtonsPage /> : section === 'colors' ? <ColorsV2 theme={theme} /> : section === 'typography' ? <TypographyV2 /> : section === 'spacing' ? <SpacingV2 /> : section === 'icons' ? <IconsV2 /> : section === 'overview' ? <div className="v2-page">
+      <main className="v2-main">{isButtons ? <ButtonsPage /> : section === 'colors' ? <ColorsV2 theme={theme} /> : section === 'typography' ? <TypographyV2 /> : section === 'spacing' ? <SpacingV2 /> : section === 'icons' ? <IconsV2 theme={theme} /> : section === 'overview' ? <div className="v2-page">
         <div className="v2-page-title"><div><span className="v2-kicker">DESIGN EXPLORATION / V2</span><h1>Začínáme od <span className="v2-period">schváleného.</span></h1><p>Nový katalog vzniká postupně. Přenášíme jen to, co už má správnou vizuální podobu, a každý další prvek má své jasné místo.</p></div></div>
         <div className="v2-overview-grid">{previews.map(([number, heading, description]) => <div className="v2-overview-card" key={number}><span className="v2-kicker">{number}</span><h2>{heading}</h2><p>{description}</p><span className="v2-card-foot">{heading === 'Buttons' ? 'SCHVÁLENÝ STYL' : 'BUDEME PŘEVÁDĚT'}</span></div>)}</div>
         <button type="button" className="v2-open-buttons" onClick={() => setSection('buttons')}>Prohlédnout Buttons <Glyph name="arrow" /></button>

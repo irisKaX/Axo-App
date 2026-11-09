@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from 'react'
-import { brandColors, referencePalette, themes, semantic, bluePurpleGradient } from '../design-system/foundations/colors'
+import { brandColors, referencePalette, themes, semantic, bluePurpleGradient, colorTokens } from '../design-system/foundations/colors'
 import { typography, typographySamples, fontWeights, type TypographyRole } from '../design-system/foundations/typography'
 import { AxoIcon, iconGroups, iconNames, iconTones, type AxoIconName, type AxoIconTone } from '../components/AxoIcon'
 import './foundations.css'
@@ -80,8 +80,13 @@ export function TypographyV2(){
  <label>Letter spacing · {tracking.toFixed(2)} em<input type="range" min="-.05" max=".1" step=".005" value={tracking} onChange={e=>setTracking(Number(e.target.value))}/></label></div>
  <div className="v2-type-result" style={{fontSize:size,fontWeight:weight,letterSpacing:tracking+'em'}}>{text||'Napiš vlastní text…'}</div></div></section></div>
 }
-const toneColors:Record<AxoIconTone,string> = {inherit:'var(--v2-text)',muted:'var(--v2-muted)',brand:'#7C4BFE',success:'#9EF01A',warning:'#F6DE26',danger:'#FF0A54',info:'#4CC9F0'}
-export function IconsV2(){
+export function IconsV2({theme}:{theme:Mode}){
+ const icon= colorTokens.semantic[theme].icon
+ const status= colorTokens.status[theme]
+ const toneColors:Record<AxoIconTone,string> = {
+  inherit:icon.default,muted:icon.muted,brand:colorTokens.primitives.brand.irisPurple,
+  success:status.success.foreground,warning:status.warning.foreground,danger:status.error.foreground,info:status.info.foreground
+ }
  const [query,setQuery]=useState('')
  const [size,setSize]=useState<16|18|20|24>(20)
  const [tone,setTone]=useState<AxoIconTone>('inherit')
