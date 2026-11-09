@@ -2,7 +2,7 @@ name: Deploy Axo-App to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, design/converter-precision-pass]
   workflow_dispatch:
 
 permissions:
@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -34,6 +36,17 @@ jobs:
         run: npx vite build
         env:
           GITHUB_PAGES: 'true'
+
+      # Build a separate copy of the design branch under /preview/converter/.
+      # Root site remains built from main; no draft UI is merged or shipped at /.
+      - name: Build isolated converter design preview
+        shell: bash
+        run: |
+          git fetch --depth=1 origin design/converter-precision-pass
+          git worktree add --detach "$RUNNER_TEMP/axo-converter-preview" FETCH_HEAD
+          cd "$RUNNER_TEMP/axo-converter-preview"
+          npm ci --no-audit --no-fund
+          npx vite build --base /Axo-App/preview/converter/ --outDir "$GITHUB_WORKSPACE/dist/preview/converter"
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
