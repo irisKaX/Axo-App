@@ -41,7 +41,7 @@ const groups: { title: string; items: { id: Section; label: string }[] }[] = [
 ]
 
 export default function App() {
-  const [section, setSection] = useState<Section>('colors')
+  const [section, setSection] = useState<Section>('layouts')
   const [theme, setTheme] = useState<ThemeName>('dark')
   const t = themes[theme]
   const vars = {
