@@ -31,3 +31,5 @@ Converter design preview: https://iriskax.github.io/Axo-App/preview/converter/
 
 ## Historical material
 Some older documents, test files and draft PRs refer to implementation, production readiness, CI or extensive regression verification. They document past experiments, **not current requirements**. Do not activate or expand those systems without explicit user approval. The design catalog is the only scope.
+
+Design Catalog V2 preview is published from the isolated `design/catalog-v2` branch to `/Axo-App/preview/v2/` by the existing GitHub Pages workflow. This preview is design-only and does not change the main catalog.
