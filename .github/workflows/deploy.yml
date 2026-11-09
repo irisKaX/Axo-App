@@ -49,6 +49,18 @@ jobs:
           npm ci --no-audit --no-fund
           npx vite build --base /Axo-App/preview/converter/ --outDir "$GITHUB_WORKSPACE/dist/preview/converter"
 
+      # Publish Design Catalog V2 from its isolated branch under /preview/v2/.
+      # Do not merge draft catalog UI into main.
+      - name: Build isolated Design Catalog V2 preview
+        shell: bash
+        run: |
+          git fetch --depth=1 origin design/catalog-v2
+          git worktree add --detach "$RUNNER_TEMP/axo-catalog-v2" FETCH_HEAD
+          echo "Catalog V2 source: $(git -C "$RUNNER_TEMP/axo-catalog-v2" rev-parse --short HEAD)"
+          cd "$RUNNER_TEMP/axo-catalog-v2"
+          npm ci --no-audit --no-fund
+          npx vite build --base /Axo-App/preview/v2/ --outDir "$GITHUB_WORKSPACE/dist/preview/v2"
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
