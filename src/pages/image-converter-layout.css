@@ -312,3 +312,94 @@
   .icl-empty-surface .afu-target,
   .icl-shell--fullscreen .icl-empty-surface .afu-target{min-height:230px;height:auto}
 }
+
+
+/* PRECISION 02: compact upload workbench, not another decorative dashboard card. */
+.icl-tool-body{grid-template-columns:minmax(250px,30%) minmax(0,1fr)}
+.icl-settings{background:var(--surface)}
+.icl-settings-fields>.fc-select-field{border-bottom:1px solid var(--border)}
+.icl-settings-fields>.fc-radio-fieldset{padding-top:1px}
+.icl-area-head{padding-bottom:15px}
+.icl-empty-surface{width:100%;align-self:flex-start}
+.icl-empty-surface>.afu-dropzone{width:100%;max-width:none}
+.icl-empty-surface .afu-target,
+.icl-shell--fullscreen .icl-empty-surface .afu-target{
+  position:relative;
+  display:grid;
+  grid-template-columns:48px minmax(0,1fr) auto;
+  grid-template-rows:auto auto;
+  align-items:center;
+  justify-content:stretch;
+  column-gap:19px;
+  row-gap:10px;
+  text-align:left;
+  min-height:185px;
+  max-height:none;
+  height:auto;
+  padding:26px 26px 38px;
+  background:color-mix(in srgb,var(--surface) 60%,var(--subtle));
+  border:1px dashed var(--control-border);
+  border-radius:var(--radius-lg);
+}
+.icl-empty-surface .afu-target>.axo-icon,
+.icl-shell--fullscreen .icl-empty-surface .afu-target>.axo-icon{
+  grid-column:1;grid-row:1;
+  width:26px;height:26px;padding:10px;
+  box-sizing:content-box;
+  border-radius:var(--radius-md);
+  color:var(--brand);
+  background:var(--subtle);
+  border:1px solid var(--border);
+}
+.icl-empty-surface .afu-target-copy{grid-column:2;grid-row:1;gap:7px;text-align:left}
+.icl-empty-surface .afu-target-copy strong{font-size:18px;line-height:1.25}
+.icl-empty-surface .afu-target-copy span{font-size:12px}
+.icl-empty-surface .afu-target>.axo-button,
+.icl-shell--fullscreen .icl-empty-surface .afu-target>.axo-button{
+  grid-column:3;grid-row:1;
+  margin:0;
+  flex:none;
+  padding:2px;
+}
+.icl-empty-surface .afu-image-formats{
+  grid-column:2 / 4;grid-row:2;
+  text-align:left;
+  margin:0;
+  font-size:11px;
+  opacity:1;
+}
+.icl-empty-surface .afu-target:hover{
+  border-color:var(--brand);
+  background:color-mix(in srgb,var(--surface) 48%,var(--subtle));
+}
+.icl-workarea{background:var(--surface)}
+.icl-settings-note{font-size:11px}
+.icl-shell--fullscreen .icl-workarea{gap:16px}
+.icl-shell--fullscreen .icl-settings-fields{gap:17px}
+.icl-shell--fullscreen .icl-empty-surface .afu-target{min-height:175px;padding:24px 22px 34px;gap:12px 17px}
+@media(max-width:1100px){
+  .icl-empty-surface .afu-target,
+  .icl-shell--fullscreen .icl-empty-surface .afu-target{
+    grid-template-columns:40px minmax(0,1fr);
+    min-height:205px;
+  }
+  .icl-empty-surface .afu-target>.axo-button,
+  .icl-shell--fullscreen .icl-empty-surface .afu-target>.axo-button{
+    grid-column:2;grid-row:2;justify-self:start;
+  }
+  .icl-empty-surface .afu-image-formats{grid-column:2;grid-row:3}
+}
+@media(max-width:620px){
+  .icl-tool-body{grid-template-columns:minmax(0,1fr)}
+  .icl-empty-surface .afu-target,
+  .icl-shell--fullscreen .icl-empty-surface .afu-target{
+    display:flex;
+    flex-direction:column;
+    min-height:240px;
+    text-align:center;
+    align-items:center;
+    justify-content:center;
+    padding:20px 14px;
+  }
+  .icl-empty-surface .afu-target-copy,.icl-empty-surface .afu-image-formats{text-align:center}
+}
