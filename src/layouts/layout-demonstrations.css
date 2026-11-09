@@ -1,0 +1,24 @@
+.axo-demo-root{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
+.axo-demo-root h1{font-size:20px;margin:0}
+.axo-demo-root .axo-tool-toolbar h2{font-size:14px;margin:0}
+.axo-demo-root .axo-tool-toolbar span{color:var(--muted);font-size:11px}
+.axo-demo-list{list-style:none;padding:0;margin:0;display:grid;gap:0}
+.axo-demo-list li{display:grid;gap:5px;padding:16px 0;border-bottom:1px solid var(--border);font-size:12px}
+.axo-demo-list li span{color:var(--muted);font-size:11px}
+.axo-demo-result{white-space:pre-wrap;overflow-wrap:anywhere;padding:16px;background:var(--canvas);border:1px solid var(--border);border-radius:var(--radius-md);font:inherit;font-size:13px}
+.axo-demo-table-scroll{overflow:auto;min-width:0;min-height:0}
+.axo-demo-table{border-collapse:collapse;width:100%;font-size:12px;text-align:left}
+.axo-demo-table th,.axo-demo-table td{padding:12px;border-bottom:1px solid var(--border);vertical-align:top}
+.axo-demo-table th{color:var(--muted);font-size:11px;white-space:nowrap}
+.axo-demo-table td{min-width:140px}
+.axo-demo-table .fc-choice-copy strong{font-size:11px}
+.axo-demo-row-link,.axo-demo-note{border:0;background:transparent;color:var(--text);font:inherit;cursor:pointer;text-align:left;padding:4px;border-radius:var(--radius-xs);overflow-wrap:anywhere}
+.axo-demo-row-link[aria-pressed=true],.axo-demo-note[aria-pressed=true]{color:var(--brand);background:var(--brand-soft)}
+.axo-demo-note{padding:12px;font-size:12px}
+.axo-demo-root button:focus-visible,.axo-demo-table-scroll:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+.axo-demo-root .axo-tool-panel>.fc-field:has(textarea){flex:1;display:flex;flex-direction:column}
+.axo-demo-root .fc-field textarea{flex:1;min-height:180px;resize:vertical}
+@container axo-tool (max-width:620px){
+ .axo-demo-table-scroll{max-width:100%;overflow:auto}
+ .axo-demo-root .axo-tool-panel:has(.axo-demo-table-scroll){overflow:hidden}
+}

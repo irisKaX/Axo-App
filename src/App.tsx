@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useEffect, useState } from 'react'
 import BrandExpression from './pages/BrandExpression'
 import VisualDirections from './pages/VisualDirections'
 import ColorStudio from './pages/ColorStudio'
@@ -14,8 +14,10 @@ import LoadingStudio from './pages/LoadingStudio'
 import VisualPatterns from './pages/VisualPatterns'
 import WidgetsStudio from './pages/WidgetsStudio'
 import LayoutsStudio from './pages/LayoutsStudio'
-import { radiusCssVariables } from './design-system/foundations/spacing'
-import { semantic, themes, type ThemeName } from './design-system/foundations/colors'
+import { type ThemeName } from './design-system/foundations/colors'
+
+import { themeStyle } from './layouts/theme'
+import { ToolPage, readToolRoute } from './layouts/ToolPage'
 
 type Section = 'expression' | 'colors' | 'visual' | 'typography' | 'spacing' | 'components' | 'icons' | 'forms' | 'cards' | 'navigation' | 'dashboard' | 'loading' | 'patterns' | 'widgets' | 'layouts'
 const groups: { title: string; items: { id: Section; label: string }[] }[] = [
@@ -42,21 +44,24 @@ const groups: { title: string; items: { id: Section; label: string }[] }[] = [
 
 export default function App() {
   const [section, setSection] = useState<Section>('colors')
-  const [theme, setTheme] = useState<ThemeName>('dark')
-  const t = themes[theme]
-  const vars = {
-    ...radiusCssVariables,
-    '--canvas': t.canvas, '--surface': t.surface, '--subtle': t.subtle, '--border': t.border,
-    '--text': t.text, '--muted': t.muted, '--brand': t.brand, '--brand-text': t.brandText,
-    '--brand-soft': t.brandSoft, '--control-border': t.controlBorder, '--focus-ring': t.focusRing,
-    '--action-hover': t.actionHover, '--action-active': t.actionActive, '--action-disabled': t.actionDisabled,
-    '--action-disabled-text': t.actionDisabledText, '--accent': t.accent, '--brand-gradient': t.gradient,
-    '--backdrop': t.backdrop, '--glow': t.glow, '--corporate': t.corporate,
-    '--corporate-text': t.corporateText, '--mascot': t.mascot, '--lilac': t.lilac,
-    '--secondary': t.secondary, '--secondary-text': t.secondaryText,
-    '--success': semantic[theme].success.foreground, '--warning': semantic[theme].warning.foreground,
-    '--info': semantic[theme].info.foreground, '--error': semantic[theme].error.foreground,
-  } as CSSProperties
+  const [theme, setTheme] = useState<ThemeName>(()=>new URLSearchParams(location.search).get('theme')==='light'?'light':'dark')
+  useEffect(()=>{
+    const receive=(event:MessageEvent)=>{
+      if(event.origin!==location.origin || event.data?.type!=='axo-layout-theme')return
+      if(event.source!==window.parent || window.parent===window)return
+      if(event.data.theme==='light'||event.data.theme==='dark')setTheme(event.data.theme)
+    }
+    window.addEventListener('message',receive)
+    if(window.parent!==window)window.parent.postMessage({type:'axo-layout-ready'},location.origin)
+    return ()=>window.removeEventListener('message',receive)
+  },[])
+  const changeToolTheme=(next:ThemeName)=>{
+    setTheme(next)
+    if(window.parent!==window)window.parent.postMessage({type:'axo-layout-theme',theme:next},location.origin)
+  }
+  const route=readToolRoute()
+  if(route)return <ToolPage route={route} theme={theme} onThemeChange={changeToolTheme}/>
+  const vars = themeStyle(theme)
   if(section==='dashboard') return <div className="dashboard-shell" style={vars} data-theme={theme}><DashboardStudio theme={theme} onThemeChange={setTheme} onBack={()=>setSection('navigation')}/></div>
   return <div className="app-shell" style={vars} data-theme={theme}>
     <aside className="sidebar">

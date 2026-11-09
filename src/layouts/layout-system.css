@@ -1,0 +1,77 @@
+/* Layout responsibilities only. Visual values come from existing foundations. */
+.axo-app-shell{height:100dvh;width:100%;min-width:0;display:flex;flex-direction:column;gap:var(--axo-gap);padding:var(--axo-gap);overflow:hidden;background:var(--canvas);color:var(--text);container:axo-app / inline-size}
+.axo-app-header{flex:none;min-width:0;position:relative;z-index:20}
+.axo-app-header .nh-stage.nh-standalone{padding:0;margin:0;border:0;border-radius:0;background:transparent;overflow:visible}
+.axo-app-header .nh-scroll{overflow:visible;padding:0}
+.axo-app-header .nh-header{min-width:0;width:100%;gap:clamp(4px,.55vw,9px);padding:8px 12px;min-height:64px;background:transparent;border:0;box-shadow:none}
+.axo-app-header .nh-url-zone{min-width:110px;gap:8px}
+.axo-app-header .nh-feedback-floating{position:absolute;right:8px;top:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:11px;padding:8px 12px;z-index:30}
+.axo-app-header .nh-feedback-floating:empty{display:none}
+.axo-app-main{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0;container:axo-tool / inline-size}
+.axo-skip-link{position:absolute;left:16px;top:0;z-index:100;background:var(--surface);color:var(--text);padding:12px;transform:translateY(-120%);border:1px solid var(--focus-ring);border-radius:var(--radius-xs)}
+.axo-skip-link:focus{transform:none}
+.axo-tool-shell{display:flex;flex-direction:column;flex:1;min-width:0;min-height:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden}
+.axo-tool-heading{flex:none;padding:var(--axo-gap) var(--axo-panel-padding);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.axo-tool-heading h1{font-size:18px;line-height:1.4;letter-spacing:-.03em;margin:0}
+.axo-tool-heading p{margin:0;color:var(--muted);font-size:11px}
+.axo-tool-toolbar-slot,.axo-layout-filters{flex:none;border-bottom:1px solid var(--border);padding:12px var(--axo-panel-padding)}
+.axo-tool-body{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
+.axo-tool-footer,.axo-layout-bulk{flex:none;padding:12px var(--axo-panel-padding);border-top:1px solid var(--border);background:var(--subtle)}
+.axo-split{display:grid;grid-template-columns:clamp(260px,30%,415px) minmax(0,1fr);flex:1;min-width:0;min-height:0}
+.axo-workspace-layout[data-settings=false]{grid-template-columns:minmax(0,1fr)}
+.axo-panel-size--compact{grid-template-columns:clamp(240px,24%,320px) minmax(0,1fr)}
+.axo-panel-size--wide{grid-template-columns:clamp(300px,38%,520px) minmax(0,1fr)}
+.axo-layout-support,.axo-layout-primary,.axo-editor-navigation,.axo-editor-inspector{display:flex;flex-direction:column;min-width:0;min-height:0}
+.axo-split>.axo-layout-support{border-right:1px solid var(--border)}
+.axo-tool-panel{flex:1;min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:var(--axo-panel-padding);display:flex;flex-direction:column;gap:16px;overflow-wrap:anywhere}
+.axo-tool-panel:focus-visible,.axo-app-main:focus-visible{outline:2px solid var(--focus-ring);outline-offset:-4px}
+.axo-tool-panel h2{margin:0;font-size:15px;line-height:1.4;letter-spacing:-.02em}
+.axo-tool-panel p{margin:0;color:var(--muted);font-size:12px;line-height:1.7}
+.axo-tool-toolbar,.axo-tool-action-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;min-width:0}
+.axo-tool-toolbar>*{min-width:0}
+/* Actions may size to their labels while preserving approved control height. */
+.axo-tool-action-bar>.axo-button{width:max-content}
+/* Anchor right-edge tooltips inside the shell instead of creating page overflow. */
+.axo-app-header .nav-button--round[data-tooltip]::after,.axo-tool-panel .axo-button--icon[data-tooltip]::after{left:auto;right:0;max-width:240px;white-space:normal;overflow-wrap:anywhere;transform:translateY(4px)}
+.axo-app-header .nav-button--round[data-tooltip]:is(:hover,:focus-visible)::after,.axo-tool-panel .axo-button--icon[data-tooltip]:is(:hover,:focus-visible)::after{transform:translateY(0)}
+.axo-tool-status{font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.axo-tool-status[data-state=error]{color:var(--error)}
+.axo-tool-status[data-state=success]{color:var(--success)}
+.axo-tool-empty{flex:1;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;text-align:center;color:var(--muted)}
+.axo-tool-empty h2{color:var(--text);margin:0;font-size:16px}
+.axo-tool-empty p{max-width:48ch}
+.axo-form-result-layout.is-compact{grid-template-columns:minmax(0,1fr);grid-auto-rows:min-content;align-content:start;overflow:auto}
+.axo-form-result-layout.is-compact>.axo-layout-support,.axo-form-result-layout.is-compact>.axo-layout-primary{min-height:auto}
+.axo-form-result-layout.is-compact>.axo-layout-support{border-right:0;border-bottom:1px solid var(--border)}
+.axo-form-result-layout.is-compact .axo-tool-panel{flex:none;min-height:220px;overflow:visible}
+.axo-data-workspace-layout{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
+.axo-data-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,26%);flex:1;min-height:0;min-width:0}
+.axo-data-split[data-details=false]{grid-template-columns:minmax(0,1fr)}
+.axo-data-split>.axo-layout-support,.axo-editor-inspector{border-left:1px solid var(--border)}
+.axo-editor-workspace-layout{flex:1;display:grid;grid-template-columns:minmax(180px,20%) minmax(0,1fr) minmax(220px,25%);min-width:0;min-height:0}
+.axo-editor-navigation{border-right:1px solid var(--border)}
+.axo-editor-workspace-layout[data-navigation=false]{grid-template-columns:minmax(0,1fr) minmax(220px,25%)}
+.axo-editor-workspace-layout[data-inspector=false]{grid-template-columns:minmax(180px,20%) minmax(0,1fr)}
+.axo-editor-workspace-layout[data-navigation=false][data-inspector=false]{grid-template-columns:minmax(0,1fr)}
+@container axo-tool (max-width:1050px){
+ .axo-editor-workspace-layout,.axo-editor-workspace-layout[data-navigation=false],.axo-editor-workspace-layout[data-inspector=false]{grid-template-columns:minmax(0,1fr);grid-auto-rows:min-content;align-content:start;overflow:auto}
+ .axo-editor-workspace-layout>.axo-editor-navigation,.axo-editor-workspace-layout>.axo-editor-inspector{min-height:auto}
+ .axo-editor-workspace-layout .axo-tool-panel{min-height:200px;overflow:visible;flex:none}
+ .axo-editor-navigation,.axo-editor-inspector{border:0;border-bottom:1px solid var(--border)}
+ .axo-editor-workspace-layout>.axo-layout-primary{min-height:340px;order:-1}
+}
+@container axo-tool (max-width:620px){
+ .axo-split,.axo-data-split{grid-template-columns:minmax(0,1fr)}
+ .axo-tool-shell,.axo-tool-body,.axo-data-workspace-layout,.axo-split,.axo-data-split,.axo-editor-workspace-layout{flex:none;min-height:0;overflow:visible}
+ .axo-tool-panel{overflow:visible;flex:none;min-height:180px}
+ .axo-split>.axo-layout-support{border-right:0;border-top:1px solid var(--border);order:1}
+ .axo-split>.axo-layout-primary{order:0}
+ .axo-form-result-layout>.axo-layout-support{order:0;border-top:0;border-bottom:1px solid var(--border)}
+ .axo-data-split>.axo-layout-support{border-left:0;border-top:1px solid var(--border)}
+ .axo-tool-action-bar{align-items:stretch}
+ .axo-tool-action-bar>.axo-button{max-width:100%}
+}
+@media(max-width:652px){
+ .axo-app-shell{height:auto;min-height:100dvh;overflow:visible;padding:var(--axo-compact-gap);gap:var(--axo-compact-gap)}
+ .axo-app-main{flex:1 0 auto;min-height:0}
+}
