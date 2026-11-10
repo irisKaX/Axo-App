@@ -156,6 +156,8 @@ export interface FileDropzoneProps {
   size?: FileUploadSize
   /** Contextual visual copy; default approved Workspace appearance remains unchanged. */
   context?: 'workspace' | 'images'
+  /** Opt into the parent tool's semantic theme; existing Atmosphere specimens stay unchanged. */
+  inheritTheme?: boolean
   /** For design catalog specimens: no file selection, drop or real uploading. */
   previewOnly?: boolean
   accept?: string
@@ -214,6 +216,7 @@ export function FileDropzone({
   onChange,
   size = 'default',
   context = 'workspace',
+  inheritTheme = false,
   previewOnly = false,
   accept = '.pdf,.txt,.md,.png,.jpg,.jpeg,.webp',
   maxSize,
@@ -243,8 +246,12 @@ export function FileDropzone({
   const describedBy = message ? `${hintId} ${errorId}` : hintId
   const acceptedTypes = accept.split(',').map(rule => rule.trim().replace(/^\./, '').toUpperCase()).filter(Boolean).join(', ')
   const styles = {
-    ...atmosphereStyles,
-    '--afu-accent': themes.dark.brand,
+    ...(inheritTheme ? {
+      '--afu-background': 'var(--surface)', '--afu-foreground': 'var(--text)',
+      '--afu-muted': 'var(--muted)', '--afu-boundary': 'var(--control-border)',
+      '--afu-active-boundary': 'var(--brand)', '--afu-boundary-width': '1px',
+    } : atmosphereStyles),
+    '--afu-accent': inheritTheme ? 'var(--brand)' : themes.dark.brand,
     '--afu-padding': `${size === 'large' ? spacing[8] : spacing[6]}px`,
     '--afu-gap': `${size === 'large' ? spacing[6] : spacing[4]}px`,
     '--afu-heading-size': `${heading.size}px`,

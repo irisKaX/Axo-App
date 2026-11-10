@@ -31,8 +31,8 @@ const browserTabs=[
 
 type HeaderLayout = 'desktop' | 'tablet' | 'mobile'
 
-export function HeaderPreview({mode,onModeChange,standalone=false,preview}: {
-  mode:ThemeName;onModeChange:(mode:ThemeName)=>void;standalone?:boolean;preview?:'mobile'|'tablet'
+export function HeaderPreview({mode,onModeChange,standalone=false,preview,pageLabel='Dashboard'}: {
+  mode:ThemeName;onModeChange:(mode:ThemeName)=>void;standalone?:boolean;preview?:'mobile'|'tablet';pageLabel?:string
 }){
   const [open,setOpen]=useState<Menu>(null)
   const [mobileOpen,setMobileOpen]=useState(Boolean(preview))
@@ -122,7 +122,7 @@ export function HeaderPreview({mode,onModeChange,standalone=false,preview}: {
           <span className="nh-indicator" title="Ukázkový indikátor stavu URL" aria-label="Ukázkový stav URL"/>
         </div>
         <div className="nh-clock"><strong>{time.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'})}</strong><small>{time.toLocaleDateString('cs-CZ',{day:'numeric',month:'numeric',year:'numeric'})}</small></div>
-        <span className="nh-mobile-page-label">Dashboard</span>
+        <span className="nh-mobile-page-label">{pageLabel}</span>
         <div className="nh-popup-anchor nh-alert-anchor">
           <NavigationButton state={open==='notifications' ? 'expanded' : 'inactive'} shape="round" icon="bell" className="nh-circle" aria-haspopup={layout==='desktop'?'menu':'dialog'} aria-expanded={open==='notifications'} aria-label="Upozornění" onClick={()=>{
             if(layout==='desktop')toggle('notifications')
