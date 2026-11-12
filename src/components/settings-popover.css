@@ -1,0 +1,12 @@
+/* Independent non-modal settings panel; all colors come from colorTokens. */
+.settings-popover{position:fixed;z-index:1000;left:var(--sp-left,0px);top:var(--sp-top,0px);box-sizing:border-box;width:400px;max-width:var(--sp-max-width,calc(100vw - 16px));max-height:var(--sp-max-height,calc(100dvh - 16px));overflow:auto;overscroll-behavior:contain;visibility:var(--sp-visibility,hidden);padding:var(--sp-padding);border:1px solid var(--sp-border);border-radius:var(--sp-radius);background:var(--sp-surface);color:var(--sp-text);font-family:var(--sp-font);font-size:var(--sp-body-size);line-height:var(--sp-body-leading)}
+.settings-popover-header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-gap);margin-bottom:var(--sp-padding)}
+.settings-popover-header>div{min-width:0;overflow-wrap:anywhere}
+.settings-popover-header h2{margin:0;font-size:var(--sp-title-size);line-height:var(--sp-title-leading);font-weight:var(--sp-title-weight)}
+.settings-popover-header p{margin:var(--sp-small-gap) 0 0;color:var(--sp-muted)}
+.settings-popover-button{display:inline-flex;align-items:center;justify-content:center;flex:none;gap:var(--sp-small-gap);box-sizing:border-box;min-height:var(--sp-control-height);padding:0 var(--sp-gap);border:1px solid var(--sp-border);border-radius:var(--sp-pill);background:var(--sp-control-surface);color:var(--sp-text);font-family:var(--sp-font);font-size:var(--sp-body-size);font-weight:var(--sp-button-weight);line-height:1.45;cursor:pointer;transition:background-color .16s ease}
+.settings-popover-button[data-icon=true]{width:var(--sp-control-height);padding:0;border:0;background:transparent}
+.settings-popover-button:hover{background:var(--sp-hover)}
+.settings-popover-button:active{background:var(--sp-pressed)}
+.settings-popover-button:focus-visible{outline:2px solid var(--sp-focus);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.settings-popover-button{transition:none}}

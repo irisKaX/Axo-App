@@ -2,6 +2,7 @@ import { useState, type CSSProperties } from 'react'
 import { brandColors, referencePalette, themes, semantic, bluePurpleGradient, colorTokens } from '../design-system/foundations/colors'
 import { typography, typographySamples, fontWeights, type TypographyRole } from '../design-system/foundations/typography'
 import { AxoIcon, iconGroups, iconNames, iconTones, type AxoIconName, type AxoIconTone } from '../components/AxoIcon'
+import HeadingStackV2 from './HeadingStackV2'
 import './foundations.css'
 
 type Mode='dark'|'light'
@@ -53,11 +54,12 @@ export function ColorsV2({theme}:{theme:Mode}){
  <div className="v2-swatches">{referencePalette.map(c=><CopySwatch key={c.name} name={c.name} usage={c.role} hex={c.hex} copied={copied} onCopy={copy}/>)}</div></details>
  </div>
 }
-export function TypographyV2(){
+export function TypographyV2({theme}:{theme:Mode}){
  const [text,setText]=useState('Všechno na jednom místě.')
  const [size,setSize]=useState(28)
  const [weight,setWeight]=useState(600)
  const [tracking,setTracking]=useState(0)
+ const [headingContent,setHeadingContent]=useState({eyebrow:'AXOLOTL / QR',primary:'QR generátor.',accent:'QR kódy snadno.',description:'Vytvářejte QR kódy pro webové adresy.'})
  return <div className="v2-page">
  <div className="v2-page-title"><div><span className="v2-kicker">FOUNDATIONS / TYPOGRAPHY</span><h1>Typography<span className="v2-period">.</span></h1>
  <p>Poppins pro texty, navigaci i komponenty. Schválené typografické akcenty a interaktivní ukázky.</p></div></div>
@@ -78,7 +80,18 @@ export function TypographyV2(){
  <label>Velikost · {size} px<input type="range" min="12" max="56" value={size} onChange={e=>setSize(Number(e.target.value))}/></label>
  <label>Váha<select value={weight} onChange={e=>setWeight(Number(e.target.value))}>{fontWeights.map(w=><option key={w.value} value={w.value}>{w.name} · {w.value}</option>)}</select></label>
  <label>Letter spacing · {tracking.toFixed(2)} em<input type="range" min="-.05" max=".1" step=".005" value={tracking} onChange={e=>setTracking(Number(e.target.value))}/></label></div>
- <div className="v2-type-result" style={{fontSize:size,fontWeight:weight,letterSpacing:tracking+'em'}}>{text||'Napiš vlastní text…'}</div></div></section></div>
+ <div className="v2-type-result" style={{fontSize:size,fontWeight:weight,letterSpacing:tracking+'em'}}>{text||'Napiš vlastní text…'}</div></div></section>
+ <section className="v2-panel"><Heading tag="06 / HEADING STACK" title="Dva nadpisy, jeden celek" description="Původní typografická kompozice dashboard widgetů. Uprav obsah a porovnej Standard a Compact se stejným rytmem a kontrastními tečkami."/>
+ <div className="v2-type-controls v2-heading-stack-controls">
+ <label>Eyebrow<input value={headingContent.eyebrow} onChange={e=>setHeadingContent(current=>({...current,eyebrow:e.target.value}))}/></label>
+ <label>Primary Heading<input value={headingContent.primary} onChange={e=>setHeadingContent(current=>({...current,primary:e.target.value}))}/></label>
+ <label>Accent Heading<input value={headingContent.accent} onChange={e=>setHeadingContent(current=>({...current,accent:e.target.value}))}/></label>
+ <label>Description<input value={headingContent.description} onChange={e=>setHeadingContent(current=>({...current,description:e.target.value}))}/></label>
+ </div>
+ <div className="v2-heading-stack-grid">{(['standard','compact'] as const).map(stackSize=><figure className="v2-heading-stack-example" key={stackSize}>
+ <figcaption><strong>{stackSize==='standard'?'Standard':'Compact'}</strong><span>{typography[stackSize==='standard'?'h3':'h4'].size} px</span></figcaption>
+ <div className="v2-heading-stack-preview"><HeadingStackV2 {...headingContent} theme={theme} size={stackSize}/></div>
+ </figure>)}</div></section></div>
 }
 export function IconsV2({theme}:{theme:Mode}){
  const icon= colorTokens.semantic[theme].icon

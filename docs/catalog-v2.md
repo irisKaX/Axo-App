@@ -1,156 +1,155 @@
-# Axolotl Design Catalog V2 — approved-only migration
+# Axolotl Design Catalog V2 — aktuální stav
 
-**Status: new isolated design exploration branch.** Nothing in this branch represents an implemented application. The currently published catalog on main is a reference only.
+Průběžný přehled schváleného katalogu a jeho zdrojů, aktualizovaný 12. 11. 2026 podle lokálního kódu a uživatelských rozhodnutí. Vzniká pouze interaktivní vizuální katalog, nikoli aplikace nebo skutečné nástroje.
 
-## Goal
-Build a clean, compact, editable design catalog using **only explicitly approved** visual components. Do not copy the old catalog wholesale. Migrate small pieces one by one, inspecting the original source, extracting the approved visual behavior and writing a clean source of truth without CSS overrides.
+## Dokumentace a prostředí
 
-## Current approach
-- Keep the old catalog on `main` untouched during this migration.
-- `design/catalog-v2` is the workspace for the new catalog. Nothing merges to `main` without explicit approval.
-- Keep Clean Neo Iris, Poppins, dark/light variants, blue-to-purple gradients and rounded geometry.
-- Each migrated component has one clear implementation and owned CSS. Never paste the old cascade or compatibility overrides.
-- Do not add automated tests, Playwright, CI, screenshots/report matrices, speculative product logic, or new dependencies.
-- Prefer real-size desktop preview and compact/mobile visual previews where useful.
-- Each change should result in a visible improvement to the **new** catalog, not modifications to the existing catalog.
-- An entry only becomes approved if the user specifically confirms it; do not treat all legacy components as approved.
+- `AGENTS.md`: stručná závazná pravidla práce.
+- Tento dokument: aktuální schválené komponenty, zdroje a hranice použití.
+- [roadmap.md](roadmap.md): další fáze, strategie screen-first.
+- [PROJECT-STATUS-2026-11-12.md](PROJECT-STATUS-2026-11-12.md): zachovaný historický checkpoint. Jeho údaje o Git refs a tehdy chybějících souborech nejsou průběžným stavem synchronizace.
+- [CODEX-NEXT-STEP.md](CODEX-NEXT-STEP.md): původní zadání inventury před konsolidací; samo neautorizuje další Git operace.
 
-## Catalog information architecture
-1. **Foundations**: Colors / gradients, typography, spacing / grid, radii and effects
-2. **Components**: Buttons, Inputs & Forms, Cards, Navigation, Icons, Dialogs / Feedback, Loaders
-3. **Widgets & Layouts**: user-approved example compositions; demonstrations only
-4. **Playground**: temporary experiments, never automatically promoted into the library
+Pracovní větev: `design/catalog-v2`. Lokální náhled: `http://localhost:5173/`. Existující Pages náhled: `https://iriskax.github.io/Axo-App/preview/v2/`. Push do V2 sám nepublikuje novou verzi; stávající publikační workflow reaguje na `main` nebo ruční spuštění. `main` se při konsolidaci V2 nemění.
 
-Do not build unapproved sections upfront. Empty sections may appear as navigation placeholders, but must not imply the underlying design is finished.
+## Společný základ a barvy
 
-## First migration: Buttons (approved visual styles; clean catalog presentation)
-Keep the **current approved look and behavior**, not a redesign. One showcase button per action variant, **without the redundant matching icon button**.
+Clean Neo Iris: Poppins, propracované Dark/Light varianty, modrofialové gradienty, zaoblená geometrie a neutrální běžný hover. Brandové efekty zůstávají specifickými schválenými případy.
 
-### 01 — Action hierarchy
-Exactly six rows, one example per row:
-1. Primary — approved blue-purple gradient, no automatic icon
-2. Primary 2 / Orbital Glow — same base gradient with the approved continuous edge animation
-3. Secondary — gradient reveal
-4. Outline — purple accent outline
-5. Ghost — low-emphasis text button
-6. Danger — red outline, solid red on hover
+- Vstup: `src/main.tsx` → `src/catalog-v2/CatalogApp.tsx`. Shell, navigace a Buttons: `src/catalog-v2/catalog.css`.
+- Aktivní motiv vlastní `CatalogApp`; sekce jej přebírají přes props a příslušné CSS proměnné. Přepínače sdílejí stejný stav.
+- Jediný autoritativní zdroj barev: `src/design-system/foundations/colors.ts`, strom `colorTokens`.
+- Typografie: `src/design-system/foundations/typography.ts`. Spacing, radiusy a rozměry: `src/design-system/foundations/spacing.ts`.
+- Rytmus 4 px; radiusy XS 8, SM 12, MD 18, LG 24, XL 32, 2XL 40, Pill 9999 px. Foundations grid: mobile 4 / tablet 8 / desktop 12 sloupců.
 
-Show a short purpose description and a single, consistent-width demonstration at the right. No adjacent icon duplicate.
-
-### 02 — Sizes
-Show only two examples, Compact and Default, to communicate sizing. This is not a full six-variant matrix. For the previously approved dimensions, Compact = 32px, Default = 38px.
-
-### 03 — Round buttons
-Only Primary and Secondary circular examples.
-
-### 04 — Widget → Tool
-One approved widget-to-tool action example. Do not invent a new design; inspect the original and migrate only the user-approved version.
-
-### Exclusions
-No additional "with icon" row, no duplicate button matrices, no unrelated arrow/download/copy variations in this first Buttons scope. Do not delete their old source from main; add other groups only when the user asks for them.
-
-## Proposed migration order
-1. Catalog V2 shell and navigation, reusing the established visual language without copying the entire old structure.
-2. Buttons section described above, migrating one approved style at a time.
-3. Approved foundations and remaining components, selected with the user.
-4. Preview layouts/widgets once the building blocks are settled.
-
-## Delivery protocol
-On each task: make the narrow UI change, touch owning styles directly, point to the changed V2 branch/preview, and stop. Do not do unrelated cleanup or run tests.
-
-## Central color tokens
-
-The authoritative source remains `src/design-system/foundations/colors.ts`.
-`colorTokens` is its public token tree. Initial preparation preserved all existing
-rendered values; the first shell migration described below now applies the approved
-neutral roles only to the catalog interface and its shared panel containers.
-
-### Brief inventory before migration
-
-- `colors.ts` already contained brand colors, purple and neutral swatches, status
-  colors under the historical name `semantic`, flat `themes`, gradients and glow.
-- `catalog.css` defines its own Dark/Light `--v2-*` colors. Its Dark Subtle is
-  `#202733`, while the old foundation theme uses `#222832`; neither is the newly
-  approved `#1B212B`. Elevated is `#191F29` / `#F1F4F9` and Border is
-  `#303846` / `#CCD4E0`. These historical values are retained for component specimens
-  until their separate migration.
-- `CatalogApp.tsx` repeats the gradient and its brand stops in `cssTheme`.
-  `FoundationPages.tsx` imports foundation colors but repeats icon/status tones.
-  `foundations.css` and `spacing.css` also contain direct brand colors and alpha
-  variants. Primary, Orbital Glow and Outline have their own existing state rules.
-
-### Authoritative structure
-
-- `colorTokens.primitives.brand`: unchanged approved brand palette.
-- `colorTokens.primitives.neutral`: the original ramp plus intermediate steps for
-  the approved new shades; old numbered steps keep their values.
-- `colorTokens.primitives.status`: unchanged success, warning, error and info colors.
-- `colorTokens.semantic[mode]`: `surface` (canvas/default/subtle/raised), `border`
-  (default/control/focus/accent), `text` (primary/secondary/disabled/onBrand/onSecondary/accent),
-  and `icon` (default/muted/disabled/accent). Icon roles alias the matching text colors.
-- `colorTokens.interaction[mode]`: default, hover, pressed, focus, selected and disabled.
-  Ordinary hover/pressed use neutral fills; `brand` preserves the existing purple
-  action colors as exceptions. Existing `actionActive` maps to brand `pressed`.
-- `colorTokens.status[mode]`: foreground/background/border pairs, unchanged.
-- `colorTokens.effects[mode]`: the approved Blue × Purple gradient, decorative backdrop,
-  glow and shadow color. `effects.orbitalGlow` holds the existing conic color layer;
-  component animation and gradient reversal behavior remain untouched.
+`colorTokens` obsahuje `primitives.brand/neutral/status`, `semantic[theme].surface/border/text/icon/field`, `interaction[theme]`, `status[theme]` a `effects`. Specifický Outline hover border je `interaction.outline.hoverBorder`.
 
 | Role | Dark | Light |
 | --- | --- | --- |
 | Canvas | `#090B10` | `#F5F7FA` |
-| Surface | `#141820` | `#FFFFFF` |
-| Subtle | `#1B212B` | `#F1F4F8` |
-| Raised | `#212833` | `#EDF1F6` |
-| Hover | `#2B3442` | `#E5EBF2` |
-| Pressed | `#364253` | `#D8E2EC` |
-| Border Default | `#3D495B` | `#B9C5D3` |
+| Surface default | `#141820` | `#FFFFFF` |
+| Surface subtle | `#1B212B` | `#F1F4F8` |
+| Surface raised | `#212833` | `#EDF1F6` |
+| Interaction hover | `#2B3442` | `#E5EBF2` |
+| Interaction pressed | `#364253` | `#D8E2EC` |
+| Interaction selected background | `#212833` | `#EDF1F6` |
+| Border default | `#3D495B` | `#B9C5D3` |
+| Text primary | `#F5F7FF` | `#17202E` |
+| Text secondary | `#B4BECE` | `#586576` |
+| Global focus ring | `#BDA0FF` | `#7C4BFE` |
+| Field hover/focus background | `#090B10` | `#F1F4F8` |
+| Field hover/focus border | `#7C4BFE` | `#6837DF` |
 
-Other text, control border, focus, disabled, status and decorative colors retain
-their previous values. Selected uses Raised with an existing brand indicator as
-an initial role mapping, not a newly approved component appearance.
+Shell, Buttons a neutrální plochy aktivního katalogu už používají centrální role. Historické `--v2-elevated`, `--v2-subtle`, `--v2-border` a `--v2-soft` byly po migraci použití odstraněny. Globální focus čte `interaction[theme].focus.ring`; specifické schválené focus efekty zůstávají samostatné. Formulářová pole používají `semantic[theme].field`, včetně filled a disabled; hover a focus mají shodné pozadí i border bez dalšího halo.
 
-### Compatibility and later removal of duplicates
+Brandové hodnoty a gradient jsou zachované: Iris Purple `#7C4BFE`, O2 Blue `#0050FF`, Bright Blue `#0F9FDC`, Royal Blue `#3B09C7`, Electric Purple `#8101EC`; Blue × Purple má původní směr 130° a stopy 0 / 52 / 100 %. Status role, masky a animace Orbital Glow se nenahrazují neutrálními efekty.
 
-`brandColors`, `neutralPrimitives`, `neutral` and status `semantic` are views of the
-same underlying values used by `colorTokens`, not separately maintained palettes.
-The `neutral` swatch list keeps its exact original entries and order. Flat `themes`
-is a compatibility adapter: unchanged roles reference `colorTokens`; only old
-Subtle, Border and Brand Soft are retained in a private `legacyThemeValues` map.
-This preserves every current consumer's values, including previews outside V2.
+Kompatibilní exporty `brandColors`, `neutral`, `semantic`, `themes` a referenční vzorníky zůstávají pro existující konzumenty; nejsou zadáním plošného odstranění. Referenční HEX ve vzorníku není chyba. Nové návrhy používají `colorTokens`. Widget Foundation záměrně zachovává schválený Dark border přes neutral primitive 750 a bílý nadpis přes primitive 0; nepřevádět je bez schválení na vizuálně jiné hodnoty.
 
-When a specific component migration is explicitly requested, import `colorTokens`
-and map the needed semantic/state roles to CSS variables in that component's
-existing theme owner. For example, `--v2-surface` will read
-`colorTokens.semantic[mode].surface.default`, and ordinary hover will read
-`colorTokens.interaction[mode].hover.background`. Edit the original declarations
-and remove their superseded literals in the same change; do not append overrides
-or create another palette file. Brand effects keep their separate role mapping.
+## Schválené oblasti a zdroje
 
-Migrate the shell, individual component styles and foundation displays only in
-approved scopes. Remove a compatibility export or retained value only when its
-last import/reference has been migrated. Until then, existing CSS literals and
-compatibility values intentionally stay in place. No CSS variables or visual
-changes are applied by this token definition alone.
+Následující komponenty tvoří schválený vizuální základ. Starší texty „náhled k vizuálnímu schválení“ v demonstračních hlavičkách nejsou autoritativním seznamem rozhodnutí. Přítomnost původní komponenty v repozitáři sama o sobě neznamená schválení pro V2.
 
-### First migration: catalog shell
+### Foundations a Icons
 
-`CatalogApp.tsx` maps `colorTokens` directly into the existing `cssTheme` object.
-Canvas, Surface, primary/secondary/accent text, gradient, brand stops and shadow
-retain their previous colors; their duplicate declarations were removed from CSS.
-Shell-only CSS aliases reference semantic Subtle, Raised, Border Default and
-interaction hover/pressed/selected. They contain no independent color values.
+Colors zahrnují brandové, neutrální, statusové a referenční vzorníky i gradienty. Typography obsahuje role a interaktivní ukázky. Spacing & Grid ukazuje škály, radiusy, kontextové rozložení a neutrální Responsive Grid. Icons mají schválené velikosti, tóny a animace včetně povolené ikony `folder-open`; v navigaci jsou pod Library.
 
-Sidebar, topbar, common panel/status borders and overview cards use these roles.
-Overview cards use Raised; the theme toggle uses Subtle. Navigation distinguishes
-selected, hover and pressed, keeping the existing selected indicator and keyboard focus.
-Layout, responsive rules, typography, navigation actions and theme switching are unchanged.
+Zdroje: `src/catalog-v2/FoundationPages.tsx`, `foundations.css`, `SpacingV2.tsx`, `spacing.css`; sdílené SVG: `src/components/AxoIcon.tsx`, `axo-icon.css`.
 
-Component-specific rules for Buttons, Icons, Typography, Colors and Spacing remain
-untouched. Their old `--v2-elevated`, `--v2-subtle`, `--v2-border`, `--v2-soft` and
-`--v2-error` values still have consumers and remain in their original theme rules.
-In particular, historical Elevated/Soft and the Light danger color `#E8004D` have
-no exact approved semantic replacement; they are deliberately deferred rather
-than guessed. Common containers may use new neutral borders around unchanged specimens.
-The shared global focus rule also remains unchanged: the Dark focus token differs
-from its current purple, and this migration authorizes only neutral color changes.
+**Heading Stack:** `src/catalog-v2/HeadingStackV2.tsx`, společný styl `src/components/heading-stack.css`, `ContrastDot` z `src/components/TextTreatments.tsx`. Standard 22 px a Compact 18 px vycházejí z `typography` a `toolHeadingStack`. Katalog umožňuje měnit čtyři textová pole. Heading Stack nemá vlastní kartu a nezávisí na interních `.wf-*` stylech; Widget Foundation používá stejný neutrálně pojmenovaný typografický zdroj.
+
+### Library → Buttons
+
+Zdroje: `src/catalog-v2/CatalogApp.tsx`, `catalog.css`. Zachovaná prezentace ve čtyřech skupinách:
+
+1. **Action hierarchy:** šest řádků Primary, Primary 2 / Orbital Glow, Secondary / Gradient Reveal, Outline, Ghost, Danger; jeden konzistentní příklad na řádek bez redundantního ikonového dvojčete.
+2. **Sizes:** pouze Compact 32 px a Default 38 px, bez celé matice variant.
+3. **Round buttons:** pouze Primary a Secondary; plus se při hoveru/focusu otáčí o 90°.
+4. **Widget → Tool:** schválená akce otevření nástroje.
+
+Primary zachovává gradient a jeho pomalé obrácení; Orbital Glow kontinuální obvodovou animaci; Secondary gradient reveal bez stínu. Outline má default border `#7C4BFE`, hover border `#6837DF` v obou motivech a neutrální hover plochu. Ghost a Round Secondary používají neutrální hover; Round Secondary nemá původní halo. Danger zachovává červený border a červenou hover výplň. Čistá kruhová/pilulková geometrie, rozměry, animace a specifické focus stavy zůstávají schválené. Další ikonové řádky nebo varianty přidávat jen na zadání.
+
+### Library → Inputs & Forms
+
+Zdroje: `src/catalog-v2/FormsV2.tsx`, sdílené definice v `src/catalog-v2/forms/FormControlsV2.tsx` a `forms.css`.
+
+| Ukázka | Komponenta / vlastní zdroj ve složce `forms/` |
+| --- | --- |
+| 01 | Text / URL Input (`FormControlsV2.tsx`) |
+| 02 | Textarea (`FormControlsV2.tsx`) |
+| 03 | Custom Select (`FormControlsV2.tsx`, export `FormSelect`) |
+| 04 | Checkbox (`FormControlsV2.tsx`) |
+| 05 | Radio Group (`FormControlsV2.tsx`) |
+| 06 | Toggle Switch (`FormControlsV2.tsx`) |
+| 07 | `SearchSpotlightV2.tsx` |
+| 08 | `MultiSelectV2.tsx` |
+| 09 | `DatePickerV2.tsx` |
+| 10 | `QualitySliderV2.tsx` |
+| 11 | `FileUploadAtmosphereV2.tsx` |
+| 12 | `DarkLightSwitchV2.tsx` |
+
+Barevné varianty Checkbox, Radio a Toggle zůstávají. Custom Select používá portál do `document.body`, přebírá motiv a typografii, drží šířku triggeru, obrací umístění podle prostoru a reaguje na scroll/resize. Zachovává klávesnici, disabled možnosti a ARIA; Escape zavírá nejprve nabídku, pak může zavřít Settings Popover, bez focus trapu.
+
+Search Spotlight odděluje nepřetržitý obvodový proud od psaní ukázkového placeholderu; uživatelský text se nepřepisuje. Multi-select podporuje chips a odebrání hodnot. Date Picker má vlastní kalendář, měsíce, klávesnici, disabled a min/max. Quality Slider má rozsah 0–100 %, krok 1 %, výchozí hodnotu 80 %.
+
+File Upload Atmosphere je jediná flexibilní komponenta: atmosférická vnější karta, desktopové dva sloupce text/drop zóna a skládání na menší šířce. Nemá varianty Default/Large ani pevnou výšku; hover mění jen dashed border. Výběr souborů, drag/drop, odebrání, ready a ukázkový error používají jen lokální stav, bez nahrávání. Dark/Light Switch je původní gradientový pill se žlutým měsícem/sluncem, propojený se stavem `CatalogApp`.
+
+### Library → Loading & Progress
+
+Zdroje: `src/catalog-v2/LoadingV2.tsx`, `loading.css`; slider používá existující styl z `forms/forms.css`.
+
+Schválené ukázky: **01 Gradient Ring**, **02 Blade Spinner**, **03 Loading Dots**, **04 Circular Progress**, **05 Skeleton**, **06 Linear Progress**. Zachovávají původní geometrii a animační principy. Ring, Blade, Dots a Skeleton mají samostatné pause/resume/restart; restart znovu vytvoří animační prvek. Circular a Linear umožňují ručně měnit 0–100 % z výchozích 65 %. Linear zachovává přechod šířky 0,24 s, bez nekonečného načítání. Omezení pohybu respektují všechny ukázky.
+
+### Library → Cards
+
+Zdroje: `src/catalog-v2/CardsV2.tsx`, `cards.css`.
+
+- **01 Base Card:** společný základ `surface.default`, border 1 px, radius 24 px, padding 24 px, přirozené rozměry bez hoveru a stínu. B / Soft Layer používá vnořený neutrální panel se dvěma řádky; C / Structured hlavičku, divider a dvě informační plochy.
+- **02 Interactive Card / C Hybrid:** sdílí základní třídu Base Card. Neutrální hover, trvalý selected border Iris Purple a neutrální selected povrch, samostatně rozpoznatelný focus a disabled ukázka. Nativní button s `aria-pressed` přepíná výběr kliknutím, Enterem i Space.
+
+Cards a Widgets jsou oddělené rodiny, bez společného kontejneru. **Tool Card není schválená.**
+
+### Library → Navigation
+
+Ukázky: `src/catalog-v2/NavigationV2.tsx`, `navigation.css`. Sdílené komponenty a jejich vlastní styly:
+
+- **01 Dropdown Menu:** `src/components/DropdownMenu.tsx`, `dropdown-menu.css`. Icon/Text trigger, akce, divider, checked/disabled/danger. Portál, umístění pod/nad triggerem a omezení viewportem; klávesnice, kliknutí mimo, Escape a návrat focusu.
+- **02 Settings Popover:** `src/components/SettingsPopover.tsx`, `settings-popover.css`. Libovolné children, hlavička, popis a X; neutrální raised plocha, radius/padding 24 px, portál a vnitřní scroll. Nemodální panel bez focus trapu rozpozná portálovou nabídku vlastního Selectu přes `aria-controls`. Ukázka používá schválený `FormSelect`, nikoli jeho kopii.
+- **03 Tooltip:** `src/components/Tooltip.tsx`, `tooltip.css`. Top/Bottom/Left/Right s automatickým přizpůsobením viewportu, max-width 260 px, přirozené zalamování; krátká hover prodleva, okamžitý focus, Escape a `aria-describedby`. Jemný fade respektuje omezení pohybu.
+
+`src/components/WidgetLaunchButton.tsx` používá přímo sdílený Tooltip s textem `label`. Původní lokální CSS tooltip v `widget-launch-button.css` byl odstraněn; vzhled, hover/focus a akce tlačítka zůstávají zachované.
+
+## Exploration → Dashboard Layout a Widget Foundation
+
+Zdroje: `src/catalog-v2/DashboardV2.tsx`, `dashboard.css`; `src/widgets/WidgetFoundation.tsx`, `widget-foundation.css`. Dashboard je samostatný celoplošný náhled.
+
+Desktopový grid má 4 sloupce × 2 řady, gap 16 px; tablet dva sloupce, mobil jeden. Sloty ani jejich velikosti se nepřeskládávají:
+
+| Slot | Velikost | Výchozí obsah |
+| --- | --- | --- |
+| 01 | Large | Axolotl Office — pevný vizuální placeholder |
+| 02 | Small | QR generátor |
+| 03 | Small | Find Phrase |
+| 04 | Small | Media Tools |
+| 05 | Small | Screenshot |
+| 06 | Large | Notebook |
+
+Tool Widgety používají původní Widget Foundation, společný Heading Stack a prázdnou pracovní plochu. Dashboard předává aktivní `theme`; Foundation bere odpovídající `colorTokens` při zachování přesného Dark vzhledu. Starší konzumenti bez theme nadále používají Dark. Office je samostatný placeholder, nikoli implementovaný workspace.
+
+**Schválený editor:**
+
+- „Upravit dashboard“ aktivuje `draftAssignments`; Zrušit vrací `savedAssignments`, Reset obnovuje výchozí draft, Uložit potvrzuje draft pouze v paměti Reactu. Odchod s neuloženou změnou nabízí pokračování nebo zahození.
+- Drag začíná pouze šestitečkovým handlen. Prohazuje obsah dvou Tool slotů včetně Small ↔ Large, nikoli geometrii. Office, původní slot a prostor mimo widgety nejsou platným cílem. Kompaktní portálový ghost má eyebrow, název a zelenou/červenou tečku bez glow; existuje alternativa klikem, dotykem a klávesnicí.
+- „Nahradit nástroj“ je jediná akce v editační liště. Nejprve se vybere cílový Tool Widget, pak se otevře existující Settings Popover s výběrovým panelem. Nepoužitý nástroj nahradí obsah, obsazený se atomicky prohodí, aktuální nic nemění. Panel se po volbě zavře a editace pokračuje. Escape výběr zruší; výběrový režim nezahajuje drag.
+- Dostupné nástroje: QR generátor, Find Phrase, Media Tools, Screenshot, Notebook, PDF Tools, Metadata Check a Konvertor obrázků. Mění pouze demonstrační obsah Heading Stacku, nemají skutečné funkce.
+
+Původní pětice Custom Selectů v nastavení Dashboardu byla nahrazena schváleným Drag & Drop Editorem a centrálním výběrem cíle/nástroje. Custom Select se nadále používá ve Forms a ukázce Settings Popover; jeho portálová oprava zůstává sdílená.
+
+## Rozpracováno a odloženo
+
+- „Další komponenty“, „Widgets & Layouts“ a „Playground“ jsou navigační placeholdery, nikoli hotové rodiny nebo schválený obsah.
+- Axolotl Office zůstává placeholder. Tool Screens V2 zatím nejsou vytvořené; starší návrhy nejsou automaticky schválené finální obrazovky.
+- Number Input byl výslovně přeskočen. Tool Card, další Cards, pokročilé Forms a Complete Form nejsou tímto stavem autorizované.
+- Historická studia a preview soubory zůstávají referencí; nepřenášet je plošně a neměnit je při práci na V2.
+
+Další práce se řídí [roadmapou](roadmap.md): nejprve Image Converter Tool Screen, další Library komponenty až podle konkrétní potřeby a schválení. Žádný backend, persistence, automatické testy, build ani deployment nejsou součástí této konsolidace.

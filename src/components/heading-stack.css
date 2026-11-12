@@ -1,0 +1,37 @@
+/* Shared tool/widget typography. Callers bind existing foundation tokens. */
+.heading-stack {
+  display: grid;
+  gap: var(--heading-stack-gap);
+  min-width: 0;
+  font-family: var(--heading-stack-font, inherit);
+  font-size: var(--heading-stack-body-size);
+  font-weight: var(--heading-stack-body-weight, inherit);
+  line-height: var(--heading-stack-body-leading);
+  color: var(--heading-stack-text);
+}
+
+.heading-stack-eyebrow {
+  margin: 0;
+  font-size: var(--heading-stack-eyebrow-size);
+  font-weight: var(--heading-stack-eyebrow-weight);
+  line-height: var(--heading-stack-eyebrow-leading);
+  letter-spacing: var(--heading-stack-eyebrow-tracking);
+}
+
+.heading-stack-title {
+  --tt-dot-neutral: var(--heading-stack-text);
+  --tt-dot-accent: var(--heading-stack-accent);
+  margin: 0;
+  font-size: var(--heading-stack-heading-size);
+  font-weight: var(--heading-stack-heading-weight);
+  line-height: var(--heading-stack-heading-leading);
+  letter-spacing: var(--heading-stack-heading-tracking);
+  overflow-wrap: anywhere;
+}
+
+.heading-stack-accent { display: block; color: var(--heading-stack-accent); }
+.heading-stack-description {
+  margin: 0;
+  color: var(--heading-stack-muted);
+  line-height: var(--heading-stack-description-leading);
+}

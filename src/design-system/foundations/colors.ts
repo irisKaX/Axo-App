@@ -176,16 +176,37 @@ const textTokens = {
   },
 } as const
 
+const fieldTokens = {
+  light: {
+    background: neutralPrimitives[0],
+    border: '#6A7586',
+    hover: { background: neutralPrimitives[125], border: purple[7][1] },
+    focus: { background: neutralPrimitives[125], border: purple[7][1] },
+    filled: { background: neutralPrimitives[0] },
+    disabled: { background: neutralPrimitives[125] },
+  },
+  dark: {
+    background: neutralPrimitives[900],
+    border: '#768293',
+    hover: { background: neutralPrimitives[950], border: brandColors.irisPurple },
+    focus: { background: neutralPrimitives[950], border: brandColors.irisPurple },
+    filled: { background: neutralPrimitives[900] },
+    disabled: { background: neutralPrimitives[875] },
+  },
+} as const
+
 const semanticTokens = {
   light: {
     surface: { canvas: neutralPrimitives[100], default: neutralPrimitives[0], subtle: neutralPrimitives[125], raised: neutralPrimitives[150] },
-    border: { default: neutralPrimitives[325], control: '#6A7586', focus: brandColors.irisPurple, accent: brandColors.irisPurple },
+    border: { default: neutralPrimitives[325], control: fieldTokens.light.border, focus: brandColors.irisPurple, accent: brandColors.irisPurple },
+    field: fieldTokens.light,
     text: textTokens.light,
     icon: { default: textTokens.light.primary, muted: textTokens.light.secondary, disabled: textTokens.light.disabled, accent: textTokens.light.accent },
   },
   dark: {
     surface: { canvas: neutralPrimitives[950], default: neutralPrimitives[900], subtle: neutralPrimitives[875], raised: neutralPrimitives[825] },
-    border: { default: neutralPrimitives[675], control: '#768293', focus: purple[3][1], accent: brandColors.irisPurple },
+    border: { default: neutralPrimitives[675], control: fieldTokens.dark.border, focus: purple[3][1], accent: brandColors.irisPurple },
+    field: fieldTokens.dark,
     text: textTokens.dark,
     icon: { default: textTokens.dark.primary, muted: textTokens.dark.secondary, disabled: textTokens.dark.disabled, accent: textTokens.dark.accent },
   },

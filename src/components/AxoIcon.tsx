@@ -5,7 +5,7 @@ import './axo-icon.css'
 export const iconGroups = {
   'Akce': ['plus','copy','download','arrow-right','check','trash','refresh','settings','close','search','external-link','more-horizontal'],
   'Navigace': ['menu','home','workspace','image','shield-check','globe','tabs','chevron-down','file-text','layout-grid','bell'],
-  'Obsah a nástroje': ['qr-code','star','folder','calendar','pencil','filter','info','alert-circle','loader']
+  'Obsah a nástroje': ['qr-code','star','folder','folder-open','calendar','pencil','filter','info','alert-circle','loader']
 } as const
 export type AxoIconName = typeof iconGroups[keyof typeof iconGroups][number]
 export const iconNames = Object.values(iconGroups).flat() as AxoIconName[]
@@ -37,6 +37,7 @@ const artwork: Record<AxoIconName,ReactNode> = {
   'qr-code':<><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3m-3 3h4m-7 0v1"/></>,
   star:<path d="m12 2 3.1 6.5 7.1 1-5.1 5 1.2 7-6.3-3.4-6.3 3.4 1.2-7-5.1-5 7.1-1z"/>,
   folder:<path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3z"/>,
+  'folder-open':<><path d="M3 17V7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v1"/><path d="m3 17 3-7h15l-3 9H5a2 2 0 0 1-2-2Z"/></>,
   calendar:<><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/></>,
   pencil:<><path d="m15 5 4 4M4 20l4.5-1 11-11a2.8 2.8 0 0 0-4-4l-11 11z"/></>,
   filter:<><path d="M3 5h18M6 12h12m-9 7h6"/></>,

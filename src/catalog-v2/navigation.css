@@ -1,0 +1,20 @@
+.v2-navigation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--v2-navigation-gap)}
+.v2-navigation-example{min-width:0;margin:0}
+.v2-navigation-example>figcaption{margin-bottom:12px;color:var(--v2-muted);font-size:12px;font-weight:600}
+.v2-navigation-stage{display:flex;align-items:center;justify-content:center;min-height:144px;padding:var(--v2-navigation-gap);border:1px solid var(--v2-shell-border);border-radius:var(--v2-navigation-radius);background:var(--v2-shell-subtle)}
+.v2-navigation-notice{min-height:1.7em;margin:12px 0 0;color:var(--v2-muted);font-size:11px;line-height:1.7;overflow-wrap:anywhere}
+.v2-settings-fields{display:grid;gap:var(--sp-padding);min-width:0}
+.v2-settings-footer{display:flex;justify-content:flex-end}
+.v2-tooltip-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--v2-navigation-gap)}
+.v2-tooltip-control{display:inline-grid;place-items:center;width:var(--v2-tooltip-control-size);height:var(--v2-tooltip-control-size);padding:0;border:1px solid var(--v2-tooltip-border);border-radius:var(--v2-tooltip-pill);background:var(--v2-tooltip-surface);color:var(--v2-tooltip-text);cursor:pointer;transition:background-color .15s ease}
+.v2-tooltip-control:hover{background:var(--v2-tooltip-hover)}
+.v2-tooltip-control:focus-visible,.v2-tooltip-positions button:focus-visible{outline:2px solid var(--v2-tooltip-focus);outline-offset:3px}
+.v2-tooltip-positions{min-width:0;margin:16px 0 0;padding:0;border:0}
+.v2-tooltip-positions legend{padding:0;margin-bottom:8px;color:var(--v2-muted);font-size:11px}
+.v2-tooltip-positions>div{display:flex;flex-wrap:wrap;gap:8px}
+.v2-tooltip-positions button{padding:6px 10px;border:1px solid var(--v2-tooltip-border);border-radius:var(--v2-tooltip-pill);background:var(--v2-tooltip-surface);color:var(--v2-tooltip-text);font:inherit;font-size:11px;cursor:pointer}
+.v2-tooltip-positions button:hover{background:var(--v2-tooltip-hover)}
+.v2-tooltip-positions button[aria-pressed=true]{background:var(--v2-tooltip-selected);border-color:var(--v2-tooltip-indicator)}
+@media(max-width:1100px){.v2-tooltip-gallery{grid-template-columns:1fr}}
+@media(max-width:800px){.v2-navigation-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.v2-tooltip-control{transition:none}}

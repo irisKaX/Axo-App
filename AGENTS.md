@@ -1,45 +1,33 @@
 # Axo-App — mandatory working instructions for coding agents
 
-## CURRENT PHASE: DESIGN CATALOG ONLY
-Axo-App is currently a **visual, interactive design catalog and playground** for exploring what a possible future Axolotl application may look like. **There is no existing application, no production application, no backend, and no pending implementation to ship.** Do not describe mockups as product features or production functionality. Do not silently transition from design exploration to app development.
+## Current phase: design catalog only
+Axo-App is a **visual, interactive design catalog and playground**, not an existing or production application. Do not turn design exploration into application development or describe mockups as implemented product functionality.
 
-These instructions take priority over historical plans, documents, code comments, test fixtures, and previous automation practices whenever they suggest application implementation or elaborate verification. Keep existing user-approved visual choices unless the user requests changes.
+- Work on `design/catalog-v2`; keep `main` and unrelated design branches untouched unless explicitly authorized.
+- Read this file and `docs/catalog-v2.md` before work. Use `docs/roadmap.md` for future direction; dated checkpoints record historical context, not necessarily current code or synchronization.
+- Preserve user-approved visual choices and interactions. Changes to approved shared components require explicit authorization; authorization already given in the conversation remains valid.
+- Use local React demo state and dummy content only. No persistence, accounts, servers, APIs, databases, authentication or real tool workflows without an explicit new request.
 
-## The task
-- Prioritize visual fidelity, aesthetics, hierarchy, layout, spacing, typography, animations, and interactive design previews.
-- Design examples may use local demo state and dummy content solely to illustrate behavior. Never build persistence, accounts, servers, APIs, databases, authentication, deployment infrastructure, or real tool workflows without an explicit new request.
-- Prototype and compare the few alternatives the user requests. Prefer small, focused, reversible changes with a preview that can be inspected immediately.
-- Keep the design catalog accessible at its existing GitHub Pages URL. Preserve the existing Pages publishing workflow, which is only a way to VIEW the catalog, not a production app release.
-- Treat design branches and /preview/converter as isolated previews, not as product environments. Do not merge unrelated draft designs into main.
+## Visual direction and source of truth
+- Follow Clean Neo Iris, Poppins, rounded geometry, approved blue–purple gradients and neutral interaction surfaces in both Dark and Light Mode.
+- Use `colorTokens` in `src/design-system/foundations/colors.ts`, existing typography/spacing tokens and approved shared components. Do not create parallel palettes or theme systems.
+- Edit original CSS definitions directly. No repair overrides, repeated selectors, duplicate declarations, cascade layers, inline style patches, temporary fix files or `!important`.
+- Keep one clear source of truth per component, property, state, breakpoint and theme. Remove superseded rules only within the requested scope.
+- Do not silently redesign approved components or refactor unrelated sections. Check relevant theme and responsive rules when changing their owner.
 
-## STOP: no tests or CI expansion
-- **Do not write, update, run, or request automated tests** (Playwright, Vitest, Jest, visual regression, pixel sampling, geometry sampling, snapshots, accessibility test suites or browser automation), unless the user explicitly requests a named test.
-- Do not add or reactivate test workflows, check gates, test reports, screenshot matrices, QA artifacts, coverage tools, or test dependencies.
-- Do not run `npm test`, `npx playwright ...`, or install browser test dependencies.
-- No routine lint/typecheck/build/test loops or broad audits. For an explicit publication, use only the build needed by the existing GitHub Pages deployment. For a local change, use the minimum necessary development/build check only when actually needed to present it.
-- Visual inspection by the user is the acceptance criterion for design work. State clearly what changed and where it can be previewed; do not claim automated verification.
-- If something is clearly broken, fix the affected code directly; do not build test machinery around it.
+## No tests or CI expansion
+- **Do not write, update, run or request automated tests** unless the user explicitly requests a named test. This includes Playwright, Vitest, Jest, browser automation, snapshots, visual regression, pixel/geometry sampling and accessibility test suites.
+- Do not add or reactivate test workflows, gates, screenshot/report matrices, coverage tools or test dependencies. Do not run `npm test` or `npx playwright`.
+- No routine lint/typecheck/build/test loops. Visual inspection by the user is the acceptance criterion; do not claim automated verification.
+- No build, deployment or additional Vite server without a task-specific need and authorization. Preserve the existing GitHub Pages publishing workflow as a catalog viewer; do not trigger it without an explicit publication request.
+- Do not perform commit, push, pull, merge, rebase, reset or other synchronization without explicit authorization. Never merge draft designs into `main` on your own.
 
-## CSS and code quality: editable source of truth
-- **No CSS overrides as a repair strategy**: do not append repeated selectors, emergency styles, `!important`, duplicate declarations, cascade layering, inline style patches, or temporary "fix" files to mask the original rule.
-- Find the original definition and edit it in place. Consolidate or remove conflicting obsolete rules when touching that part. One clear source of truth per property/component/state/breakpoint/theme.
-- Prefer existing design tokens and shared components. Keep styles alongside their owned component/section. Avoid giant global stylesheet patches and needless abstractions or refactors.
-- Use readable, small components and straightforward state. Do not add packages, frameworks, generators, utilities, configs, directories, or documentation for hypothetical future needs.
-- Update BOTH light and dark visual variants, relevant preview scales, and responsive rules *when the changed component uses them*, without adding automated tests.
-- Don't silently alter approved components or unrelated catalog sections.
-- Do not introduce new CSS override files, duplicate classes with subtle differences, or new `!important` rules. Existing legacy overrides can be cleaned up incrementally when editing their component, not via unrelated mass rewrites.
+## Small, focused delivery
+1. Read only relevant sources and identify the component and its authoritative styles.
+2. Make the smallest focused, reversible change; preserve other local work.
+3. Do not add packages, frameworks, generators, infrastructure or abstractions for hypothetical future needs.
+4. Provide an immediately viewable catalog result, a short explanation, changed files and the preview URL when available. Stop at the requested boundary.
 
-## Fast execution and minimal scope
-1. Read this file and only the files relevant to the request.
-2. Identify the existing component + authoritative styles.
-3. Change the smallest amount of code needed; remove superseded local rules.
-4. Provide an immediately viewable catalog result. Do not hold up delivery for extra polishing, refactors, reports, tests, or a second task not requested.
-5. Explain briefly what changed, what was deliberately left alone, and give the preview URL when available.
+Prefer screen-first exploration after the approved foundations. Do not generate Library components from a speculative checklist or start the next screen automatically. No unnecessary reports, review gates, PR bureaucracy, screenshots or multi-hour polishing for one visual change.
 
-No multi-hour autonomous work on one visual change. No unnecessary architecture proposals, large plans, review gates, PR bureaucracy, generated screenshots, or speculative production requirements.
-
-## Existing visual direction
-Follow approved catalog choices and relevant design documentation: Clean Neo Iris; Poppins; dark-first but energetic light theme; rounded shapes; blue–purple gradients; the approved button/component states. Do not interpret historical milestones as permission to build an application.
-
-## Changes to the phase
-Only an explicit instruction from the user can move this project from **design exploration** to implementation, or authorize testing/CI infrastructure.
+Only an explicit user instruction can authorize application implementation or testing/CI infrastructure.
